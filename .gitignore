@@ -1,0 +1,12 @@
+bin
+lint.xml
+.idea
+build/
+bin/
+gen/
+.gradle/
+*.iml
+.DS_Store
+.settings
+project.properties
+*/project.properties
