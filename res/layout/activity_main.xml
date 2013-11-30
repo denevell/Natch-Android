@@ -6,7 +6,7 @@
     android:background="@android:color/holo_blue_light"
     android:orientation="vertical" >
 
-        <Button
+        <org.denevell.natch.android.views.LoginButton
             android:id="@+id/button1"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
