@@ -7,8 +7,12 @@ The Android client to the Natch REST project.
 * Given I have loaded the app
 * Then I should be able to enter my username and password
 
-* Given my login credentials were correct
+--
+
+* Given my login credentials have been entered and login pressed
 * Then I should see indication of success or failure
+
+--
 
 * Task: Should start unit testing
 * Task: Should start ui testing
