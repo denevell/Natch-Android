@@ -1,5 +1,9 @@
 package org.denevell.natch.android;
 
+import org.denevell.natch.android.service.LoginService;
+import org.denevell.natch.android.views.LoginResultDisplayer;
+import org.denevell.natch.android.views.ProgressIndicator;
+
 import android.app.Activity;
 import android.content.Context;
 import android.widget.Button;
@@ -7,11 +11,11 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module(injects = {MainActivity.class})
-public class ObjectMapper {
+public class LoginMapper {
     
     private Activity mActivity;
 
-    public ObjectMapper(Activity activity) {
+    public LoginMapper(Activity activity) {
         mActivity = activity;
     }
     
@@ -27,6 +31,5 @@ public class ObjectMapper {
     Button provideLoginButton() {
         return (Button) mActivity.findViewById(R.id.button1);
     }
-
 
 }

@@ -1,5 +1,8 @@
-package org.denevell.natch.android;
+package org.denevell.natch.android.service;
 
+import org.denevell.natch.android.R;
+import org.denevell.natch.android.views.LoginResultDisplayer;
+import org.denevell.natch.android.views.ProgressIndicator;
 import org.json.JSONObject;
 
 import android.content.Context;

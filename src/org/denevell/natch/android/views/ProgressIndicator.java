@@ -1,4 +1,4 @@
-package org.denevell.natch.android;
+package org.denevell.natch.android.views;
 
 import android.app.Activity;
 
