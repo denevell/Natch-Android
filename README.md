@@ -6,6 +6,8 @@ The Android client to the Natch REST project.
 
 ## Backlog
 
+* Task: Add robolectic
+
 ### List threads
 
 * I should see a loading screen while the threads are loaded
@@ -19,7 +21,8 @@ The Android client to the Natch REST project.
 
 --
 
-* Task: Should start ui testing
+* Task: Start using gradle
+* Task: Start ui testing
 
 ## Dev complete
 
