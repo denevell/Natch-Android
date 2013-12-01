@@ -10,7 +10,6 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
-        <item name="android:background">@android:color/holo_blue_light</item>
     </style>
 
     <!-- Application theme. -->

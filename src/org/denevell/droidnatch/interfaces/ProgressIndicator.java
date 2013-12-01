@@ -1,6 +1,6 @@
 package org.denevell.droidnatch.interfaces;
 
-public interface ProgressIndicatable {
+public interface ProgressIndicator {
     void start();
     void stop();
 }

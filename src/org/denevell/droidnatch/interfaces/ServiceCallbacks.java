@@ -2,9 +2,7 @@ package org.denevell.droidnatch.interfaces;
 
 import org.denevell.droidnatch.baseclasses.FailureResult;
 
-
-
-public interface ServiceCallable<T> {
+public interface ServiceCallbacks<T> {
     interface Success<T> {
         public void success(T success);
     }
@@ -12,7 +10,6 @@ public interface ServiceCallable<T> {
         public void fail(FailureResult f);
     }
     
-    void go();
-    void setSuccessCallback(Success<T> r);
-    void setFailureCallback(Failure r);
+    void success(T r);
+    void fail(FailureResult r);
 }

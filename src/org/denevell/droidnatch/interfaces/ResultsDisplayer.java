@@ -2,7 +2,7 @@ package org.denevell.droidnatch.interfaces;
 
 import org.denevell.droidnatch.baseclasses.FailureResult;
 
-public interface ResultsDisplayable<T> {
+public interface ResultsDisplayer<T> {
     
     void onSuccess(T success);
     

@@ -1,14 +1,14 @@
 package org.denevell.droidnatch.baseclasses;
 
-import org.denevell.droidnatch.interfaces.ProgressIndicatable;
+import org.denevell.droidnatch.interfaces.ProgressIndicator;
 
 import android.app.Activity;
 
-public class ProgressIndicator implements ProgressIndicatable {
+public class ProgressBarIndicator implements ProgressIndicator {
     
     private Activity mActivity;
 
-    public ProgressIndicator(Activity activity) {
+    public ProgressBarIndicator(Activity activity) {
         mActivity = activity;
     }
     

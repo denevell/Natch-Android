@@ -1,6 +1,6 @@
 package org.denevell.droidnatch.baseclasses;
 
-import org.denevell.droidnatch.interfaces.ProgressIndicatable;
+import org.denevell.droidnatch.interfaces.ProgressIndicator;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -17,9 +17,9 @@ public abstract class BaseService implements Listener<JSONObject>, ErrorListener
 
     private Context mAppContext;
     private String mUrl;
-    private ProgressIndicatable mProgress;
+    private ProgressIndicator mProgress;
 
-    public BaseService(Context applicationContext, String url, ProgressIndicatable progress) {
+    public BaseService(Context applicationContext, String url, ProgressIndicator progress) {
         mAppContext = applicationContext;
         mUrl = url;
         mProgress = progress;
