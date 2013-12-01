@@ -1,8 +1,10 @@
-package org.denevell.natch.android.views;
+package org.denevell.droidnatch.baseclasses;
+
+import org.denevell.droidnatch.interfaces.ProgressIndicatable;
 
 import android.app.Activity;
 
-public class ProgressIndicator {
+public class ProgressIndicator implements ProgressIndicatable {
     
     private Activity mActivity;
 
@@ -10,10 +12,12 @@ public class ProgressIndicator {
         mActivity = activity;
     }
     
+    @Override
     public void start() {
         mActivity.setProgressBarIndeterminateVisibility(true);
     }
     
+    @Override
     public void stop() {
         mActivity.setProgressBarIndeterminateVisibility(false);
     }
