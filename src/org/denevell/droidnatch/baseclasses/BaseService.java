@@ -37,12 +37,16 @@ public abstract class BaseService implements Listener<JSONObject>, ErrorListener
     
     @Override
     public void onResponse(JSONObject response) {
-        mProgress.stop();
+        if(mProgress!=null) {
+            mProgress.stop();
+        }
     }
     
     @Override
     public void onErrorResponse(VolleyError error) {
-        mProgress.stop();
+        if(mProgress!=null) {
+            mProgress.stop();
+        }
     }
 
 }

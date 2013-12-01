@@ -7,6 +7,7 @@ import org.denevell.droidnatch.baseclasses.FailureResult;
 import org.denevell.droidnatch.baseclasses.ProgressBarIndicator;
 import org.denevell.droidnatch.interfaces.Controller;
 import org.denevell.droidnatch.interfaces.FailureResultFactory;
+import org.denevell.droidnatch.interfaces.PopupDisplayer;
 import org.denevell.droidnatch.interfaces.ResponseConverter;
 import org.denevell.droidnatch.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.interfaces.ServiceFetcher;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -89,13 +91,23 @@ public class ListThreadsMapper {
                 return v;
             }};
     }
+    
+    public PopupDisplayer providesErrorPopup() {
+        final Context appContext = mActivity.getApplicationContext();
+        return new PopupDisplayer() {
+            @Override
+            public void displayString(String s) {
+                Toast.makeText(appContext, s, Toast.LENGTH_SHORT).show();
+            }
+        };
+    }
 
     public ResultsDisplayer<ListThreadsResource> provideLoginResultPane() {
         ListThreadsResultDisplayer displayer = 
                 new ListThreadsResultDisplayer(
-                        mActivity.getApplicationContext(), 
                         providesList(), 
-                        providesListAdapter());
+                        providesListAdapter(), 
+                        providesErrorPopup());
         return displayer;
     }
 
