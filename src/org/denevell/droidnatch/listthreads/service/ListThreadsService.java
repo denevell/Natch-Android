@@ -50,7 +50,7 @@ public class ListThreadsService extends BaseService
         if(networkResponse!=null) {
             status = networkResponse.statusCode;
         } 
-        FailureResult f = mFailureResultFactory.newInstance(status, "", "");
+        FailureResult f = mFailureResultFactory.newInstance(status, error.toString(), "");
         if(mCallbacks!=null) {
             mCallbacks.fail(f);
         }

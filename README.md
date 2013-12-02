@@ -13,6 +13,7 @@ The Android client to the Natch REST project.
 * I should see a loading screen while the threads are loaded
 * I should see a error screen if they fail to load
 * I should see a retry option
+* I should keep the found threads on rotate / onResume
 * I should see a loading indicator while it loads
 * I should be able to refresh the threads
 * I should be able to press more to see more threads
