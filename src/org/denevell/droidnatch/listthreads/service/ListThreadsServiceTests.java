@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.listthreads.services;
+package org.denevell.droidnatch.listthreads.service;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -11,7 +11,6 @@ import org.denevell.droidnatch.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.interfaces.ResponseConverter;
 import org.denevell.droidnatch.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
-import org.denevell.droidnatch.listthreads.service.ListThreadsService;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +19,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;
 
 @SuppressWarnings({"unchecked"})
-public class ListThreadsServiceTest {
+public class ListThreadsServiceTests {
     
     private ListThreadsService service;
     private ServiceCallbacks<ListThreadsResource> callbacks = mock(ServiceCallbacks.class);
@@ -33,19 +32,6 @@ public class ListThreadsServiceTest {
         ProgressIndicator progress = mock(ProgressIndicator.class);
         service = new ListThreadsService(null, null, progress, responseConverter, 
                 failureResultFactory);
-    }
-
-    @Test
-    public void whenNullCallbackOnSuccess() throws Exception {
-        // Arrange
-        JSONObject json = new JSONObject();
-        service.setServiceCallbacks(null);
-        
-        // Act
-        service.onResponse(json);
-        
-        // Assert
-        verifyNoMoreInteractions(callbacks);
     }
 
     @Test
@@ -70,7 +56,7 @@ public class ListThreadsServiceTest {
         service.setServiceCallbacks(callbacks);
         VolleyError error = new VolleyError();
         FailureResult fail = new FailureResult("", "", -1);
-        when(failureResultFactory.newInstance(-1, "", "")).thenReturn(fail);
+        when(failureResultFactory.newInstance(-1, error.toString(), "")).thenReturn(fail);
         
         // Act
         service.onErrorResponse(error);
@@ -80,13 +66,27 @@ public class ListThreadsServiceTest {
     }
 
     @Test
+    public void whenNullCallbackOnSuccess() throws Exception {
+        // Arrange
+        JSONObject json = new JSONObject();
+        service.setServiceCallbacks(null);
+        
+        // Act
+        service.onResponse(json);
+        
+        // Assert
+        verifyNoMoreInteractions(callbacks);
+    }
+
+
+    @Test
     public void onFailWithStatusCode() throws Exception {
         // Arrange
         service.setServiceCallbacks(callbacks);
         NetworkResponse networkResponse = new NetworkResponse(400, null, null, true);
         VolleyError error = new VolleyError(networkResponse);
         FailureResult fail = new FailureResult("", "", -1);
-        when(failureResultFactory.newInstance(400, "", "")).thenReturn(fail);
+        when(failureResultFactory.newInstance(400, error.toString(), "")).thenReturn(fail);
         
         // Act
         service.onErrorResponse(error);

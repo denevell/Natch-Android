@@ -1,27 +1,28 @@
 package org.denevell.droidnatch.listthreads.views;
 
 import org.denevell.droidnatch.baseclasses.FailureResult;
-import org.denevell.droidnatch.interfaces.PopupDisplayer;
 import org.denevell.droidnatch.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.denevell.droidnatch.listthreads.entities.ThreadResource;
 
+import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ListThreadsResultDisplayer implements ResultsDisplayer<ListThreadsResource> {
     
     private ArrayAdapter<ThreadResource> mListAdapter;
     private ListView mList;
-    private PopupDisplayer mPopupDisplayer;
+    private Context mAppContext;
 
     public ListThreadsResultDisplayer(
             ListView list, 
             ArrayAdapter<ThreadResource> adapter, 
-            PopupDisplayer popupDisplayer) {
+            Context appContext) {
         mListAdapter = adapter;
         mList = list;
-        mPopupDisplayer = popupDisplayer;
+        mAppContext = appContext;
     }
 
     public void onSuccess(final ListThreadsResource success) {
@@ -31,7 +32,11 @@ public class ListThreadsResultDisplayer implements ResultsDisplayer<ListThreadsR
     }
 
     public void onFail(final FailureResult fail) {
-        mPopupDisplayer.displayString(fail.errorMessage);
+        String s = "Unknown error";
+        if(fail!=null && fail.getErrorMessage()!=null) {
+            s = fail.getErrorMessage();
+        }
+        Toast.makeText(mAppContext, s, Toast.LENGTH_LONG).show();
     }
 
 }

@@ -1,33 +1,38 @@
 package org.denevell.droidnatch.listthreads.views;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import org.denevell.droidnatch.baseclasses.FailureResult;
-import org.denevell.droidnatch.interfaces.PopupDisplayer;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.denevell.droidnatch.listthreads.entities.ThreadResource;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
+import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+@RunWith(RobolectricTestRunner.class)
 @SuppressWarnings("unchecked")
 public class ListThreadsResultDisplayerTests  {
     
     private ListView list = mock(ListView.class);
     private ArrayAdapter<ThreadResource> adapter = mock(ArrayAdapter.class);
     private ListThreadsResultDisplayer displayer;
-    private PopupDisplayer popupError = mock(PopupDisplayer.class);
+    private Context context = mock(Context.class);
 
     @Before
     public void setup() {
-        displayer = new ListThreadsResultDisplayer(list, adapter, popupError);
+        displayer = new ListThreadsResultDisplayer(list, adapter, context);
     }
     
     @Test
-    public void onSuccess() {
+    public void shouldSetAdapterOnSuccess() {
         //Arrange
         ListThreadsResource success = new ListThreadsResource();
         
@@ -37,14 +42,40 @@ public class ListThreadsResultDisplayerTests  {
         // Assert
         verify(list).setAdapter(adapter);
     }
+    
+    @Test
+    public void shouldClearThenAddToAdapterOnSuccess() {
+        //Arrange
+        ListThreadsResource success = new ListThreadsResource();
+        
+        // Act
+        displayer.onSuccess(success);
+        
+        // Assert
+        verify(adapter).clear();
+        verify(adapter).addAll(success.getThreads());
+    }
 
     @Test
-    public void onFail() {
+    public void onShowToastOnFail() {
         //Arrange
         FailureResult fail = new FailureResult();
         
         // Act
         displayer.onFail(fail);
+    }
+
+    @Test
+    public void onShowToastErrorMessageIfAvailable() {
+        //Arrange
+        FailureResult fail = spy(new FailureResult());
+        fail.setErrorMessage("hiya");
+        
+        // Act
+        displayer.onFail(fail);
+        
+        // Assert
+        verify(fail, times(2)).getErrorMessage();
     }
 
 

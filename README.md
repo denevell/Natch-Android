@@ -6,7 +6,7 @@ The Android client to the Natch REST project.
 
 ## Backlog
 
-* Task: Add robolectic
+* Task: Start ui testing
 
 ### List threads
 
@@ -23,9 +23,10 @@ The Android client to the Natch REST project.
 --
 
 * Task: Start using gradle
-* Task: Start ui testing
+* Task: Use the jacoco gradle plugin
 
 ## Dev complete
 
+* Task: Add robolectic
 * Task: Should start unit testing
 * I should see the x most recent thread titles
