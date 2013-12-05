@@ -18,11 +18,12 @@ public class ListThreadsPage {
        return new UiObject(new UiSelector().description("listthreads_listview"));
     }
     
-    public void waitForThreadsToLoad() throws UiObjectNotFoundException {
+    public UiObject waitForThreadsToLoad() throws UiObjectNotFoundException {
         System.out.println("Looking for threads");
         UiObject threadsList = getThreadsList();
         threadsList.waitForExists(30);
         System.out.println("Found thread: " + threadsList.getChildCount());
+        return threadsList;
     }
 
 }
