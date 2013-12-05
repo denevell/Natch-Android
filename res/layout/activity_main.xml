@@ -7,6 +7,7 @@
     android:orientation="vertical" >
 
     <ListView
+        android1:contentDescription="Listthreads_listview"
         android1:id="@+id/listView1"
         android1:layout_width="match_parent"
         android1:layout_height="wrap_content" >
