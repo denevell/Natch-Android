@@ -8,5 +8,4 @@ gen/
 *.iml
 .DS_Store
 .settings
-project.properties
-*/project.properties
+.classpath

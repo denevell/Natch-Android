@@ -2,17 +2,19 @@
 
 The Android client to the Natch REST project.
 
-## Current dev
-
-* I should see a loading indicator while it loads
-
 ## Backlog
+
+* I should see a loading screen while the threads are loaded
+* I should be able to add a new thread (subject only atm)
+
+## Ice-box
+
+* I should be able to delete a thread I own
 
 ### List threads
 
 * I should see a error screen if they fail to load
 * I should be able to refresh the threads
-* I should see a loading screen while the threads are loaded
 * I should see a retry option
 * I should see empty screen on no threads
 * I should keep the found threads on rotate / onResume
