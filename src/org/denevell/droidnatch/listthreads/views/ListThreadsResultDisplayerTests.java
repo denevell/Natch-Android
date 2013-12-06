@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -24,11 +25,12 @@ public class ListThreadsResultDisplayerTests  {
     private ListView list = mock(ListView.class);
     private ArrayAdapter<ThreadResource> adapter = mock(ArrayAdapter.class);
     private ListThreadsResultDisplayer displayer;
+    private View loadingView = mock(View.class);
     private Context context = mock(Context.class);
 
     @Before
     public void setup() {
-        displayer = new ListThreadsResultDisplayer(list, adapter, context);
+        displayer = new ListThreadsResultDisplayer(list, adapter, loadingView, context);
     }
     
     @Test
@@ -54,6 +56,24 @@ public class ListThreadsResultDisplayerTests  {
         // Assert
         verify(adapter).clear();
         verify(adapter).addAll(success.getThreads());
+    }
+
+    @Test
+    public void onFinishedLoadingSetNullEmptyView() {
+        //Arrange / Act
+        displayer.stopLoading();
+        
+        // Assert
+        verify(loadingView).setVisibility(View.GONE);
+    }
+
+    @Test
+    public void onLoadingShowLoadingView() {
+        //Arrange / Act
+        displayer.startLoading();
+        
+        // Assert
+        verify(loadingView).setVisibility(View.VISIBLE);
     }
 
     @Test

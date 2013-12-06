@@ -33,6 +33,15 @@ public class ListThreadsControllerTests {
         verify(service).setServiceCallbacks(controller);
         verify(service).go();
     }
+
+    @Test
+    public void shouldStartDisplayableLoading() {
+        // Act
+        controller.go();
+        
+        // Assert
+        verify(displayable).startLoading();
+    }
     
     @Test
     public void shouldCallDisplaybleOnSuccess() throws Exception {
@@ -44,6 +53,7 @@ public class ListThreadsControllerTests {
         
         // Assert
         verify(displayable).onSuccess(r);
+        verify(displayable).stopLoading();
     }
 
     @Test
@@ -55,6 +65,7 @@ public class ListThreadsControllerTests {
         controller.fail(r);
         
         // Assert
+        verify(displayable).stopLoading();
         verify(displayable).onFail(r);
     }
     

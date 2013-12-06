@@ -17,12 +17,18 @@ public class ListThreadsPage {
     private UiObject getThreadsList() {
        return new UiObject(new UiSelector().description("listthreads_listview"));
     }
+
+    public UiObject getLoadingView() {
+       System.out.println("Looking for loading view");
+       return new UiObject(new UiSelector().description("listthreads_loading_view"));
+    }
     
-    public UiObject waitForThreadsToLoad() throws UiObjectNotFoundException {
+    public UiObject waitForThreadsToLoad() throws UiObjectNotFoundException, InterruptedException {
         System.out.println("Looking for threads");
         UiObject threadsList = getThreadsList();
-        threadsList.waitForExists(30);
-        System.out.println("Found thread: " + threadsList.getChildCount());
+        threadsList.waitForExists(10000);
+        Thread.sleep(2000);
+        System.out.println("Found threads: " + threadsList.getChildCount());
         return threadsList;
     }
 

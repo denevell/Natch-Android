@@ -79,6 +79,11 @@ public class ListThreadsMapper {
         return (ListView) mActivity.findViewById(R.id.listView1);
     }
 
+    public View providesEmptyListView() {
+        View v = mActivity.findViewById(R.id.list_threads_loading);
+        return v;
+    }
+
     public ArrayAdapter<ThreadResource> providesListAdapter() {
         return new ArrayAdapter<ThreadResource>(mActivity, android.R.layout.simple_list_item_1) {
             @Override
@@ -96,6 +101,7 @@ public class ListThreadsMapper {
                 new ListThreadsResultDisplayer(
                         providesList(), 
                         providesListAdapter(), 
+                        providesEmptyListView(),
                         mActivity.getApplicationContext());
         return displayer;
     }

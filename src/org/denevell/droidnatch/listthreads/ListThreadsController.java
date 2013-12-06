@@ -23,16 +23,19 @@ public class ListThreadsController
     public void go() {
         mService.setServiceCallbacks(this);
         mService.go();
+        mResultsDisplayable.startLoading();
     }
 
     @Override
     public void success(ListThreadsResource r) {
         mResultsDisplayable.onSuccess(r);
+        mResultsDisplayable.stopLoading();
     }
 
     @Override
     public void fail(FailureResult r) {
         mResultsDisplayable.onFail(r);
+        mResultsDisplayable.stopLoading();
     }
 
 }

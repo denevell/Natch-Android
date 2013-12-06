@@ -6,6 +6,7 @@ import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.denevell.droidnatch.listthreads.entities.ThreadResource;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -15,13 +16,16 @@ public class ListThreadsResultDisplayer implements ResultsDisplayer<ListThreadsR
     private ArrayAdapter<ThreadResource> mListAdapter;
     private ListView mList;
     private Context mAppContext;
+    private View mErrorView;
 
     public ListThreadsResultDisplayer(
             ListView list, 
             ArrayAdapter<ThreadResource> adapter, 
+            View errorView,
             Context appContext) {
         mListAdapter = adapter;
         mList = list;
+        mErrorView = errorView;
         mAppContext = appContext;
     }
 
@@ -37,6 +41,20 @@ public class ListThreadsResultDisplayer implements ResultsDisplayer<ListThreadsR
             s = fail.getErrorMessage();
         }
         Toast.makeText(mAppContext, s, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void startLoading() {
+        if(mErrorView!=null) {
+            mErrorView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void stopLoading() {
+        if(mErrorView!=null) {
+            mErrorView.setVisibility(View.GONE);
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 ant.properties['sdk.dir']="$System.env.ANDROID_HOME"
 ant.properties['target']='android-19'
 ant.properties['out.filename']=project.name+'_tests.jar'
+ant.properties['out.dir']='/home/user/workspace/Natch-Android/bin/'
 ant.properties['source.dir']=project.path+'uiTests' // Or wherever your tests are
 ant.importBuild "$System.env.ANDROID_HOME"+'/tools/ant/uibuild.xml'
 

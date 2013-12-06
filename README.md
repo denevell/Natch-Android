@@ -4,7 +4,6 @@ The Android client to the Natch REST project.
 
 ## Backlog
 
-* I should see a loading screen while the threads are loaded
 * I should be able to add a new thread (subject only atm)
 
 ## Ice-box
@@ -15,6 +14,7 @@ The Android client to the Natch REST project.
 
 * I should see a error screen if they fail to load
 * I should be able to refresh the threads
+* I should see a loading icon while the threads load
 * I should see a retry option
 * I should see empty screen on no threads
 * I should keep the found threads on rotate / onResume
@@ -39,3 +39,4 @@ The Android client to the Natch REST project.
 ### Stories (Numbers relate to classes names in the uiTests dir)
 
 1. I should see the x most recent thread titles
+2. I should see a loading screen while the threads are loaded
