@@ -1,6 +1,6 @@
-package org.denevell.droidnatch.interfaces;
+package org.denevell.droidnatch.app.interfaces;
 
-import org.denevell.droidnatch.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
 
 public interface ResultsDisplayer<T> {
 

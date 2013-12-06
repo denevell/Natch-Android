@@ -1,7 +1,7 @@
 package org.denevell.droidnatch.listthreads.views;
 
-import org.denevell.droidnatch.baseclasses.FailureResult;
-import org.denevell.droidnatch.interfaces.ResultsDisplayer;
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.denevell.droidnatch.listthreads.entities.ThreadResource;
 

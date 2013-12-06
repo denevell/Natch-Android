@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.baseclasses;
+package org.denevell.droidnatch.app.baseclasses;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

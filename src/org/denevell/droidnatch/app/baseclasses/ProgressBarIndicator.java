@@ -1,6 +1,6 @@
-package org.denevell.droidnatch.baseclasses;
+package org.denevell.droidnatch.app.baseclasses;
 
-import org.denevell.droidnatch.interfaces.ProgressIndicator;
+import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 
 import android.app.Activity;
 

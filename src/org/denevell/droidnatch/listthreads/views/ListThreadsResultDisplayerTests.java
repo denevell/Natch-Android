@@ -5,7 +5,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import org.denevell.droidnatch.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.denevell.droidnatch.listthreads.entities.ThreadResource;
 import org.junit.Before;

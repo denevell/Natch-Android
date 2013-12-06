@@ -1,12 +1,12 @@
 package org.denevell.droidnatch.listthreads.service;
 
-import org.denevell.droidnatch.baseclasses.BaseService;
-import org.denevell.droidnatch.baseclasses.FailureResult;
-import org.denevell.droidnatch.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.interfaces.ResponseConverter;
-import org.denevell.droidnatch.interfaces.ServiceCallbacks;
-import org.denevell.droidnatch.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.app.baseclasses.BaseService;
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
+import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
+import org.denevell.droidnatch.app.interfaces.ResponseConverter;
+import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
+import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.json.JSONObject;
 
@@ -38,7 +38,7 @@ public class ListThreadsService extends BaseService
         String success = response.toString();
         ListThreadsResource res = mResponseConverter.convert(success, ListThreadsResource.class);
         if(mCallbacks!=null) {
-            mCallbacks.success(res);
+            mCallbacks.onServiceSuccess(res);
         }
     }
 
@@ -52,7 +52,7 @@ public class ListThreadsService extends BaseService
         } 
         FailureResult f = mFailureResultFactory.newInstance(status, error.toString(), "");
         if(mCallbacks!=null) {
-            mCallbacks.fail(f);
+            mCallbacks.onServiceFail(f);
         }
     }
 

@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.baseclasses;
+package org.denevell.droidnatch.app.baseclasses;
 
 public class FailureResult {
     

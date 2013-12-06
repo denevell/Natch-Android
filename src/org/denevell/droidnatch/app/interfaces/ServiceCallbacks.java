@@ -1,6 +1,6 @@
-package org.denevell.droidnatch.interfaces;
+package org.denevell.droidnatch.app.interfaces;
 
-import org.denevell.droidnatch.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
 
 public interface ServiceCallbacks<T> {
     interface Success<T> {
@@ -10,6 +10,6 @@ public interface ServiceCallbacks<T> {
         public void fail(FailureResult f);
     }
     
-    void success(T r);
-    void fail(FailureResult r);
+    void onServiceSuccess(T r);
+    void onServiceFail(FailureResult r);
 }

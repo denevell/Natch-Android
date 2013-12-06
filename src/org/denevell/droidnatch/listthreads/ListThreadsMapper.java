@@ -3,13 +3,14 @@ package org.denevell.droidnatch.listthreads;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.denevell.droidnatch.baseclasses.FailureResult;
-import org.denevell.droidnatch.baseclasses.ProgressBarIndicator;
-import org.denevell.droidnatch.interfaces.Controller;
-import org.denevell.droidnatch.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.interfaces.ResponseConverter;
-import org.denevell.droidnatch.interfaces.ResultsDisplayer;
-import org.denevell.droidnatch.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.MainPageActivity;
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.baseclasses.ProgressBarIndicator;
+import org.denevell.droidnatch.app.interfaces.Controller;
+import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
+import org.denevell.droidnatch.app.interfaces.ResponseConverter;
+import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
+import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.denevell.droidnatch.listthreads.entities.ThreadResource;
 import org.denevell.droidnatch.listthreads.service.ListThreadsService;
@@ -29,7 +30,8 @@ import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {ListThreadsActivity.class})
+@Module(injects = {MainPageActivity.class}, 
+        complete=false)
 public class ListThreadsMapper {
     
     private Activity mActivity;
@@ -79,7 +81,7 @@ public class ListThreadsMapper {
         return (ListView) mActivity.findViewById(R.id.listView1);
     }
 
-    public View providesEmptyListView() {
+    public View providesLoadingListView() {
         View v = mActivity.findViewById(R.id.list_threads_loading);
         return v;
     }
@@ -100,7 +102,7 @@ public class ListThreadsMapper {
                 new ListThreadsResultDisplayer(
                         providesList(), 
                         providesListAdapter(), 
-                        providesEmptyListView(),
+                        providesLoadingListView(),
                         mActivity.getApplicationContext());
         return displayer;
     }

@@ -3,9 +3,9 @@ package org.denevell.droidnatch.listthreads;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import org.denevell.droidnatch.baseclasses.FailureResult;
-import org.denevell.droidnatch.interfaces.ResultsDisplayer;
-import org.denevell.droidnatch.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
+import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +49,7 @@ public class ListThreadsControllerTests {
         ListThreadsResource r = new ListThreadsResource();
 
         // Act
-        controller.success(r);
+        controller.onServiceSuccess(r);
         
         // Assert
         verify(displayable).onSuccess(r);
@@ -62,7 +62,7 @@ public class ListThreadsControllerTests {
         FailureResult r = new FailureResult();
 
         // Act
-        controller.fail(r);
+        controller.onServiceFail(r);
         
         // Assert
         verify(displayable).stopLoading();

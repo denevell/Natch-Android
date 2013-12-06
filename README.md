@@ -10,6 +10,12 @@ The Android client to the Natch REST project.
 
 * I should be able to delete a thread I own
 
+### Add threads
+
+* I should refresh the (plus loading) threads after an add
+* I should see loading after the thread add
+* I should see an error if add failed
+
 ### List threads
 
 * I should see a error screen if they fail to load

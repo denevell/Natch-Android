@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.interfaces;
+package org.denevell.droidnatch.app.interfaces;
 
 public interface PopupDisplayer {
     

@@ -5,11 +5,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import org.denevell.droidnatch.baseclasses.FailureResult;
-import org.denevell.droidnatch.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.interfaces.ResponseConverter;
-import org.denevell.droidnatch.interfaces.ServiceCallbacks;
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
+import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
+import org.denevell.droidnatch.app.interfaces.ResponseConverter;
+import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -47,7 +47,7 @@ public class ListThreadsServiceTests {
         service.onResponse(json);
         
         // Assert
-        verify(callbacks).success(threads);
+        verify(callbacks).onServiceSuccess(threads);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class ListThreadsServiceTests {
         service.onErrorResponse(error);
         
         // Assert
-        verify(callbacks).fail(fail);
+        verify(callbacks).onServiceFail(fail);
     }
 
     @Test
@@ -92,7 +92,7 @@ public class ListThreadsServiceTests {
         service.onErrorResponse(error);
         
         // Assert
-        verify(callbacks).fail(fail);
+        verify(callbacks).onServiceFail(fail);
     }
 
     @Test
