@@ -6,7 +6,9 @@ import java.util.List;
 import javax.inject.Named;
 
 import org.denevell.droidnatch.MainPageActivity;
+import org.denevell.droidnatch.addthread.entities.AddPostResourceReturnData;
 import org.denevell.droidnatch.app.interfaces.Controller;
+import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.TextEditable;
 
 import android.app.Activity;
@@ -38,8 +40,12 @@ public class AddThreadMapper {
         AddThreadController controller = 
                 new AddThreadController(providesTextInput(), 
                         null, 
-                        null);
+                        providesService());
         return controller;
+    }
+
+    private ServiceFetcher<AddPostResourceReturnData> providesService() {
+        return null;
     }
 
     private TextEditable providesTextInput() {
