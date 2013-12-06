@@ -19,7 +19,6 @@ public class _12_ListThreads extends UiAutomatorTestCase {
     public void test_1_ListThreads() throws Exception {
         // Arrange
         ListThreadsPage listThreadsPage = new ListThreadsPage(getUiDevice());
-        getUiDevice().waitForIdle();
 
         // Act 
         UiObject threads = listThreadsPage.waitForThreadsToLoad();

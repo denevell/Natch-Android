@@ -85,7 +85,7 @@ public class ListThreadsMapper {
     }
 
     public ArrayAdapter<ThreadResource> providesListAdapter() {
-        return new ArrayAdapter<ThreadResource>(mActivity, android.R.layout.simple_list_item_1) {
+        return new ArrayAdapter<ThreadResource>(mActivity, R.layout.list_threads_row) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView v = (TextView) super.getView(position, convertView, parent);
@@ -94,7 +94,6 @@ public class ListThreadsMapper {
                 return v;
             }};
     }
-    
 
     public ResultsDisplayer<ListThreadsResource> provideLoginResultPane() {
         ListThreadsResultDisplayer displayer = 
