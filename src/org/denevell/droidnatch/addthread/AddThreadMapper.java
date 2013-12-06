@@ -38,7 +38,6 @@ public class AddThreadMapper {
         AddThreadController controller = 
                 new AddThreadController(providesTextInput(), 
                         null, 
-                        null,
                         null);
         return controller;
     }
