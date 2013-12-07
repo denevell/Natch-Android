@@ -17,12 +17,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-public abstract class BaseService<T> implements Listener<JSONObject>, ErrorListener, ServiceFetcher<T> 
-    {
+public abstract class BaseService<T> implements Listener<JSONObject>, ErrorListener, ServiceFetcher<T> {
 
     private Context mAppContext;
     private String mUrl;
-    private ProgressIndicator mProgress;
+    protected ProgressIndicator mProgress;
     protected ServiceCallbacks<T> mCallbacks;
     private FailureResultFactory mFailureResultFactory;
 

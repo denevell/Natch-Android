@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.baseclasses.JsonConverter;
 import org.denevell.droidnatch.app.baseclasses.ProgressBarIndicator;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
@@ -24,9 +25,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -60,12 +58,7 @@ public class ListThreadsMapper {
     // others
 
     public ResponseConverter providesResponseConverter() {
-        return new ResponseConverter() {
-            @Override
-            public <T> T convert(String s, Class<T> t) {
-                return new Gson().fromJson(s, t);
-            }
-        };
+        return new JsonConverter();
     }
 
     public FailureResultFactory providesFailureResultFactory() {
