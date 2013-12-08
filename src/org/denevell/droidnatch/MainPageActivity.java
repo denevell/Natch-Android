@@ -1,12 +1,11 @@
 package org.denevell.droidnatch;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.denevell.droidnatch.addthread.AddThreadMapper;
 import org.denevell.droidnatch.app.interfaces.Controller;
+import org.denevell.droidnatch.baseclasses.CommonMapper;
 import org.denevell.droidnatch.listthreads.ListThreadsMapper;
 import org.denevell.natch.android.R;
 
@@ -19,8 +18,8 @@ import dagger.ObjectGraph;
 public class MainPageActivity extends FragmentActivity {
 
     private static final String TAG = MainPageActivity.class.getSimpleName();
-    @Inject List<Controller> mControllers;
-    @Inject @Named("addthread") List<Controller> mControllersAddThread;
+    @Inject @Named("listthreads") Controller mController;
+    @Inject @Named("addthread") Controller mControllerAddThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +27,15 @@ public class MainPageActivity extends FragmentActivity {
         try {
             requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
             setContentView(R.layout.activity_main);
-            ObjectGraph.create(new ListThreadsMapper(this),
-                    new AddThreadMapper(this)).inject(this);
-            for (Controller c: mControllers) {
-               c.go(); 
-            }
+            ObjectGraph.create(
+                    new ListThreadsMapper(this),
+                    new AddThreadMapper(this),
+                    new CommonMapper(this))
+                    .inject(this);
+
+            mController.go();
+            mControllerAddThread.go();
             
-            for (Controller c: mControllersAddThread) {
-               c.go(); 
-            }
         } catch (Exception e) {
             Log.e(TAG, "Failed to parse activity", e);
             return;

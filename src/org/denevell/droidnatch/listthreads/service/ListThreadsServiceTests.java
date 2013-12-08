@@ -27,7 +27,7 @@ public class ListThreadsServiceTests {
     public void setup() {
         ProgressIndicator progress = mock(ProgressIndicator.class);
         service = new ListThreadsService(null, null, progress, responseConverter, 
-                failureResultFactory);
+                failureResultFactory, null);
     }
 
     @Test

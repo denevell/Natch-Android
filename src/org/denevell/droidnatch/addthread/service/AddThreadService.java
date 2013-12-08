@@ -6,47 +6,48 @@ import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResponseConverter;
-import org.json.JSONException;
+import org.denevell.droidnatch.app.interfaces.TextEditable;
+import org.denevell.droidnatch.app.interfaces.TextEditable.OnTextInputted;
+import org.denevell.droidnatch.app.interfaces.VolleyRequestPUT;
 import org.json.JSONObject;
+
+import android.content.Context;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
-import android.content.Context;
 
 public class AddThreadService extends BaseService<AddPostResourceReturnData> {
 
     private ResponseConverter mResponseConverter;
     private Context mAppContext;
+    private AddPostResourceInput mAddPostResourceInput = new AddPostResourceInput();
+    private VolleyRequestPUT mVolleyRequestPUT;
 
     public AddThreadService(Context applicationContext, 
             String url,
             ProgressIndicator progress, 
             ResponseConverter responseConverter, 
-            FailureResultFactory failureResultFactory) {
-        super(applicationContext, url, progress, failureResultFactory);
+            FailureResultFactory failureResultFactory, 
+            TextEditable textEditable,
+            VolleyRequestPUT volleyRequest) {
+        super(applicationContext, url, progress, failureResultFactory, volleyRequest);
+        mVolleyRequestPUT = volleyRequest;
         mAppContext = applicationContext;
         mResponseConverter = responseConverter;
+        textEditable.addTextInputCallack(new OnTextInputted() {
+            @Override
+            public void onTextSubmitted(String textSubmitted) {
+                mAddPostResourceInput.setContent("-");
+                mAddPostResourceInput.setSubject(textSubmitted);
+            }
+        });
     }
     
     public void go() {
         RequestQueue queue = Volley.newRequestQueue(mAppContext);
-        // TODO: Add auth header
-        // TODO: Input auth object
-        AddPostResourceInput addPostResourceInput = new AddPostResourceInput();
-        String json = mResponseConverter.encode(addPostResourceInput);
-        JSONObject jOb = null;
-        try {
-            jOb = new JSONObject(json);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(
-                Request.Method.POST, "", jOb,
-                this, this) {
-        };
+        mVolleyRequestPUT.setBody(mAddPostResourceInput);
+        Request<?> jsObjRequest = mVolleyRequestPUT.getRequest();
         queue.add(jsObjRequest);
         mProgress.start();
     }    
@@ -60,6 +61,5 @@ public class AddThreadService extends BaseService<AddPostResourceReturnData> {
             mCallbacks.onServiceSuccess(res);
         }
     }
-
 
 }

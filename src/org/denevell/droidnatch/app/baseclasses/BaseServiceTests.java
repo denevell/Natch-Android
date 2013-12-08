@@ -21,7 +21,7 @@ public class BaseServiceTests {
     //private ResponseConverter responseConverter = mock(ResponseConverter.class);
     private FailureResultFactory failureResultFactory = mock(FailureResultFactory.class);
     private ProgressIndicator progress = mock(ProgressIndicator.class);
-    private BaseService<Object> service = new BaseService<Object>(null, null, progress, failureResultFactory) {
+    private BaseService<Object> service = new BaseService<Object>(null, null, progress, failureResultFactory, null) {
     };
 
     @Before

@@ -4,6 +4,7 @@ import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResponseConverter;
+import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.json.JSONObject;
 
@@ -18,8 +19,9 @@ public class ListThreadsService extends BaseService<ListThreadsResource>
             String url,
             ProgressIndicator progress, 
             ResponseConverter responseConverter, 
-            FailureResultFactory failureResultFactory) {
-        super(applicationContext, url, progress, failureResultFactory);
+            FailureResultFactory failureResultFactory,
+            VolleyRequest volleyRequest) {
+        super(applicationContext, url, progress, failureResultFactory, volleyRequest);
         mResponseConverter = responseConverter;
     }
 

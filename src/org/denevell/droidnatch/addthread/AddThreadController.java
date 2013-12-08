@@ -27,7 +27,7 @@ public class AddThreadController implements Controller, OnTextInputted, ServiceC
     @Override
     public void go() {
         if(mTextEditable!=null) {
-            mTextEditable.setTextInputCallack(this);
+            mTextEditable.addTextInputCallack(this);
         }
     }
 

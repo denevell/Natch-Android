@@ -1,17 +1,15 @@
 package org.denevell.droidnatch.listthreads;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.inject.Named;
 
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.baseclasses.JsonConverter;
 import org.denevell.droidnatch.app.baseclasses.ProgressBarIndicator;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ResponseConverter;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.denevell.droidnatch.listthreads.entities.ThreadResource;
 import org.denevell.droidnatch.listthreads.service.ListThreadsService;
@@ -39,37 +37,18 @@ public class ListThreadsMapper {
     }
     
     // controllers
-    
-    @SuppressWarnings("serial")
-    @Provides
-    public List<Controller> provideControllers() {
-        return new ArrayList<Controller>() {{
-            add(providesLoginController());
-        }};
-    }
 
-    public Controller providesLoginController() {
+    @Provides @Named("listthreads")
+    public Controller providesLoginController(
+            ServiceFetcher<ListThreadsResource> loginService) {
         ListThreadsController controller = new ListThreadsController(
-                provideLoginService(), 
+                loginService, 
                 provideLoginResultPane());
         return controller;
     }
     
     // others
 
-    public ResponseConverter providesResponseConverter() {
-        return new JsonConverter();
-    }
-
-    public FailureResultFactory providesFailureResultFactory() {
-        return new FailureResultFactory() {
-            @Override
-            public FailureResult newInstance(int statusCode, String errorMessage, String errorCode) {
-                return new FailureResult(errorCode, errorMessage, statusCode);
-            }
-        };
-    }
-    
     public ListView providesList() {
         return (ListView) mActivity.findViewById(R.id.listView1);
     }
@@ -100,17 +79,21 @@ public class ListThreadsMapper {
         return displayer;
     }
 
-    public ServiceFetcher<ListThreadsResource> provideLoginService() {
+    @Provides
+    public ServiceFetcher<ListThreadsResource> provideLoginService(
+            ResponseConverter responseConverter, 
+            FailureResultFactory failureFactory, 
+            VolleyRequest volleyRequest) {
         ProgressBarIndicator progress = new ProgressBarIndicator(mActivity);
         Context context = mActivity.getApplicationContext();
         String url = context.getString(R.string.url_baseurl) + context.getString(R.string.url_threads);
-        ResponseConverter responseConverter = providesResponseConverter();
         return new ListThreadsService(
                 context, 
                 url, 
                 progress, 
                 responseConverter,
-                providesFailureResultFactory());
+                failureFactory,
+                volleyRequest);
     }
 
 }
