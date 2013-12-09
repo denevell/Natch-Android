@@ -2,7 +2,7 @@ package org.denevell.droidnatch.app.baseclasses;
 
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.ResponseConverter;
+import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
@@ -27,7 +27,7 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
     protected ServiceCallbacks<T> mCallbacks;
     private FailureResultFactory mFailureResultFactory;
     protected VolleyRequest mVolleyRequest;
-    private ResponseConverter mResponseConverter;
+    private ObjectStringConverter mResponseConverter;
     private Class<T> mClass;
 
     public BaseService(
@@ -35,7 +35,7 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
             String url, 
             VolleyRequest volleyRequest, 
             ProgressIndicator progress, 
-            ResponseConverter responseConverter,
+            ObjectStringConverter responseConverter,
             FailureResultFactory failureResultFactory, 
             Class<T> classInstance) {
         mAppContext = applicationContext;
@@ -56,6 +56,11 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
         queue.add(mVolleyRequest.getRequest());
         mProgress.start();
     }
+
+    @Override
+    public void setServiceCallbacks(ServiceCallbacks<T> callbacks) {
+        mCallbacks = callbacks;
+    }    
     
     @Override
     public void onResponse(JSONObject response) {
@@ -69,11 +74,6 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
             mCallbacks.onServiceSuccess(res);
         }
     }
-    
-    @Override
-    public void setServiceCallbacks(ServiceCallbacks<T> callbacks) {
-        mCallbacks = callbacks;
-    }    
     
     @Override
     public void onErrorResponse(VolleyError error) {

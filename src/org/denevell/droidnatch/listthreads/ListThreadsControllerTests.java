@@ -68,6 +68,5 @@ public class ListThreadsControllerTests {
         verify(displayable).stopLoading();
         verify(displayable).onFail(r);
     }
-    
 
 }

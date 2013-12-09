@@ -10,7 +10,7 @@ public class TextEditablePostUpdater extends TextEditableEditText {
     public TextEditablePostUpdater(EditText editText, 
             final AddPostResourceInput resourceInput) {
         super(editText);
-        addTextInputCallack(new OnTextInputted() {
+        addTextInputCallack(new OnTextSubmitted() {
             @Override
             public void onTextSubmitted(String textSubmitted) {
                 resourceInput.setContent("-");

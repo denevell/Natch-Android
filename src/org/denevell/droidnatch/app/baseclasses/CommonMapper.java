@@ -4,7 +4,7 @@ import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.ResponseConverter;
+import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 
 import android.app.Activity;
@@ -42,7 +42,7 @@ public class CommonMapper {
 
     
     @Provides
-    public ResponseConverter providesResponseConverter() {
+    public ObjectStringConverter providesResponseConverter() {
         return new JsonConverter();
     }
     

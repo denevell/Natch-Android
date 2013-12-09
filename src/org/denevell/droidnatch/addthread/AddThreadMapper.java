@@ -13,10 +13,12 @@ import org.denevell.droidnatch.app.baseclasses.VolleyRequestPUTImpl;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.ResponseConverter;
+import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
+import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.TextEditable;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
+import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
@@ -37,12 +39,15 @@ public class AddThreadMapper {
     @Provides @Singleton @Named("addthread")
     public Controller providesLoginController(
             ServiceFetcher<AddPostResourceReturnData> service, 
-            TextEditable textInput) {
+            TextEditable textInput, 
+            ResultsDisplayer<ListThreadsResource> listThreadsDisplayable,
+            @Named("listthreads") Controller listThreadsController) {
         AddThreadController controller = 
                 new AddThreadController(
                         textInput, 
-                        null, 
-                        service);
+                        service,
+                        listThreadsDisplayable,
+                        listThreadsController);
         return controller;
     }
 
@@ -51,7 +56,7 @@ public class AddThreadMapper {
             TextEditable textInput, 
             Context appContext, 
             ProgressIndicator progress, 
-            ResponseConverter converter, 
+            ObjectStringConverter converter, 
             FailureResultFactory failureFactory, 
             @Named("addthreadrequest") VolleyRequest volleyRequest,
             AddPostResourceInput resourceInput) {
@@ -72,7 +77,7 @@ public class AddThreadMapper {
     
     @Provides @Singleton @Named("addthreadrequest")
     public VolleyRequest providesVolleyRequestPut(
-            ResponseConverter reponseConverter,
+            ObjectStringConverter reponseConverter,
             AddPostResourceInput body) {
         VolleyRequestPUTImpl vollyRequest = new VolleyRequestPUTImpl(
                 reponseConverter, 

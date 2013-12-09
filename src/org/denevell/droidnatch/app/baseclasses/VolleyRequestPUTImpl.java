@@ -3,7 +3,7 @@ package org.denevell.droidnatch.app.baseclasses;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.denevell.droidnatch.app.interfaces.ResponseConverter;
+import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,20 +16,20 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 public class VolleyRequestPUTImpl implements VolleyRequest {
     
-    private ResponseConverter mResponseConverter;
+    private ObjectStringConverter mResponseConverter;
     private String mUrl;
     private ErrorListener mErrorListener;
     private Listener<JSONObject> mListener;
     private Object mBody;
     
     public VolleyRequestPUTImpl(
-            ResponseConverter responseConverter, 
+            ObjectStringConverter responseConverter, 
             Object body) {
         mResponseConverter = responseConverter;
         mBody = body;
     }
     
-    public ResponseConverter getResponseConverter() {
+    public ObjectStringConverter getResponseConverter() {
         return mResponseConverter;
     }
 

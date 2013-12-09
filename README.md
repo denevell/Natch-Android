@@ -5,6 +5,7 @@ The Android client to the Natch REST project.
 ## Backlog
 
 * I should be able to add a new thread (subject only atm)
+* I should refresh the (plus loading) threads after an add
 
 ## Ice-box
 
@@ -12,7 +13,6 @@ The Android client to the Natch REST project.
 
 ### Add threads
 
-* I should refresh the (plus loading) threads after an add
 * I should see loading after the thread add
 * I should see an error if add failed
 

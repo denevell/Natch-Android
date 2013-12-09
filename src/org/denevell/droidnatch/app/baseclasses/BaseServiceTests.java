@@ -7,13 +7,15 @@ import static org.mockito.Mockito.when;
 
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.ResponseConverter;
+import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import android.content.Context;
 
@@ -21,12 +23,13 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;
 
 @SuppressWarnings({"unchecked"})
+@RunWith(RobolectricTestRunner.class)
 public class BaseServiceTests {
     
     private ServiceCallbacks<Object> callbacks = mock(ServiceCallbacks.class);
     private FailureResultFactory failureResultFactory = mock(FailureResultFactory.class);
     private ProgressIndicator progress = mock(ProgressIndicator.class);
-    private ResponseConverter responseConverter = mock(ResponseConverter.class);
+    private ObjectStringConverter responseConverter = mock(ObjectStringConverter.class);
     private Context context = mock(Context.class);
     private VolleyRequest volleyRequest = mock(VolleyRequest.class);
     private BaseService<Object> service = new BaseService<Object>(
@@ -95,7 +98,7 @@ public class BaseServiceTests {
         json.put("blar", "blar");
         service.setServiceCallbacks(callbacks);
         ListThreadsResource threads = mock(ListThreadsResource.class);
-        when(responseConverter.convert(json.toString(), ListThreadsResource.class))
+        when(responseConverter.convert(json.toString(), Object.class))
                 .thenReturn(threads);
         
         // Act

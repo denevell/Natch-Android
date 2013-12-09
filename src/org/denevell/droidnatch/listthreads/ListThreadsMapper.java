@@ -6,8 +6,8 @@ import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
+import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.ResponseConverter;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
@@ -46,7 +46,7 @@ public class ListThreadsMapper {
         return controller;
     }
 
-    @Provides @Named("listthreads")
+    @Provides @Named("listthreads_listview")
     public ListView providesListView() {
         return (ListView) mActivity.findViewById(R.id.listView1);
     }
@@ -74,7 +74,7 @@ public class ListThreadsMapper {
     public ResultsDisplayer<ListThreadsResource> provideLoginResultPane(
             Context appContext, 
             ArrayAdapter<ThreadResource> arrayAdapter, 
-            @Named("listthreads") ListView listView, 
+            @Named("listthreads_listview") ListView listView, 
             @Named("listthreads_loading") View listViewLoading) {
         ListThreadsResultDisplayer displayer = 
                 new ListThreadsResultDisplayer(
@@ -87,7 +87,7 @@ public class ListThreadsMapper {
 
     @Provides
     public ServiceFetcher<ListThreadsResource> provideLoginService(
-            ResponseConverter responseConverter, 
+            ObjectStringConverter responseConverter, 
             FailureResultFactory failureFactory, 
             VolleyRequest volleyRequest, 
             Context appContext, 
