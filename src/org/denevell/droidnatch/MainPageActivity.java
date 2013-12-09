@@ -7,7 +7,6 @@ import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.thread.add.AddThreadMapper;
-import org.denevell.droidnatch.thread.delete.DeleteThreadController;
 import org.denevell.droidnatch.thread.delete.DeleteThreadMapper;
 import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.natch.android.R;
@@ -24,7 +23,6 @@ public class MainPageActivity extends FragmentActivity {
     private static final String TAG = MainPageActivity.class.getSimpleName();
     @Inject @Named("listthreads") Controller mController;
     @Inject @Named("addthread") Controller mControllerAddThread;
-    @Inject @Named("deletethread") DeleteThreadController mDeleteThreadController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +38,6 @@ public class MainPageActivity extends FragmentActivity {
                     .inject(this);
             mController.go();
             mControllerAddThread.go();
-            mDeleteThreadController.go();
         } catch (Exception e) {
             Log.e(TAG, "Failed to parse activity", e);
             return;

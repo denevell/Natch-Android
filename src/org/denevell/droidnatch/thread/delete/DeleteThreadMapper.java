@@ -3,7 +3,6 @@ package org.denevell.droidnatch.thread.delete;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestDELETE;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
@@ -19,7 +18,7 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {MainPageActivity.class}, complete = false)
+@Module(complete = false, library = true)
 public class DeleteThreadMapper {
     
     @SuppressWarnings("unused")
@@ -29,13 +28,13 @@ public class DeleteThreadMapper {
         mActivity = activity;
     }
 
-    @Provides @Singleton @Named("deletethread")
-    public DeleteThreadController providesController(ServiceFetcher<DeletePostResourceReturnData> service) {
-        DeleteThreadController controller = 
-                new DeleteThreadController(
-                        service);
-        return controller;
-    }
+//    @Provides @Singleton @Named("deletethread")
+//    public DeleteThreadController providesController(ServiceFetcher<DeletePostResourceReturnData> service) {
+//        DeleteThreadController controller = 
+//                new DeleteThreadController(
+//                        service);
+//        return controller;
+//    }
 
     @Provides @Singleton
     public ServiceFetcher<DeletePostResourceReturnData> providesService(
