@@ -6,5 +6,6 @@ public interface TextEditable {
         void onTextSubmitted(String textSubmitted);
     }
     
-    void addTextInputCallack(OnTextSubmitted callback);
+    public void setText(String s);
+    public void addTextInputCallack(OnTextSubmitted callback);
 }

@@ -1,50 +1,45 @@
-package org.denevell.droidnatch.addthread;
+package org.denevell.droidnatch.deletethread;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.addthread.entities.AddPostResourceInput;
-import org.denevell.droidnatch.addthread.entities.AddPostResourceReturnData;
-import org.denevell.droidnatch.addthread.views.TextEditablePostUpdater;
 import org.denevell.droidnatch.app.baseclasses.BaseService;
-import org.denevell.droidnatch.app.baseclasses.TextEditableEditText;
-import org.denevell.droidnatch.app.baseclasses.VolleyRequestPUTImpl;
+import org.denevell.droidnatch.app.baseclasses.VolleyRequestDELETE;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.interfaces.TextEditable;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
+import org.denevell.droidnatch.deletethread.entities.DeletePostResourceReturnData;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
 import android.content.Context;
-import android.widget.EditText;
 import dagger.Module;
 import dagger.Provides;
 
 @Module(injects = {MainPageActivity.class}, complete = false)
-public class AddThreadMapper {
+public class DeleteThreadMapper {
     
+    @SuppressWarnings("unused")
     private Activity mActivity;
 
-    public AddThreadMapper(Activity activity) {
+    public DeleteThreadMapper(Activity activity) {
         mActivity = activity;
     }
 
-    @Provides @Singleton @Named("addthread")
-    public Controller providesLoginController(
-            ServiceFetcher<AddPostResourceReturnData> service, 
-            TextEditable textInput, 
+    @Provides @Singleton @Named("deletethread")
+    public DeleteThreadController providesController(
+            ServiceFetcher<DeletePostResourceReturnData> service, 
             ResultsDisplayer<ListThreadsResource> listThreadsDisplayable,
             @Named("listthreads") Controller listThreadsController) {
-        AddThreadController controller = 
-                new AddThreadController(
-                        textInput, 
+        DeleteThreadController controller = 
+                new DeleteThreadController(
                         service,
                         listThreadsDisplayable,
                         listThreadsController);
@@ -52,46 +47,31 @@ public class AddThreadMapper {
     }
 
     @Provides @Singleton
-    public ServiceFetcher<AddPostResourceReturnData> providesService(
-            TextEditable textInput, 
+    public ServiceFetcher<DeletePostResourceReturnData> providesService(
             Context appContext, 
             ProgressIndicator progress, 
             ObjectStringConverter converter, 
             FailureResultFactory failureFactory, 
-            @Named("addthreadrequest") VolleyRequest volleyRequest,
+            @Named("deletethread_service_request") VolleyRequest volleyRequest,
             AddPostResourceInput resourceInput) {
-        return new BaseService<AddPostResourceReturnData>(
+        return new BaseService<DeletePostResourceReturnData>(
                 appContext, 
                 volleyRequest,
                 progress, 
                 converter, 
                 failureFactory, 
-                AddPostResourceReturnData.class);
+                DeletePostResourceReturnData.class);
     }
 
-    @Provides @Singleton
-    public AddPostResourceInput providesThreadInput() {
-        return new AddPostResourceInput();
-    }
-    
-    @Provides @Singleton @Named("addthreadrequest")
-    public VolleyRequest providesVolleyRequestPut(
+    @Provides @Singleton @Named("deletethread_service_request")
+    public VolleyRequest providesVolleyRequestDelete(
             ObjectStringConverter reponseConverter,
             AddPostResourceInput body,
             Context appContext) {
-        VolleyRequestPUTImpl vollyRequest = new VolleyRequestPUTImpl(
-                reponseConverter, 
-                body);
-        String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_addthread);
+        String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_del); 
+        VolleyRequestDELETE vollyRequest = new VolleyRequestDELETE();
         vollyRequest.setUrl(url);
         return vollyRequest;
     } 
-
-    @Provides @Singleton
-    public TextEditable providesTextInput(final AddPostResourceInput resourceInput) {
-        final EditText editText = (EditText) mActivity.findViewById(R.id.editText1);
-        TextEditableEditText textInput = new TextEditablePostUpdater(editText, resourceInput);
-        return textInput;
-    }
 
 }

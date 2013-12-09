@@ -1,5 +1,7 @@
 package org.denevell.droidnatch.addthread.entities;
 
+import org.denevell.droidnatch.listthreads.entities.ThreadResource;
+
 
 
 public class AddPostResourceReturnData extends SuccessOrError {

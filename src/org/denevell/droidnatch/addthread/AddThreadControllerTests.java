@@ -104,5 +104,15 @@ public class AddThreadControllerTests {
         // Assert
         verify(listThreadsController).go();
     }
+
+    @Test
+    public void shouldClearTextInputOnSucess() throws Exception {
+        // Arrange
+        // Act
+        controller.onServiceSuccess(null);
+        
+        // Assert
+        verify(textEditable).setText("");
+    }
         
 }

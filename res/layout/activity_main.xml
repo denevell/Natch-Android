@@ -13,7 +13,7 @@
         <requestFocus />
     </LinearLayout>
 
-    <EditText
+    <org.denevell.droidnatch.app.views.EditTextHideKeyboard
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,10 +22,9 @@
         android:layout_alignParentRight="true"
         android:imeOptions="actionDone"
         android:ems="10"
-        android:inputType="textPersonName" 
+        android:inputType="textCapSentences" 
         android:contentDescription="addthread_edittext" 
-        >
-    </EditText>
+        />
 
     <ListView
         android:id="@+id/listView1"

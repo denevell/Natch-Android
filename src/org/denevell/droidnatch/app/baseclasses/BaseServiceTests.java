@@ -34,7 +34,6 @@ public class BaseServiceTests {
     private VolleyRequest volleyRequest = mock(VolleyRequest.class);
     private BaseService<Object> service = new BaseService<Object>(
             context,
-            "", 
             volleyRequest, 
             progress, 
             responseConverter, 

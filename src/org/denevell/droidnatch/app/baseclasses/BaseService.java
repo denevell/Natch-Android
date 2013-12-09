@@ -1,8 +1,8 @@
 package org.denevell.droidnatch.app.baseclasses;
 
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
+import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
@@ -22,7 +22,6 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
 
     private static final String TAG = BaseService.class.getSimpleName();
     private Context mAppContext;
-    protected String mUrl;
     protected ProgressIndicator mProgress;
     protected ServiceCallbacks<T> mCallbacks;
     private FailureResultFactory mFailureResultFactory;
@@ -32,14 +31,12 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
 
     public BaseService(
             Context applicationContext, 
-            String url, 
             VolleyRequest volleyRequest, 
             ProgressIndicator progress, 
             ObjectStringConverter responseConverter,
             FailureResultFactory failureResultFactory, 
             Class<T> classInstance) {
         mAppContext = applicationContext;
-        mUrl = url;
         mProgress = progress;
         mFailureResultFactory = failureResultFactory;
         mVolleyRequest = volleyRequest;
@@ -47,13 +44,12 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
         mClass = classInstance;
         mVolleyRequest.setErrorListener(this);
         mVolleyRequest.setListener(this);
-        mVolleyRequest.setUrl(url);
     }
 
     public void go() {
-        Log.v(TAG, "Sending out url: " + mUrl); 
         RequestQueue queue = Volley.newRequestQueue(mAppContext);
         queue.add(mVolleyRequest.getRequest());
+        Log.d(TAG, "Sending url: " + mVolleyRequest.getRequest().getUrl());
         mProgress.start();
     }
 

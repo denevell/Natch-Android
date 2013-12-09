@@ -5,11 +5,14 @@ The Android client to the Natch REST project.
 ## Backlog
 
 * I should be able to delete a thread I own
-* I shouldn't add the thread on empty editext
-* Task: EditText which automatically hides the keyboard
+* Task: Start using gradle for normal builds
+* Task: Gradle for the junit tests
 
 ## Ice-box
 
+### Delete thread 
+
+* I should see an error if the service provides one
 
 ### Add threads
 
@@ -22,6 +25,7 @@ The Android client to the Natch REST project.
 * I should be able to refresh the threads
 * I should see a loading icon while the threads load
 * I should see a retry option
+* I shouldn't add the thread on empty editext
 * I should see empty screen on no threads
 * I should keep the found threads on rotate / onResume
 * I should be able to press more to see more threads
@@ -30,8 +34,6 @@ The Android client to the Natch REST project.
 
 --
 
-* Task: Start using gradle for normal builds
-* Task: Gradle for the junit tests
 * Task: Setup ci server that simply builds it
 * Task: Setup ci server that runs unit tests
 * Task: Setup ci server that runs ui tests
@@ -42,6 +44,7 @@ The Android client to the Natch REST project.
 * Task: Add robolectic
 * Task: Should start unit testing
 * Task: Start ui testing
+* Task: EditText which automatically hides the keyboard
 
 ### Stories (Numbers relate to classes names in the uiTests dir)
 
