@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.deletethread.entities;
+package org.denevell.droidnatch.thread.delete.entities;
 
 import android.annotation.SuppressLint;
 import java.text.SimpleDateFormat;

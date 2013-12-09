@@ -33,8 +33,7 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/editText1"
         android:contentDescription="listthreads_listview" 
-        >
-    </ListView>
+        />
 
     <include
         android:contentDescription="listthreads_loading_view"

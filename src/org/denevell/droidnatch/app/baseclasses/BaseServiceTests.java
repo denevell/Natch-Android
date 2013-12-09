@@ -10,7 +10,7 @@ import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
+import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;

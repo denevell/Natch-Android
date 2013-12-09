@@ -50,7 +50,9 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
         RequestQueue queue = Volley.newRequestQueue(mAppContext);
         queue.add(mVolleyRequest.getRequest());
         Log.d(TAG, "Sending url: " + mVolleyRequest.getRequest().getUrl());
-        mProgress.start();
+        if(mProgress!=null) {
+            mProgress.start();
+        }
     }
 
     @Override

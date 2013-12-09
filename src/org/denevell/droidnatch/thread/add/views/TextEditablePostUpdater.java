@@ -1,9 +1,9 @@
-package org.denevell.droidnatch.addthread.views;
+package org.denevell.droidnatch.thread.add.views;
 
 
-import org.denevell.droidnatch.addthread.entities.AddPostResourceInput;
 import org.denevell.droidnatch.app.baseclasses.TextEditableEditText;
 import org.denevell.droidnatch.app.interfaces.TextEditable.OnTextSubmitted;
+import org.denevell.droidnatch.thread.add.entities.AddPostResourceInput;
 
 import android.widget.EditText;
 

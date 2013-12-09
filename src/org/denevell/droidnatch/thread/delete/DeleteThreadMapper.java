@@ -1,21 +1,17 @@
-package org.denevell.droidnatch.deletethread;
+package org.denevell.droidnatch.thread.delete;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.addthread.entities.AddPostResourceInput;
 import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestDELETE;
-import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.deletethread.entities.DeletePostResourceReturnData;
-import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
+import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
@@ -34,15 +30,10 @@ public class DeleteThreadMapper {
     }
 
     @Provides @Singleton @Named("deletethread")
-    public DeleteThreadController providesController(
-            ServiceFetcher<DeletePostResourceReturnData> service, 
-            ResultsDisplayer<ListThreadsResource> listThreadsDisplayable,
-            @Named("listthreads") Controller listThreadsController) {
+    public DeleteThreadController providesController(ServiceFetcher<DeletePostResourceReturnData> service) {
         DeleteThreadController controller = 
                 new DeleteThreadController(
-                        service,
-                        listThreadsDisplayable,
-                        listThreadsController);
+                        service);
         return controller;
     }
 
@@ -52,8 +43,7 @@ public class DeleteThreadMapper {
             ProgressIndicator progress, 
             ObjectStringConverter converter, 
             FailureResultFactory failureFactory, 
-            @Named("deletethread_service_request") VolleyRequest volleyRequest,
-            AddPostResourceInput resourceInput) {
+            @Named("deletethread_service_request") VolleyRequest volleyRequest) {
         return new BaseService<DeletePostResourceReturnData>(
                 appContext, 
                 volleyRequest,
@@ -66,7 +56,6 @@ public class DeleteThreadMapper {
     @Provides @Singleton @Named("deletethread_service_request")
     public VolleyRequest providesVolleyRequestDelete(
             ObjectStringConverter reponseConverter,
-            AddPostResourceInput body,
             Context appContext) {
         String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_del); 
         VolleyRequestDELETE vollyRequest = new VolleyRequestDELETE();

@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.addthread.entities;
+package org.denevell.droidnatch.thread.add.entities;
 
 import java.util.ArrayList;
 import java.util.List;

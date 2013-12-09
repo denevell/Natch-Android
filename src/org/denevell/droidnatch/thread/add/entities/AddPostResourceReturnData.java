@@ -1,6 +1,6 @@
-package org.denevell.droidnatch.addthread.entities;
+package org.denevell.droidnatch.thread.add.entities;
 
-import org.denevell.droidnatch.listthreads.entities.ThreadResource;
+import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 
 
 

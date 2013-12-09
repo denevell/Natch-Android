@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.listthreads.entities;
+package org.denevell.droidnatch.threads.list.entities;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.addthread;
+package org.denevell.droidnatch.thread.add;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

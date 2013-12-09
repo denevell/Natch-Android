@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.listthreads;
+package org.denevell.droidnatch.threads.list;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -6,7 +6,7 @@ import static org.mockito.Mockito.verify;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
+import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,8 +20,12 @@ public class ListThreadsControllerTests {
     @Before
     public void setUp() throws Exception {
         controller = new ListThreadsController(
+                null,
                 service, 
-                displayable);
+                displayable,
+                null,
+                null,
+                null);
     }
 
     @Test

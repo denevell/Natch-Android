@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.deletethread.entities;
+package org.denevell.droidnatch.thread.delete.entities;
 
 import java.util.ArrayList;
 import java.util.List;

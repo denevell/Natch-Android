@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.addthread.views;
+package org.denevell.droidnatch.thread.add.views;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -7,7 +7,7 @@ import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 
-import org.denevell.droidnatch.addthread.entities.AddPostResourceInput;
+import org.denevell.droidnatch.thread.add.entities.AddPostResourceInput;
 import org.junit.Test;
 
 import android.widget.EditText;

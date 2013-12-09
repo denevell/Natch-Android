@@ -1,6 +1,5 @@
-package org.denevell.droidnatch;
+package org.denevell.droidnatch.app.baseclasses;
 
-import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 
 public final class FailureFactory implements FailureResultFactory {

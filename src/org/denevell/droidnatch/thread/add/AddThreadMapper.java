@@ -1,12 +1,9 @@
-package org.denevell.droidnatch.addthread;
+package org.denevell.droidnatch.thread.add;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.addthread.entities.AddPostResourceInput;
-import org.denevell.droidnatch.addthread.entities.AddPostResourceReturnData;
-import org.denevell.droidnatch.addthread.views.TextEditablePostUpdater;
 import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.baseclasses.TextEditableEditText;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestPUTImpl;
@@ -18,7 +15,10 @@ import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.TextEditable;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
+import org.denevell.droidnatch.thread.add.entities.AddPostResourceInput;
+import org.denevell.droidnatch.thread.add.entities.AddPostResourceReturnData;
+import org.denevell.droidnatch.thread.add.views.TextEditablePostUpdater;
+import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;

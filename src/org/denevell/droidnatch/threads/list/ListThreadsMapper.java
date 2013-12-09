@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.listthreads;
+package org.denevell.droidnatch.threads.list;
 
 import javax.inject.Named;
 
@@ -11,9 +11,10 @@ import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
-import org.denevell.droidnatch.listthreads.entities.ThreadResource;
-import org.denevell.droidnatch.listthreads.views.ListThreadsResultDisplayer;
+import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
+import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
+import org.denevell.droidnatch.threads.list.entities.ThreadResource;
+import org.denevell.droidnatch.threads.list.views.ListThreadsResultDisplayer;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
@@ -37,18 +38,27 @@ public class ListThreadsMapper {
     }
     
     @Provides @Named("listthreads")
-    public Controller providesLoginController(
+    public Controller providesController(
+            Context appContext,
             ServiceFetcher<ListThreadsResource> loginService, 
-            ResultsDisplayer<ListThreadsResource> resultsPane) {
+            ResultsDisplayer<ListThreadsResource> resultsPane,
+            ServiceFetcher<DeletePostResourceReturnData> deleteService, 
+            @Named("deletethread_service_request") VolleyRequest deleteRequest, 
+            @Named("listthreads_listview") ListView listView) {
         ListThreadsController controller = new ListThreadsController(
+                appContext,
                 loginService, 
-                resultsPane);
+                resultsPane,
+                deleteRequest,
+                deleteService,
+                listView);
         return controller;
     }
 
     @Provides @Named("listthreads_listview")
     public ListView providesListView() {
-        return (ListView) mActivity.findViewById(R.id.listView1);
+        ListView listView = (ListView) mActivity.findViewById(R.id.listView1);
+        return listView;
     }
 
     @Provides @Named("listthreads_loading")
@@ -101,7 +111,7 @@ public class ListThreadsMapper {
                 failureFactory,
                 ListThreadsResource.class);
     }
-    
+
     @Provides @Named("listthreads_service")
     public VolleyRequest providesListThreadsService(VolleyRequest request, Context appContext) {
         String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_threads);

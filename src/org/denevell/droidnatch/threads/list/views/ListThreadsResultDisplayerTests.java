@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.listthreads.views;
+package org.denevell.droidnatch.threads.list.views;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -6,8 +6,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
-import org.denevell.droidnatch.listthreads.entities.ThreadResource;
+import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
+import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
