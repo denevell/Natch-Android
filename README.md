@@ -4,16 +4,17 @@ The Android client to the Natch REST project.
 
 ## Backlog
 
+* I should be able to delete a thread I own
+* I shouldn't add the thread on empty editext
+* Task: EditText which automatically hides the keyboard
 
 ## Ice-box
 
-* I should be able to delete a thread I own
 
 ### Add threads
 
 * I should see add thread loading screen after the thread add
 * I should see an error if add failed
-* I shouldn't add the thread on empty editext
 
 ### List threads
 
@@ -29,7 +30,6 @@ The Android client to the Natch REST project.
 
 --
 
-* Task: EditText which automatically hides the keyboard
 * Task: Start using gradle for normal builds
 * Task: Gradle for the junit tests
 * Task: Setup ci server that simply builds it

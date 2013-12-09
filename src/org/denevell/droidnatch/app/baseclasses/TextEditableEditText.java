@@ -19,14 +19,15 @@ public class TextEditableEditText implements TextEditable {
         editText.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(event.getAction()==KeyEvent.ACTION_UP) {
-                    for (OnTextSubmitted callback: mCallbacks) {
-                        InputMethodManager imm = 
-                                (InputMethodManager)editText.getContext().getSystemService(
-                                Context.INPUT_METHOD_SERVICE);
-                          imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-                        callback.onTextSubmitted(editText.getText().toString());
-                    }
+                if(event!=null && event.getAction()==KeyEvent.ACTION_DOWN) {
+                    return true;
+                }
+                for (OnTextSubmitted callback: mCallbacks) {
+                    InputMethodManager imm = 
+                            (InputMethodManager)editText.getContext().getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                      imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                    callback.onTextSubmitted(editText.getText().toString());
                 }
                 return true;
             }
