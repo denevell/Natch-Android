@@ -7,9 +7,15 @@ import static org.mockito.Mockito.when;
 
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
+import org.denevell.droidnatch.app.interfaces.ResponseConverter;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
+import org.denevell.droidnatch.app.interfaces.VolleyRequest;
+import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+
+import android.content.Context;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;
@@ -18,10 +24,19 @@ import com.android.volley.VolleyError;
 public class BaseServiceTests {
     
     private ServiceCallbacks<Object> callbacks = mock(ServiceCallbacks.class);
-    //private ResponseConverter responseConverter = mock(ResponseConverter.class);
     private FailureResultFactory failureResultFactory = mock(FailureResultFactory.class);
     private ProgressIndicator progress = mock(ProgressIndicator.class);
-    private BaseService<Object> service = new BaseService<Object>(null, null, progress, failureResultFactory, null) {
+    private ResponseConverter responseConverter = mock(ResponseConverter.class);
+    private Context context = mock(Context.class);
+    private VolleyRequest volleyRequest = mock(VolleyRequest.class);
+    private BaseService<Object> service = new BaseService<Object>(
+            context,
+            "", 
+            volleyRequest, 
+            progress, 
+            responseConverter, 
+            failureResultFactory, 
+            Object.class) {
     };
 
     @Before
@@ -71,5 +86,36 @@ public class BaseServiceTests {
         // Assert
         verifyNoMoreInteractions(callbacks);
     }
+    
+
+    @Test
+    public void onSuccess() throws Exception {
+        // Arrange
+        JSONObject json = new JSONObject();
+        json.put("blar", "blar");
+        service.setServiceCallbacks(callbacks);
+        ListThreadsResource threads = mock(ListThreadsResource.class);
+        when(responseConverter.convert(json.toString(), ListThreadsResource.class))
+                .thenReturn(threads);
+        
+        // Act
+        service.onResponse(json);
+        
+        // Assert
+        verify(callbacks).onServiceSuccess(threads);
+    }
+
+    @Test
+    public void whenNullCallbackOnSuccess() throws Exception {
+        // Arrange
+        JSONObject json = new JSONObject();
+        service.setServiceCallbacks(null);
+        
+        // Act
+        service.onResponse(json);
+        
+        // Assert
+        verifyNoMoreInteractions(callbacks);
+    }    
 
 }

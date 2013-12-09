@@ -1,16 +1,11 @@
-package org.denevell.droidnatch.baseclasses;
+package org.denevell.droidnatch.app.baseclasses;
 
 import javax.inject.Singleton;
 
-import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.baseclasses.JsonConverter;
-import org.denevell.droidnatch.app.baseclasses.ProgressBarIndicator;
-import org.denevell.droidnatch.app.baseclasses.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResponseConverter;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.app.interfaces.VolleyRequestPUT;
 
 import android.app.Activity;
 import android.content.Context;
@@ -45,10 +40,6 @@ public class CommonMapper {
         return new VolleyRequestGET();
     }
 
-    @Provides 
-    public VolleyRequestPUT providesVolleyRequestPut(ResponseConverter reponseConverter) {
-        return new org.denevell.droidnatch.app.baseclasses.VolleyRequestPUT(reponseConverter);
-    }
     
     @Provides
     public ResponseConverter providesResponseConverter() {

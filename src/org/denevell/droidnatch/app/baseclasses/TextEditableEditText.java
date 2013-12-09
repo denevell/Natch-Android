@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-public final class TextEditableEditText implements TextEditable {
+public class TextEditableEditText implements TextEditable {
     private List<OnTextInputted> mCallbacks = new ArrayList<TextEditable.OnTextInputted>();
 
     public TextEditableEditText(final EditText editText) {

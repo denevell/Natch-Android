@@ -3,16 +3,16 @@ package org.denevell.droidnatch.listthreads;
 import javax.inject.Named;
 
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.app.baseclasses.ProgressBarIndicator;
+import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
+import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResponseConverter;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.listthreads.entities.ListThreadsResource;
 import org.denevell.droidnatch.listthreads.entities.ThreadResource;
-import org.denevell.droidnatch.listthreads.service.ListThreadsService;
 import org.denevell.droidnatch.listthreads.views.ListThreadsResultDisplayer;
 import org.denevell.natch.android.R;
 
@@ -36,30 +36,31 @@ public class ListThreadsMapper {
         mActivity = activity;
     }
     
-    // controllers
-
     @Provides @Named("listthreads")
     public Controller providesLoginController(
-            ServiceFetcher<ListThreadsResource> loginService) {
+            ServiceFetcher<ListThreadsResource> loginService, 
+            ResultsDisplayer<ListThreadsResource> resultsPane) {
         ListThreadsController controller = new ListThreadsController(
                 loginService, 
-                provideLoginResultPane());
+                resultsPane);
         return controller;
     }
-    
-    // others
 
-    public ListView providesList() {
+    @Provides @Named("listthreads")
+    public ListView providesListView() {
         return (ListView) mActivity.findViewById(R.id.listView1);
     }
 
+    @Provides @Named("listthreads_loading")
     public View providesLoadingListView() {
         View v = mActivity.findViewById(R.id.list_threads_loading);
         return v;
     }
 
-    public ArrayAdapter<ThreadResource> providesListAdapter() {
-        return new ArrayAdapter<ThreadResource>(mActivity, R.layout.list_threads_row) {
+    @Provides
+    public ArrayAdapter<ThreadResource> providesListAdapter(
+            Context appContext) {
+        return new ArrayAdapter<ThreadResource>(appContext, R.layout.list_threads_row) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView v = (TextView) super.getView(position, convertView, parent);
@@ -69,13 +70,18 @@ public class ListThreadsMapper {
             }};
     }
 
-    public ResultsDisplayer<ListThreadsResource> provideLoginResultPane() {
+    @Provides
+    public ResultsDisplayer<ListThreadsResource> provideLoginResultPane(
+            Context appContext, 
+            ArrayAdapter<ThreadResource> arrayAdapter, 
+            @Named("listthreads") ListView listView, 
+            @Named("listthreads_loading") View listViewLoading) {
         ListThreadsResultDisplayer displayer = 
                 new ListThreadsResultDisplayer(
-                        providesList(), 
-                        providesListAdapter(), 
-                        providesLoadingListView(),
-                        mActivity.getApplicationContext());
+                        listView, 
+                        arrayAdapter, 
+                        listViewLoading,
+                        appContext);
         return displayer;
     }
 
@@ -83,17 +89,18 @@ public class ListThreadsMapper {
     public ServiceFetcher<ListThreadsResource> provideLoginService(
             ResponseConverter responseConverter, 
             FailureResultFactory failureFactory, 
-            VolleyRequest volleyRequest) {
-        ProgressBarIndicator progress = new ProgressBarIndicator(mActivity);
-        Context context = mActivity.getApplicationContext();
-        String url = context.getString(R.string.url_baseurl) + context.getString(R.string.url_threads);
-        return new ListThreadsService(
-                context, 
+            VolleyRequest volleyRequest, 
+            Context appContext, 
+            ProgressIndicator progress) {
+        String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_threads);
+        return new BaseService<ListThreadsResource>(
+                appContext, 
                 url, 
+                volleyRequest,
                 progress, 
                 responseConverter,
                 failureFactory,
-                volleyRequest);
+                ListThreadsResource.class);
     }
 
 }

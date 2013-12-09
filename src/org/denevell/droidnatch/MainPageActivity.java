@@ -4,8 +4,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.denevell.droidnatch.addthread.AddThreadMapper;
+import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.baseclasses.CommonMapper;
 import org.denevell.droidnatch.listthreads.ListThreadsMapper;
 import org.denevell.natch.android.R;
 
