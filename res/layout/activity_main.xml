@@ -22,7 +22,9 @@
         android:layout_alignParentRight="true"
         android:imeOptions="actionDone"
         android:ems="10"
-        android:inputType="textPersonName" >
+        android:inputType="textPersonName" 
+        android:contentDescription="addthread_edittext" 
+        >
     </EditText>
 
     <ListView
@@ -31,7 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/editText1"
-        android:contentDescription="listthreads_listview" >
+        android:contentDescription="listthreads_listview" 
+        >
     </ListView>
 
     <include

@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.denevell.droidnatch.app.interfaces.TextEditable;
 
+import android.content.Context;
 import android.view.KeyEvent;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -17,8 +19,14 @@ public class TextEditableEditText implements TextEditable {
         editText.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                for (OnTextSubmitted callback: mCallbacks) {
-                    callback.onTextSubmitted(editText.getText().toString());
+                if(event.getAction()==KeyEvent.ACTION_UP) {
+                    for (OnTextSubmitted callback: mCallbacks) {
+                        InputMethodManager imm = 
+                                (InputMethodManager)editText.getContext().getSystemService(
+                                Context.INPUT_METHOD_SERVICE);
+                          imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                        callback.onTextSubmitted(editText.getText().toString());
+                    }
                 }
                 return true;
             }

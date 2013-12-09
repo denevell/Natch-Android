@@ -64,6 +64,7 @@ public class ListThreadsMapper {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView v = (TextView) super.getView(position, convertView, parent);
+                v.setContentDescription(v.getContentDescription()+String.valueOf(position));
                 ThreadResource o = getItem(position);
                 v.setText(o.getSubject());
                 return v;

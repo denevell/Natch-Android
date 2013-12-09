@@ -4,8 +4,6 @@ The Android client to the Natch REST project.
 
 ## Backlog
 
-* I should be able to add a new thread (subject only atm)
-* I should refresh the (plus loading) threads after an add
 
 ## Ice-box
 
@@ -15,6 +13,7 @@ The Android client to the Natch REST project.
 
 * I should see add thread loading screen after the thread add
 * I should see an error if add failed
+* I shouldn't add the thread on empty editext
 
 ### List threads
 
@@ -30,6 +29,7 @@ The Android client to the Natch REST project.
 
 --
 
+* Task: EditText which automatically hides the keyboard
 * Task: Start using gradle for normal builds
 * Task: Gradle for the junit tests
 * Task: Setup ci server that simply builds it
@@ -47,3 +47,5 @@ The Android client to the Natch REST project.
 
 1. I should see the x most recent thread titles
 2. I should see a loading screen while the threads are loaded
+3. I should be able to add a new thread (subject only atm)
+4. I should refresh the (plus loading) threads after an add

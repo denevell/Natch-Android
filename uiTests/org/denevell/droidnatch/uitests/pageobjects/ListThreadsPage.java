@@ -20,8 +20,8 @@ public class ListThreadsPage {
        return new UiObject(new UiSelector().description("listthreads_listview"));
     }
 
-    private UiObject getThreadsRow() {
-       return new UiObject(new UiSelector().description("list_threads_row"));
+    public UiObject getThreadsRow(int pos) {
+       return new UiObject(new UiSelector().description("list_threads_row"+String.valueOf(pos)));
     }
 
     public UiObject getLoadingView() {
@@ -31,7 +31,7 @@ public class ListThreadsPage {
     
     public UiObject waitForThreadsToLoad() throws UiObjectNotFoundException, InterruptedException {
         System.out.println("Looking for threads");
-        UiObject threadRow = getThreadsRow();
+        UiObject threadRow = getThreadsRow(0);
         threadRow.waitForExists(10000);
         threadsList = getThreadsList();
         System.out.println("Found threads: " + threadsList.getChildCount());
