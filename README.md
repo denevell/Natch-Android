@@ -13,7 +13,7 @@ The Android client to the Natch REST project.
 
 ### Add threads
 
-* I should see loading after the thread add
+* I should see add thread loading screen after the thread add
 * I should see an error if add failed
 
 ### List threads
@@ -31,6 +31,7 @@ The Android client to the Natch REST project.
 --
 
 * Task: Start using gradle for normal builds
+* Task: Gradle for the junit tests
 * Task: Setup ci server that simply builds it
 * Task: Setup ci server that runs unit tests
 * Task: Setup ci server that runs ui tests
