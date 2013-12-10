@@ -50,6 +50,7 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
 
     public void go() {
         RequestQueue queue = Volley.newRequestQueue(mAppContext);
+        @SuppressWarnings("rawtypes")
         Request request = mVolleyRequest.getRequest();
         request.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
         queue.add(request);

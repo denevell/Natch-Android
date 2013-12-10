@@ -6,6 +6,7 @@ import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.JsonConverter;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
+import org.denevell.droidnatch.app.interfaces.ContextItemSelectedHolder;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
@@ -13,7 +14,6 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
 import org.denevell.droidnatch.thread.delete.entities.ListPostsResource;
-import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
@@ -28,27 +28,33 @@ public class DeleteThreadController implements Controller,
     private ServiceFetcher<DeletePostResourceReturnData> mService;
     private Controller mListThreadsController;
     private Context mContext;
-    private VolleyRequest<DeletePostResourceReturnData> mDeleteRequest;
+    private VolleyRequest<?> mDeleteRequest;
     private ListView mListView;
-    private ResultsDisplayer<ListThreadsResource> mListThreadsResultsDisplayable;
+    private ResultsDisplayer<?> mListThreadsResultsDisplayable;
+    private ContextItemSelectedHolder mContextSelectedHolder;
 
     public DeleteThreadController(
             Context appContext,
-            VolleyRequest<DeletePostResourceReturnData> deleteRequest,
+            VolleyRequest<?> deleteRequest,
             ListView listView,          
             ServiceFetcher<DeletePostResourceReturnData> service,
             Controller listThreadsController,
-            ResultsDisplayer<ListThreadsResource> listThreadsResultsDisplayable) {
+            ResultsDisplayer<?> listThreadsResultsDisplayable, 
+            ContextItemSelectedHolder contextSelectedHolder) {
         mContext = appContext;
         mDeleteRequest = deleteRequest;
         mListView = listView;
         mService = service;
         mListThreadsController = listThreadsController;
         mListThreadsResultsDisplayable = listThreadsResultsDisplayable;
+        mContextSelectedHolder = contextSelectedHolder;
     }
 
     @Override
     public void go() {
+        if(mContextSelectedHolder!=null) {
+            mContextSelectedHolder.addContextItemSelectedCallback(this);
+        }
         if(mService!=null) {
            mService.setServiceCallbacks(this);
         }
@@ -78,6 +84,7 @@ public class DeleteThreadController implements Controller,
         }
     }
     
+    @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         int index = info.position;

@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestDELETE;
+import org.denevell.droidnatch.app.interfaces.ContextItemSelectedHolder;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
@@ -16,7 +17,6 @@ import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnDa
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.natch.android.R;
 
-import android.app.Activity;
 import android.content.Context;
 import android.widget.ListView;
 import dagger.Module;
@@ -25,21 +25,21 @@ import dagger.Provides;
 @Module(complete = false, library = true)
 public class DeleteThreadMapper {
     
-    @SuppressWarnings("unused")
-    private Activity mActivity;
+    private ContextItemSelectedHolder mActivity;
 
-    public DeleteThreadMapper(Activity activity) {
+    public DeleteThreadMapper(ContextItemSelectedHolder activity) {
         mActivity = activity;
     }
 
     @Provides @Singleton @Named("deletethread")
-    public DeleteThreadController providesController(
+    public Controller providesController(
             ServiceFetcher<DeletePostResourceReturnData> service, 
             Context appContext, 
             VolleyRequest<DeletePostResourceReturnData> deleteRequest, 
             @Named("listthreads_listview") ListView listView, 
             @Named("listthreads") Controller listThreadsController, 
-            ResultsDisplayer<ListThreadsResource> listThreadsResultsDisplayable) {
+            ResultsDisplayer<ListThreadsResource> listThreadsResultsDisplayable,
+            ContextItemSelectedHolder contextSelectedHolder) {
         DeleteThreadController controller = 
                 new DeleteThreadController(
                         appContext,
@@ -47,7 +47,8 @@ public class DeleteThreadMapper {
                         listView,
                         service,
                         listThreadsController,
-                        listThreadsResultsDisplayable);
+                        listThreadsResultsDisplayable,
+                        contextSelectedHolder);
         return controller;
     }
 
@@ -77,5 +78,9 @@ public class DeleteThreadMapper {
         vollyRequest.setUrl(url);
         return vollyRequest;
     } 
-
+    
+    @Provides
+    public ContextItemSelectedHolder providesContextSelectedHolder() {
+        return mActivity;
+    }
 }
