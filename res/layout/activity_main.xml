@@ -26,7 +26,7 @@
         android:contentDescription="addthread_edittext" 
         />
 
-    <ListView
+    <org.denevell.droidnatch.threads.list.views.ListThreadsListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

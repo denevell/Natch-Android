@@ -6,19 +6,13 @@ import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 
 import android.content.Context;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
 import android.view.View;
-import android.view.View.OnCreateContextMenuListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class ListThreadsResultDisplayer implements 
-        ResultsDisplayer<ListThreadsResource>, 
-        OnCreateContextMenuListener
-        {
+        ResultsDisplayer<ListThreadsResource> {
     
     private ArrayAdapter<ThreadResource> mListAdapter;
     private ListView mList;
@@ -34,14 +28,8 @@ public class ListThreadsResultDisplayer implements
         mList = list;
         mErrorView = errorView;
         mAppContext = appContext;
-        mList.setOnCreateContextMenuListener(this);
     }
     
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        menu.add(Menu.NONE, 0, 0, "Delete");
-    }
-
     public void onSuccess(final ListThreadsResource success) {
         mListAdapter.clear();
         mListAdapter.addAll(success.getThreads());
