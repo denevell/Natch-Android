@@ -11,7 +11,9 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -48,8 +50,10 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
 
     public void go() {
         RequestQueue queue = Volley.newRequestQueue(mAppContext);
-        queue.add(mVolleyRequest.getRequest());
-        Log.d(TAG, "Sending url: " + mVolleyRequest.getRequest().getUrl());
+        Request request = mVolleyRequest.getRequest();
+        request.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
+        queue.add(request);
+        Log.d(TAG, "Sending url: " + request.getUrl());
         if(mProgress!=null) {
             mProgress.start();
         }

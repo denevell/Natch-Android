@@ -10,7 +10,11 @@ import org.denevell.droidnatch.app.interfaces.TextEditable.OnTextSubmitted;
 import org.denevell.droidnatch.thread.add.entities.AddPostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 
+import android.util.Log;
+
 public class AddThreadController implements Controller, OnTextSubmitted, ServiceCallbacks<AddPostResourceReturnData> {
+    @SuppressWarnings("unused")
+    private static final String TAG = AddThreadController.class.getSimpleName();
     private TextEditable mTextEditable;
     private ResultsDisplayer<ListThreadsResource> mListThreadsView;
     private ServiceFetcher<AddPostResourceReturnData> mService;
