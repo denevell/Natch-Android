@@ -8,7 +8,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-public class VolleyRequestGET implements VolleyRequest{
+public class VolleyRequestGET<T> implements VolleyRequest<T>{
     
     private String mUrl;
     private ErrorListener errorListener;

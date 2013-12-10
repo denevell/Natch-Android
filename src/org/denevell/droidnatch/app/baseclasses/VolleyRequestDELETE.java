@@ -12,7 +12,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-public class VolleyRequestDELETE implements VolleyRequest {
+public class VolleyRequestDELETE<T> implements VolleyRequest<T> {
     
     private String mUrl;
     private ErrorListener errorListener;

@@ -3,9 +3,8 @@ package org.denevell.droidnatch.app.baseclasses;
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
-import org.denevell.droidnatch.app.interfaces.VolleyRequest;
+import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 
 import android.app.Activity;
 import android.content.Context;
@@ -34,13 +33,7 @@ public class CommonMapper {
         ProgressBarIndicator progress = new ProgressBarIndicator(mActivityContext);
         return progress;
     }
-    
-    @Provides 
-    public VolleyRequest providesVolleyRequest() {
-        return new VolleyRequestGET();
-    }
 
-    
     @Provides
     public ObjectStringConverter providesResponseConverter() {
         return new JsonConverter();

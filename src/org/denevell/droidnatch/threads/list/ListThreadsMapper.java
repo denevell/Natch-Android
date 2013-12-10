@@ -4,6 +4,7 @@ import javax.inject.Named;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.app.baseclasses.BaseService;
+import org.denevell.droidnatch.app.baseclasses.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
@@ -11,7 +12,6 @@ import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.views.ListThreadsResultDisplayer;
@@ -39,19 +39,11 @@ public class ListThreadsMapper {
     
     @Provides @Named("listthreads")
     public Controller providesController(
-            Context appContext,
-            ServiceFetcher<ListThreadsResource> loginService, 
-            ResultsDisplayer<ListThreadsResource> resultsPane,
-            ServiceFetcher<DeletePostResourceReturnData> deleteService, 
-            @Named("deletethread_service_request") VolleyRequest deleteRequest, 
-            @Named("listthreads_listview") ListView listView) {
+            ServiceFetcher<ListThreadsResource> listThreadsService, 
+            ResultsDisplayer<ListThreadsResource> resultsPane) {
         ListThreadsController controller = new ListThreadsController(
-                appContext,
-                loginService, 
-                resultsPane,
-                deleteRequest,
-                deleteService,
-                listView);
+                listThreadsService, 
+                resultsPane);
         return controller;
     }
 
@@ -100,7 +92,7 @@ public class ListThreadsMapper {
     public ServiceFetcher<ListThreadsResource> provideLoginService(
             ObjectStringConverter responseConverter, 
             FailureResultFactory failureFactory, 
-            @Named("listthreads_service") VolleyRequest volleyRequest, 
+            VolleyRequest<ListThreadsResource> volleyRequest, 
             Context appContext, 
             ProgressIndicator progress) {
         return new BaseService<ListThreadsResource>(
@@ -112,11 +104,12 @@ public class ListThreadsMapper {
                 ListThreadsResource.class);
     }
 
-    @Provides @Named("listthreads_service")
-    public VolleyRequest providesListThreadsService(VolleyRequest request, Context appContext) {
+    @Provides
+    public VolleyRequest<ListThreadsResource> providesListThreadsService(Context appContext) {
         String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_threads);
-        request.setUrl(url);
-        return request;
+        VolleyRequestGET<ListThreadsResource> v = new VolleyRequestGET<ListThreadsResource>();
+        v.setUrl(url);
+        return v;
     }
 
 }

@@ -20,12 +20,8 @@ public class ListThreadsControllerTests {
     @Before
     public void setUp() throws Exception {
         controller = new ListThreadsController(
-                null,
                 service, 
-                displayable,
-                null,
-                null,
-                null);
+                displayable);
     }
 
     @Test

@@ -31,7 +31,7 @@ public class BaseServiceTests {
     private ProgressIndicator progress = mock(ProgressIndicator.class);
     private ObjectStringConverter responseConverter = mock(ObjectStringConverter.class);
     private Context context = mock(Context.class);
-    private VolleyRequest volleyRequest = mock(VolleyRequest.class);
+    private VolleyRequest<Object> volleyRequest = mock(VolleyRequest.class);
     private BaseService<Object> service = new BaseService<Object>(
             context,
             volleyRequest, 

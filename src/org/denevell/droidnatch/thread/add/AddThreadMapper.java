@@ -58,7 +58,7 @@ public class AddThreadMapper {
             ProgressIndicator progress, 
             ObjectStringConverter converter, 
             FailureResultFactory failureFactory, 
-            @Named("addthreadrequest") VolleyRequest volleyRequest,
+            VolleyRequest<AddPostResourceReturnData> volleyRequest,
             AddPostResourceInput resourceInput) {
         return new BaseService<AddPostResourceReturnData>(
                 appContext, 
@@ -74,14 +74,15 @@ public class AddThreadMapper {
         return new AddPostResourceInput();
     }
     
-    @Provides @Singleton @Named("addthreadrequest")
-    public VolleyRequest providesVolleyRequestPut(
+    @Provides @Singleton 
+    public VolleyRequest<AddPostResourceReturnData> providesVolleyRequestPut(
             ObjectStringConverter reponseConverter,
             AddPostResourceInput body,
             Context appContext) {
-        VolleyRequestPUTImpl vollyRequest = new VolleyRequestPUTImpl(
-                reponseConverter, 
-                body);
+        VolleyRequestPUTImpl<AddPostResourceReturnData> vollyRequest = 
+                new VolleyRequestPUTImpl<AddPostResourceReturnData>(
+                    reponseConverter, 
+                    body);
         String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_addthread);
         vollyRequest.setUrl(url);
         return vollyRequest;

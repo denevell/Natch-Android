@@ -14,7 +14,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-public class VolleyRequestPUTImpl implements VolleyRequest {
+public class VolleyRequestPUTImpl<T> implements VolleyRequest<T> {
     
     private ObjectStringConverter mResponseConverter;
     private String mUrl;
