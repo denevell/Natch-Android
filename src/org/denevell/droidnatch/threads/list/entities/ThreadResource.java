@@ -14,6 +14,7 @@ public class ThreadResource {
 	private int numPosts;
 	private long creation;
 	private long modification;
+	private long rootPostId;
 	
 	public ThreadResource(ThreadResource tr) {
 		subject = tr.subject;
@@ -115,6 +116,18 @@ public class ThreadResource {
         c.setTimeInMillis(modification);
         String dateString = new SimpleDateFormat("d MMM yyyy, K:mm:ss a", Locale.UK).format(c.getTime());
         return dateString;
-	}	
+	}
+
+
+
+    public long getRootPostId() {
+        return rootPostId;
+    }
+
+
+
+    public void setRootPostId(long rootPostId) {
+        this.rootPostId = rootPostId;
+    }	
 
 }

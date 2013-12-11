@@ -1,10 +1,6 @@
 package org.denevell.droidnatch.thread.delete;
 
-import org.denevell.droidnatch.app.baseclasses.BaseService;
-import org.denevell.droidnatch.app.baseclasses.FailureFactory;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.baseclasses.JsonConverter;
-import org.denevell.droidnatch.app.baseclasses.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedHolder;
 import org.denevell.droidnatch.app.interfaces.Controller;
@@ -13,11 +9,11 @@ import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
-import org.denevell.droidnatch.thread.delete.entities.ListPostsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
@@ -25,6 +21,7 @@ import android.widget.ListView;
 public class DeleteThreadController implements Controller, 
                ContextItemSelected,
                ServiceCallbacks<DeletePostResourceReturnData> {
+    private static final String TAG = DeleteThreadController.class.getSimpleName();
     private ServiceFetcher<DeletePostResourceReturnData> mService;
     private Controller mListThreadsController;
     private Context mContext;
@@ -86,35 +83,18 @@ public class DeleteThreadController implements Controller,
     
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        int index = info.position;
-        ThreadResource tr = (ThreadResource) mListView.getAdapter().getItem(index);
-
-        // <NastyHack> 
-        VolleyRequestGET<ListPostsResource> volleyRequest = new VolleyRequestGET<ListPostsResource>();
-        volleyRequest.setUrl(mContext.getString(R.string.url_baseurl)
-                +"post/thread/"
-                +tr.getId()+"/0/1");
-        BaseService<ListPostsResource> posts = new BaseService<ListPostsResource>(
-                mContext, 
-                volleyRequest,
-                null,
-                new JsonConverter(),
-                new FailureFactory(),
-                ListPostsResource.class);
-        posts.setServiceCallbacks(new ServiceCallbacks<ListPostsResource>() {
-            @Override
-            public void onServiceSuccess(ListPostsResource r) {
-                String postId = String.valueOf(r.getPosts().get(0).getId());
-                String url = mContext.getString(R.string.url_baseurl) 
-                        + mContext.getString(R.string.url_del); 
-                mDeleteRequest.setUrl(url+postId);
-                startNetworkCall();
-            }
-            @Override public void onServiceFail(FailureResult r) { }
-        });
-        posts.go();
-        // </NastyHack> 
+        try {
+            AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+            int index = info.position;
+            ThreadResource tr = (ThreadResource) mListView.getAdapter().getItem(index);
+    
+            String url = mContext.getString(R.string.url_baseurl) 
+                    + mContext.getString(R.string.url_del); 
+            mDeleteRequest.setUrl(url+tr.getRootPostId());
+            startNetworkCall();
+        } catch (Exception e) {
+            Log.e(TAG, "Couldn't process oncontextitemselected event.", e);
+        }
         return true;
     }      
 

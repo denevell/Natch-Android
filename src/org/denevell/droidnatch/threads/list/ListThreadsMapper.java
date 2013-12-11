@@ -27,8 +27,7 @@ import android.widget.TextView;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {MainPageActivity.class}, 
-        complete=false)
+@Module(injects = {MainPageActivity.class}, complete=false)
 public class ListThreadsMapper {
     
     private Activity mActivity;

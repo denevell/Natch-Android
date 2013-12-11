@@ -13,6 +13,7 @@ The Android client to the Natch REST project.
 ### Delete thread 
 
 * I should see an error if the service provides one
+* I should see delete thread specific loading screen
 
 ### Add threads
 
