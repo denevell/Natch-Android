@@ -13,7 +13,6 @@ public class ListThreadsPage {
 
     public ListThreadsPage(UiDevice uiDevice) {
         this.uiDevice = uiDevice;
-        uiDevice.waitForIdle();
     }
     
     private UiObject getThreadsList() {
@@ -22,6 +21,21 @@ public class ListThreadsPage {
 
     public UiObject getThreadsRow(int pos) {
        return new UiObject(new UiSelector().description("list_threads_row"+String.valueOf(pos)));
+    }
+
+    public UiObject longPressThreadRow(int pos) throws UiObjectNotFoundException {
+        UiObject row = getThreadsRow(pos);
+        System.out.println("Long pressing on list item");
+        uiDevice.swipe(row.getBounds().centerX(), row.getBounds().centerY(), 
+                row.getBounds().centerX(), row.getBounds().centerY(), 400);
+        System.out.println("Searching for delete item");
+        UiSelector deleteSelector = new UiSelector().text("Delete");
+        UiObject deleteObject = new UiObject(deleteSelector);
+        System.out.println("Clicking on delete item");
+        deleteObject.click();
+        System.out.println("Waiting for loading view");
+        getLoadingView().waitForExists(1000);
+        return null;
     }
 
     public UiObject getLoadingView() {
@@ -35,6 +49,7 @@ public class ListThreadsPage {
         threadRow.waitForExists(10000);
         threadsList = getThreadsList();
         System.out.println("Found threads: " + threadsList.getChildCount());
+        getLoadingView().waitUntilGone(2000);
         return threadsList;
     }
 

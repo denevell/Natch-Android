@@ -4,11 +4,15 @@ The Android client to the Natch REST project.
 
 ## Backlog
 
-* I should be able to delete a thread I own
+* I should be able to edit my thread title
 * Task: Start using gradle for normal builds
-* Task: Gradle for the junit tests
 
 ## Ice-box
+
+### Edit thread 
+
+* I should see an error on edit thread if there
+* I should see a specific editing loading screen
 
 ### Delete thread 
 
@@ -36,7 +40,6 @@ The Android client to the Natch REST project.
 --
 
 * Task: Setup ci server that simply builds it
-* Task: Setup ci server that runs unit tests
 * Task: Setup ci server that runs ui tests
 * Task: Setup ci server that updates the dev version on the play store
 
@@ -46,6 +49,7 @@ The Android client to the Natch REST project.
 * Task: Should start unit testing
 * Task: Start ui testing
 * Task: EditText which automatically hides the keyboard
+* Task: Gradle for the junit tests
 
 ### Stories (Numbers relate to classes names in the uiTests dir)
 
@@ -53,3 +57,4 @@ The Android client to the Natch REST project.
 2. I should see a loading screen while the threads are loaded
 3. I should be able to add a new thread (subject only atm)
 4. I should refresh the (plus loading) threads after an add
+5. I should be able to delete a thread I have created 

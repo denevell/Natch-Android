@@ -31,14 +31,16 @@ public class _12_ListThreads extends UiAutomatorTestCase {
     public void test_2_LoadingViewOnListThreads() throws Exception {
         // Arrange
         ListThreadsPage listThreadsPage = new ListThreadsPage(getUiDevice());
-        getUiDevice().waitForIdle();
         UiObject loadingView = listThreadsPage.getLoadingView();
-        loadingView.waitForExists(10000);
+        boolean exists = loadingView.waitForExists(10000);
 
         // Act 
         System.out.println("Checking for loading view");
-        assertTrue("Loading view should show", loadingView.exists());
+        assertTrue("Loading view should show", exists);
         UiObject threads = listThreadsPage.waitForThreadsToLoad();
+        loadingView = listThreadsPage.getLoadingView();
+        exists = loadingView.waitForExists(10000);
+        assertFalse("Loading view should be hidden", exists);
         
         // Assert
         int children = threads.getChildCount();

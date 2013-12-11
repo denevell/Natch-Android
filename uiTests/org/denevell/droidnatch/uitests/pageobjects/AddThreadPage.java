@@ -20,7 +20,7 @@ public class AddThreadPage {
        return new UiObject(new UiSelector().description("addthread_edittext"));
     }
     
-    public void setThreadText(String text) throws UiObjectNotFoundException {
+    public void addThread(String text) throws UiObjectNotFoundException {
         UiObject editText = getThreadsEditText();
         editText.waitForExists(3000);
         editText.clearTextField();

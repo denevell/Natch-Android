@@ -11,7 +11,7 @@ import com.android.uiautomator.core.UiObject;
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 
 
-public class _34_ListThreads extends UiAutomatorTestCase {
+public class _34_AddThread extends UiAutomatorTestCase {
     
     @Override
     protected void setUp() throws Exception {
@@ -27,7 +27,7 @@ public class _34_ListThreads extends UiAutomatorTestCase {
         String subject = new Date().toGMTString();
 
         // Act 
-        page.setThreadText(subject);
+        page.addThread(subject);
         listThreadsPage.waitForThreadsToLoad();
         
         // Assert
