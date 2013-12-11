@@ -29,7 +29,7 @@ public class ListThreadsResultDisplayer implements
         mErrorView = errorView;
         mAppContext = appContext;
     }
-    
+
     public void onSuccess(final ListThreadsResource success) {
         mListAdapter.clear();
         mListAdapter.addAll(success.getThreads());

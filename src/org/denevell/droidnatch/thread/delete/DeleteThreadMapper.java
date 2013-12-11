@@ -9,16 +9,17 @@ import org.denevell.droidnatch.app.interfaces.ContextItemSelectedHolder;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
+import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
+import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
 import android.content.Context;
-import android.widget.ListView;
 import dagger.Module;
 import dagger.Provides;
 
@@ -36,19 +37,17 @@ public class DeleteThreadMapper {
             ServiceFetcher<DeletePostResourceReturnData> service, 
             Context appContext, 
             VolleyRequest<DeletePostResourceReturnData> deleteRequest, 
-            @Named("listthreads_listview") ListView listView, 
             @Named("listthreads") Controller listThreadsController, 
             ResultsDisplayer<ListThreadsResource> listThreadsResultsDisplayable,
-            ContextItemSelectedHolder contextSelectedHolder) {
+            OnLongPressObserver<ThreadResource> longPressObserver) {
         DeleteThreadController controller = 
                 new DeleteThreadController(
                         appContext,
                         deleteRequest,
-                        listView,
                         service,
                         listThreadsController,
                         listThreadsResultsDisplayable,
-                        contextSelectedHolder);
+                        longPressObserver);
         return controller;
     }
 

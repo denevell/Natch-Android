@@ -1,19 +1,23 @@
 package org.denevell.droidnatch.threads.list;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestGET;
+import org.denevell.droidnatch.app.interfaces.ContextItemSelectedHolder;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
+import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
+import org.denevell.droidnatch.threads.list.views.ListThreadsListView;
 import org.denevell.droidnatch.threads.list.views.ListThreadsResultDisplayer;
 import org.denevell.natch.android.R;
 
@@ -27,7 +31,7 @@ import android.widget.TextView;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {MainPageActivity.class}, complete=false)
+@Module(injects = {MainPageActivity.class}, complete=false, library=true)
 public class ListThreadsMapper {
     
     private Activity mActivity;
@@ -46,10 +50,18 @@ public class ListThreadsMapper {
         return controller;
     }
 
-    @Provides @Named("listthreads_listview")
-    public ListView providesListView() {
+    @Provides @Singleton 
+    public ListThreadsListView providesListView(
+            ContextItemSelectedHolder contextSelectedHolder) {
         ListView listView = (ListView) mActivity.findViewById(R.id.listView1);
-        return listView;
+        ListThreadsListView ltlv = new ListThreadsListView(listView, contextSelectedHolder);
+        return ltlv;
+    }
+
+    @Provides @Singleton 
+    public OnLongPressObserver<ThreadResource> providesOnLongPressObserver(
+            ListThreadsListView observer) {
+        return observer;
     }
 
     @Provides @Named("listthreads_loading")
@@ -76,11 +88,11 @@ public class ListThreadsMapper {
     public ResultsDisplayer<ListThreadsResource> provideLoginResultPane(
             Context appContext, 
             ArrayAdapter<ThreadResource> arrayAdapter, 
-            @Named("listthreads_listview") ListView listView, 
+            ListThreadsListView listView, 
             @Named("listthreads_loading") View listViewLoading) {
         ListThreadsResultDisplayer displayer = 
                 new ListThreadsResultDisplayer(
-                        listView, 
+                        listView.getListView(), 
                         arrayAdapter, 
                         listViewLoading,
                         appContext);
