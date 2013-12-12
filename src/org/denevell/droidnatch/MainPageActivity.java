@@ -7,9 +7,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
+import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedHolder;
 import org.denevell.droidnatch.app.interfaces.Controller;
+import org.denevell.droidnatch.posts.list.ListPostsMapper;
 import org.denevell.droidnatch.thread.add.AddThreadMapper;
 import org.denevell.droidnatch.thread.delete.DeleteThreadMapper;
 import org.denevell.droidnatch.threads.list.ListThreadsMapper;
@@ -29,6 +31,7 @@ public class MainPageActivity extends FragmentActivity implements ContextItemSel
     @Inject @Named("listthreads") Controller mController;
     @Inject @Named("addthread") Controller mControllerAddThread;
     @Inject @Named("deletethread") Controller mControllerDeleteThread;
+    @Inject @Named("listposts") Controller mControllerListsPosts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +40,18 @@ public class MainPageActivity extends FragmentActivity implements ContextItemSel
             requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
             setContentView(R.layout.activity_main);
             ObjectGraph.create(
+                    new ScreenOpenerMapper(this),
+                    new CommonMapper(this),
                     new DeleteThreadMapper(this),
                     new ListThreadsMapper(this),
                     new AddThreadMapper(this),
-                    new CommonMapper(this))
+                    new ListPostsMapper(this)
+                    )
                     .inject(this);
             mController.go();
             mControllerAddThread.go();
             mControllerDeleteThread.go();
+            mControllerListsPosts.go();
         } catch (Exception e) {
             Log.e(TAG, "Failed to parse activity", e);
             return;

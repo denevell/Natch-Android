@@ -11,6 +11,7 @@ import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
+import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -60,6 +61,12 @@ public class ListThreadsMapper {
 
     @Provides @Singleton 
     public OnLongPressObserver<ThreadResource> providesOnLongPressObserver(
+            ListThreadsListView observer) {
+        return observer;
+    }
+
+    @Provides @Singleton 
+    public OnPressObserver<ThreadResource> providesOnPressObserver(
             ListThreadsListView observer) {
         return observer;
     }

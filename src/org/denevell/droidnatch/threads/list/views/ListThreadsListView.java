@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedHolder;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
+import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 
 import android.util.Log;
@@ -14,23 +15,43 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class ListThreadsListView implements 
         OnCreateContextMenuListener, 
                ContextItemSelected,
-               OnLongPressObserver<ThreadResource> {
+               OnLongPressObserver<ThreadResource>, 
+               OnPressObserver<ThreadResource>, 
+               OnItemClickListener {
 
     private static final String TAG = ListThreadsListView.class.getSimpleName();
     private ListView mListView;
     private ArrayList<OnLongPress<ThreadResource>> mLongPressListeners = new ArrayList<OnLongPress<ThreadResource>>();
+    private ArrayList<OnPress<ThreadResource>> mPressListeners = new ArrayList<OnPressObserver.OnPress<ThreadResource>>();
 
     public ListThreadsListView(ListView listView, 
             ContextItemSelectedHolder contextSelectedHolder) {
         mListView = listView;
         mListView.setOnCreateContextMenuListener(this);
+        mListView.setOnItemClickListener(this);
         contextSelectedHolder.addContextItemSelectedCallback(this);
+    }
+
+    @Override
+    public void addOnLongClickListener(OnLongPress<ThreadResource> callback) {
+        mLongPressListeners.add(callback);
+    }
+
+    @Override
+    public void addOnLongClickListener(OnPress<ThreadResource> callback) {
+        mPressListeners.add(callback);
+    }
+
+    public ListView getListView() {
+        return mListView;
     }
     
     @Override
@@ -54,12 +75,15 @@ public class ListThreadsListView implements
     }
 
     @Override
-    public void addOnLongClickListener(OnLongPress<ThreadResource> callback) {
-        mLongPressListeners.add(callback);
-    }
-
-    public ListView getListView() {
-        return mListView;
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        try {
+            ThreadResource tr = (ThreadResource) mListView.getAdapter().getItem(position);
+            for (OnPress<ThreadResource> listener: mPressListeners) {
+                listener.onPress(tr);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Couldn't process onitemclick event.", e);
+        }
     }
 
 }
