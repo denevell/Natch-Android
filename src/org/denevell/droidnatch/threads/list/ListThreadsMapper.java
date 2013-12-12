@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestGET;
-import org.denevell.droidnatch.app.interfaces.ContextItemSelectedHolder;
+import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
@@ -14,6 +14,7 @@ import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
+import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
@@ -44,16 +45,20 @@ public class ListThreadsMapper {
     @Provides @Named("listthreads")
     public Controller providesController(
             ServiceFetcher<ListThreadsResource> listThreadsService, 
-            ResultsDisplayer<ListThreadsResource> resultsPane) {
+            ResultsDisplayer<ListThreadsResource> resultsPane, 
+            OnPressObserver<ThreadResource> onPressObserver, 
+            ScreenOpener screenOpener) {
         ListThreadsController controller = new ListThreadsController(
                 listThreadsService, 
-                resultsPane);
+                resultsPane,
+                onPressObserver,
+                screenOpener);
         return controller;
     }
 
     @Provides @Singleton 
     public ListThreadsListView providesListView(
-            ContextItemSelectedHolder contextSelectedHolder) {
+            ContextItemSelectedObserver contextSelectedHolder) {
         ListView listView = (ListView) mActivity.findViewById(R.id.listView1);
         ListThreadsListView ltlv = new ListThreadsListView(listView, contextSelectedHolder);
         return ltlv;

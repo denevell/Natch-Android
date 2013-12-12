@@ -3,7 +3,7 @@ package org.denevell.droidnatch.threads.list.views;
 import java.util.ArrayList;
 
 import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
-import org.denevell.droidnatch.app.interfaces.ContextItemSelectedHolder;
+import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
@@ -33,7 +33,7 @@ public class ListThreadsListView implements
     private ArrayList<OnPress<ThreadResource>> mPressListeners = new ArrayList<OnPressObserver.OnPress<ThreadResource>>();
 
     public ListThreadsListView(ListView listView, 
-            ContextItemSelectedHolder contextSelectedHolder) {
+            ContextItemSelectedObserver contextSelectedHolder) {
         mListView = listView;
         mListView.setOnCreateContextMenuListener(this);
         mListView.setOnItemClickListener(this);
@@ -46,7 +46,7 @@ public class ListThreadsListView implements
     }
 
     @Override
-    public void addOnLongClickListener(OnPress<ThreadResource> callback) {
+    public void addOnPressListener(OnPress<ThreadResource> callback) {
         mPressListeners.add(callback);
     }
 

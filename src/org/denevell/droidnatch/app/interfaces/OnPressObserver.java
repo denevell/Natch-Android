@@ -6,6 +6,6 @@ public interface OnPressObserver<T> {
        public void onPress(T obj);
    }
     
-   public void addOnLongClickListener(OnPress<T> callback); 
+   public void addOnPressListener(OnPress<T> callback); 
 
 }

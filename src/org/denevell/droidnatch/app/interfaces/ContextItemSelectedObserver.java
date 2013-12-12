@@ -1,6 +1,6 @@
 package org.denevell.droidnatch.app.interfaces;
 
-public interface ContextItemSelectedHolder {
+public interface ContextItemSelectedObserver {
 
     public void addContextItemSelectedCallback(ContextItemSelected contextItem);
 

@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestDELETE;
-import org.denevell.droidnatch.app.interfaces.ContextItemSelectedHolder;
+import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
@@ -26,9 +26,9 @@ import dagger.Provides;
 @Module(complete = false, library = true)
 public class DeleteThreadMapper {
     
-    private ContextItemSelectedHolder mActivity;
+    private ContextItemSelectedObserver mActivity;
 
-    public DeleteThreadMapper(ContextItemSelectedHolder activity) {
+    public DeleteThreadMapper(ContextItemSelectedObserver activity) {
         mActivity = activity;
     }
 
@@ -79,7 +79,7 @@ public class DeleteThreadMapper {
     } 
     
     @Provides
-    public ContextItemSelectedHolder providesContextSelectedHolder() {
+    public ContextItemSelectedObserver providesContextSelectedHolder() {
         return mActivity;
     }
 }
