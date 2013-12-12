@@ -4,13 +4,13 @@ The Android client to the Natch REST project.
 
 ## Backlog
 
-* I should be able to edit my thread title
-* Task: Start using gradle for normal builds
+* I should load the posts in a thread after it's clicked on
 
 ## Ice-box
 
 ### Edit thread 
 
+* I should be able to edit my thread title
 * I should see an error on edit thread if there
 * I should see a specific editing loading screen
 
@@ -45,6 +45,7 @@ The Android client to the Natch REST project.
 
 ## Dev complete
 
+* Task: Start using gradle for normal builds
 * Task: Add robolectic
 * Task: Should start unit testing
 * Task: Start ui testing

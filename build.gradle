@@ -16,6 +16,7 @@ repositories {
 }
 
 dependencies {
+	compile 'com.squareup.dagger:dagger-compiler:1.1.0'
 	compile 'com.squareup.dagger:dagger:1.1.0'
 	compile 'com.google.code.gson:gson:2.2.4'
 	compile 'com.android.support:support-v4:13.0.0'
