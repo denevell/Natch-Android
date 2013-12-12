@@ -15,6 +15,7 @@ import org.denevell.droidnatch.posts.list.ListPostsMapper;
 import org.denevell.droidnatch.thread.add.AddThreadMapper;
 import org.denevell.droidnatch.thread.delete.DeleteThreadMapper;
 import org.denevell.droidnatch.threads.list.ListThreadsMapper;
+import org.denevell.droidnatch.threads.list.views.ListThreadsFragment;
 import org.denevell.natch.android.R;
 
 import android.os.Bundle;
@@ -39,6 +40,21 @@ public class MainPageActivity extends FragmentActivity implements ContextItemSel
         try {
             requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
             setContentView(R.layout.activity_main);
+            
+            getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_holder, new ListThreadsFragment())
+                .commit();
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to parse activity", e);
+            return;
+        }
+    }
+    
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        try {
             ObjectGraph.create(
                     new ScreenOpenerMapper(this),
                     new CommonMapper(this),
@@ -53,7 +69,7 @@ public class MainPageActivity extends FragmentActivity implements ContextItemSel
             mControllerDeleteThread.go();
             mControllerListsPosts.go();
         } catch (Exception e) {
-            Log.e(TAG, "Failed to parse activity", e);
+            Log.e(TAG, "Failed to start di mapper", e);
             return;
         }
     }

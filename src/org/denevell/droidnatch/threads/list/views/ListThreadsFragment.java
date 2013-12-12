@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.posts.list.views;
+package org.denevell.droidnatch.threads.list.views;
 
 import org.denevell.natch.android.R;
 
@@ -8,13 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ListPostsFragment extends Fragment {
+public class ListThreadsFragment extends Fragment {
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View v = inflater.inflate(R.layout.list_posts_fragment, container, false);
+        View v = inflater.inflate(R.layout.list_threads_fragment, container, false);
         return v;
     }
 

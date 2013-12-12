@@ -5,16 +5,16 @@ import javax.inject.Singleton;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import dagger.Module;
 import dagger.Provides;
 
 @Module(injects = {MainPageActivity.class}, complete = false, library=true)
 public class ScreenOpenerMapper {
     
-    private Activity mActivity;
+    private FragmentActivity mActivity;
 
-    public ScreenOpenerMapper(Activity mainPageActivity) {
+    public ScreenOpenerMapper(FragmentActivity mainPageActivity) {
         mActivity = mainPageActivity;
     }
 
