@@ -18,6 +18,7 @@ import dagger.ObjectGraph;
 
 public class ListPostsFragment extends Fragment {
     
+    public static final String BUNDLE_KEY_THREAD_ID = "thread_id";
     private static final String TAG = ListPostsFragment.class.getSimpleName();
     @Inject @Named("listposts") Controller mControllerListPosts;
 

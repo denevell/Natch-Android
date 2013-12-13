@@ -58,7 +58,7 @@ public class ListThreadsController
     @Override
     public void onPress(ThreadResource obj) {
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("thread_id", obj.getId());
+        map.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, obj.getId());
         mScreenCreator.openScreen(ListPostsFragment.class, map);
     }    
       

@@ -72,11 +72,11 @@ public class ListPostsMapper {
             Context appContext) {
         String url = appContext.getString(R.string.url_baseurl) 
                 + appContext.getString(R.string.url_posts);
-        url = url.replace("{thread_id}", (CharSequence) mBundle.getString("thread_id"));
+        url = url.replace("{thread_id}", (CharSequence) mBundle.getString(ListPostsFragment.BUNDLE_KEY_THREAD_ID));
         VolleyRequestGET<ListPostsResource> v = new VolleyRequestGET<ListPostsResource>();
         v.setUrl(url);
         return v;
-    }    
+    } 
     
     @Provides
     public ArrayAdapter<PostResource> providesListAdapter(
@@ -109,6 +109,6 @@ public class ListPostsMapper {
                         null,
                         appContext);
         return displayer;
-    }    
+    } 
 
 }
