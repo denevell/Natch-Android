@@ -1,5 +1,7 @@
 package org.denevell.droidnatch.threads.list;
 
+import java.util.List;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -20,7 +22,7 @@ import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.views.ListThreadsListView;
-import org.denevell.droidnatch.threads.list.views.ListThreadsResultDisplayer;
+import org.denevell.droidnatch.threads.list.views.ListViewResultDisplayer;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
@@ -45,7 +47,7 @@ public class ListThreadsMapper {
     @Provides @Named("listthreads")
     public Controller providesController(
             ServiceFetcher<ListThreadsResource> listThreadsService, 
-            ResultsDisplayer<ListThreadsResource> resultsPane, 
+            ResultsDisplayer<List<ThreadResource>> resultsPane, 
             OnPressObserver<ThreadResource> onPressObserver, 
             ScreenOpener screenOpener) {
         ListThreadsController controller = new ListThreadsController(
@@ -97,13 +99,13 @@ public class ListThreadsMapper {
     }
 
     @Provides
-    public ResultsDisplayer<ListThreadsResource> provideLoginResultPane(
+    public ResultsDisplayer<List<ThreadResource>> provideLoginResultPane(
             Context appContext, 
             ArrayAdapter<ThreadResource> arrayAdapter, 
             ListThreadsListView listView, 
             @Named("listthreads_loading") View listViewLoading) {
-        ListThreadsResultDisplayer displayer = 
-                new ListThreadsResultDisplayer(
+        ListViewResultDisplayer<ThreadResource, List<ThreadResource>> displayer = 
+                new ListViewResultDisplayer<ThreadResource, List<ThreadResource>>(
                         listView.getListView(), 
                         arrayAdapter, 
                         listViewLoading,
@@ -128,7 +130,8 @@ public class ListThreadsMapper {
     }
 
     @Provides
-    public VolleyRequest<ListThreadsResource> providesListThreadsService(Context appContext) {
+    public VolleyRequest<ListThreadsResource> providesListThreadsService(
+            Context appContext) {
         String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_threads);
         VolleyRequestGET<ListThreadsResource> v = new VolleyRequestGET<ListThreadsResource>();
         v.setUrl(url);

@@ -19,7 +19,7 @@ public class ListPostsControllerTests {
 
     @Before
     public void setUp() throws Exception {
-        controller = new ListPostsController(service);
+        controller = null; //new ListPostsController(service);
     }
 
     @Test

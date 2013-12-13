@@ -1,13 +1,16 @@
 package org.denevell.droidnatch.threads.list;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver;
+import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.posts.list.views.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
@@ -18,13 +21,13 @@ public class ListThreadsController
         OnPress<ThreadResource> {
     
     private ServiceFetcher<ListThreadsResource> mService;
-    private ResultsDisplayer<ListThreadsResource> mResultsDisplayable;
+    private ResultsDisplayer<List<ThreadResource>> mResultsDisplayable;
     private OnPressObserver<ThreadResource> mOnPressObserver;
     private ScreenOpener mScreenCreator;
 
     public ListThreadsController(
             ServiceFetcher<ListThreadsResource> listThreadsService, 
-            ResultsDisplayer<ListThreadsResource> resultsDisplayable,
+            ResultsDisplayer<List<ThreadResource>>resultsDisplayable,
             OnPressObserver<ThreadResource> onPressObserver, 
             ScreenOpener screenCreator) {
         mService = listThreadsService;
@@ -42,7 +45,7 @@ public class ListThreadsController
 
     @Override
     public void onServiceSuccess(ListThreadsResource r) {
-        mResultsDisplayable.onSuccess(r);
+        mResultsDisplayable.onSuccess(r.getThreads());
         mResultsDisplayable.stopLoading();
     }
 
@@ -54,7 +57,9 @@ public class ListThreadsController
     
     @Override
     public void onPress(ThreadResource obj) {
-        mScreenCreator.openScreen(ListPostsFragment.class);
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("thread_id", obj.getId());
+        mScreenCreator.openScreen(ListPostsFragment.class, map);
     }    
       
 }

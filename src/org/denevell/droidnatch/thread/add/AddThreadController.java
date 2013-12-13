@@ -8,20 +8,19 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.TextEditable;
 import org.denevell.droidnatch.app.interfaces.TextEditable.OnTextSubmitted;
 import org.denevell.droidnatch.thread.add.entities.AddPostResourceReturnData;
-import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 
 public class AddThreadController implements Controller, OnTextSubmitted, ServiceCallbacks<AddPostResourceReturnData> {
     @SuppressWarnings("unused")
     private static final String TAG = AddThreadController.class.getSimpleName();
     private TextEditable mTextEditable;
-    private ResultsDisplayer<ListThreadsResource> mListThreadsView;
+    private ResultsDisplayer<?> mListThreadsView;
     private ServiceFetcher<AddPostResourceReturnData> mService;
     private Controller mListThreadsController;
 
     public AddThreadController(
             TextEditable textEditable, 
             ServiceFetcher<AddPostResourceReturnData> service,
-            ResultsDisplayer<ListThreadsResource> listThreadsView, 
+            ResultsDisplayer<?> listThreadsView, 
             Controller listThreadsController) {
         mTextEditable = textEditable;
         mListThreadsView = listThreadsView;

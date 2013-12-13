@@ -3,6 +3,7 @@
     <string name="app_name">Droidnatch</string>
     <string name="url_baseurl">http://denevell.org:8912/Natch-REST-ForAutomatedTests/rest/</string>
     <string name="url_threads">threads/0/100</string>
+    <string name="url_posts">post/thread/{thread_id}/0/100</string>
     <string name="url_addthread">post/addthread</string>
     <string name="url_del">post/del/</string>
     <string name="list_threads_loading">Loading threads</string>

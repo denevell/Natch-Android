@@ -1,5 +1,7 @@
 package org.denevell.droidnatch.thread.add;
 
+import java.util.List;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -17,7 +19,7 @@ import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.thread.add.entities.AddPostResourceInput;
 import org.denevell.droidnatch.thread.add.entities.AddPostResourceReturnData;
 import org.denevell.droidnatch.thread.add.views.TextEditablePostUpdater;
-import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
+import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.views.ListThreadsFragment;
 import org.denevell.natch.android.R;
 
@@ -40,7 +42,7 @@ public class AddThreadMapper {
     public Controller providesLoginController(
             ServiceFetcher<AddPostResourceReturnData> service, 
             TextEditable textInput, 
-            ResultsDisplayer<ListThreadsResource> listThreadsDisplayable,
+            ResultsDisplayer<List<ThreadResource>> listThreadsDisplayable,
             @Named("listthreads") Controller listThreadsController) {
         AddThreadController controller = 
                 new AddThreadController(

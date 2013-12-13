@@ -96,7 +96,7 @@ public class ListThreadsControllerTests {
         controller.onPress(obj);
         
         // Assert
-        verify(screenCreator).openScreen(ListPostsFragment.class);
+        verify(screenCreator).openScreen(ListPostsFragment.class, null);
     }    
 
 }

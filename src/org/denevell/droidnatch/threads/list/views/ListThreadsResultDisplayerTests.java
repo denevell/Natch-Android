@@ -24,13 +24,13 @@ public class ListThreadsResultDisplayerTests  {
     
     private ListView list = mock(ListView.class);
     private ArrayAdapter<ThreadResource> adapter = mock(ArrayAdapter.class);
-    private ListThreadsResultDisplayer displayer;
+    private ListViewResultDisplayer displayer;
     private View loadingView = mock(View.class);
     private Context context = mock(Context.class);
 
     @Before
     public void setup() {
-        displayer = new ListThreadsResultDisplayer(list, adapter, loadingView, context);
+        displayer = new ListViewResultDisplayer(list, adapter, loadingView, context);
     }
     
     @Test

@@ -1,5 +1,7 @@
 package org.denevell.droidnatch.thread.delete;
 
+import java.util.List;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -15,7 +17,6 @@ import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
-import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
@@ -38,7 +39,7 @@ public class DeleteThreadMapper {
             Context appContext, 
             VolleyRequest<DeletePostResourceReturnData> deleteRequest, 
             @Named("listthreads") Controller listThreadsController, 
-            ResultsDisplayer<ListThreadsResource> listThreadsResultsDisplayable,
+            ResultsDisplayer<List<ThreadResource>> listThreadsResultsDisplayable,
             OnLongPressObserver<ThreadResource> longPressObserver) {
         DeleteThreadController controller = 
                 new DeleteThreadController(

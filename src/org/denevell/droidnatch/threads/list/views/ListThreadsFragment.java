@@ -53,7 +53,6 @@ public class ListThreadsFragment extends ObservableFragment {
             Log.e(TAG, "Failed to start di mapper", e);
             return;
         }    
-        super.onResume();
     }
 
 
