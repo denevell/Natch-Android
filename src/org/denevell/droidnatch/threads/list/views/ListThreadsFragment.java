@@ -22,7 +22,7 @@ import dagger.ObjectGraph;
 public class ListThreadsFragment extends ObservableFragment {
     
     private static final String TAG = ListThreadsFragment.class.getSimpleName();
-    @Inject @Named("listthreads") Controller mController;
+    @Inject @Named("list_threads") Controller mController;
     @Inject @Named("addthread") Controller mControllerAddThread;
     @Inject @Named("deletethread") Controller mControllerDeleteThread;
 

@@ -17,6 +17,7 @@ import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
+import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
@@ -38,7 +39,7 @@ public class DeleteThreadMapper {
             ServiceFetcher<DeletePostResourceReturnData> service, 
             Context appContext, 
             VolleyRequest<DeletePostResourceReturnData> deleteRequest, 
-            @Named("listthreads") Controller listThreadsController, 
+            @Named(ListThreadsMapper.PROVIDES_LIST_THREADS) Controller listThreadsController, 
             ResultsDisplayer<List<ThreadResource>> listThreadsResultsDisplayable,
             OnLongPressObserver<ThreadResource> longPressObserver) {
         DeleteThreadController controller = 

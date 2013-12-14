@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Named;
 
 import org.denevell.droidnatch.app.baseclasses.BaseService;
+import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
+import org.denevell.droidnatch.app.baseclasses.ServiceDisplayResultsController;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
@@ -15,8 +17,8 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.entities.ListPostsResource;
 import org.denevell.droidnatch.posts.entities.PostResource;
+import org.denevell.droidnatch.posts.list.adapters.ListPostsResourceToListAdapter;
 import org.denevell.droidnatch.posts.list.views.ListPostsFragment;
-import org.denevell.droidnatch.threads.list.views.ListViewResultDisplayer;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
@@ -45,9 +47,11 @@ public class ListPostsMapper {
     public Controller providesController(
             ServiceFetcher<ListPostsResource> listPostsService, 
             ResultsDisplayer<List<PostResource>> resultsPane) {
-        ListPostsController controller = new ListPostsController(
+        ServiceDisplayResultsController<ListPostsResource, List<PostResource>> controller = 
+                new ServiceDisplayResultsController<ListPostsResource, List<PostResource>>(
                 listPostsService, 
-                resultsPane);
+                resultsPane,
+                new ListPostsResourceToListAdapter());
         return controller;
     }    
     

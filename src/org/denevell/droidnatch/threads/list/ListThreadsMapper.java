@@ -1,12 +1,14 @@
 package org.denevell.droidnatch.threads.list;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.app.baseclasses.BaseService;
+import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
+import org.denevell.droidnatch.app.baseclasses.ServiceDisplayResultsController;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.Controller;
@@ -14,15 +16,18 @@ import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver;
+import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
+import org.denevell.droidnatch.posts.list.views.ListPostsFragment;
+import org.denevell.droidnatch.threads.list.adapters.ListThreadsResourceToListAdapter;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
+import org.denevell.droidnatch.threads.list.views.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.views.ListThreadsListView;
-import org.denevell.droidnatch.threads.list.views.ListViewResultDisplayer;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
@@ -35,27 +40,47 @@ import android.widget.TextView;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {MainPageActivity.class}, complete=false, library=true)
+@Module(injects = {ListThreadsFragment.class}, complete=false, library=true)
 public class ListThreadsMapper {
     
+    public static final String PROVIDES_LIST_THREADS = "list_threads";
     private Activity mActivity;
 
     public ListThreadsMapper(Activity activity) {
         mActivity = activity;
     }
     
-    @Provides @Named("listthreads")
+    @Provides @Singleton @Named(PROVIDES_LIST_THREADS)
     public Controller providesController(
             ServiceFetcher<ListThreadsResource> listThreadsService, 
             ResultsDisplayer<List<ThreadResource>> resultsPane, 
-            OnPressObserver<ThreadResource> onPressObserver, 
-            ScreenOpener screenOpener) {
-        ListThreadsController controller = new ListThreadsController(
-                listThreadsService, 
-                resultsPane,
-                onPressObserver,
-                screenOpener);
+            @Named("list_threads_list_click") Controller listener) {
+        listener.go();
+        ServiceDisplayResultsController<ListThreadsResource, List<ThreadResource>> controller = 
+                new ServiceDisplayResultsController<ListThreadsResource, List<ThreadResource>>(
+                    listThreadsService, 
+                    resultsPane,
+                    new ListThreadsResourceToListAdapter());
         return controller;
+    }
+    
+    @Provides @Singleton @Named("list_threads_list_click")
+    public Controller providesOnListClickAction(
+            final OnPressObserver<ThreadResource> onPressObserver, 
+            final ScreenOpener screenOpener) {
+        return new Controller() {
+            @Override
+            public void go() {
+                onPressObserver.addOnPressListener(new OnPress<ThreadResource>() {
+                    @Override
+                    public void onPress(ThreadResource obj) {
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, obj.getId());
+                        screenOpener.openScreen(ListPostsFragment.class, map);
+                    }
+                });
+            }
+        };
     }
 
     @Provides @Singleton 
@@ -99,7 +124,7 @@ public class ListThreadsMapper {
     }
 
     @Provides
-    public ResultsDisplayer<List<ThreadResource>> provideLoginResultPane(
+    public ResultsDisplayer<List<ThreadResource>> provideResultPage(
             Context appContext, 
             ArrayAdapter<ThreadResource> arrayAdapter, 
             ListThreadsListView listView, 
@@ -114,7 +139,7 @@ public class ListThreadsMapper {
     }
 
     @Provides
-    public ServiceFetcher<ListThreadsResource> provideLoginService(
+    public ServiceFetcher<ListThreadsResource> provideService(
             ObjectStringConverter responseConverter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<ListThreadsResource> volleyRequest, 
@@ -130,7 +155,7 @@ public class ListThreadsMapper {
     }
 
     @Provides
-    public VolleyRequest<ListThreadsResource> providesListThreadsService(
+    public VolleyRequest<ListThreadsResource> providesRequest (
             Context appContext) {
         String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_threads);
         VolleyRequestGET<ListThreadsResource> v = new VolleyRequestGET<ListThreadsResource>();

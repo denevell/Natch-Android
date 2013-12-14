@@ -19,6 +19,7 @@ import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.thread.add.entities.AddPostResourceInput;
 import org.denevell.droidnatch.thread.add.entities.AddPostResourceReturnData;
 import org.denevell.droidnatch.thread.add.views.TextEditablePostUpdater;
+import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.views.ListThreadsFragment;
 import org.denevell.natch.android.R;
@@ -43,7 +44,7 @@ public class AddThreadMapper {
             ServiceFetcher<AddPostResourceReturnData> service, 
             TextEditable textInput, 
             ResultsDisplayer<List<ThreadResource>> listThreadsDisplayable,
-            @Named("listthreads") Controller listThreadsController) {
+            @Named(ListThreadsMapper.PROVIDES_LIST_THREADS) Controller listThreadsController) {
         AddThreadController controller = 
                 new AddThreadController(
                         textInput, 

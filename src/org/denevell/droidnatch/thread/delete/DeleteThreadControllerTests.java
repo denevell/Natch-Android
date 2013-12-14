@@ -5,11 +5,11 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.baseclasses.ServiceDisplayResultsController;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
-import org.denevell.droidnatch.threads.list.ListThreadsController;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +23,7 @@ import android.content.Context;
 public class DeleteThreadControllerTests {
 
     private DeleteThreadController controller;
-    private ListThreadsController listThreadsController;
+    private ServiceDisplayResultsController listThreadsController;
     private ServiceFetcher service = mock(ServiceFetcher.class);
     private ResultsDisplayer displayable = mock(ResultsDisplayer.class);
 

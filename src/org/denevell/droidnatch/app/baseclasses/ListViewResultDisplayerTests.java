@@ -1,13 +1,13 @@
-package org.denevell.droidnatch.threads.list.views;
+package org.denevell.droidnatch.app.baseclasses;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
-import org.denevell.droidnatch.threads.list.entities.ThreadResource;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,24 +19,24 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 @RunWith(RobolectricTestRunner.class)
-@SuppressWarnings("unchecked")
-public class ListThreadsResultDisplayerTests  {
+@SuppressWarnings({"unchecked"})
+public class ListViewResultDisplayerTests  {
     
     private ListView list = mock(ListView.class);
-    private ArrayAdapter<ThreadResource> adapter = mock(ArrayAdapter.class);
-    private ListViewResultDisplayer displayer;
+    private ArrayAdapter<Object> adapter = mock(ArrayAdapter.class);
+    private ListViewResultDisplayer<Object, List<Object>> displayer;
     private View loadingView = mock(View.class);
     private Context context = mock(Context.class);
 
     @Before
     public void setup() {
-        displayer = new ListViewResultDisplayer(list, adapter, loadingView, context);
+        displayer = new ListViewResultDisplayer<Object, List<Object>>(list, adapter, loadingView, context);
     }
     
     @Test
     public void shouldSetAdapterOnSuccess() {
         //Arrange
-        ListThreadsResource success = new ListThreadsResource();
+        List<Object> success = new ArrayList<Object>();
         
         // Act
         displayer.onSuccess(success);
@@ -48,14 +48,14 @@ public class ListThreadsResultDisplayerTests  {
     @Test
     public void shouldClearThenAddToAdapterOnSuccess() {
         //Arrange
-        ListThreadsResource success = new ListThreadsResource();
+        List<Object> success = new ArrayList<Object>();
         
         // Act
         displayer.onSuccess(success);
         
         // Assert
         verify(adapter).clear();
-        verify(adapter).addAll(success.getThreads());
+        verify(adapter).addAll(success);
     }
 
     @Test

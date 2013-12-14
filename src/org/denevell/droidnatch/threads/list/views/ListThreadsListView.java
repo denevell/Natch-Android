@@ -33,11 +33,11 @@ public class ListThreadsListView implements
     private ArrayList<OnPress<ThreadResource>> mPressListeners = new ArrayList<OnPressObserver.OnPress<ThreadResource>>();
 
     public ListThreadsListView(ListView listView, 
-            ContextItemSelectedObserver contextSelectedHolder) {
+            ContextItemSelectedObserver contextSelectedObservable) {
         mListView = listView;
         mListView.setOnCreateContextMenuListener(this);
         mListView.setOnItemClickListener(this);
-        contextSelectedHolder.addContextItemSelectedCallback(this);
+        contextSelectedObservable.addContextItemSelectedCallback(this);
     }
 
     @Override

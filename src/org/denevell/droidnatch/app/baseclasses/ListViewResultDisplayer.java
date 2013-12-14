@@ -1,8 +1,7 @@
-package org.denevell.droidnatch.threads.list.views;
+package org.denevell.droidnatch.app.baseclasses;
 
 import java.util.List;
 
-import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 
 import android.content.Context;
