@@ -46,9 +46,9 @@ public class ListThreadsFragment extends ObservableFragment {
                     new AddThreadMapper(getActivity())
                     )
                     .inject(this);
-            mController.go();
-            mControllerAddThread.go();
-            mControllerDeleteThread.go();
+            mController.setup().go();
+            mControllerAddThread.setup().go();
+            mControllerDeleteThread.setup().go();
         } catch (Exception e) {
             Log.e(TAG, "Failed to start di mapper", e);
             return;

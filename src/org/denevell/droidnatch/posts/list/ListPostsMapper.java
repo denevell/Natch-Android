@@ -17,6 +17,7 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.entities.ListPostsResource;
 import org.denevell.droidnatch.posts.entities.PostResource;
+import org.denevell.droidnatch.posts.list.adapters.ListPostsArrayAdapter;
 import org.denevell.droidnatch.posts.list.adapters.ListPostsResourceToListAdapter;
 import org.denevell.droidnatch.posts.list.views.ListPostsFragment;
 import org.denevell.natch.android.R;
@@ -24,17 +25,16 @@ import org.denevell.natch.android.R;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import dagger.Module;
 import dagger.Provides;
 
 @Module(injects = {ListPostsFragment.class}, complete = false)
 public class ListPostsMapper {
-    
+   
+    public static final String PROVIDES_LIST_POSTS_LISTVIEW = "list_posts_listview";
+    public static final String PROVIDES_LIST_POSTS = "list_posts";
     private Activity mActivity;
     private Bundle mBundle;
 
@@ -43,7 +43,7 @@ public class ListPostsMapper {
         mBundle = listPostsFragment.getArguments();
     }
     
-    @Provides @Named("listposts")
+    @Provides @Named(PROVIDES_LIST_POSTS)
     public Controller providesController(
             ServiceFetcher<ListPostsResource> listPostsService, 
             ResultsDisplayer<List<PostResource>> resultsPane) {
@@ -56,7 +56,7 @@ public class ListPostsMapper {
     }    
     
     @Provides
-    public ServiceFetcher<ListPostsResource> provideLoginService(
+    public ServiceFetcher<ListPostsResource> provideService(
             ObjectStringConverter responseConverter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<ListPostsResource> volleyRequest, 
@@ -72,7 +72,7 @@ public class ListPostsMapper {
     }    
     
     @Provides
-    public VolleyRequest<ListPostsResource> providesListThreadsService(
+    public VolleyRequest<ListPostsResource> providesRequest (
             Context appContext) {
         String url = appContext.getString(R.string.url_baseurl) 
                 + appContext.getString(R.string.url_posts);
@@ -85,27 +85,14 @@ public class ListPostsMapper {
     @Provides
     public ArrayAdapter<PostResource> providesListAdapter(
             Context appContext) {
-        return new ArrayAdapter<PostResource>(appContext, R.layout.list_threads_row) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                TextView v = (TextView) super.getView(position, convertView, parent);
-                v.setContentDescription(v.getContentDescription()+String.valueOf(position));
-                PostResource o = getItem(position);
-                v.setText(o.getContent());
-                return v;
-            }};
+        return new ListPostsArrayAdapter(appContext, R.layout.list_threads_row);
     }
     
-    @Provides @Named("list_posts_listview")
-    public ListView provideListPostsListView() {
-        return (ListView) mActivity.findViewById(R.id.list_posts_listview);
-    }        
-
     @Provides
-    public ResultsDisplayer<List<PostResource>> provideListPostsResultPane(
+    public ResultsDisplayer<List<PostResource>> providResultDisplayer(
             Context appContext, 
             ArrayAdapter<PostResource> arrayAdapter, 
-            @Named("list_posts_listview") ListView listView) {
+            @Named(PROVIDES_LIST_POSTS_LISTVIEW) ListView listView) {
         ListViewResultDisplayer<PostResource, List<PostResource>> displayer = 
                 new ListViewResultDisplayer<PostResource, List<PostResource>>(
                         listView, 
@@ -114,5 +101,11 @@ public class ListPostsMapper {
                         appContext);
         return displayer;
     } 
+
+    @Provides @Named(PROVIDES_LIST_POSTS_LISTVIEW)
+    public ListView provideListView() {
+        return (ListView) mActivity.findViewById(R.id.list_posts_listview);
+    }        
+
 
 }

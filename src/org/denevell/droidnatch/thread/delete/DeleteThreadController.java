@@ -40,6 +40,11 @@ public class DeleteThreadController implements Controller,
         mListThreadsController = listThreadsController;
         mListThreadsResultsDisplayable = listThreadsResultsDisplayable;
     }
+    
+    @Override
+    public DeleteThreadController setup() {
+        return this;
+    }
 
     @Override
     public void go() {

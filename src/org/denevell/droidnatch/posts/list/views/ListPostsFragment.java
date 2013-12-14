@@ -20,7 +20,7 @@ public class ListPostsFragment extends Fragment {
     
     public static final String BUNDLE_KEY_THREAD_ID = "thread_id";
     private static final String TAG = ListPostsFragment.class.getSimpleName();
-    @Inject @Named("listposts") Controller mControllerListPosts;
+    @Inject @Named(ListPostsMapper.PROVIDES_LIST_POSTS) Controller mControllerListPosts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +39,7 @@ public class ListPostsFragment extends Fragment {
                     new ListPostsMapper(this)
                     )
                     .inject(this);
-            mControllerListPosts.go();
+            mControllerListPosts.setup().go();
         } catch (Exception e) {
             Log.e(TAG, "Failed to start mapper", e);
             return;

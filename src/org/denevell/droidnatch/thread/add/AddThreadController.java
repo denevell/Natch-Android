@@ -27,6 +27,11 @@ public class AddThreadController implements Controller, OnTextSubmitted, Service
         mService = service;
         mListThreadsController = listThreadsController;
     }
+    
+    @Override
+    public AddThreadController setup() {
+        return this;
+    }
 
     @Override
     public void go() {
