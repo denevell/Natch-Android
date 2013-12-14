@@ -1,6 +1,6 @@
 package org.denevell.droidnatch.threads.list.uievents;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
@@ -14,9 +14,12 @@ public class ThreadsListPressEvent implements Runnable, OnPress<ThreadResource> 
     private static final String TAG = ThreadsListPressEvent.class.getSimpleName();
     private final ScreenOpener screenOpener;
     private final OnPressObserver<ThreadResource> onPressObserver;
+    private Map<String, String> mPassedValuesMap;
 
     public ThreadsListPressEvent(ScreenOpener screenOpener,
-            OnPressObserver<ThreadResource> onPressObserver) {
+            OnPressObserver<ThreadResource> onPressObserver,
+            Map<String, String> passedValuesMap) {
+        this.mPassedValuesMap = passedValuesMap;
         this.screenOpener = screenOpener;
         this.onPressObserver = onPressObserver;
     }
@@ -29,8 +32,8 @@ public class ThreadsListPressEvent implements Runnable, OnPress<ThreadResource> 
     @Override
     public void onPress(ThreadResource obj) {
         Log.v(TAG, "Opening new list posts fragment");
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, obj.getId());
-        screenOpener.openScreen(ListPostsFragment.class, map);
+        mPassedValuesMap.clear();
+        mPassedValuesMap.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, obj.getId());
+        screenOpener.openScreen(ListPostsFragment.class, mPassedValuesMap);
     }
 }

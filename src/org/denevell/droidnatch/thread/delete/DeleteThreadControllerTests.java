@@ -39,9 +39,9 @@ public class DeleteThreadControllerTests {
     }
 
     @Test
-    public void shouldSetServiceCallbacksOnRun() {
+    public void shouldSetServiceCallbacksOnSetup() {
         // Act
-        controller.go();
+        controller.setup();
         
         // Assert
         verify(service).setServiceCallbacks(controller);

@@ -1,5 +1,6 @@
 package org.denevell.droidnatch.threads.list;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Named;
@@ -68,7 +69,10 @@ public class ListThreadsMapper {
     public Runnable providesOnListClickAction(
             final OnPressObserver<ThreadResource> onPressObserver, 
             final ScreenOpener screenOpener) {
-        return new ThreadsListPressEvent(screenOpener, onPressObserver);
+        return new ThreadsListPressEvent(
+                screenOpener, 
+                onPressObserver,
+                new HashMap<String, String>());
     }
 
     @Provides @Singleton 
