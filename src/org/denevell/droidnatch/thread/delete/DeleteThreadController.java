@@ -43,17 +43,17 @@ public class DeleteThreadController implements Controller,
     
     @Override
     public DeleteThreadController setup() {
-        return this;
-    }
-
-    @Override
-    public void go() {
         if(mLongPressObserver!=null) {
             mLongPressObserver.addOnLongClickListener(this);
         }
         if(mService!=null) {
            mService.setServiceCallbacks(this);
         }
+        return this;
+    }
+
+    @Override
+    public void go() {
     }
     
     public void startNetworkCall() {
@@ -81,7 +81,7 @@ public class DeleteThreadController implements Controller,
     }
 
     @Override
-    public void onLongPress(ThreadResource obj) {
+    public void onLongPress(ThreadResource obj, int optionId, String optionName) {
         String url = mContext.getString(R.string.url_baseurl) 
                 + mContext.getString(R.string.url_del); 
         mDeleteRequest.setUrl(url+obj.getRootPostId());

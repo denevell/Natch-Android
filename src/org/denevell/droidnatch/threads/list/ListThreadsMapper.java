@@ -6,6 +6,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.baseclasses.BaseService;
+import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
 import org.denevell.droidnatch.app.baseclasses.ServiceDisplayResultsController;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestGET;
@@ -26,7 +27,7 @@ import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.uievents.ThreadsListPressEvent;
 import org.denevell.droidnatch.threads.list.views.ListThreadsFragment;
-import org.denevell.droidnatch.threads.list.views.ListThreadsListView;
+import org.denevell.droidnatch.threads.list.views.ListThreadsContextMenu;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
@@ -72,13 +73,13 @@ public class ListThreadsMapper {
 
     @Provides @Singleton 
     public OnLongPressObserver<ThreadResource> providesOnLongPressObserver(
-            ListThreadsListView observer) {
+            ClickableListView<ThreadResource> observer) {
         return observer;
     }
 
     @Provides @Singleton 
     public OnPressObserver<ThreadResource> providesOnPressObserver(
-            ListThreadsListView observer) {
+            ClickableListView<ThreadResource> observer) {
         return observer;
     }
 
@@ -89,10 +90,14 @@ public class ListThreadsMapper {
     }
 
     @Provides @Singleton 
-    public ListThreadsListView providesListView(
-            ContextItemSelectedObserver contextSelectedHolder) {
+    public ClickableListView<ThreadResource> providesListView(
+            ContextItemSelectedObserver contextSelectedObserver) {
         ListView listView = (ListView) mActivity.findViewById(R.id.listView1);
-        ListThreadsListView ltlv = new ListThreadsListView(listView, contextSelectedHolder);
+        ClickableListView<ThreadResource> ltlv = 
+                new ClickableListView<ThreadResource>(
+                        listView, 
+                        contextSelectedObserver,
+                        new ListThreadsContextMenu());
         return ltlv;
     }
 
@@ -105,7 +110,7 @@ public class ListThreadsMapper {
     public ResultsDisplayer<List<ThreadResource>> provideResultsDisplayer(
             Context appContext, 
             ArrayAdapter<ThreadResource> arrayAdapter, 
-            ListThreadsListView listView, 
+            ClickableListView<ThreadResource> listView, 
             @Named(PROVIDES_LIST_THREADS_LOADING) View listViewLoading) {
         ListViewResultDisplayer<ThreadResource, List<ThreadResource>> displayer = 
                 new ListViewResultDisplayer<ThreadResource, List<ThreadResource>>(

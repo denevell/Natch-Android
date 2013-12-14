@@ -9,7 +9,10 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
+@RunWith(RobolectricTestRunner.class)
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class ServiceDisplayResultsControllerTests {
 
@@ -30,12 +33,20 @@ public class ServiceDisplayResultsControllerTests {
     }
 
     @Test
+    public void shouldSetServiceCallbacksOnSetup() {
+        // Act
+        controller.setup();
+        
+        // Assert
+        verify(service).setServiceCallbacks(controller);
+    }
+
+    @Test
     public void shouldStartServiceOnRun() {
         // Act
         controller.go();
         
         // Assert
-        verify(service).setServiceCallbacks(controller);
         verify(service).go();
     }
 
@@ -79,7 +90,7 @@ public class ServiceDisplayResultsControllerTests {
     @Test
     public void shouldSetAllUiListeners() throws Exception {
         // Act
-        controller.go();
+        controller.setup();
         
         // Assert
         verify(uiListener1).run();

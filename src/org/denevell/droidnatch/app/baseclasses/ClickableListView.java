@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list.views;
+package org.denevell.droidnatch.app.baseclasses;
 
 import java.util.ArrayList;
 
@@ -6,12 +6,8 @@ import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver;
-import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
@@ -20,33 +16,33 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class ListThreadsListView implements 
-        OnCreateContextMenuListener, 
+public class ClickableListView<T> implements 
                ContextItemSelected,
-               OnLongPressObserver<ThreadResource>, 
-               OnPressObserver<ThreadResource>, 
+               OnLongPressObserver<T>, 
+               OnPressObserver<T>, 
                OnItemClickListener {
 
-    private static final String TAG = ListThreadsListView.class.getSimpleName();
+    private static final String TAG = ClickableListView.class.getSimpleName();
     private ListView mListView;
-    private ArrayList<OnLongPress<ThreadResource>> mLongPressListeners = new ArrayList<OnLongPress<ThreadResource>>();
-    private ArrayList<OnPress<ThreadResource>> mPressListeners = new ArrayList<OnPressObserver.OnPress<ThreadResource>>();
+    private ArrayList<OnLongPress<T>> mLongPressListeners = new ArrayList<OnLongPress<T>>();
+    private ArrayList<OnPress<T>> mPressListeners = new ArrayList<OnPressObserver.OnPress<T>>();
 
-    public ListThreadsListView(ListView listView, 
-            ContextItemSelectedObserver contextSelectedObservable) {
+    public ClickableListView(ListView listView, 
+            ContextItemSelectedObserver contextSelectedObservable, 
+            OnCreateContextMenuListener onCreateContextMenu) {
         mListView = listView;
-        mListView.setOnCreateContextMenuListener(this);
+        mListView.setOnCreateContextMenuListener(onCreateContextMenu);
         mListView.setOnItemClickListener(this);
         contextSelectedObservable.addContextItemSelectedCallback(this);
     }
 
     @Override
-    public void addOnLongClickListener(OnLongPress<ThreadResource> callback) {
+    public void addOnLongClickListener(OnLongPress<T> callback) {
         mLongPressListeners.add(callback);
     }
 
     @Override
-    public void addOnPressListener(OnPress<ThreadResource> callback) {
+    public void addOnPressListener(OnPress<T> callback) {
         mPressListeners.add(callback);
     }
 
@@ -55,18 +51,15 @@ public class ListThreadsListView implements
     }
     
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        menu.add(Menu.NONE, 0, 0, "Delete");
-    }
-    
-    @Override
     public boolean onContextItemSelected(MenuItem item) {
         try {
+            Log.v(TAG, "Long press issued");
             AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
             int index = info.position;
-            ThreadResource tr = (ThreadResource) mListView.getAdapter().getItem(index);
-            for (OnLongPress<ThreadResource> listener: mLongPressListeners) {
-                listener.onLongPress(tr);
+            @SuppressWarnings("unchecked")
+            T tr = (T) mListView.getAdapter().getItem(index);
+            for (OnLongPress<T> listener: mLongPressListeners) {
+                listener.onLongPress(tr, item.getItemId(), item.getTitle().toString());
             }
         } catch (Exception e) {
             Log.e(TAG, "Couldn't process oncontextitemselected event.", e);
@@ -77,8 +70,10 @@ public class ListThreadsListView implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
-            ThreadResource tr = (ThreadResource) mListView.getAdapter().getItem(position);
-            for (OnPress<ThreadResource> listener: mPressListeners) {
+            Log.v(TAG, "Press issued");
+            @SuppressWarnings("unchecked")
+            T tr = (T) mListView.getAdapter().getItem(position);
+            for (OnPress<T> listener: mPressListeners) {
                 listener.onPress(tr);
             }
         } catch (Exception e) {

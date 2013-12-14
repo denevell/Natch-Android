@@ -34,7 +34,7 @@ public class DeleteThreadMapper {
         mActivity = activity;
     }
 
-    @Provides @Named("deletethread")
+    @Provides @Singleton @Named("deletethread")
     public Controller providesController(
             ServiceFetcher<DeletePostResourceReturnData> service, 
             Context appContext, 

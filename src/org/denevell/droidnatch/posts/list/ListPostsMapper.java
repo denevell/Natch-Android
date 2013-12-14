@@ -3,11 +3,15 @@ package org.denevell.droidnatch.posts.list;
 import java.util.List;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.baseclasses.BaseService;
+import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
+import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ServiceDisplayResultsController;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestGET;
+import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
@@ -19,12 +23,14 @@ import org.denevell.droidnatch.posts.entities.ListPostsResource;
 import org.denevell.droidnatch.posts.entities.PostResource;
 import org.denevell.droidnatch.posts.list.adapters.ListPostsArrayAdapter;
 import org.denevell.droidnatch.posts.list.adapters.ListPostsResourceToListAdapter;
+import org.denevell.droidnatch.posts.list.views.ListPostsContextMenu;
 import org.denevell.droidnatch.posts.list.views.ListPostsFragment;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View.OnCreateContextMenuListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import dagger.Module;
@@ -37,8 +43,10 @@ public class ListPostsMapper {
     public static final String PROVIDES_LIST_POSTS = "list_posts";
     private Activity mActivity;
     private Bundle mBundle;
+    private ObservableFragment mObservableFragment;
 
-    public ListPostsMapper(ListPostsFragment listPostsFragment) {
+    public ListPostsMapper(ObservableFragment listPostsFragment) {
+        mObservableFragment = listPostsFragment;
         mActivity = listPostsFragment.getActivity();
         mBundle = listPostsFragment.getArguments();
     }
@@ -92,10 +100,10 @@ public class ListPostsMapper {
     public ResultsDisplayer<List<PostResource>> providResultDisplayer(
             Context appContext, 
             ArrayAdapter<PostResource> arrayAdapter, 
-            @Named(PROVIDES_LIST_POSTS_LISTVIEW) ListView listView) {
+            @Named(PROVIDES_LIST_POSTS_LISTVIEW) ClickableListView<PostResource> listView) {
         ListViewResultDisplayer<PostResource, List<PostResource>> displayer = 
                 new ListViewResultDisplayer<PostResource, List<PostResource>>(
-                        listView, 
+                        listView.getListView(), 
                         arrayAdapter, 
                         null,
                         appContext);
@@ -103,9 +111,24 @@ public class ListPostsMapper {
     } 
 
     @Provides @Named(PROVIDES_LIST_POSTS_LISTVIEW)
-    public ListView provideListView() {
-        return (ListView) mActivity.findViewById(R.id.list_posts_listview);
+    public ClickableListView<PostResource> provideListView(
+            OnCreateContextMenuListener onCreateContextMenu, 
+            ContextItemSelectedObserver contextSelectedObservable) {
+        ListView lv = (ListView) mActivity.findViewById(R.id.list_posts_listview);
+        ClickableListView<PostResource> clv = new ClickableListView<PostResource>(lv, 
+                contextSelectedObservable, 
+                onCreateContextMenu);
+        return clv;
     }        
+    
+    @Provides @Singleton
+    public ContextItemSelectedObserver providesContextItemSelectedObserver() {
+        return mObservableFragment;
+    }
 
+    @Provides @Singleton
+    public OnCreateContextMenuListener providesContextMenuCreator() {
+        return new ListPostsContextMenu();
+    }
 
 }

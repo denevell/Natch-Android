@@ -25,7 +25,7 @@ public class ListThreadsFragment extends ObservableFragment {
     @Inject @Named("list_threads") Controller mController;
     @Inject @Named("addthread") Controller mControllerAddThread;
     @Inject @Named("deletethread") Controller mControllerDeleteThread;
-
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {

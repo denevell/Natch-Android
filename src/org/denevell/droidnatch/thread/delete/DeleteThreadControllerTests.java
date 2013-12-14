@@ -95,7 +95,7 @@ public class DeleteThreadControllerTests {
         ThreadResource obj = new ThreadResource();
 
         // Act
-        controller.onLongPress(obj);
+        controller.onLongPress(obj, 0, null);
         
         // Assert
         verify(controller).startNetworkCall();
