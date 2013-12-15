@@ -5,6 +5,7 @@ import javax.inject.Named;
 
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
+import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.post.add.AddPostMapper;
 import org.denevell.droidnatch.post.delete.DeletePostMapper;
@@ -39,6 +40,7 @@ public class ListPostsFragment extends ObservableFragment {
         super.onResume();
         try {
             ObjectGraph.create(
+                    new ScreenOpenerMapper(getActivity()),
                     new CommonMapper(getActivity()),
                     new ListPostsMapper(this),
                     new DeletePostMapper(this),

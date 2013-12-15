@@ -75,8 +75,8 @@ public class ClickableListViewTests {
         clickableListView.onContextItemSelected(item);
 
         // Assert
-        verify(callback).onLongPress(adapterValue, 1, "a");
-        verify(callback1).onLongPress(adapterValue, 1, "a");
+        verify(callback).onLongPress(adapterValue, 1, "a", 0);
+        verify(callback1).onLongPress(adapterValue, 1, "a", 0);
     }
 
 

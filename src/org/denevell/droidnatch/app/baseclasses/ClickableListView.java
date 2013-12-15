@@ -59,7 +59,7 @@ public class ClickableListView<T> implements
             @SuppressWarnings("unchecked")
             T tr = (T) mListView.getAdapter().getItem(index);
             for (OnLongPress<T> listener: mLongPressListeners) {
-                listener.onLongPress(tr, item.getItemId(), item.getTitle().toString());
+                listener.onLongPress(tr, item.getItemId(), item.getTitle().toString(), index);
             }
         } catch (Exception e) {
             Log.e(TAG, "Couldn't process oncontextitemselected event.", e);

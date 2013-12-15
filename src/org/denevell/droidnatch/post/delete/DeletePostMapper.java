@@ -14,9 +14,10 @@ import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
+import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.post.delete.uievents.LongClickDeleteEvent;
+import org.denevell.droidnatch.post.delete.uievents.LongClickDeletePostEvent;
 import org.denevell.droidnatch.posts.list.ListPostsMapper;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.posts.list.views.ListPostsFragment;
@@ -56,10 +57,12 @@ public class DeletePostMapper {
     @Provides @Named(DELETE_POST_UI_EVENT) @Singleton
     public GenericUiObservable providesEditTextUiEvent(
             OnLongPressObserver<PostResource> onLongPressObserver,
-            final Context appContext,
-            final VolleyRequest<DeletePostResourceReturnData> deleteRequest) {
-        LongClickDeleteEvent event = new LongClickDeleteEvent(
+            Context appContext,
+            VolleyRequest<DeletePostResourceReturnData> deleteRequest, 
+            ScreenOpener screenOpener) {
+        LongClickDeletePostEvent event = new LongClickDeletePostEvent(
                 appContext, 
+                screenOpener,
                 onLongPressObserver, 
                 deleteRequest);
         return event.getUiEvent();

@@ -6,4 +6,6 @@ public interface ScreenOpener {
     
     void openScreen(Class<?> screenClass, Map<String, String> passedVars);
 
+    void gotoPreviousScreen();
+
 }

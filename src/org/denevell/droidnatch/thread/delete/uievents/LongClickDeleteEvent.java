@@ -31,7 +31,7 @@ public class LongClickDeleteEvent implements OnLongPress<ThreadResource> {
     }
 
     @Override
-    public void onLongPress(ThreadResource obj, int itemId, String optionName) {
+    public void onLongPress(ThreadResource obj, int itemId, String optionName, int index) {
         String url = mAppContext.getString(R.string.url_baseurl) + mAppContext.getString(R.string.url_del); 
         mDeleteRequest.setUrl(url+obj.getRootPostId());
         mGenericObject.submit();

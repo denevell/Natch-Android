@@ -40,4 +40,13 @@ public class FragmentScreenOpener implements ScreenOpener {
         }
     }
 
+    @Override
+    public void gotoPreviousScreen() {
+        try {
+            mActivity.getSupportFragmentManager().popBackStack();
+        } catch (Exception e) {
+            Log.e(TAG, "Couldn't pop screen.", e);
+        }
+    }
+
 }

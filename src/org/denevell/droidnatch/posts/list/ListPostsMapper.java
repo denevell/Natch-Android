@@ -51,6 +51,8 @@ public class ListPostsMapper {
         mBundle = listPostsFragment.getArguments();
     }
     
+    // Controller
+    
     @Provides @Named(PROVIDES_LIST_POSTS) @Singleton
     public Controller providesController(
             ServiceFetcher<ListPostsResource> listPostsService, 
@@ -62,6 +64,8 @@ public class ListPostsMapper {
                 new ListPostsResourceToListAdapter());
         return controller;
     }    
+    
+    // Service
     
     @Provides
     public ServiceFetcher<ListPostsResource> provideService(
@@ -90,12 +94,8 @@ public class ListPostsMapper {
         return v;
     } 
     
-    @Provides @Singleton
-    public ArrayAdapter<PostResource> providesListAdapter(
-            Context appContext) {
-        return new ListPostsArrayAdapter(appContext, R.layout.list_threads_row);
-    }
-    
+    // List view
+
     @Provides @Singleton
     public ResultsDisplayer<List<PostResource>> providResultDisplayer(
             Context appContext, 
@@ -109,6 +109,11 @@ public class ListPostsMapper {
                         appContext);
         return displayer;
     } 
+    
+    @Provides @Singleton
+    public ArrayAdapter<PostResource> providesListAdapter(Context appContext) {
+        return new ListPostsArrayAdapter(appContext, R.layout.list_threads_row);
+    }
 
     @Provides @Named(PROVIDES_LIST_POSTS_LISTVIEW)
     public ClickableListView<PostResource> provideListView(
