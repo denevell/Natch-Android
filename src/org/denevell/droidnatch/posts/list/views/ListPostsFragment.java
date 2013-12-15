@@ -28,8 +28,7 @@ public class ListPostsFragment extends ObservableFragment {
     @Inject @Named(DeletePostMapper.PROVIDES_DELETE_POST) Controller mControllerDeletePost;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.list_posts_fragment, container, false);
         return v;

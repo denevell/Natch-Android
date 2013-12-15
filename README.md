@@ -4,13 +4,13 @@ The Android client to the Natch REST project.
 
 ## Backlog
 
-* I should be taken back to main threads page if I delete initial post in thread
 
 ## Done, needs UI test
 
 * I should load the posts in a thread after it's clicked on
 * I should add a post to a thread
 * I should delete post from a thread
+* I should be taken back to main threads page if I delete initial post in thread
 
 ## Ice-box
 

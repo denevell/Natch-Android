@@ -49,6 +49,7 @@ public class DeleteThreadMapper {
                         uiEvent,
                         service,
                         listThreadsResultsDisplayable,
+                        new UiEventThenServiceCallController.NextControllerNeverHalter(),
                         listThreadsController);
         return controller;
     }

@@ -14,20 +14,35 @@ import android.util.Log;
 public class UiEventThenServiceCallController implements Controller, 
         ServiceCallbacks, 
         GenericUiObserver {
+
+    public static interface NextControllerHaltable {
+        boolean shouldHalt();
+    }
+    
+    public static class NextControllerNeverHalter implements NextControllerHaltable {
+        @Override
+        public boolean shouldHalt() {
+            return false;
+        }
+    }
+
     private static final String TAG = UiEventThenServiceCallController.class.getSimpleName();
     private GenericUiObservable mUiEvent;
     private ResultsDisplayer mLoadingView;
     private ServiceFetcher mService;
     private Controller mNextController;
+    private NextControllerHaltable mNextControllerHalter;
 
     public UiEventThenServiceCallController(
             GenericUiObservable uiEvent, 
             ServiceFetcher service,
             ResultsDisplayer loadingView, 
+            NextControllerHaltable nextControllerHalter,
             Controller nextController) {
         mUiEvent = uiEvent;
         mLoadingView = loadingView;
         mService = service;
+        mNextControllerHalter = nextControllerHalter;
         mNextController = nextController;
     }
     
@@ -55,7 +70,11 @@ public class UiEventThenServiceCallController implements Controller,
         if(mUiEvent!=null) {
             mUiEvent.success();
         }
-        if(mNextController!=null) {
+        boolean shouldHalt = false;
+        if(mNextControllerHalter!=null) {
+            shouldHalt = mNextControllerHalter.shouldHalt();
+        }
+        if(!shouldHalt && mNextController!=null) {
             Log.v(TAG, "Calling next controller");
             mNextController.go();
         }

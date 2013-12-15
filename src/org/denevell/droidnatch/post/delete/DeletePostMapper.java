@@ -32,41 +32,62 @@ import dagger.Provides;
 public class DeletePostMapper {
     
     public static final String PROVIDES_DELETE_POST = "delete_post";
-    private static final String DELETE_POST_UI_EVENT = "delete_thread_ui_event";
-    @SuppressWarnings("unused")
-    private ContextItemSelectedObserver mActivity;
+    private static final String DELETE_POST_UI_EVENT = "delete_post_ui_event";
+    private static final String PROVIDES_CONTROLLER_HALTER = "delete_post_controller_halter";
+    @SuppressWarnings("unused") private ContextItemSelectedObserver mActivity;
 
     public DeletePostMapper(ContextItemSelectedObserver activity) {
         mActivity = activity;
     }
+    
+    // Controller
 
     @Provides @Singleton @Named(PROVIDES_DELETE_POST)
     public Controller providesController(
             ServiceFetcher<DeletePostResourceReturnData> service, 
             @Named(ListPostsMapper.PROVIDES_LIST_POSTS) Controller listPostsController, 
-            @Named(DELETE_POST_UI_EVENT) GenericUiObservable uiEvent) {
+            @Named(DELETE_POST_UI_EVENT) GenericUiObservable uiEvent,
+            @Named(PROVIDES_CONTROLLER_HALTER) HaltOnDeleteThread haltOnDeleteThread) {
         UiEventThenServiceCallController controller = 
                 new UiEventThenServiceCallController(
                         uiEvent,
                         service,
                         null,
+                        haltOnDeleteThread,
                         listPostsController);
         return controller;
     }
+    
+    @Provides @Singleton @Named(PROVIDES_CONTROLLER_HALTER)
+    public HaltOnDeleteThread providesNextControllerHalter() {
+        return new HaltOnDeleteThread();
+    }
+    
+    // Ui events
     
     @Provides @Named(DELETE_POST_UI_EVENT) @Singleton
     public GenericUiObservable providesEditTextUiEvent(
             OnLongPressObserver<PostResource> onLongPressObserver,
             Context appContext,
+            @Named(PROVIDES_CONTROLLER_HALTER) HaltOnDeleteThread nextControllerHalter,
             VolleyRequest<DeletePostResourceReturnData> deleteRequest, 
             ScreenOpener screenOpener) {
         LongClickDeletePostEvent event = new LongClickDeletePostEvent(
                 appContext, 
                 screenOpener,
                 onLongPressObserver, 
-                deleteRequest);
+                deleteRequest,
+                nextControllerHalter);
         return event.getUiEvent();
+    }
+    
+    @Provides @Singleton 
+    public OnLongPressObserver<PostResource> providesOnLongPressObserver(
+            @Named(ListPostsMapper.PROVIDES_LIST_POSTS_LISTVIEW) ClickableListView<PostResource> observer) {
+        return observer;
     }    
+    
+    // Service
 
     @Provides @Singleton
     public ServiceFetcher<DeletePostResourceReturnData> providesService(
@@ -94,11 +115,5 @@ public class DeletePostMapper {
         vollyRequest.setUrl(url);
         return vollyRequest;
     } 
-    
-    @Provides @Singleton 
-    public OnLongPressObserver<PostResource> providesOnLongPressObserver(
-            @Named(ListPostsMapper.PROVIDES_LIST_POSTS_LISTVIEW) ClickableListView<PostResource> observer) {
-        return observer;
-    }    
 
 }

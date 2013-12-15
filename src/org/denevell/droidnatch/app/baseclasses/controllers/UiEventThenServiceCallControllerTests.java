@@ -4,6 +4,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceCallController.NextControllerHaltable;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
@@ -22,6 +23,7 @@ public class UiEventThenServiceCallControllerTests {
     private ResultsDisplayer displayable = mock(ResultsDisplayer.class);
     private GenericUiObservable uiObservable = mock(GenericUiObservable.class);
     private Controller nextController = mock(Controller.class);
+    private NextControllerHaltable nextControllerHalter = mock(NextControllerHaltable.class);
 
     @Before
     public void setUp() throws Exception {
@@ -29,6 +31,7 @@ public class UiEventThenServiceCallControllerTests {
                 uiObservable,
                 service,
                 displayable, 
+                nextControllerHalter,
                 nextController);
     }
 

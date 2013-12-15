@@ -52,6 +52,7 @@ public class AddThreadMapper {
                         uiEvent, 
                         service,
                         listThreadsDisplayable,
+                        new UiEventThenServiceCallController.NextControllerNeverHalter(),
                         listThreadsController);
         return controller;
     }

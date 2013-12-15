@@ -51,6 +51,7 @@ public class AddPostMapper {
                         uiEvent, 
                         service,
                         null,
+                        new UiEventThenServiceCallController.NextControllerNeverHalter(),
                         nextController);
         return controller;
     }
