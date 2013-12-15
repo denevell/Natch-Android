@@ -8,4 +8,6 @@
     <string name="url_add_post">post/add</string>
     <string name="url_del">post/del/</string>
     <string name="list_threads_loading">Loading threads</string>
+    <string name="page_title_posts">Posts</string>
+    <string name="page_title_threads">Threads</string>
 </resources>

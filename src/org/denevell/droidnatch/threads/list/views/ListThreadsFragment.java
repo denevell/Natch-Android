@@ -30,6 +30,7 @@ public class ListThreadsFragment extends ObservableFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        getActivity().setTitle(R.string.page_title_threads);
         View v = inflater.inflate(R.layout.list_threads_fragment, container, false);
         return v;
     }

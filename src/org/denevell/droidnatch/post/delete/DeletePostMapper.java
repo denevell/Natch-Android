@@ -32,7 +32,7 @@ import dagger.Provides;
 public class DeletePostMapper {
     
     public static final String PROVIDES_DELETE_POST = "delete_post";
-    private static final String DELETE_POST_UI_EVENT = "delete_post_ui_event";
+    private static final String PROVIDES_DELETE_POST_UI_EVENT = "delete_post_ui_event";
     private static final String PROVIDES_CONTROLLER_HALTER = "delete_post_controller_halter";
     @SuppressWarnings("unused") private ContextItemSelectedObserver mActivity;
 
@@ -46,7 +46,7 @@ public class DeletePostMapper {
     public Controller providesController(
             ServiceFetcher<DeletePostResourceReturnData> service, 
             @Named(ListPostsMapper.PROVIDES_LIST_POSTS) Controller listPostsController, 
-            @Named(DELETE_POST_UI_EVENT) GenericUiObservable uiEvent,
+            @Named(PROVIDES_DELETE_POST_UI_EVENT) GenericUiObservable uiEvent,
             @Named(PROVIDES_CONTROLLER_HALTER) HaltOnDeleteThread haltOnDeleteThread) {
         UiEventThenServiceCallController controller = 
                 new UiEventThenServiceCallController(
@@ -65,7 +65,7 @@ public class DeletePostMapper {
     
     // Ui events
     
-    @Provides @Named(DELETE_POST_UI_EVENT) @Singleton
+    @Provides @Named(PROVIDES_DELETE_POST_UI_EVENT) @Singleton
     public GenericUiObservable providesEditTextUiEvent(
             OnLongPressObserver<PostResource> onLongPressObserver,
             Context appContext,

@@ -34,6 +34,7 @@ public class ThreadsListPressEvent implements Runnable, OnPress<ThreadResource> 
         Log.v(TAG, "Opening new list posts fragment");
         mPassedValuesMap.clear();
         mPassedValuesMap.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, obj.getId());
+        mPassedValuesMap.put(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, obj.getSubject());
         screenOpener.openScreen(ListPostsFragment.class, mPassedValuesMap);
     }
 }

@@ -22,6 +22,7 @@ import dagger.ObjectGraph;
 public class ListPostsFragment extends ObservableFragment {
     
     public static final String BUNDLE_KEY_THREAD_ID = "thread_id";
+    public static final String BUNDLE_KEY_THREAD_NAME = "thread_name";
     private static final String TAG = ListPostsFragment.class.getSimpleName();
     @Inject @Named(ListPostsMapper.PROVIDES_LIST_POSTS) Controller mControllerListPosts;
     @Inject @Named(AddPostMapper.PROVIDES_ADD_POST) Controller mControllerAddPost;
@@ -30,6 +31,8 @@ public class ListPostsFragment extends ObservableFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        String threadName = getArguments().getString(BUNDLE_KEY_THREAD_NAME);
+        getActivity().setTitle(threadName);
         View v = inflater.inflate(R.layout.list_posts_fragment, container, false);
         return v;
     }
