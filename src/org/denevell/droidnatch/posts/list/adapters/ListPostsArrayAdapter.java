@@ -1,6 +1,6 @@
 package org.denevell.droidnatch.posts.list.adapters;
 
-import org.denevell.droidnatch.posts.entities.PostResource;
+import org.denevell.droidnatch.posts.list.entities.PostResource;
 
 import android.content.Context;
 import android.view.View;

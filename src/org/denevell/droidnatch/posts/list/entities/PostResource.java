@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.posts.entities;
+package org.denevell.droidnatch.posts.list.entities;
 
 import android.annotation.SuppressLint;
 import java.text.SimpleDateFormat;

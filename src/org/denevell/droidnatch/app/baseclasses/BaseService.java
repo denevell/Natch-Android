@@ -53,6 +53,14 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
         @SuppressWarnings("rawtypes")
         Request request = mVolleyRequest.getRequest();
         request.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
+        try {
+            byte[] body = request.getBody();
+            if(body!=null) {
+                Log.v(TAG, "Sending body: " + body.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         queue.add(request);
         Log.d(TAG, "Sending url: " + request.getUrl());
         if(mProgress!=null) {

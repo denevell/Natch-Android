@@ -5,6 +5,7 @@ import java.util.List;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 public class ListViewResultDisplayer<T, U extends List<T>> implements 
         ResultsDisplayer<U> {
     
+    private static final String TAG = ListViewResultDisplayer.class.getSimpleName();
     private ArrayAdapter<T> mListAdapter;
     private ListView mList;
     private Context mAppContext;
@@ -30,6 +32,7 @@ public class ListViewResultDisplayer<T, U extends List<T>> implements
     }
 
     public void onSuccess(final U success) {
+        Log.v(TAG, "Displaying results");
         mListAdapter.clear();
         mListAdapter.addAll(success);
         mList.setAdapter(mListAdapter);

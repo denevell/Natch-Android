@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.thread.add.adapters;
+package org.denevell.droidnatch.post.add.uievents;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.GenericUiObject;
@@ -11,13 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-public class AddTextEditTextGenericUiEvent implements OnEditorActionListener {
+public class AddPostTextEditGenericUiEvent implements OnEditorActionListener {
     
     private EditText mEditText;
     private GenericUiObject mGenericUiEvent;
     private AddPostResourceInput mResourceInput;
 
-    public AddTextEditTextGenericUiEvent(final EditText editText,
+    public AddPostTextEditGenericUiEvent(final EditText editText,
             AddPostResourceInput addPostResourceInput) {
         mEditText = editText;
         mResourceInput = addPostResourceInput;
@@ -48,8 +48,8 @@ public class AddTextEditTextGenericUiEvent implements OnEditorActionListener {
         if(event!=null && event.getAction()==KeyEvent.ACTION_DOWN) {
             return true; // Natsty hack to ui automator doesn't call this twice
         }
-        mResourceInput.setContent("-");
-        mResourceInput.setSubject(v.getText().toString());                  
+        mResourceInput.setSubject("-");
+        mResourceInput.setContent(v.getText().toString());                  
         mGenericUiEvent.submit();
         return true;
     }

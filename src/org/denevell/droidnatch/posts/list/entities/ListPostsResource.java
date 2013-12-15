@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.posts.entities;
+package org.denevell.droidnatch.posts.list.entities;
 
 import java.util.ArrayList;
 import java.util.List;

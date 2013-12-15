@@ -7,11 +7,12 @@ import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 
+import android.util.Log;
+
 @SuppressWarnings("rawtypes")
 public class UiEventThenServiceCallController implements Controller, 
         ServiceCallbacks, 
         GenericUiObserver {
-    @SuppressWarnings("unused")
     private static final String TAG = UiEventThenServiceCallController.class.getSimpleName();
     private GenericUiObservable mUiEvent;
     private ResultsDisplayer mLoadingView;
@@ -54,6 +55,7 @@ public class UiEventThenServiceCallController implements Controller,
             mUiEvent.success();
         }
         if(mNextController!=null) {
+            Log.v(TAG, "Calling next controller");
             mNextController.go();
         }
     }

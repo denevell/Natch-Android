@@ -19,10 +19,10 @@ import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.posts.entities.ListPostsResource;
-import org.denevell.droidnatch.posts.entities.PostResource;
 import org.denevell.droidnatch.posts.list.adapters.ListPostsArrayAdapter;
 import org.denevell.droidnatch.posts.list.adapters.ListPostsResourceToListAdapter;
+import org.denevell.droidnatch.posts.list.entities.ListPostsResource;
+import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.posts.list.views.ListPostsContextMenu;
 import org.denevell.droidnatch.posts.list.views.ListPostsFragment;
 import org.denevell.natch.android.R;
@@ -51,7 +51,7 @@ public class ListPostsMapper {
         mBundle = listPostsFragment.getArguments();
     }
     
-    @Provides @Named(PROVIDES_LIST_POSTS)
+    @Provides @Named(PROVIDES_LIST_POSTS) @Singleton
     public Controller providesController(
             ServiceFetcher<ListPostsResource> listPostsService, 
             ResultsDisplayer<List<PostResource>> resultsPane) {
@@ -96,7 +96,7 @@ public class ListPostsMapper {
         return new ListPostsArrayAdapter(appContext, R.layout.list_threads_row);
     }
     
-    @Provides
+    @Provides @Singleton
     public ResultsDisplayer<List<PostResource>> providResultDisplayer(
             Context appContext, 
             ArrayAdapter<PostResource> arrayAdapter, 
