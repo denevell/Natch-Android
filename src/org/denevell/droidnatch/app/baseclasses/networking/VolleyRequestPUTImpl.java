@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.app.baseclasses;
+package org.denevell.droidnatch.app.baseclasses.networking;
 
 import java.util.HashMap;
 import java.util.Map;

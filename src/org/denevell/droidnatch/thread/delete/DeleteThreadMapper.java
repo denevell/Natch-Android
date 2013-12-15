@@ -5,9 +5,9 @@ import java.util.List;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import org.denevell.droidnatch.app.baseclasses.BaseService;
-import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceCallController;
-import org.denevell.droidnatch.app.baseclasses.VolleyRequestDELETE;
+import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceCallController;
+import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestDELETE;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;

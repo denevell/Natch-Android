@@ -1,5 +1,6 @@
-package org.denevell.droidnatch.app.baseclasses;
+package org.denevell.droidnatch.app.baseclasses.networking;
 
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;

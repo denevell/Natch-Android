@@ -1,9 +1,10 @@
-package org.denevell.droidnatch.app.baseclasses;
+package org.denevell.droidnatch.app.baseclasses.controllers;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.TypeAdapter;

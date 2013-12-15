@@ -1,5 +1,6 @@
-package org.denevell.droidnatch.app.baseclasses;
+package org.denevell.droidnatch.app.baseclasses.controllers;
 
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
 import org.denevell.droidnatch.app.interfaces.GenericUiObservable.GenericUiObserver;

@@ -5,12 +5,12 @@ import java.util.List;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
-import org.denevell.droidnatch.app.baseclasses.ServiceCallThenDisplayController;
-import org.denevell.droidnatch.app.baseclasses.VolleyRequestGET;
+import org.denevell.droidnatch.app.baseclasses.controllers.ServiceCallThenDisplayController;
+import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
@@ -90,7 +90,7 @@ public class ListPostsMapper {
         return v;
     } 
     
-    @Provides
+    @Provides @Singleton
     public ArrayAdapter<PostResource> providesListAdapter(
             Context appContext) {
         return new ListPostsArrayAdapter(appContext, R.layout.list_threads_row);
