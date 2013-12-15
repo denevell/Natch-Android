@@ -9,7 +9,7 @@ import javax.inject.Singleton;
 import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
-import org.denevell.droidnatch.app.baseclasses.ServiceDisplayResultsController;
+import org.denevell.droidnatch.app.baseclasses.ServiceCallThenDisplayController;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.Controller;
@@ -56,8 +56,8 @@ public class ListThreadsMapper {
             ServiceFetcher<ListThreadsResource> listThreadsService, 
             ResultsDisplayer<List<ThreadResource>> resultsPane, 
             @Named(PROVIDES_LIST_THREADS_LIST_CLICK) Runnable listClickListener) {
-        ServiceDisplayResultsController<ListThreadsResource, List<ThreadResource>> controller = 
-                new ServiceDisplayResultsController<ListThreadsResource, List<ThreadResource>>(
+        ServiceCallThenDisplayController<ListThreadsResource, List<ThreadResource>> controller = 
+                new ServiceCallThenDisplayController<ListThreadsResource, List<ThreadResource>>(
                     listThreadsService, 
                     resultsPane,
                     new ListThreadsResourceToListAdapter(),

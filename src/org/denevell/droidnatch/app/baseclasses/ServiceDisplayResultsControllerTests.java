@@ -16,7 +16,7 @@ import org.robolectric.RobolectricTestRunner;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class ServiceDisplayResultsControllerTests {
 
-    private ServiceDisplayResultsController controller;
+    private ServiceCallThenDisplayController controller;
     private ServiceFetcher service = mock(ServiceFetcher.class);
     private ResultsDisplayer displayable = mock(ResultsDisplayer.class);
     private TypeAdapter typeConverter = mock(TypeAdapter.class);
@@ -25,7 +25,7 @@ public class ServiceDisplayResultsControllerTests {
 
     @Before
     public void setUp() throws Exception {
-        controller = new ServiceDisplayResultsController(
+        controller = new ServiceCallThenDisplayController(
                service, 
                displayable,
                typeConverter,

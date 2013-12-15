@@ -9,7 +9,7 @@ import org.denevell.droidnatch.app.baseclasses.BaseService;
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
-import org.denevell.droidnatch.app.baseclasses.ServiceDisplayResultsController;
+import org.denevell.droidnatch.app.baseclasses.ServiceCallThenDisplayController;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.Controller;
@@ -55,8 +55,8 @@ public class ListPostsMapper {
     public Controller providesController(
             ServiceFetcher<ListPostsResource> listPostsService, 
             ResultsDisplayer<List<PostResource>> resultsPane) {
-        ServiceDisplayResultsController<ListPostsResource, List<PostResource>> controller = 
-                new ServiceDisplayResultsController<ListPostsResource, List<PostResource>>(
+        ServiceCallThenDisplayController<ListPostsResource, List<PostResource>> controller = 
+                new ServiceCallThenDisplayController<ListPostsResource, List<PostResource>>(
                 listPostsService, 
                 resultsPane,
                 new ListPostsResourceToListAdapter());

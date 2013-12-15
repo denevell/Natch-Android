@@ -8,16 +8,16 @@ import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 
 import android.util.Log;
 
-public class ServiceDisplayResultsController<T, U> implements Controller, 
+public class ServiceCallThenDisplayController<T, U> implements Controller, 
         ServiceCallbacks<T> {
     
-    private static final String TAG = ServiceDisplayResultsController.class.getSimpleName();
+    private static final String TAG = ServiceCallThenDisplayController.class.getSimpleName();
     private ServiceFetcher<T> mService;
     private ResultsDisplayer<U> mResultsDisplayable;
     private TypeAdapter<T, U> mTypeAdapter;
     private Runnable[] mUiElementListeners;
 
-    public ServiceDisplayResultsController(
+    public ServiceCallThenDisplayController(
             ServiceFetcher<T> listThreadsService, 
             ResultsDisplayer<U>resultsDisplayable,
             TypeAdapter<T, U> typeAdapter, 
@@ -30,7 +30,7 @@ public class ServiceDisplayResultsController<T, U> implements Controller,
     }
     
     @Override
-    public ServiceDisplayResultsController<T, U> setup() {
+    public ServiceCallThenDisplayController<T, U> setup() {
         Log.v(TAG, "Setting up controller");
         mService.setServiceCallbacks(this);
         if(mUiElementListeners!=null) {

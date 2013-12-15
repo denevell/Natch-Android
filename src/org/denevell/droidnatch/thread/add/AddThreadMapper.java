@@ -6,19 +6,19 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.baseclasses.BaseService;
-import org.denevell.droidnatch.app.baseclasses.TextEditableEditText;
+import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceCallController;
 import org.denevell.droidnatch.app.baseclasses.VolleyRequestPUTImpl;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
+import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.interfaces.TextEditable;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
+import org.denevell.droidnatch.thread.add.adapters.AddTextEditTextGenericUiEvent;
 import org.denevell.droidnatch.thread.add.entities.AddPostResourceInput;
 import org.denevell.droidnatch.thread.add.entities.AddPostResourceReturnData;
-import org.denevell.droidnatch.thread.add.views.TextEditablePostUpdater;
 import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.views.ListThreadsFragment;
@@ -33,21 +33,23 @@ import dagger.Provides;
 @Module(injects = {ListThreadsFragment.class}, complete = false)
 public class AddThreadMapper {
     
+    private static final String PROVIDES_ADD_THREAD = "addthread";
     private Activity mActivity;
 
     public AddThreadMapper(Activity activity) {
         mActivity = activity;
     }
 
-    @Provides @Singleton @Named("addthread")
+    @Provides @Singleton @Named(PROVIDES_ADD_THREAD)
     public Controller providesLoginController(
             ServiceFetcher<AddPostResourceReturnData> service, 
-            TextEditable textInput, 
+            GenericUiObservable uiEvent, 
             ResultsDisplayer<List<ThreadResource>> listThreadsDisplayable,
-            @Named(ListThreadsMapper.PROVIDES_LIST_THREADS) Controller listThreadsController) {
-        AddThreadController controller = 
-                new AddThreadController(
-                        textInput, 
+            @Named(ListThreadsMapper.PROVIDES_LIST_THREADS) Controller listThreadsController,
+            final AddPostResourceInput resourceInput) {
+        UiEventThenServiceCallController controller = 
+                new UiEventThenServiceCallController(
+                        uiEvent, 
                         service,
                         listThreadsDisplayable,
                         listThreadsController);
@@ -56,7 +58,6 @@ public class AddThreadMapper {
 
     @Provides @Singleton
     public ServiceFetcher<AddPostResourceReturnData> providesService(
-            TextEditable textInput, 
             Context appContext, 
             ProgressIndicator progress, 
             ObjectStringConverter converter, 
@@ -78,7 +79,7 @@ public class AddThreadMapper {
     }
     
     @Provides @Singleton 
-    public VolleyRequest<AddPostResourceReturnData> providesVolleyRequestPut(
+    public VolleyRequest<AddPostResourceReturnData> providesRequest(
             ObjectStringConverter reponseConverter,
             AddPostResourceInput body,
             Context appContext) {
@@ -92,10 +93,21 @@ public class AddThreadMapper {
     } 
 
     @Provides @Singleton
-    public TextEditable providesTextInput(final AddPostResourceInput resourceInput) {
+    public GenericUiObservable providesEditTextUiEvent(
+            EditText textInput, 
+            AddPostResourceInput resourceInput) {
+        GenericUiObservable genericUiEvent = 
+                new AddTextEditTextGenericUiEvent(
+                        textInput, 
+                        resourceInput)
+            .getGenericUiEvent();
+        return genericUiEvent;
+    }
+    
+    @Provides @Singleton
+    public EditText providesEditText() {
         final EditText editText = (EditText) mActivity.findViewById(R.id.editText1);
-        TextEditableEditText textInput = new TextEditablePostUpdater(editText, resourceInput);
-        return textInput;
+        return editText;
     }
 
 }
