@@ -4,7 +4,11 @@ The Android client to the Natch REST project.
 
 ## Backlog
 
+## Done, needs UI test
+
 * I should load the posts in a thread after it's clicked on
+* I should add a post to a thread
+* I should delete post from a thread
 
 ## Ice-box
 
