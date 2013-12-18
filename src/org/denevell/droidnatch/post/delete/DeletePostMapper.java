@@ -72,12 +72,6 @@ public class DeletePostMapper {
     @Provides @Singleton 
     public OnLongPressObserver<PostResource> providesOnLongPressObserver(
             @Named(ListPostsMapper.PROVIDES_LIST_POSTS_LISTVIEW) ClickableListView<PostResource> observer) {
-        new OnLongPressObserver<PostResource>() {
-            @Override
-            public void addOnLongClickListener(org.denevell.droidnatch.app.interfaces.OnLongPressObserver.OnLongPress<PostResource> callback) {
-                // TODO Auto-generated method stub
-            }
-        };
         return observer;
     }    
     
