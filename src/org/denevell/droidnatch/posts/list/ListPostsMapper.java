@@ -124,7 +124,7 @@ public class ListPostsMapper {
                 contextSelectedObservable, 
                 onCreateContextMenu);
         return clv;
-    }        
+    }
     
     @Provides @Singleton
     public ContextItemSelectedObserver providesContextItemSelectedObserver() {

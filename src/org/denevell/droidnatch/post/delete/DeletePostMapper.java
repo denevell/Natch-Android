@@ -14,7 +14,6 @@ import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.post.delete.uievents.LongClickDeletePostEvent;
@@ -28,12 +27,11 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects= ListPostsFragment.class, complete = false)
+@Module(injects = ListPostsFragment.class, complete = false)
 public class DeletePostMapper {
     
     public static final String PROVIDES_DELETE_POST = "delete_post";
     private static final String PROVIDES_DELETE_POST_UI_EVENT = "delete_post_ui_event";
-    private static final String PROVIDES_CONTROLLER_HALTER = "delete_post_controller_halter";
     @SuppressWarnings("unused") private ContextItemSelectedObserver mActivity;
 
     public DeletePostMapper(ContextItemSelectedObserver activity) {
@@ -46,21 +44,15 @@ public class DeletePostMapper {
     public Controller providesController(
             ServiceFetcher<DeletePostResourceReturnData> service, 
             @Named(ListPostsMapper.PROVIDES_LIST_POSTS) Controller listPostsController, 
-            @Named(PROVIDES_DELETE_POST_UI_EVENT) GenericUiObservable uiEvent,
-            @Named(PROVIDES_CONTROLLER_HALTER) HaltOnDeleteThread haltOnDeleteThread) {
+            @Named(PROVIDES_DELETE_POST_UI_EVENT) GenericUiObservable uiEvent) {
         UiEventThenServiceCallController controller = 
                 new UiEventThenServiceCallController(
                         uiEvent,
                         service,
                         null,
-                        haltOnDeleteThread,
+                        new UiEventThenServiceCallController.NextControllerNeverHalter(),
                         listPostsController);
         return controller;
-    }
-    
-    @Provides @Singleton @Named(PROVIDES_CONTROLLER_HALTER)
-    public HaltOnDeleteThread providesNextControllerHalter() {
-        return new HaltOnDeleteThread();
     }
     
     // Ui events
@@ -69,21 +61,23 @@ public class DeletePostMapper {
     public GenericUiObservable providesEditTextUiEvent(
             OnLongPressObserver<PostResource> onLongPressObserver,
             Context appContext,
-            @Named(PROVIDES_CONTROLLER_HALTER) HaltOnDeleteThread nextControllerHalter,
-            VolleyRequest<DeletePostResourceReturnData> deleteRequest, 
-            ScreenOpener screenOpener) {
+            VolleyRequest<DeletePostResourceReturnData> deleteRequest) {
         LongClickDeletePostEvent event = new LongClickDeletePostEvent(
                 appContext, 
-                screenOpener,
                 onLongPressObserver, 
-                deleteRequest,
-                nextControllerHalter);
+                deleteRequest);
         return event.getUiEvent();
     }
     
     @Provides @Singleton 
     public OnLongPressObserver<PostResource> providesOnLongPressObserver(
             @Named(ListPostsMapper.PROVIDES_LIST_POSTS_LISTVIEW) ClickableListView<PostResource> observer) {
+        new OnLongPressObserver<PostResource>() {
+            @Override
+            public void addOnLongClickListener(org.denevell.droidnatch.app.interfaces.OnLongPressObserver.OnLongPress<PostResource> callback) {
+                // TODO Auto-generated method stub
+            }
+        };
         return observer;
     }    
     
