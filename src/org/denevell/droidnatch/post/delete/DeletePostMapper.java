@@ -37,7 +37,7 @@ public class DeletePostMapper {
     public DeletePostMapper(ContextItemSelectedObserver activity) {
         mActivity = activity;
     }
-    
+  
     // Controller
 
     @Provides @Singleton @Named(PROVIDES_DELETE_POST)

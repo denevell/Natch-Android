@@ -15,8 +15,10 @@ public class ListPostsContextMenu implements OnCreateContextMenuListener {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         try {
             AdapterContextMenuInfo adapter = (AdapterContextMenuInfo) menuInfo;
-            if(adapter.position!=0) {
-                menu.add(Menu.NONE, 0, 0, "Delete post");
+            if(adapter.position==0) {
+                menu.add(Menu.NONE, 1, 0, "Delete thread");
+            } else if(adapter.position!=0) {
+                menu.add(Menu.NONE, 2, 0, "Delete post");
             }
         } catch (Exception e) {
             Log.d(TAG, "Problem setting context menu", e);
