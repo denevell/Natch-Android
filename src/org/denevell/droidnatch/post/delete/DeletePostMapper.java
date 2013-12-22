@@ -58,7 +58,7 @@ public class DeletePostMapper {
     // Ui events
     
     @Provides @Named(PROVIDES_DELETE_POST_UI_EVENT) @Singleton
-    public GenericUiObservable providesEditTextUiEvent(
+    public GenericUiObservable providesDeletePostEvent(
             OnLongPressObserver<PostResource> onLongPressObserver,
             Context appContext,
             VolleyRequest<DeletePostResourceReturnData> deleteRequest) {
@@ -68,7 +68,7 @@ public class DeletePostMapper {
                 deleteRequest);
         return event.getUiEvent();
     }
-    
+
     @Provides @Singleton 
     public OnLongPressObserver<PostResource> providesOnLongPressObserver(
             @Named(ListPostsMapper.PROVIDES_LIST_POSTS_LISTVIEW) ClickableListView<PostResource> observer) {
