@@ -9,6 +9,7 @@ import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.post.add.AddPostMapper;
 import org.denevell.droidnatch.post.delete.DeletePostMapper;
+import org.denevell.droidnatch.post.delete_thread.DeleteThreadFromPostMapper;
 import org.denevell.droidnatch.posts.list.ListPostsMapper;
 import org.denevell.natch.android.R;
 
@@ -27,6 +28,7 @@ public class ListPostsFragment extends ObservableFragment {
     @Inject @Named(ListPostsMapper.PROVIDES_LIST_POSTS) Controller mControllerListPosts;
     @Inject @Named(AddPostMapper.PROVIDES_ADD_POST) Controller mControllerAddPost;
     @Inject @Named(DeletePostMapper.PROVIDES_DELETE_POST) Controller mControllerDeletePost;
+    @Inject @Named(DeleteThreadFromPostMapper.PROVIDES_DELETE_THREAD_FROM_POST) Controller mControllerDeleteThreadFromPostController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,12 +48,13 @@ public class ListPostsFragment extends ObservableFragment {
                     new CommonMapper(getActivity()),
                     new ListPostsMapper(this),
                     new DeletePostMapper(this),
-                    new AddPostMapper(this)
-                    )
+                    new AddPostMapper(this),
+                    new DeleteThreadFromPostMapper())
                     .inject(this);
             mControllerListPosts.setup().go();
             mControllerAddPost.setup().go();
             mControllerDeletePost.setup().go();
+            mControllerDeleteThreadFromPostController.setup().go();            
         } catch (Exception e) {
             Log.e(TAG, "Failed to start mapper", e);
             return;
