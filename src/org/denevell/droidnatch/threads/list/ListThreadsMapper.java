@@ -27,7 +27,6 @@ import org.denevell.droidnatch.threads.list.adapters.ListThreadsResourceToListAd
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.uievents.ThreadsListPressEvent;
-import org.denevell.droidnatch.threads.list.views.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.views.ListThreadsContextMenu;
 import org.denevell.natch.android.R;
 

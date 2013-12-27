@@ -9,6 +9,6 @@ import android.view.View.OnCreateContextMenuListener;
 public class ListThreadsContextMenu implements OnCreateContextMenuListener {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        menu.add(Menu.NONE, 0, 0, "Delete");
+        menu.add(Menu.NONE, 0, 0, "Delete thread");
     }
 }

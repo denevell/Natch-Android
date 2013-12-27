@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list.views;
+package org.denevell.droidnatch.threads.list;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -9,7 +9,6 @@ import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.thread.add.AddThreadMapper;
 import org.denevell.droidnatch.thread.delete.DeleteThreadMapper;
-import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.natch.android.R;
 
 import android.os.Bundle;

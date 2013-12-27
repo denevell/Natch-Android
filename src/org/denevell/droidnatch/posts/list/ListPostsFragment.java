@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.posts.list.views;
+package org.denevell.droidnatch.posts.list;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -10,7 +10,6 @@ import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.post.add.AddPostMapper;
 import org.denevell.droidnatch.post.delete.DeletePostMapper;
 import org.denevell.droidnatch.post.deletethread.DeleteThreadFromPostMapper;
-import org.denevell.droidnatch.posts.list.ListPostsMapper;
 import org.denevell.natch.android.R;
 
 import android.os.Bundle;

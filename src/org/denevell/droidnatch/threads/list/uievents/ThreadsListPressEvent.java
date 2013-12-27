@@ -5,7 +5,7 @@ import java.util.Map;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
-import org.denevell.droidnatch.posts.list.views.ListPostsFragment;
+import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 
 import android.util.Log;

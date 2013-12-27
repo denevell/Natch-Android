@@ -1,6 +1,6 @@
 package org.denevell.droidnatch;
 
-import org.denevell.droidnatch.threads.list.views.ListThreadsFragment;
+import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.natch.android.R;
 
 import android.os.Bundle;

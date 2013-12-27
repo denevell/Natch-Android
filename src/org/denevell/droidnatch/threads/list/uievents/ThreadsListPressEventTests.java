@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
-import org.denevell.droidnatch.posts.list.views.ListPostsFragment;
+import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.junit.Before;
 import org.junit.Test;
