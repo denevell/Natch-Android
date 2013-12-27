@@ -4,7 +4,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -15,17 +14,17 @@ import org.robolectric.RobolectricTestRunner;
 
 @RunWith(RobolectricTestRunner.class)
 @SuppressWarnings({"unchecked","rawtypes"})
-public class UiEventThenServiceCallControllerTests {
+public class UiEventThenServiceThenUiEventTests {
 
-    private UiEventThenServiceCallController controller;
+    private UiEventThenServiceThenUiEvent controller;
     private ServiceFetcher service = mock(ServiceFetcher.class);
     private ResultsDisplayer displayable = mock(ResultsDisplayer.class);
     private GenericUiObservable uiObservable = mock(GenericUiObservable.class);
-    private Controller nextController = mock(Controller.class);
+    private GenericUiObservable nextController = mock(GenericUiObservable.class);
 
     @Before
     public void setUp() throws Exception {
-        controller = new UiEventThenServiceCallController(
+        controller = new UiEventThenServiceThenUiEvent(
                 uiObservable,
                 service,
                 displayable, 
@@ -93,7 +92,7 @@ public class UiEventThenServiceCallControllerTests {
     }
 
     @Test
-    public void shouldStartNextControllerOnSuccess() throws Exception {
+    public void shouldStartNextUiEventOnSuccess() throws Exception {
         // Arrange
         Object o = new Object();
 
@@ -101,7 +100,7 @@ public class UiEventThenServiceCallControllerTests {
         controller.onServiceSuccess(o);
         
         // Assert
-        verify(nextController).go();
+        verify(nextController).submit();
     }
 
     @Test

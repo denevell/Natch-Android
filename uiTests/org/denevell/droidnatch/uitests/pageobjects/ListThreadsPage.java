@@ -7,7 +7,6 @@ import com.android.uiautomator.core.UiSelector;
 
 public class ListThreadsPage {
     
-    @SuppressWarnings("unused")
     private final UiDevice uiDevice;
     private UiObject threadsList;
 
