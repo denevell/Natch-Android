@@ -23,8 +23,8 @@ import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.threads.list.adapters.ListThreadsArrayAdapter;
-import org.denevell.droidnatch.threads.list.adapters.ListThreadsResourceToListAdapter;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
+import org.denevell.droidnatch.threads.list.entities.ListThreadsResourceToArrayList;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.uievents.ThreadsListPressEvent;
 import org.denevell.natch.android.R;
@@ -58,7 +58,7 @@ public class ListThreadsMapper {
                 new ServiceCallThenDisplayController<ListThreadsResource, List<ThreadResource>>(
                     listThreadsService, 
                     resultsPane,
-                    new ListThreadsResourceToListAdapter(),
+                    new ListThreadsResourceToArrayList(),
                     listClickListener);
         return controller;
     }
