@@ -11,30 +11,30 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import android.util.Log;
 
 @SuppressWarnings("rawtypes")
-public class UiEventThenServiceCallController implements Controller, 
+public class UiEventThenServiceThenUiEvent implements Controller, 
         ServiceCallbacks, 
         GenericUiObserver {
 
-    private static final String TAG = UiEventThenServiceCallController.class.getSimpleName();
+    private static final String TAG = UiEventThenServiceThenUiEvent.class.getSimpleName();
     private GenericUiObservable mUiEvent;
     private ResultsDisplayer mLoadingView;
     private ServiceFetcher mService;
-    private Controller mNextController;
+    private GenericUiObservable mNextUiEvent;
 
-    public UiEventThenServiceCallController(
+    public UiEventThenServiceThenUiEvent(
             GenericUiObservable uiEvent, 
             ServiceFetcher service,
             ResultsDisplayer loadingView, 
-            Controller nextController) {
+            GenericUiObservable uiEventForAfterService) {
         mUiEvent = uiEvent;
         mLoadingView = loadingView;
         mService = service;
-        mNextController = nextController;
+        mNextUiEvent = uiEventForAfterService;
     }
     
     @SuppressWarnings("unchecked")
     @Override
-    public UiEventThenServiceCallController setup() {
+    public UiEventThenServiceThenUiEvent setup() {
         if(mUiEvent!=null) {
             mUiEvent.setObserver(this);
         }
@@ -56,9 +56,9 @@ public class UiEventThenServiceCallController implements Controller,
         if(mUiEvent!=null) {
             mUiEvent.success();
         }
-        if(mNextController!=null) {
-            Log.v(TAG, "Calling next controller");
-            mNextController.go();
+        if(mNextUiEvent!=null) {
+            Log.v(TAG, "Calling next ui event");
+            mNextUiEvent.submit();
         }
     }
 

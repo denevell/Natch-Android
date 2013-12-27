@@ -7,6 +7,7 @@ The Android client to the Natch REST project.
 
 ## Done, needs UI test
 
+* I should delete a thread from within the thread page
 * I should load the posts in a thread after it's clicked on
 * I should add a post to a thread
 * I should delete post from a thread

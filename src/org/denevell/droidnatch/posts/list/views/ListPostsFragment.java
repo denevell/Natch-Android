@@ -9,7 +9,7 @@ import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.post.add.AddPostMapper;
 import org.denevell.droidnatch.post.delete.DeletePostMapper;
-import org.denevell.droidnatch.post.delete_thread.DeleteThreadFromPostMapper;
+import org.denevell.droidnatch.post.deletethread.DeleteThreadFromPostMapper;
 import org.denevell.droidnatch.posts.list.ListPostsMapper;
 import org.denevell.natch.android.R;
 

@@ -50,7 +50,6 @@ public class DeletePostMapper {
                         uiEvent,
                         service,
                         null,
-                        new UiEventThenServiceCallController.NextControllerNeverHalter(),
                         listPostsController);
         return controller;
     }
@@ -77,7 +76,7 @@ public class DeletePostMapper {
     
     // Service
 
-    @Provides @Singleton
+    @Provides @Singleton 
     public ServiceFetcher<DeletePostResourceReturnData> providesService(
             Context appContext, 
             ProgressIndicator progress, 
