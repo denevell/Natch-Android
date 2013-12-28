@@ -23,7 +23,6 @@ import org.denevell.droidnatch.posts.list.adapters.ListPostsArrayAdapter;
 import org.denevell.droidnatch.posts.list.entities.ListPostsResource;
 import org.denevell.droidnatch.posts.list.entities.ListPostsResourceToArrayList;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
-import org.denevell.droidnatch.posts.list.views.ListPostsContextMenu;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;

@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.posts.list.views;
+package org.denevell.droidnatch.posts.list;
 
 import android.util.Log;
 import android.view.ContextMenu;
