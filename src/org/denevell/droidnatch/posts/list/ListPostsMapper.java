@@ -20,8 +20,8 @@ import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.adapters.ListPostsArrayAdapter;
-import org.denevell.droidnatch.posts.list.adapters.ListPostsResourceToListAdapter;
 import org.denevell.droidnatch.posts.list.entities.ListPostsResource;
+import org.denevell.droidnatch.posts.list.entities.ListPostsResourceToArrayList;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.posts.list.views.ListPostsContextMenu;
 import org.denevell.natch.android.R;
@@ -60,7 +60,7 @@ public class ListPostsMapper {
                 new ServiceCallThenDisplayController<ListPostsResource, List<PostResource>>(
                 listPostsService, 
                 resultsPane,
-                new ListPostsResourceToListAdapter());
+                new ListPostsResourceToArrayList());
         return controller;
     }    
     

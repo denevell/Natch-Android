@@ -1,12 +1,10 @@
-package org.denevell.droidnatch.posts.list.adapters;
+package org.denevell.droidnatch.posts.list.entities;
 
 import java.util.List;
 
 import org.denevell.droidnatch.app.interfaces.TypeAdapter;
-import org.denevell.droidnatch.posts.list.entities.ListPostsResource;
-import org.denevell.droidnatch.posts.list.entities.PostResource;
 
-public class ListPostsResourceToListAdapter implements
+public class ListPostsResourceToArrayList implements
         TypeAdapter<ListPostsResource, List<PostResource>> {
 
     @Override
