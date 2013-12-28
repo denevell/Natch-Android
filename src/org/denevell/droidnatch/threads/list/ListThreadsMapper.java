@@ -22,6 +22,7 @@ import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
+import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.threads.list.adapters.ListThreadsArrayAdapter;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResourceToArrayList;
@@ -53,18 +54,18 @@ public class ListThreadsMapper {
     public Controller providesController(
             ServiceFetcher<ListThreadsResource> listThreadsService, 
             ResultsDisplayer<List<ThreadResource>> resultsPane, 
-            @Named(PROVIDES_LIST_THREADS_LIST_CLICK) Runnable listClickListener) {
+            @Named(PROVIDES_LIST_THREADS_LIST_CLICK) OnPress<ThreadResource> listClickListener) {
         ServiceCallThenDisplayController<ListThreadsResource, List<ThreadResource>> controller = 
                 new ServiceCallThenDisplayController<ListThreadsResource, List<ThreadResource>>(
                     listThreadsService, 
                     resultsPane,
-                    new ListThreadsResourceToArrayList(),
-                    listClickListener);
+                    new ListThreadsResourceToArrayList()
+                    );
         return controller;
     }
     
     @Provides @Singleton @Named(PROVIDES_LIST_THREADS_LIST_CLICK)
-    public Runnable providesOnListClickAction(
+    public OnPress<ThreadResource> providesOnListClickAction(
             final OnPressObserver<ThreadResource> onPressObserver, 
             final ScreenOpener screenOpener) {
         return new ThreadsListPressEvent(

@@ -21,8 +21,6 @@ public class ThreadsListPressEventTests {
     private OnPressObserver<ThreadResource> onPressObserver = mock(OnPressObserver.class);
     private ScreenOpener screenOpener = mock(ScreenOpener.class);
     private HashMap<String, String> passedVars = spy(new HashMap<String, String>());
-    private ThreadsListPressEvent threadsListPressEvent = 
-            new ThreadsListPressEvent(screenOpener, onPressObserver, passedVars);
 
     @Before
     public void setUp() throws Exception {
@@ -33,6 +31,8 @@ public class ThreadsListPressEventTests {
         // Arrange
         ThreadResource obj = new ThreadResource();
         obj.setId("a");
+        ThreadsListPressEvent threadsListPressEvent = 
+                new ThreadsListPressEvent(screenOpener, onPressObserver, passedVars);
         
         // Act
         threadsListPressEvent.onPress(obj);
@@ -46,7 +46,9 @@ public class ThreadsListPressEventTests {
     public void shouldSetOnPressObserverOnRun() throws Exception {
         // Arrange
         // Act
-        threadsListPressEvent.run();
+        ThreadsListPressEvent threadsListPressEvent = 
+                new ThreadsListPressEvent(screenOpener, onPressObserver, passedVars);
+
         
         // Assert
         verify(onPressObserver).addOnPressListener(threadsListPressEvent);

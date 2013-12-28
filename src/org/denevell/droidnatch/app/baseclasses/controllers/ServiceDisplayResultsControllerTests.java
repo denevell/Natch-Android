@@ -21,16 +21,13 @@ public class ServiceDisplayResultsControllerTests {
     private ServiceFetcher service = mock(ServiceFetcher.class);
     private ResultsDisplayer displayable = mock(ResultsDisplayer.class);
     private TypeAdapter typeConverter = mock(TypeAdapter.class);
-    private Runnable uiListener1 = mock(Runnable.class);
-    private Runnable uiListener2 = mock(Runnable.class);
 
     @Before
     public void setUp() throws Exception {
         controller = new ServiceCallThenDisplayController(
                service, 
                displayable,
-               typeConverter,
-               uiListener1, uiListener2);
+               typeConverter);
     }
 
     @Test
@@ -86,16 +83,6 @@ public class ServiceDisplayResultsControllerTests {
         // Assert
         verify(displayable).stopLoading();
         verify(displayable).onFail(r);
-    }
-    
-    @Test
-    public void shouldSetAllUiListeners() throws Exception {
-        // Act
-        controller.setup();
-        
-        // Assert
-        verify(uiListener1).run();
-        verify(uiListener2).run();
     }
 
 }

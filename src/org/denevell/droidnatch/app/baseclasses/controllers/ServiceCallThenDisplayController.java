@@ -16,29 +16,20 @@ public class ServiceCallThenDisplayController<T, U> implements Controller,
     private ServiceFetcher<T> mService;
     private ResultsDisplayer<U> mResultsDisplayable;
     private TypeAdapter<T, U> mTypeAdapter;
-    private Runnable[] mUiElementListeners;
 
     public ServiceCallThenDisplayController(
             ServiceFetcher<T> listThreadsService, 
             ResultsDisplayer<U>resultsDisplayable,
-            TypeAdapter<T, U> typeAdapter, 
-            Runnable ...uiElementListeners
-            ) {
+            TypeAdapter<T, U> typeAdapter) {
         mService = listThreadsService;
         mResultsDisplayable = resultsDisplayable;
         mTypeAdapter = typeAdapter;
-        mUiElementListeners = uiElementListeners;
     }
     
     @Override
     public ServiceCallThenDisplayController<T, U> setup() {
         Log.v(TAG, "Setting up controller");
         mService.setServiceCallbacks(this);
-        if(mUiElementListeners!=null) {
-            for (Runnable listener: mUiElementListeners) {
-                listener.run();
-            }
-        }
         return this;
     }
     

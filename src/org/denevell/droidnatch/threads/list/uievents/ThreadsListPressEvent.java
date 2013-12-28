@@ -10,7 +10,7 @@ import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 
 import android.util.Log;
 
-public class ThreadsListPressEvent implements Runnable, OnPress<ThreadResource> {
+public class ThreadsListPressEvent implements OnPress<ThreadResource> {
     private static final String TAG = ThreadsListPressEvent.class.getSimpleName();
     private final ScreenOpener screenOpener;
     private final OnPressObserver<ThreadResource> onPressObserver;
@@ -22,11 +22,7 @@ public class ThreadsListPressEvent implements Runnable, OnPress<ThreadResource> 
         this.mPassedValuesMap = passedValuesMap;
         this.screenOpener = screenOpener;
         this.onPressObserver = onPressObserver;
-    }
-
-    @Override
-    public void run() {
-        onPressObserver.addOnPressListener(this);
+        this.onPressObserver.addOnPressListener(this);
     }
 
     @Override
