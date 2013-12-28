@@ -32,13 +32,14 @@ import dagger.Provides;
 public class DeleteThreadMapper {
     
     private static final String DELETE_THREAD_UI_EVENT = "delete_thread_ui_event";
+    public static final String PROVIDES_DELETE_THREAD_CONTROLLER = "delete_thread_controller";
     private ContextItemSelectedObserver mActivity;
 
     public DeleteThreadMapper(ContextItemSelectedObserver activity) {
         mActivity = activity;
     }
 
-    @Provides @Singleton @Named("deletethread")
+    @Provides @Singleton @Named(PROVIDES_DELETE_THREAD_CONTROLLER)
     public Controller providesController(
             ServiceFetcher<DeletePostResourceReturnData> service, 
             @Named(ListThreadsMapper.PROVIDES_LIST_THREADS) Controller listThreadsController, 

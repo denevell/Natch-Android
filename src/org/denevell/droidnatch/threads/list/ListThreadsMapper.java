@@ -64,6 +64,8 @@ public class ListThreadsMapper {
         return controller;
     }
     
+    // ListView stuff
+    
     @Provides @Singleton @Named(PROVIDES_LIST_THREADS_LIST_CLICK)
     public OnPress<ThreadResource> providesOnListClickAction(
             final OnPressObserver<ThreadResource> onPressObserver, 
@@ -108,6 +110,8 @@ public class ListThreadsMapper {
     public ArrayAdapter<ThreadResource> providesListAdapter(Context appContext) {
         return new ListThreadsArrayAdapter(appContext, R.layout.list_threads_row);
     }
+    
+    // Results displayer
 
     @Provides @Singleton
     public ResultsDisplayer<List<ThreadResource>> provideResultsDisplayer(
@@ -123,6 +127,8 @@ public class ListThreadsMapper {
                         appContext);
         return displayer;
     }
+    
+    // Service stuff
 
     @Provides
     public ServiceFetcher<ListThreadsResource> provideService(

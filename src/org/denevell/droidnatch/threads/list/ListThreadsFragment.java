@@ -22,8 +22,8 @@ public class ListThreadsFragment extends ObservableFragment {
     
     private static final String TAG = ListThreadsFragment.class.getSimpleName();
     @Inject @Named(ListThreadsMapper.PROVIDES_LIST_THREADS) Controller mController;
-    @Inject @Named("addthread") Controller mControllerAddThread;
-    @Inject @Named("deletethread") Controller mControllerDeleteThread;
+    @Inject @Named(DeleteThreadMapper.PROVIDES_DELETE_THREAD_CONTROLLER) Controller mControllerDeleteThread;
+    @Inject @Named(AddThreadMapper.PROVIDES_ADD_THREAD) Controller mControllerAddThread;
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

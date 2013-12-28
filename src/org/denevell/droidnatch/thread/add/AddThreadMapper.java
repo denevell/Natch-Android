@@ -33,7 +33,7 @@ import dagger.Provides;
 @Module(injects = {ListThreadsFragment.class}, complete = false)
 public class AddThreadMapper {
     
-    private static final String PROVIDES_ADD_THREAD = "addthread";
+    public static final String PROVIDES_ADD_THREAD = "addthread";
     private Activity mActivity;
 
     public AddThreadMapper(Activity activity) {
