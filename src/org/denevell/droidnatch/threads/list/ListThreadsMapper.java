@@ -17,21 +17,22 @@ import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver;
+import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
+import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.adapters.ListThreadsArrayAdapter;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResourceToArrayList;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-import org.denevell.droidnatch.threads.list.uievents.ThreadsListPressEvent;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -44,6 +45,7 @@ public class ListThreadsMapper {
     public static final String PROVIDES_LIST_THREADS_LIST_CLICK = "list_threads_list_click";
     public static final String PROVIDES_LIST_THREADS_LOADING = "listthreads_loading";
     public static final String PROVIDES_LIST_THREADS = "list_threads";
+    protected static final String TAG = ListThreadsMapper.class.getSimpleName();
     private Activity mActivity;
 
     public ListThreadsMapper(Activity activity) {
@@ -70,10 +72,19 @@ public class ListThreadsMapper {
     public OnPress<ThreadResource> providesOnListClickAction(
             final OnPressObserver<ThreadResource> onPressObserver, 
             final ScreenOpener screenOpener) {
-        return new ThreadsListPressEvent(
-                screenOpener, 
-                onPressObserver,
-                new HashMap<String, String>());
+        OnPress<ThreadResource> onPress = new OnPress<ThreadResource>() {
+                    @Override
+                    public void onPress(ThreadResource obj) {
+                        Log.v(TAG, "Opening new list posts fragment");
+                        HashMap<String, String> hm = new HashMap<String, String>();
+                        hm.clear();
+                        hm.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, obj.getId());
+                        hm.put(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, obj.getSubject());
+                        screenOpener.openScreen(ListPostsFragment.class, hm);
+                    }
+                };
+        onPressObserver.addOnPressListener(onPress);
+        return onPress;
     }
 
     @Provides @Singleton 
