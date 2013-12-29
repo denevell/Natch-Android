@@ -13,7 +13,7 @@ import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
-import org.denevell.droidnatch.thread.delete.uievents.LongClickDeleteEvent;
+import org.denevell.droidnatch.thread.delete.uievents.LongClickDeleteUiEvent;
 import org.denevell.droidnatch.threads.list.di.ListThreadsControllerMapper;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 
@@ -22,12 +22,12 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module(complete = false, library = true)
-public class DeleteThreadMapper {
+public class DeleteThreadControllerMapper {
     
     private static final String DELETE_THREAD_UI_EVENT = "delete_thread_ui_event";
     public static final String PROVIDES_DELETE_THREAD_CONTROLLER = "delete_thread_controller";
 
-    public DeleteThreadMapper() {
+    public DeleteThreadControllerMapper() {
     }
 
     @Provides @Singleton @Named(PROVIDES_DELETE_THREAD_CONTROLLER)
@@ -46,15 +46,15 @@ public class DeleteThreadMapper {
     }
     
     @Provides @Named(DELETE_THREAD_UI_EVENT) @Singleton
-    public GenericUiObservable providesEditTextUiEvent(
+    public GenericUiObservable providesDeleteThreadUiEvent(
             ClickableListView<ThreadResource> onLongPressObserver,
             final Context appContext,
             final VolleyRequest<DeletePostResourceReturnData> deleteRequest) {
-        LongClickDeleteEvent event = new LongClickDeleteEvent(
+        LongClickDeleteUiEvent event = new LongClickDeleteUiEvent(
                 appContext, 
                 onLongPressObserver, 
                 deleteRequest);
-        return event.getUiEvent();
+        return event;
     }    
     
 }

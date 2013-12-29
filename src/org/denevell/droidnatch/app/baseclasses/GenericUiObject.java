@@ -15,15 +15,8 @@ public class GenericUiObject implements GenericUiObservable {
     private List<GenericUiFailure> failureObservers = new ArrayList<GenericUiFailure>();
 
     @Override
-    public void setObserver(GenericUiObserver observer) {
+    public void setOnSubmitObserver(GenericUiObserver observer) {
         observers.add(observer);
-    }
-
-    @Override
-    public void submit() {
-        for (GenericUiObserver observer: observers) {
-           observer.onGenericUiEvent(); 
-        }
     }
 
     @Override
@@ -34,6 +27,13 @@ public class GenericUiObject implements GenericUiObservable {
     @Override
     public void setOnFail(GenericUiFailure failure) {
         failureObservers.add(failure);
+    }
+
+    @Override
+    public void submit() {
+        for (GenericUiObserver observer: observers) {
+           observer.onGenericUiEvent(); 
+        }
     }
 
     @Override

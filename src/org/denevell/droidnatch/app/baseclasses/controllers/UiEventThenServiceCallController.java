@@ -36,7 +36,7 @@ public class UiEventThenServiceCallController implements Controller,
     @Override
     public UiEventThenServiceCallController setup() {
         if(mUiEvent!=null) {
-            mUiEvent.setObserver(this);
+            mUiEvent.setOnSubmitObserver(this);
         }
         if(mService!=null) {
             mService.setServiceCallbacks(this);

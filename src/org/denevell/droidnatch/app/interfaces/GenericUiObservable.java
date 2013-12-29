@@ -16,7 +16,7 @@ public interface GenericUiObservable {
         void onGenericUiFailure(FailureResult f);
     }
 
-    void setObserver(GenericUiObserver observer);
+    void setOnSubmitObserver(GenericUiObserver observer);
 
     void submit();
 

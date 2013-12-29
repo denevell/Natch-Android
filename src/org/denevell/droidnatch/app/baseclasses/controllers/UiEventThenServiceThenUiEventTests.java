@@ -46,7 +46,7 @@ public class UiEventThenServiceThenUiEventTests {
         controller.setup();
         
         // Assert
-        verify(uiObservable).setObserver(controller);
+        verify(uiObservable).setOnSubmitObserver(controller);
     }
 
     @Test
