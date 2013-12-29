@@ -8,9 +8,10 @@ import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.thread.add.AddThreadMapper;
-import org.denevell.droidnatch.thread.delete.DeleteThreadMapper;
-import org.denevell.droidnatch.threads.list.di.ListThreadsResultsDisplayableMapper;
+import org.denevell.droidnatch.thread.delete.di.DeleteThreadMapper;
+import org.denevell.droidnatch.thread.delete.di.DeleteThreadServicesMapper;
 import org.denevell.droidnatch.threads.list.di.ListThreadsControllerMapper;
+import org.denevell.droidnatch.threads.list.di.ListThreadsResultsDisplayableMapper;
 import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper;
 import org.denevell.natch.android.R;
 
@@ -47,9 +48,10 @@ public class ListThreadsFragment extends ObservableFragment {
 
                     new ListThreadsControllerMapper(),
                     new ListThreadsServiceMapper(),
-                    new ListThreadsResultsDisplayableMapper(getActivity()),
+                    new ListThreadsResultsDisplayableMapper(getActivity(), this),
 
-                    new DeleteThreadMapper(this),
+                    new DeleteThreadMapper(),
+                    new DeleteThreadServicesMapper(),
 
                     new AddThreadMapper(getActivity())
                     )

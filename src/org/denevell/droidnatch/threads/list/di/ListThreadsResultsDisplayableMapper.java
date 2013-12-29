@@ -35,9 +35,12 @@ public class ListThreadsResultsDisplayableMapper {
     private static final String PROVIDES_LIST_THREADS_LOADING = "listthreads_loading";
     private static final String TAG = ListThreadsResultsDisplayableMapper.class.getSimpleName();
     private Activity mActivity;
+    private ContextItemSelectedObserver mContextItemObserver;
 
-    public ListThreadsResultsDisplayableMapper(Activity activity) {
+    public ListThreadsResultsDisplayableMapper(Activity activity,
+            ContextItemSelectedObserver contextItemObserver) {
         mActivity = activity;
+        mContextItemObserver = contextItemObserver;
     }
 
     @Provides @Singleton
@@ -94,6 +97,11 @@ public class ListThreadsResultsDisplayableMapper {
     @Provides @Singleton
     public ArrayAdapter<ThreadResource> providesListAdapter(Context appContext) {
         return new ListThreadsArrayAdapter(appContext, R.layout.list_threads_row);
+    }
+
+    @Provides
+    public ContextItemSelectedObserver providesContextSelectedHolder() {
+        return mContextItemObserver;
     }
     
 }
