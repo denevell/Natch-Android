@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list;
+package org.denevell.droidnatch.threads.list.di;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,21 +9,18 @@ import javax.inject.Singleton;
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
 import org.denevell.droidnatch.app.baseclasses.controllers.ServiceCallThenDisplayController;
-import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
-import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
-import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
+import org.denevell.droidnatch.threads.list.ListThreadsArrayAdapter;
+import org.denevell.droidnatch.threads.list.ListThreadsContextMenu;
+import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResourceToArrayList;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
@@ -136,34 +133,6 @@ public class ListThreadsMapper {
                         listViewLoading,
                         appContext);
         return displayer;
-    }
-    
-    // Service stuff
-
-    @Provides
-    public ServiceFetcher<ListThreadsResource> provideService(
-            ObjectStringConverter responseConverter, 
-            FailureResultFactory failureFactory, 
-            VolleyRequest<ListThreadsResource> volleyRequest, 
-            Context appContext, 
-            ProgressIndicator progress) {
-        return new BaseService<ListThreadsResource>(
-                appContext, 
-                volleyRequest,
-                progress, 
-                responseConverter,
-                failureFactory,
-                ListThreadsResource.class);
-    }
-
-    @Provides
-    public VolleyRequest<ListThreadsResource> providesRequest (
-            Context appContext) {
-        String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_threads);
-        VolleyRequestGET<ListThreadsResource> v = 
-                new VolleyRequestGET<ListThreadsResource>();
-        v.setUrl(url);
-        return v;
     }
 
 }

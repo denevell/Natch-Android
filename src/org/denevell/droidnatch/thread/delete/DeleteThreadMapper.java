@@ -20,7 +20,7 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
 import org.denevell.droidnatch.thread.delete.uievents.LongClickDeleteEvent;
-import org.denevell.droidnatch.threads.list.ListThreadsMapper;
+import org.denevell.droidnatch.threads.list.di.ListThreadsMapper;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
