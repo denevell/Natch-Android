@@ -14,10 +14,11 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {ListThreadsMapper.class}, complete=false, library=true)
+@Module(injects = {ListThreadsControllerMapper.class}, complete=false, library=true)
 public class ListThreadsServiceMapper {
     
-    protected static final String TAG = ListThreadsServiceMapper.class.getSimpleName();
+    @SuppressWarnings("unused")
+    private static final String TAG = ListThreadsServiceMapper.class.getSimpleName();
 
     public ListThreadsServiceMapper() {
     }

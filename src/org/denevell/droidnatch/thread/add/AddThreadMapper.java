@@ -20,7 +20,7 @@ import org.denevell.droidnatch.thread.add.entities.AddPostResourceInput;
 import org.denevell.droidnatch.thread.add.entities.AddPostResourceReturnData;
 import org.denevell.droidnatch.thread.add.uievents.AddThreadTextEditGenericUiEvent;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
-import org.denevell.droidnatch.threads.list.di.ListThreadsMapper;
+import org.denevell.droidnatch.threads.list.di.ListThreadsControllerMapper;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
@@ -45,7 +45,7 @@ public class AddThreadMapper {
             ServiceFetcher<AddPostResourceReturnData> service, 
             GenericUiObservable uiEvent, 
             ResultsDisplayer<List<ThreadResource>> listThreadsDisplayable,
-            @Named(ListThreadsMapper.PROVIDES_LIST_THREADS) Controller listThreadsController
+            @Named(ListThreadsControllerMapper.PROVIDES_LIST_THREADS) Controller listThreadsController
             ) {
         UiEventThenServiceCallController controller = 
                 new UiEventThenServiceCallController(
