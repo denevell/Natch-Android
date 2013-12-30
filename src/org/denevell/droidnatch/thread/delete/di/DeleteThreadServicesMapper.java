@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestDELETE;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
+import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
@@ -26,7 +26,7 @@ public class DeleteThreadServicesMapper {
     public ServiceFetcher<DeletePostResourceReturnData> providesService(
             Context appContext, 
             ProgressIndicator progress, 
-            ObjectStringConverter converter, 
+            ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<DeletePostResourceReturnData> volleyRequest) {
         return new BaseService<DeletePostResourceReturnData>(
@@ -40,7 +40,7 @@ public class DeleteThreadServicesMapper {
 
     @Provides @Singleton
     public VolleyRequest<DeletePostResourceReturnData> providesVolleyRequestDelete(
-            ObjectStringConverter reponseConverter,
+            ObjectToStringConverter reponseConverter,
             Context appContext) {
         String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_del); 
         VolleyRequestDELETE<DeletePostResourceReturnData> vollyRequest = 

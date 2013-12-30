@@ -7,7 +7,8 @@ import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.thread.add.AddThreadMapper;
+import org.denevell.droidnatch.thread.add.AddThreadControllerMapper;
+import org.denevell.droidnatch.thread.add.AddThreadServicesMapper;
 import org.denevell.droidnatch.thread.delete.di.DeleteThreadControllerMapper;
 import org.denevell.droidnatch.thread.delete.di.DeleteThreadServicesMapper;
 import org.denevell.droidnatch.threads.list.di.ListThreadsControllerMapper;
@@ -27,7 +28,7 @@ public class ListThreadsFragment extends ObservableFragment {
     private static final String TAG = ListThreadsFragment.class.getSimpleName();
     @Inject @Named(ListThreadsControllerMapper.PROVIDES_LIST_THREADS) Controller mController;
     @Inject @Named(DeleteThreadControllerMapper.PROVIDES_DELETE_THREAD_CONTROLLER) Controller mControllerDeleteThread;
-    @Inject @Named(AddThreadMapper.PROVIDES_ADD_THREAD) Controller mControllerAddThread;
+    @Inject @Named(AddThreadControllerMapper.PROVIDES_ADD_THREAD) Controller mControllerAddThread;
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,7 +54,8 @@ public class ListThreadsFragment extends ObservableFragment {
                     new DeleteThreadControllerMapper(),
                     new DeleteThreadServicesMapper(),
 
-                    new AddThreadMapper(getActivity())
+                    new AddThreadControllerMapper(getActivity()),
+                    new AddThreadServicesMapper()
                     )
                     .inject(this);
             mController.setup().go();

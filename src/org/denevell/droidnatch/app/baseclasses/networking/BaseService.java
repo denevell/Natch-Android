@@ -2,7 +2,7 @@ package org.denevell.droidnatch.app.baseclasses.networking;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
+import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -29,14 +29,14 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
     protected ServiceCallbacks<T> mCallbacks;
     private FailureResultFactory mFailureResultFactory;
     protected VolleyRequest<T> mVolleyRequest;
-    private ObjectStringConverter mResponseConverter;
+    private ObjectToStringConverter mResponseConverter;
     private Class<T> mClass;
 
     public BaseService(
             Context applicationContext, 
             VolleyRequest<T> volleyRequest, 
             ProgressIndicator progress, 
-            ObjectStringConverter responseConverter,
+            ObjectToStringConverter responseConverter,
             FailureResultFactory failureResultFactory, 
             Class<T> classInstance) {
         mAppContext = applicationContext;

@@ -3,7 +3,7 @@ package org.denevell.droidnatch.threads.list.di;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
+import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
@@ -25,7 +25,7 @@ public class ListThreadsServiceMapper {
     
     @Provides 
     public ServiceFetcher<ListThreadsResource> provideService(
-            ObjectStringConverter responseConverter, 
+            ObjectToStringConverter responseConverter, 
             FailureResultFactory failureFactory, 
             Context appContext, 
             ProgressIndicator progress) {

@@ -29,8 +29,7 @@ public class ListThreadsControllerMapper {
     @Provides @Singleton @Named(PROVIDES_LIST_THREADS)
     public Controller providesController(
             ServiceFetcher<ListThreadsResource> listThreadsService, 
-            ResultsDisplayer<List<ThreadResource>> resultsPane 
-            ) {
+            ResultsDisplayer<List<ThreadResource>> resultsPane) {
         ServiceCallThenDisplayController<ListThreadsResource, List<ThreadResource>> controller = 
                 new ServiceCallThenDisplayController<ListThreadsResource, List<ThreadResource>>(
                     listThreadsService, 

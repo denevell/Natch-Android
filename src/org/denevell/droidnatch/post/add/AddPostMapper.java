@@ -9,7 +9,7 @@ import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestPUTImpl;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
-import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
+import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
@@ -59,7 +59,7 @@ public class AddPostMapper {
     public ServiceFetcher<AddPostResourceReturnData> providesService(
             Context appContext, 
             ProgressIndicator progress, 
-            ObjectStringConverter converter, 
+            ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<AddPostResourceReturnData> volleyRequest) {
         return new BaseService<AddPostResourceReturnData>(
@@ -81,7 +81,7 @@ public class AddPostMapper {
     
     @Provides @Singleton 
     public VolleyRequest<AddPostResourceReturnData> providesRequest(
-            ObjectStringConverter reponseConverter,
+            ObjectToStringConverter reponseConverter,
             AddPostResourceInput body,
             Context appContext) {
         VolleyRequestPUTImpl<AddPostResourceReturnData> vollyRequest = 

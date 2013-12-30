@@ -11,7 +11,7 @@ import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
-import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
+import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -80,7 +80,7 @@ public class DeletePostMapper {
     public ServiceFetcher<DeletePostResourceReturnData> providesService(
             Context appContext, 
             ProgressIndicator progress, 
-            ObjectStringConverter converter, 
+            ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<DeletePostResourceReturnData> volleyRequest) {
         return new BaseService<DeletePostResourceReturnData>(
@@ -94,7 +94,7 @@ public class DeletePostMapper {
 
     @Provides @Singleton
     public VolleyRequest<DeletePostResourceReturnData> providesVolleyRequestDelete(
-            ObjectStringConverter reponseConverter,
+            ObjectToStringConverter reponseConverter,
             Context appContext) {
         String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_del); 
         VolleyRequestDELETE<DeletePostResourceReturnData> vollyRequest = 

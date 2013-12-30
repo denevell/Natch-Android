@@ -71,8 +71,7 @@ public class ListThreadsResultsDisplayableMapper {
     @Provides @Singleton 
     public OnPress<ThreadResource> providesOnListClickAction(
             final ClickableListView<ThreadResource>onPressObserver, 
-            final ScreenOpener screenOpener
-            ) {
+            final ScreenOpener screenOpener) {
         OnPress<ThreadResource> onPress = new OnPress<ThreadResource>() {
                     @Override
                     public void onPress(ThreadResource obj) {

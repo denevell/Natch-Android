@@ -14,7 +14,7 @@ import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
+import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -67,7 +67,7 @@ public class ListPostsMapper {
     
     @Provides
     public ServiceFetcher<ListPostsResource> provideService(
-            ObjectStringConverter responseConverter, 
+            ObjectToStringConverter responseConverter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<ListPostsResource> volleyRequest, 
             Context appContext, 

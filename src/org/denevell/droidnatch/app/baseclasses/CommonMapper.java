@@ -3,7 +3,7 @@ package org.denevell.droidnatch.app.baseclasses;
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.app.interfaces.ObjectStringConverter;
+import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 
 import android.app.Activity;
@@ -35,7 +35,7 @@ public class CommonMapper {
     }
 
     @Provides
-    public ObjectStringConverter providesResponseConverter() {
+    public ObjectToStringConverter providesResponseConverter() {
         return new JsonConverter();
     }
     
