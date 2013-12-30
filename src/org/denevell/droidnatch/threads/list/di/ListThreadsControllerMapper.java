@@ -7,7 +7,6 @@ import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.baseclasses.controllers.ServiceCallThenDisplayController;
 import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
@@ -30,9 +29,8 @@ public class ListThreadsControllerMapper {
     @Provides @Singleton @Named(PROVIDES_LIST_THREADS)
     public Controller providesController(
             ServiceFetcher<ListThreadsResource> listThreadsService, 
-            ResultsDisplayer<List<ThreadResource>> resultsPane, 
-            // We're taking in the OnPress simply so it's constructed.
-            @Named(ListThreadsResultsDisplayableMapper.PROVIDES_LIST_THREADS_LIST_CLICK) OnPress<ThreadResource> listClickListener) {
+            ResultsDisplayer<List<ThreadResource>> resultsPane 
+            ) {
         ServiceCallThenDisplayController<ListThreadsResource, List<ThreadResource>> controller = 
                 new ServiceCallThenDisplayController<ListThreadsResource, List<ThreadResource>>(
                     listThreadsService, 

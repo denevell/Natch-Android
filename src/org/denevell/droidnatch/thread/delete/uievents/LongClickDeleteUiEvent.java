@@ -16,7 +16,7 @@ public class LongClickDeleteUiEvent extends GenericUiObject implements OnLongPre
 
     public LongClickDeleteUiEvent(
             final Context appContext,
-            OnLongPressObserver<ThreadResource> onLongPressObserver,
+            final OnLongPressObserver<ThreadResource> onLongPressObserver,
             final VolleyRequest<?> deleteRequest) {
         mAppContext = appContext;
         mDeleteRequest = deleteRequest;

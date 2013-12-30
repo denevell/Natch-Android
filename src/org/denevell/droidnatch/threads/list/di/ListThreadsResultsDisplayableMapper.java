@@ -3,7 +3,6 @@ package org.denevell.droidnatch.threads.list.di;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
@@ -32,7 +31,6 @@ import dagger.Provides;
 public class ListThreadsResultsDisplayableMapper {
     
     public static final String PROVIDES_LIST_THREADS_LIST_CLICK = "list_threads_list_click";
-    private static final String PROVIDES_LIST_THREADS_LOADING = "listthreads_loading";
     private static final String TAG = ListThreadsResultsDisplayableMapper.class.getSimpleName();
     private Activity mActivity;
     private ContextItemSelectedObserver mContextItemObserver;
@@ -46,34 +44,35 @@ public class ListThreadsResultsDisplayableMapper {
     @Provides @Singleton
     public ResultsDisplayer<List<ThreadResource>> provideResultsDisplayer(
             Context appContext, 
-            ArrayAdapter<ThreadResource> arrayAdapter, 
-            ClickableListView<ThreadResource> listView, 
-            @Named(PROVIDES_LIST_THREADS_LOADING) View listViewLoading) {
+            ClickableListView<ThreadResource> listView,
+            // We're taking in the OnPress simply so it's constructed.
+            OnPress<ThreadResource> listClickListener
+            ) {
         ListViewResultDisplayer<ThreadResource, List<ThreadResource>> displayer = 
                 new ListViewResultDisplayer<ThreadResource, List<ThreadResource>>(
                         listView.getListView(), 
-                        arrayAdapter, 
-                        listViewLoading,
+                        providesListAdapter(appContext), 
+                        providesLoadingListView(),
                         appContext);
         return displayer;
     }
 
     @Provides @Singleton 
-    public ClickableListView<ThreadResource> providesListView(
-            ContextItemSelectedObserver contextSelectedObserver) {
+    public ClickableListView<ThreadResource> providesListView() {
         ListView listView = (ListView) mActivity.findViewById(R.id.listView1);
         ClickableListView<ThreadResource> ltlv = 
                 new ClickableListView<ThreadResource>(
                         listView, 
-                        contextSelectedObserver,
+                        providesContextSelectedHolder(),
                         new ListThreadsContextMenu());
         return ltlv;
     }
 
-    @Provides @Singleton @Named(PROVIDES_LIST_THREADS_LIST_CLICK)
+    @Provides @Singleton 
     public OnPress<ThreadResource> providesOnListClickAction(
             final ClickableListView<ThreadResource>onPressObserver, 
-            final ScreenOpener screenOpener) {
+            final ScreenOpener screenOpener
+            ) {
         OnPress<ThreadResource> onPress = new OnPress<ThreadResource>() {
                     @Override
                     public void onPress(ThreadResource obj) {
@@ -88,19 +87,16 @@ public class ListThreadsResultsDisplayableMapper {
         return onPress;
     }
 
-    @Provides @Singleton @Named(PROVIDES_LIST_THREADS_LOADING)
-    public View providesLoadingListView() {
+    private View providesLoadingListView() {
         View v = mActivity.findViewById(R.id.list_threads_loading);
         return v;
     }
 
-    @Provides @Singleton
-    public ArrayAdapter<ThreadResource> providesListAdapter(Context appContext) {
+    private ArrayAdapter<ThreadResource> providesListAdapter(Context appContext) {
         return new ListThreadsArrayAdapter(appContext, R.layout.list_threads_row);
     }
 
-    @Provides
-    public ContextItemSelectedObserver providesContextSelectedHolder() {
+    private ContextItemSelectedObserver providesContextSelectedHolder() {
         return mContextItemObserver;
     }
     

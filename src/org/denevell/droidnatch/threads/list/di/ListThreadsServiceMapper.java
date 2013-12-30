@@ -23,24 +23,22 @@ public class ListThreadsServiceMapper {
     public ListThreadsServiceMapper() {
     }
     
-    @Provides
+    @Provides 
     public ServiceFetcher<ListThreadsResource> provideService(
             ObjectStringConverter responseConverter, 
             FailureResultFactory failureFactory, 
-            VolleyRequest<ListThreadsResource> volleyRequest, 
             Context appContext, 
             ProgressIndicator progress) {
         return new BaseService<ListThreadsResource>(
                 appContext, 
-                volleyRequest,
+                providesRequest(appContext),
                 progress, 
                 responseConverter,
                 failureFactory,
                 ListThreadsResource.class);
     }
 
-    @Provides
-    public VolleyRequest<ListThreadsResource> providesRequest(Context appContext) {
+    private VolleyRequest<ListThreadsResource> providesRequest(Context appContext) {
         String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_threads);
         VolleyRequestGET<ListThreadsResource> v = 
                 new VolleyRequestGET<ListThreadsResource>();
