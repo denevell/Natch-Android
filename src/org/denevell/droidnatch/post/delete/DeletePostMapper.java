@@ -18,7 +18,7 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.post.delete.uievents.LongClickDeletePostEvent;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.posts.list.ListPostsMapper;
+import org.denevell.droidnatch.posts.list.di.ListPostsMapper;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;

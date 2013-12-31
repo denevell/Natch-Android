@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.thread.add;
+package org.denevell.droidnatch.thread.add.di;
 
 import javax.inject.Singleton;
 

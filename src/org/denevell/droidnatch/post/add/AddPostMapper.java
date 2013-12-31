@@ -15,7 +15,7 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.post.add.uievents.AddPostTextEditGenericUiEvent;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.posts.list.ListPostsMapper;
+import org.denevell.droidnatch.posts.list.di.ListPostsMapper;
 import org.denevell.droidnatch.thread.add.entities.AddPostResourceInput;
 import org.denevell.droidnatch.thread.add.entities.AddPostResourceReturnData;
 import org.denevell.natch.android.R;

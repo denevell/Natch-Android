@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.posts.list;
+package org.denevell.droidnatch.posts.list.di;
 
 import java.util.List;
 
@@ -9,17 +9,13 @@ import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.controllers.ServiceCallThenDisplayController;
-import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
-import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
-import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.posts.list.adapters.ListPostsArrayAdapter;
+import org.denevell.droidnatch.posts.list.ListPostsArrayAdapter;
+import org.denevell.droidnatch.posts.list.ListPostsContextMenu;
+import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.posts.list.entities.ListPostsResource;
 import org.denevell.droidnatch.posts.list.entities.ListPostsResourceToArrayList;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
@@ -27,7 +23,6 @@ import org.denevell.natch.android.R;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -40,13 +35,11 @@ public class ListPostsMapper {
     public static final String PROVIDES_LIST_POSTS_LISTVIEW = "list_posts_listview";
     public static final String PROVIDES_LIST_POSTS = "list_posts";
     private Activity mActivity;
-    private Bundle mBundle;
     private ObservableFragment mObservableFragment;
 
     public ListPostsMapper(ObservableFragment listPostsFragment) {
         mObservableFragment = listPostsFragment;
         mActivity = listPostsFragment.getActivity();
-        mBundle = listPostsFragment.getArguments();
     }
     
     // Controller
@@ -62,35 +55,6 @@ public class ListPostsMapper {
                 new ListPostsResourceToArrayList());
         return controller;
     }    
-    
-    // Service
-    
-    @Provides
-    public ServiceFetcher<ListPostsResource> provideService(
-            ObjectToStringConverter responseConverter, 
-            FailureResultFactory failureFactory, 
-            VolleyRequest<ListPostsResource> volleyRequest, 
-            Context appContext, 
-            ProgressIndicator progress) {
-        return new BaseService<ListPostsResource>(
-                appContext, 
-                volleyRequest,
-                progress, 
-                responseConverter,
-                failureFactory,
-                ListPostsResource.class);
-    }    
-    
-    @Provides
-    public VolleyRequest<ListPostsResource> providesRequest (
-            Context appContext) {
-        String url = appContext.getString(R.string.url_baseurl) 
-                + appContext.getString(R.string.url_posts);
-        url = url.replace("{thread_id}", (CharSequence) mBundle.getString(ListPostsFragment.BUNDLE_KEY_THREAD_ID));
-        VolleyRequestGET<ListPostsResource> v = new VolleyRequestGET<ListPostsResource>();
-        v.setUrl(url);
-        return v;
-    } 
     
     // List view
 
