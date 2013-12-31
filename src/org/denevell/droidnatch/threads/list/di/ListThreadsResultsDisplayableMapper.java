@@ -22,7 +22,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import dagger.Module;
 import dagger.Provides;
@@ -46,13 +45,14 @@ public class ListThreadsResultsDisplayableMapper {
             Context appContext, 
             ClickableListView<ThreadResource> listView,
             // We're taking in the OnPress simply so it's constructed.
-            OnPress<ThreadResource> listClickListener
-            ) {
+            OnPress<ThreadResource> listClickListener) {
+        View loadingListView = mActivity.findViewById(R.id.list_threads_loading);
+        ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(appContext, R.layout.list_threads_row);
         ListViewResultDisplayer<ThreadResource, List<ThreadResource>> displayer = 
                 new ListViewResultDisplayer<ThreadResource, List<ThreadResource>>(
                         listView.getListView(), 
-                        providesListAdapter(appContext), 
-                        providesLoadingListView(),
+                        listAdapter, 
+                        loadingListView,
                         appContext);
         return displayer;
     }
@@ -63,7 +63,7 @@ public class ListThreadsResultsDisplayableMapper {
         ClickableListView<ThreadResource> ltlv = 
                 new ClickableListView<ThreadResource>(
                         listView, 
-                        providesContextSelectedHolder(),
+                        mContextItemObserver,
                         new ListThreadsContextMenu());
         return ltlv;
     }
@@ -86,17 +86,4 @@ public class ListThreadsResultsDisplayableMapper {
         return onPress;
     }
 
-    private View providesLoadingListView() {
-        View v = mActivity.findViewById(R.id.list_threads_loading);
-        return v;
-    }
-
-    private ArrayAdapter<ThreadResource> providesListAdapter(Context appContext) {
-        return new ListThreadsArrayAdapter(appContext, R.layout.list_threads_row);
-    }
-
-    private ContextItemSelectedObserver providesContextSelectedHolder() {
-        return mContextItemObserver;
-    }
-    
 }

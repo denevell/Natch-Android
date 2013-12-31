@@ -18,7 +18,8 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.post.delete.uievents.LongClickDeletePostEvent;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.posts.list.di.ListPostsMapper;
+import org.denevell.droidnatch.posts.list.di.ListPostsControllerMapper;
+import org.denevell.droidnatch.posts.list.di.ListPostsResultsDisplayableMapper;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;
@@ -43,7 +44,7 @@ public class DeletePostMapper {
     @Provides @Singleton @Named(PROVIDES_DELETE_POST)
     public Controller providesController(
             ServiceFetcher<DeletePostResourceReturnData> service, 
-            @Named(ListPostsMapper.PROVIDES_LIST_POSTS) Controller listPostsController, 
+            @Named(ListPostsControllerMapper.PROVIDES_LIST_POSTS) Controller listPostsController, 
             @Named(PROVIDES_DELETE_POST_UI_EVENT) GenericUiObservable uiEvent) {
         UiEventThenServiceCallController controller = 
                 new UiEventThenServiceCallController(
@@ -70,7 +71,7 @@ public class DeletePostMapper {
 
     @Provides @Singleton 
     public OnLongPressObserver<PostResource> providesOnLongPressObserver(
-            @Named(ListPostsMapper.PROVIDES_LIST_POSTS_LISTVIEW) ClickableListView<PostResource> observer) {
+            @Named(ListPostsResultsDisplayableMapper.PROVIDES_LIST_POSTS_LISTVIEW) ClickableListView<PostResource> observer) {
         return observer;
     }    
     
