@@ -1,8 +1,6 @@
 package org.denevell.droidnatch.post.delete.uievents;
 
 import org.denevell.droidnatch.app.baseclasses.GenericUiObject;
-import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
-import org.denevell.droidnatch.app.interfaces.GenericUiObservable.GenericUiSuccess;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver.OnLongPress;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
@@ -11,27 +9,20 @@ import org.denevell.natch.android.R;
 
 import android.content.Context;
 
-public class LongClickDeletePostEvent implements OnLongPress<PostResource>, GenericUiSuccess {
+public class LongClickDeletePostUiEvent extends GenericUiObject implements OnLongPress<PostResource> {
     
     @SuppressWarnings("unused")
-    private static final String TAG = LongClickDeletePostEvent.class.getSimpleName();
-    private GenericUiObject mGenericObject;
+    private static final String TAG = LongClickDeletePostUiEvent.class.getSimpleName();
     private Context mAppContext;
     private VolleyRequest<?> mDeleteRequest;
 
-    public LongClickDeletePostEvent(
+    public LongClickDeletePostUiEvent(
             final Context appContext,
             OnLongPressObserver<PostResource> onLongPressObserver,
             final VolleyRequest<?> deleteRequest) {
         mAppContext = appContext;
         mDeleteRequest = deleteRequest;
-        mGenericObject = new GenericUiObject();
-        mGenericObject.setOnSuccess(this);
         onLongPressObserver.addOnLongClickListener(this);
-    }
-
-    public GenericUiObservable getUiEvent() {
-        return mGenericObject;
     }
 
     @Override
@@ -39,12 +30,8 @@ public class LongClickDeletePostEvent implements OnLongPress<PostResource>, Gene
         if(position!=0) {
             String url = mAppContext.getString(R.string.url_baseurl) + mAppContext.getString(R.string.url_del); 
             mDeleteRequest.setUrl(url+obj.getId());
-            mGenericObject.submit();
+            submit();
         }
-    }
-
-    @Override
-    public void onGenericUiSuccess() {
     }
 
 }

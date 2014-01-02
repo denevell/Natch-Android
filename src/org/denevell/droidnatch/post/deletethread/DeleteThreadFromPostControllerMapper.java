@@ -10,7 +10,7 @@ import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.post.delete.uievents.LongClickDeleteThreadEvent;
+import org.denevell.droidnatch.post.deletethread.uievents.LongClickDeleteThreadEvent;
 import org.denevell.droidnatch.post.deletethread.uievents.PreviousScreenUiEvent;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
@@ -54,7 +54,7 @@ public class DeleteThreadFromPostControllerMapper {
                 appContext, 
                 onLongPressObserver, 
                 deleteRequest);
-        return event.getUiEvent();
+        return event;
     }    
 
     @Provides @Named(DELETE_THREAD_GOTO_PREVIOUSSCREEN_UI_EVENT) @Singleton

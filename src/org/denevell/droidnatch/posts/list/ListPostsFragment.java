@@ -8,8 +8,9 @@ import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.post.add.AddPostMapper;
-import org.denevell.droidnatch.post.delete.DeletePostMapper;
+import org.denevell.droidnatch.post.delete.DeletePostControllerMapper;
 import org.denevell.droidnatch.post.deletethread.DeleteThreadFromPostControllerMapper;
+import org.denevell.droidnatch.post.deletethread.DeleteThreadFromPostServicesMapper;
 import org.denevell.droidnatch.posts.list.di.ListPostsControllerMapper;
 import org.denevell.droidnatch.posts.list.di.ListPostsResultsDisplayableMapper;
 import org.denevell.droidnatch.posts.list.di.ListPostsServiceMapper;
@@ -29,7 +30,7 @@ public class ListPostsFragment extends ObservableFragment {
     private static final String TAG = ListPostsFragment.class.getSimpleName();
     @Inject @Named(ListPostsControllerMapper.PROVIDES_LIST_POSTS) Controller mControllerListPosts;
     @Inject @Named(AddPostMapper.PROVIDES_ADD_POST) Controller mControllerAddPost;
-    @Inject @Named(DeletePostMapper.PROVIDES_DELETE_POST) Controller mControllerDeletePost;
+    @Inject @Named(DeletePostControllerMapper.PROVIDES_DELETE_POST) Controller mControllerDeletePost;
     @Inject @Named(DeleteThreadFromPostControllerMapper.PROVIDES_DELETE_THREAD_FROM_POST) Controller mControllerDeleteThreadFromPostController;
 
     @Override
@@ -54,9 +55,12 @@ public class ListPostsFragment extends ObservableFragment {
                     new ListPostsServiceMapper(this),
 
                     new ListPostsServiceMapper(this),
-                    new DeletePostMapper(this),
+                    new DeletePostControllerMapper(this),
                     new AddPostMapper(this),
-                    new DeleteThreadFromPostControllerMapper())
+
+                    new DeleteThreadFromPostServicesMapper(),
+                    new DeleteThreadFromPostControllerMapper()
+                    )
                     .inject(this);
             mControllerListPosts.setup().go();
             mControllerAddPost.setup().go();
