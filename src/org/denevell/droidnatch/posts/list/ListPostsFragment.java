@@ -7,8 +7,9 @@ import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.post.add.AddPostMapper;
+import org.denevell.droidnatch.post.add.AddPostControllerMapper;
 import org.denevell.droidnatch.post.delete.DeletePostControllerMapper;
+import org.denevell.droidnatch.post.delete.DeletePostServicesMapper;
 import org.denevell.droidnatch.post.deletethread.DeleteThreadFromPostControllerMapper;
 import org.denevell.droidnatch.post.deletethread.DeleteThreadFromPostServicesMapper;
 import org.denevell.droidnatch.posts.list.di.ListPostsControllerMapper;
@@ -29,7 +30,7 @@ public class ListPostsFragment extends ObservableFragment {
     public static final String BUNDLE_KEY_THREAD_NAME = "thread_name";
     private static final String TAG = ListPostsFragment.class.getSimpleName();
     @Inject @Named(ListPostsControllerMapper.PROVIDES_LIST_POSTS) Controller mControllerListPosts;
-    @Inject @Named(AddPostMapper.PROVIDES_ADD_POST) Controller mControllerAddPost;
+    @Inject @Named(AddPostControllerMapper.PROVIDES_ADD_POST) Controller mControllerAddPost;
     @Inject @Named(DeletePostControllerMapper.PROVIDES_DELETE_POST) Controller mControllerDeletePost;
     @Inject @Named(DeleteThreadFromPostControllerMapper.PROVIDES_DELETE_THREAD_FROM_POST) Controller mControllerDeleteThreadFromPostController;
 
@@ -54,9 +55,10 @@ public class ListPostsFragment extends ObservableFragment {
                     new ListPostsResultsDisplayableMapper(this),
                     new ListPostsServiceMapper(this),
 
-                    new ListPostsServiceMapper(this),
                     new DeletePostControllerMapper(this),
-                    new AddPostMapper(this),
+                    new DeletePostServicesMapper(),
+
+                    new AddPostControllerMapper(this),
 
                     new DeleteThreadFromPostServicesMapper(),
                     new DeleteThreadFromPostControllerMapper()

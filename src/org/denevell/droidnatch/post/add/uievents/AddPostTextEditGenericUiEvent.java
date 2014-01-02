@@ -2,8 +2,6 @@ package org.denevell.droidnatch.post.add.uievents;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.GenericUiObject;
-import org.denevell.droidnatch.app.interfaces.GenericUiObservable.GenericUiFailure;
-import org.denevell.droidnatch.app.interfaces.GenericUiObservable.GenericUiSuccess;
 import org.denevell.droidnatch.thread.add.entities.AddPostResourceInput;
 
 import android.view.KeyEvent;
@@ -11,25 +9,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-public class AddPostTextEditGenericUiEvent implements OnEditorActionListener {
+public class AddPostTextEditGenericUiEvent extends GenericUiObject implements OnEditorActionListener {
     
     private EditText mEditText;
-    private GenericUiObject mGenericUiEvent;
     private AddPostResourceInput mResourceInput;
 
     public AddPostTextEditGenericUiEvent(final EditText editText,
             AddPostResourceInput addPostResourceInput) {
         mEditText = editText;
         mResourceInput = addPostResourceInput;
-        mGenericUiEvent = new GenericUiObject();
         editText.setOnEditorActionListener(this);
-        mGenericUiEvent.setOnSuccess(new GenericUiSuccess() {
+        setOnSuccess(new GenericUiSuccess() {
             @Override
             public void onGenericUiSuccess() {
                 mEditText.setText("");
             }
         });
-        mGenericUiEvent.setOnFail(new GenericUiFailure() {
+        setOnFail(new GenericUiFailure() {
             @Override
             public void onGenericUiFailure(FailureResult f) {
                 if(f!=null && f.getErrorMessage()!=null) {
@@ -39,10 +35,6 @@ public class AddPostTextEditGenericUiEvent implements OnEditorActionListener {
         });        
     }
     
-    public GenericUiObject getGenericUiEvent() {
-        return mGenericUiEvent;
-    }
-
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if(event!=null && event.getAction()==KeyEvent.ACTION_DOWN) {
@@ -50,7 +42,7 @@ public class AddPostTextEditGenericUiEvent implements OnEditorActionListener {
         }
         mResourceInput.setSubject("-");
         mResourceInput.setContent(v.getText().toString());                  
-        mGenericUiEvent.submit();
+        submit();
         return true;
     }
 

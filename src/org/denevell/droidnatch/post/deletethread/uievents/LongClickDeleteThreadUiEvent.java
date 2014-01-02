@@ -9,14 +9,14 @@ import org.denevell.natch.android.R;
 
 import android.content.Context;
 
-public class LongClickDeleteThreadEvent extends GenericUiObject implements OnLongPress<PostResource> {
+public class LongClickDeleteThreadUiEvent extends GenericUiObject implements OnLongPress<PostResource> {
     
     @SuppressWarnings("unused")
-    private static final String TAG = LongClickDeleteThreadEvent.class.getSimpleName();
+    private static final String TAG = LongClickDeleteThreadUiEvent.class.getSimpleName();
     private Context mAppContext;
     private VolleyRequest<?> mDeleteRequest;
 
-    public LongClickDeleteThreadEvent(
+    public LongClickDeleteThreadUiEvent(
             final Context appContext,
             OnLongPressObserver<PostResource> onLongPressObserver,
             final VolleyRequest<?> deleteRequest) {
