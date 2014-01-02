@@ -1,19 +1,31 @@
 package org.denevell.droidnatch.threads.list;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import java.util.List;
 
+import javax.inject.Inject;
+
+import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
-import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.thread.add.di.AddThreadControllerMapper;
+import org.denevell.droidnatch.app.baseclasses.controllers.ServiceCallThenDisplayController;
+import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceCallController;
+import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
+import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
+import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.thread.add.di.AddThreadServicesMapper;
-import org.denevell.droidnatch.thread.delete.di.DeleteThreadControllerMapper;
+import org.denevell.droidnatch.thread.add.entities.AddPostResourceInput;
+import org.denevell.droidnatch.thread.add.entities.AddPostResourceReturnData;
+import org.denevell.droidnatch.thread.add.uievents.AddThreadTextEditUiEvent;
 import org.denevell.droidnatch.thread.delete.di.DeleteThreadServicesMapper;
-import org.denevell.droidnatch.threads.list.di.ListThreadsControllerMapper;
+import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
+import org.denevell.droidnatch.thread.delete.uievents.LongClickDeleteUiEvent;
 import org.denevell.droidnatch.threads.list.di.ListThreadsResultsDisplayableMapper;
 import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper;
+import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
+import org.denevell.droidnatch.threads.list.entities.ListThreadsResourceToArrayList;
+import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
 import android.os.Bundle;
@@ -21,18 +33,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import dagger.ObjectGraph;
 
 public class ListThreadsFragment extends ObservableFragment {
-    
     private static final String TAG = ListThreadsFragment.class.getSimpleName();
-    @Inject @Named(ListThreadsControllerMapper.PROVIDES_LIST_THREADS) Controller mController;
-    @Inject @Named(DeleteThreadControllerMapper.PROVIDES_DELETE_THREAD_CONTROLLER) Controller mControllerDeleteThread;
-    @Inject @Named(AddThreadControllerMapper.PROVIDES_ADD_THREAD) Controller mControllerAddThread;
+
+    @Inject ServiceFetcher<ListThreadsResource> listThreadsService;
+    @Inject ServiceFetcher<AddPostResourceReturnData> addPostService;
+    @Inject ServiceFetcher<DeletePostResourceReturnData> deleteThreadService;
+    @Inject ResultsDisplayer<List<ThreadResource>> resultsPane;
+    @Inject AddPostResourceInput addPostResourceInput;
+    @Inject ClickableListView<ThreadResource> onLongPressObserver;
+    @Inject VolleyRequest<DeletePostResourceReturnData> deleteRequest;
+
+    private ServiceCallThenDisplayController<ListThreadsResource, List<ThreadResource>> listThreadController;
+    private UiEventThenServiceCallController addThreadController;
+    private UiEventThenServiceCallController deleteThreadController;
     
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         getActivity().setTitle(R.string.page_title_threads);
         View v = inflater.inflate(R.layout.list_threads_fragment, container, false);
@@ -43,29 +63,64 @@ public class ListThreadsFragment extends ObservableFragment {
     public void onResume() {
         super.onResume();
         try {
-            ObjectGraph.create(
-                    new ScreenOpenerMapper(getActivity()),
-                    new CommonMapper(getActivity()),
+            inject();
+            
+            listThreadController = 
+                new ServiceCallThenDisplayController<ListThreadsResource, List<ThreadResource>>(
+                    listThreadsService, 
+                    resultsPane,
+                    new ListThreadsResourceToArrayList());            
+            listThreadController.setup().go();
+    
+            addThreadController = 
+                new UiEventThenServiceCallController(
+                    providesEditTextUiEvent(addPostResourceInput), 
+                    addPostService,
+                    resultsPane,
+                    listThreadController);
+            addThreadController.setup().go();
 
-                    new ListThreadsControllerMapper(),
-                    new ListThreadsServiceMapper(),
-                    new ListThreadsResultsDisplayableMapper(getActivity(), this),
+            deleteThreadController = 
+                new UiEventThenServiceCallController(
+                        providesDeleteThreadUiEvent(),
+                        deleteThreadService,
+                        resultsPane,
+                        listThreadController);
+            deleteThreadController.setup().go();
 
-                    new DeleteThreadControllerMapper(),
-                    new DeleteThreadServicesMapper(),
-
-                    new AddThreadControllerMapper(getActivity()),
-                    new AddThreadServicesMapper()
-                    )
-                    .inject(this);
-            mController.setup().go();
-            mControllerAddThread.setup().go();
-            mControllerDeleteThread.setup().go();
         } catch (Exception e) {
             Log.e(TAG, "Failed to start di mapper", e);
             return;
         }    
     }
 
+    private GenericUiObservable providesEditTextUiEvent(AddPostResourceInput resourceInput) {
+        EditText editText = (EditText) getActivity().findViewById(R.id.editText1);
+        return new AddThreadTextEditUiEvent(
+                        editText, 
+                        resourceInput);
+    }    
+    
+    private GenericUiObservable providesDeleteThreadUiEvent() {
+        LongClickDeleteUiEvent event = new LongClickDeleteUiEvent(
+                getActivity(), 
+                onLongPressObserver, 
+                deleteRequest);
+        return event;
+    }      
+
+    private void inject() {
+        ObjectGraph.create(
+                new ScreenOpenerMapper(getActivity()),
+                new CommonMapper(getActivity()),
+
+                new ListThreadsServiceMapper(),
+                new ListThreadsResultsDisplayableMapper(getActivity(), this),
+
+                new DeleteThreadServicesMapper(),
+
+                new AddThreadServicesMapper()
+        ).inject(this);
+    }
 
 }

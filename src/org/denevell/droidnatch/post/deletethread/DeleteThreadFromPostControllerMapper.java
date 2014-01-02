@@ -3,10 +3,10 @@ package org.denevell.droidnatch.post.deletethread;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
-import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
@@ -47,7 +47,7 @@ public class DeleteThreadFromPostControllerMapper {
     
     @Provides @Named(DELETE_THREAD_FROM_POST_UI_EVENT) @Singleton
     public GenericUiObservable providesLongClickDeleteThreadUiEvent(
-            OnLongPressObserver<PostResource> onLongPressObserver,
+            ClickableListView<PostResource> onLongPressObserver,
             final Context appContext,
             @Named(DELETE_THREAD_FROM_POST_REQUEST) final VolleyRequest<DeletePostResourceReturnData> deleteRequest) {
         LongClickDeleteThreadUiEvent event = new LongClickDeleteThreadUiEvent(

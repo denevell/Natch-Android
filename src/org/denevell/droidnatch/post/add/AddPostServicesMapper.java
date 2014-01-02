@@ -20,7 +20,7 @@ import android.support.v4.app.Fragment;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {ListPostsFragment.class}, complete = false)
+@Module(injects = {ListPostsFragment.class}, complete = false, library=true)
 public class AddPostServicesMapper {
     
     private Bundle mBundle;

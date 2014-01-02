@@ -31,7 +31,7 @@ public class AddPostControllerMapper {
     }
 
     @Provides @Singleton @Named(PROVIDES_ADD_POST)
-    public Controller providesLoginController(
+    public Controller providesAddPostController(
             ServiceFetcher<AddPostResourceReturnData> service, 
             GenericUiObservable uiEvent, 
             @Named(ListPostsControllerMapper.PROVIDES_LIST_POSTS) Controller nextController,

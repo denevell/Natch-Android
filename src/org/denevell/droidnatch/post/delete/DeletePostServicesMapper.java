@@ -17,7 +17,7 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = ListPostsFragment.class, complete = false)
+@Module(injects = ListPostsFragment.class, complete = false, library=true)
 public class DeletePostServicesMapper {
     
     public DeletePostServicesMapper() {

@@ -8,6 +8,7 @@ import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.post.add.AddPostControllerMapper;
+import org.denevell.droidnatch.post.add.AddPostServicesMapper;
 import org.denevell.droidnatch.post.delete.DeletePostControllerMapper;
 import org.denevell.droidnatch.post.delete.DeletePostServicesMapper;
 import org.denevell.droidnatch.post.deletethread.DeleteThreadFromPostControllerMapper;
@@ -59,6 +60,7 @@ public class ListPostsFragment extends ObservableFragment {
                     new DeletePostServicesMapper(),
 
                     new AddPostControllerMapper(this),
+                    new AddPostServicesMapper(this),
 
                     new DeleteThreadFromPostServicesMapper(),
                     new DeleteThreadFromPostControllerMapper()

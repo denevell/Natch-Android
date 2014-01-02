@@ -2,7 +2,6 @@ package org.denevell.droidnatch.posts.list.di;
 
 import java.util.List;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
@@ -24,7 +23,6 @@ import dagger.Provides;
 @Module(injects = {ListPostsFragment.class}, complete = false, library=true)
 public class ListPostsResultsDisplayableMapper {
    
-    public static final String PROVIDES_LIST_POSTS_LISTVIEW = "list_posts_listview";
     private Activity mActivity;
     private ObservableFragment mObservableFragment;
 
@@ -36,7 +34,7 @@ public class ListPostsResultsDisplayableMapper {
     @Provides @Singleton
     public ResultsDisplayer<List<PostResource>> providResultDisplayer(
             Context appContext, 
-            @Named(PROVIDES_LIST_POSTS_LISTVIEW) ClickableListView<PostResource> listView) {
+            ClickableListView<PostResource> listView) {
         ListPostsArrayAdapter arrayAdapter = new ListPostsArrayAdapter(appContext, R.layout.list_threads_row);
         ListViewResultDisplayer<PostResource, List<PostResource>> displayer = 
                 new ListViewResultDisplayer<PostResource, List<PostResource>>(
@@ -47,7 +45,7 @@ public class ListPostsResultsDisplayableMapper {
         return displayer;
     } 
 
-    @Provides @Named(PROVIDES_LIST_POSTS_LISTVIEW)
+    @Provides
     public ClickableListView<PostResource> provideListView() {
         ListView lv = (ListView) mActivity.findViewById(R.id.list_posts_listview);
         ClickableListView<PostResource> clv = new ClickableListView<PostResource>(lv, 
