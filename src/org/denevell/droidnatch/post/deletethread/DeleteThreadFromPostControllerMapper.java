@@ -13,7 +13,7 @@ import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.post.deletethread.uievents.LongClickDeleteThreadUiEvent;
 import org.denevell.droidnatch.post.deletethread.uievents.PreviousScreenUiEvent;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
-import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
+import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 
 import android.content.Context;
 import dagger.Module;

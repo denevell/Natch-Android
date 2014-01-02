@@ -10,8 +10,8 @@ import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.thread.add.entities.AddPostResourceInput;
-import org.denevell.droidnatch.thread.add.entities.AddPostResourceReturnData;
+import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
+import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.natch.android.R;
 
 import android.content.Context;

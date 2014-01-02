@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.thread.add.entities;
+package org.denevell.droidnatch.threads.list.entities;
 
 
 public class SuccessOrError {

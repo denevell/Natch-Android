@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.thread.delete.uievents;
+package org.denevell.droidnatch.threads.list.uievents;
 
 import org.denevell.droidnatch.app.baseclasses.GenericUiObject;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;

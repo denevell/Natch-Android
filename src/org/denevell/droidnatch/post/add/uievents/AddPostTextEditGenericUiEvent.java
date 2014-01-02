@@ -2,7 +2,7 @@ package org.denevell.droidnatch.post.add.uievents;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.GenericUiObject;
-import org.denevell.droidnatch.thread.add.entities.AddPostResourceInput;
+import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 
 import android.view.KeyEvent;
 import android.widget.EditText;

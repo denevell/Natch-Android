@@ -14,7 +14,7 @@ import org.denevell.droidnatch.post.delete.uievents.LongClickDeletePostUiEvent;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.posts.list.di.ListPostsControllerMapper;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
-import org.denevell.droidnatch.thread.delete.entities.DeletePostResourceReturnData;
+import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 
 import android.content.Context;
 import dagger.Module;
