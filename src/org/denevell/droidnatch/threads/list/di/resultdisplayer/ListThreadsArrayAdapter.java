@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list;
+package org.denevell.droidnatch.threads.list.di.resultdisplayer;
 
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 

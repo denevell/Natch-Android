@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list.di;
+package org.denevell.droidnatch.threads.list.di.resultdisplayer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +12,6 @@ import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.threads.list.ListThreadsArrayAdapter;
-import org.denevell.droidnatch.threads.list.ListThreadsContextMenu;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
