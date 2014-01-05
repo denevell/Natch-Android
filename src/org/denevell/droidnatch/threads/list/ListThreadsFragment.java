@@ -50,6 +50,20 @@ public class ListThreadsFragment extends ObservableFragment {
     private ServiceCallThenDisplayController<ListThreadsResource, List<ThreadResource>> listThreadController;
     private UiEventThenServiceCallController addThreadController;
     private UiEventThenServiceCallController deleteThreadController;
+
+    private void inject() {
+        ObjectGraph.create(
+                new ScreenOpenerMapper(getActivity()),
+                new CommonMapper(getActivity()),
+
+                new ListThreadsServiceMapper(),
+                new ListThreadsResultsDisplayableMapper(getActivity(), this),
+
+                new DeleteThreadServicesMapper(),
+
+                new AddThreadServicesMapper()
+        ).inject(this);
+    }
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -108,19 +122,5 @@ public class ListThreadsFragment extends ObservableFragment {
                 deleteRequest);
         return event;
     }      
-
-    private void inject() {
-        ObjectGraph.create(
-                new ScreenOpenerMapper(getActivity()),
-                new CommonMapper(getActivity()),
-
-                new ListThreadsServiceMapper(),
-                new ListThreadsResultsDisplayableMapper(getActivity(), this),
-
-                new DeleteThreadServicesMapper(),
-
-                new AddThreadServicesMapper()
-        ).inject(this);
-    }
 
 }
