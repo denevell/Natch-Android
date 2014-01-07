@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.post.delete;
+package org.denevell.droidnatch.posts.list.di;
 
 import javax.inject.Singleton;
 
