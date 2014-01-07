@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.posts.list.di;
+package org.denevell.droidnatch.posts.list.di.resultsdisplayable;
 
 import java.util.List;
 
@@ -8,8 +8,6 @@ import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
-import org.denevell.droidnatch.posts.list.ListPostsArrayAdapter;
-import org.denevell.droidnatch.posts.list.ListPostsContextMenu;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.natch.android.R;

@@ -1,6 +1,5 @@
-package org.denevell.droidnatch.post.deletethread;
+package org.denevell.droidnatch.posts.list.di;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
@@ -20,19 +19,16 @@ import dagger.Provides;
 @Module(complete = false, library = true)
 public class DeleteThreadFromPostServicesMapper {
     
-    private static final String DELETE_THREAD_FROM_POST_REQUEST = "delete_thread_from_post_request";
-    private static final String DELETE_THREAD_FROM_POST_SERVICE = "delete_thread_from_post_service";
-
     public DeleteThreadFromPostServicesMapper() {
     }
     
-    @Provides @Singleton @Named(DELETE_THREAD_FROM_POST_SERVICE)
+    @Provides @Singleton 
     public ServiceFetcher<DeletePostResourceReturnData> providesService(
             Context appContext, 
             ProgressIndicator progress, 
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
-            @Named(DELETE_THREAD_FROM_POST_REQUEST) VolleyRequest<DeletePostResourceReturnData> volleyRequest
+            VolleyRequest<DeletePostResourceReturnData> volleyRequest
             ) {
         return new BaseService<DeletePostResourceReturnData>(
                 appContext, 
@@ -43,7 +39,7 @@ public class DeleteThreadFromPostServicesMapper {
                 DeletePostResourceReturnData.class);
     }
 
-    @Provides @Singleton @Named(DELETE_THREAD_FROM_POST_REQUEST)
+    @Provides @Singleton 
     public VolleyRequest<DeletePostResourceReturnData> providesVolleyRequestDelete(
             ObjectToStringConverter reponseConverter,
             Context appContext

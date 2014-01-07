@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.post.deletethread.uievents;
+package org.denevell.droidnatch.posts.list.uievents;
 
 import org.denevell.droidnatch.app.baseclasses.GenericUiObject;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;

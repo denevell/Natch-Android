@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.post.add.uievents;
+package org.denevell.droidnatch.posts.list.uievents;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.GenericUiObject;
