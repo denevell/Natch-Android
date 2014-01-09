@@ -11,7 +11,7 @@ RUN apt-get update
 
 # Setup tomcat (install, setup java_home and enable admin panel)
 
-RUN apt-get install -y oracle-java7-installer vim 
+RUN apt-get install -y oracle-java7-installer vim
 RUN apt-get install -y git
 
 # Install golang
@@ -22,10 +22,10 @@ RUN apt-get install -y golang-stable
 
 # Setup the natch repo, including build but not tests (clone and build to get the jar files down)
 
-RUN apt-get install -y gradle-1.9 
+RUN apt-get install -y gradle-1.9
 
-wget http://dl.google.com/android/android-sdk_r22.3-linux.tgz
-tar -xf android-sdk_r22.3-linux.tgz
+RUN wget http://dl.google.com/android/android-sdk_r22.3-linux.tgz && tar -xf android-sdk_r22.3-linux.tgz
+RUN ls
 
 RUN git clone https://github.com/denevell/Natch-Android.git
-cd Natch-Android/
+RUN cd Natch-Android/ && ANDROID_HOME=/android-sdk-linux/ gradle build
