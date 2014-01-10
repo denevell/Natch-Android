@@ -14,11 +14,6 @@ RUN apt-get update
 RUN apt-get install -y --force-yes oracle-java7-installer vim
 RUN apt-get install -y --force-yes git
 
-# Install golang
-
-RUN add-apt-repository -y ppa:gophers/go
-RUN apt-get update
-
 # Setup the natch repo, including build but not tests (clone and build to get the jar files down)
 
 RUN apt-get install -y gradle-1.9
