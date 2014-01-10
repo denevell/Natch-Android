@@ -15,11 +15,11 @@ repositories {
 }
 
 dependencies {
-	compile 'com.squareup.dagger:dagger-compiler:1.1.0'
-	compile 'com.squareup.dagger:dagger:1.1.0'
-	compile 'com.google.code.gson:gson:2.2.4'
-	compile 'com.android.support:support-v4:19.0.0'
-	compile 'org.mockito:mockito-all:1.9.5'
+        compile 'com.squareup.dagger:dagger-compiler:1.1.0'
+        compile 'com.squareup.dagger:dagger:1.1.0'
+        compile 'com.google.code.gson:gson:2.2.4'
+        compile 'com.android.support:support-v4:19.0.0'
+        compile 'org.mockito:mockito-all:1.9.5'
 }
 
 sourceSets {
@@ -31,30 +31,37 @@ sourceSets {
 }
 
 android {
-	buildToolsVersion "19.0.1"                                                                                                          
-	sourceSets {
-		main {
-		    manifest.srcFile 'AndroidManifest.xml'
-		    java {
-			srcDirs = ['src','volley/src']
-			exclude '**/*Tests*'
-		    }
-		    resources.srcDirs = ['src']
-		    aild.srcDirs = ['src']
-		    renderscript.srcDirs = ['src']
-		    res.srcDirs = ['res']
-		    assets.srcDirs = ['assets']
-		}
-		instrumentTest.setRoot('testFunctional')
-		instrumentTest.setRoot('testFunctional')
-		instrumentTest {
-			java.srcDirs = ['testFunctional/src']
-			res.srcDirs = ['testFunctional/res']
-			assets.srcDirs = ['testFunctional/assets']
-			resources.srcDirs = ['testFunctional/src']
-		}
-	}
-	compileSdkVersion 17
+        buildToolsVersion "19.0.1"                                                                                                          
+        // Since the build tools auto fail on error, and we're getting werid erros with 0.7 of the build tools
+        lintOptions {
+            abortOnError false
+            textReport true
+            textOutput 'stdout'
+            htmlReport true
+        }
+        sourceSets {
+                main {
+                    manifest.srcFile 'AndroidManifest.xml'
+                    java {
+                        srcDirs = ['src','volley/src']
+                        exclude '**/*Tests*'
+                    }
+                    resources.srcDirs = ['src']
+                    aild.srcDirs = ['src']
+                    renderscript.srcDirs = ['src']
+                    res.srcDirs = ['res']
+                    assets.srcDirs = ['assets']
+                }
+                instrumentTest.setRoot('testFunctional')
+                instrumentTest.setRoot('testFunctional')
+                instrumentTest {
+                        java.srcDirs = ['testFunctional/src']
+                        res.srcDirs = ['testFunctional/res']
+                        assets.srcDirs = ['testFunctional/assets']
+                        resources.srcDirs = ['testFunctional/src']
+                }
+        }
+        compileSdkVersion 17
 }
 
 // Unit tests
@@ -62,9 +69,9 @@ android {
 sourceSets {
         unitTest {
                 java {
-			srcDirs = ['src']
-			include '**/*Tests*'
-		}
+                        srcDirs = ['src']
+                        include '**/*Tests*'
+                }
         }
 }
 
@@ -74,7 +81,7 @@ dependencies {
         unitTestCompile 'junit:junit:4.11'
         unitTestCompile 'org.robolectric:robolectric:2.1.1'
         unitTestCompile 'com.google.android:android:4.0.1.2'
-	unitTestCompile 'com.android.support:support-v4:19.0.0'
+        unitTestCompile 'com.android.support:support-v4:19.0.0'
 }
 
 configurations {
@@ -83,11 +90,11 @@ configurations {
 }
 
 task unitTest(type:Test, dependsOn: assemble) {
-	testLogging.events = ['failed','passed']
-	testLogging.showStandardStreams = true
-	testLogging.showCauses = true
-	testLogging.showExceptions = true
-	testLogging.showStackTraces = true
+        testLogging.events = ['failed','passed']
+        testLogging.showStandardStreams = true
+        testLogging.showCauses = true
+        testLogging.showExceptions = true
+        testLogging.showStackTraces = true
         description = "run unit tests"
         testClassesDir = project.sourceSets.unitTest.output.classesDir
         classpath = project.sourceSets.unitTest.runtimeClasspath
