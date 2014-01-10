@@ -28,4 +28,4 @@ RUN (while true; do echo 'y'; sleep 2; done) | /android-sdk-linux/tools/android 
 RUN git clone https://github.com/denevell/Natch-Android.git
 RUN cd Natch-Android/ && ANDROID_HOME=/android-sdk-linux/ gradle build
 
-RUN ANDROID_HOME=/android-sdk-linux ANDROID_SDK_HOME=/android-sdk-linux && (while true; do echo 'no'; sleep 2; done) | /android-sdk-linux/tools/android create avd -n testy -t 1
+RUN ANDROID_HOME=/android-sdk-linux ANDROID_SDK_HOME=/android-sdk-linux && (while true; do echo 'no'; sleep 2; done) | /android-sdk-linux/tools/android create avd -n testy -t 1 --abi x86
