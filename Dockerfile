@@ -18,14 +18,21 @@ RUN apt-get install -y --force-yes git
 
 RUN apt-get install -y gradle-1.9
 
+RUN apt-get install -y xorg xvfb x11vnc
+
 RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 zlib1g:i386
 
-RUN wget http://dl.google.com/android/android-sdk_r22.3-linux.tgz && tar -xf android-sdk_r22.3-linux.tgz
-RUN (while true; do echo 'y'; sleep 2; done) | /android-sdk-linux/tools/android update sdk -u --filter extra-google-m2repository,extra-google-google_play_services,extra-android-support,android-17,platform-tools,tools,extra-android-m2repository,build-tools-19.0.1,sysimg-17
+ENTRYPOINT DISPLAY=:0 Xvfb :0 -screen 0 1024x768x16 & sleep 10 && x11vnc -display :0 -bg -nopw -forever -xkb && DISPLAY=:0 xcalc & /bin/bash
 
-RUN git clone https://github.com/denevell/Natch-Android.git
-RUN cd Natch-Android/ && ANDROID_HOME=/android-sdk-linux/ gradle build
+EXPOSE 5900 
 
-RUN ANDROID_HOME=/android-sdk-linux ANDROID_SDK_HOME=/android-sdk-linux && (while true; do echo 'no'; sleep 2; done) | /android-sdk-linux/tools/android create avd -n testy -t 1 --abi x86
+#RUN apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 zlib1g:i386
+
+#RUN wget http://dl.google.com/android/android-sdk_r22.3-linux.tgz && tar -xf android-sdk_r22.3-linux.tgz
+#RUN (while true; do echo 'y'; sleep 2; done) | /android-sdk-linux/tools/android update sdk -u --filter extra-google-m2repository,extra-google-google_play_services,extra-android-support,android-17,platform-tools,tools,extra-android-m2repository,build-tools-19.0.1,sysimg-17
+
+# RUN git clone https://github.com/denevell/Natch-Android.git
+# RUN cd Natch-Android/ && ANDROID_HOME=/android-sdk-linux/ gradle build
+
+# RUN ANDROID_HOME=/android-sdk-linux ANDROID_SDK_HOME=/android-sdk-linux && (while true; do echo 'no'; sleep 2; done) | /android-sdk-linux/tools/android create avd -n testy -t 1 --abi x86
