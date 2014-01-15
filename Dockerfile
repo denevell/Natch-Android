@@ -18,13 +18,13 @@ RUN apt-get install -y --force-yes git
 
 RUN apt-get install -y gradle-1.9
 
-RUN apt-get install -y xorg xvfb x11vnc
+RUN apt-get install -y xorg xvfb x11vnc dwm
 
 RUN wget http://dl.google.com/android/android-sdk_r22.3-linux.tgz && tar -xf /android-sdk_r22.3-linux.tgz
 
 RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 zlib1g:i386
+RUN apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 zlib1g:i386 
 
 RUN dpkg-divert --local --rename --add /sbin/initctl
 RUN ln -s /bin/true /sbin/initctl
@@ -37,7 +37,10 @@ RUN git clone https://github.com/denevell/Natch-Android.git
 RUN cd Natch-Android/ && ANDROID_HOME=/android-sdk-linux/ gradle build
 
 RUN (while true; do echo 'no'; sleep 2; done) | ANDROID_HOME=/android-sdk-linux ANDROID_SDK_HOME=/android-sdk-linux /android-sdk-linux/tools/android create avd -n testy -t 1 --abi x86 --force
+RUN sed -i 's/240/120/g' /android-sdk-linux/.android/avd/testy.avd/config.ini
 
-ENTRYPOINT DISPLAY=:0 Xvfb :0 -screen 0 640x480x16 & sleep 10 && x11vnc -display :0 -bg -nopw -forever -xkb && DISPLAY=:0 ANDROID_SDK_HOME=/android-sdk-linux /android-sdk-linux/tools/emulator-x86 @testy & /bin/bash
+RUN apt-get install -y ratpoison
 
-EXPOSE 5900
+ENTRYPOINT DISPLAY=:0 Xvfb :0 -screen 0 640x480x8 & sleep 10 && x11vnc -display :0 -bg -nopw -forever -xkb && /android-sdk-linux/platform-tools/adb start-server && DISPLAY=:0 ratpoison & DISPLAY=:0 ANDROID_SDK_HOME=/android-sdk-linux /android-sdk-linux/tools/emulator-x86 @testy & (/android-sdk-linux/platform-tools/adb wait-for-device && while [ ! `/android-sdk-linux/platform-tools/adb shell getprop init.svc.bootanim | grep stopped` ]; do :; done && cd /Natch-Android && ANDROID_HOME=/android-sdk-linux gradle installDebug && /bin/bash)
+
+EXPOSE 5900 
