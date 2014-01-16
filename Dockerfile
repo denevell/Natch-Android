@@ -30,7 +30,7 @@ RUN apt-get install -y libswt-gtk-3-java
 # Get android libs and setup targets
 
 RUN wget http://dl.google.com/android/android-sdk_r22.3-linux.tgz && tar -xf /android-sdk_r22.3-linux.tgz
-RUN (while true; do echo 'y'; sleep 2; done) | /android-sdk-linux/tools/android update sdk -u --filter extra-google-m2repository,extra-google-google_play_services,extra-android-support,android-17,platform-tools,tools,extra-android-m2repository,build-tools-19.0.1,sysimg-18
+RUN (while true; do echo 'y'; sleep 2; done) | /android-sdk-linux/tools/android update sdk -u --filter extra-google-m2repository,extra-google-google_play_services,extra-android-support,android-18,platform-tools,tools,extra-android-m2repository,build-tools-19.0.1,sysimg-18
 
 # Setup android emulator
 
