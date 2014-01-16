@@ -61,7 +61,7 @@ android {
                         resources.srcDirs = ['testFunctional/src']
                 }
         }
-        compileSdkVersion 17
+        compileSdkVersion 18
 }
 
 // Unit tests
