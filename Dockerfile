@@ -2,7 +2,7 @@ FROM android_base
 
 # On run, build the project, start all the xorg and vnc stuff, start adb, start the emulator, wait for the emulator to load, and then install debug the project
 
-EXPOSE 5900 
+EXPOSE 8888:5900 
 
 ENTRYPOINT DISPLAY=:0 Xvfb :0 -screen 0 640x480x8 & sleep 3 \
 && cd Natch-Android/ && git pull origin master && ANDROID_HOME=/android-sdk-linux/ gradle build \
@@ -16,5 +16,4 @@ ENTRYPOINT DISPLAY=:0 Xvfb :0 -screen 0 640x480x8 & sleep 3 \
 && ANDROID_HOME=/android-sdk-linux gradle installDebug \
 && /android-sdk-linux/platform-tools/adb shell am start -n org.denevell.natch.android/org.denevell.droidnatch.MainPageActivity \
 && ANDROID_HOME=/android-sdk-linux/ gradle unitTest \
-&& ANDROID_HOME=/android-sdk-linux/ gradle -b uiTest.gradle uiRun \
-&& /bin/bash
+&& ANDROID_HOME=/android-sdk-linux/ gradle -b uiTest.gradle uiRun
