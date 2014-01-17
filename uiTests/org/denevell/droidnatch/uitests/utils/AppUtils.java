@@ -15,6 +15,9 @@ public class AppUtils {
         allAppsButton.clickAndWaitForNewWindow();
         
         UiObject appsTab = new UiObject(new UiSelector().text("Apps"));
+        appsTab.click();        
+        
+        UiObject appsTab = new UiObject(new UiSelector().text("OK"));
         appsTab.click();
         
         UiScrollable appsView = new UiScrollable(new UiSelector().scrollable(true));
