@@ -28,7 +28,7 @@ public class ListThreadsPage {
         uiDevice.swipe(row.getBounds().centerX(), row.getBounds().centerY(), 
                 row.getBounds().centerX(), row.getBounds().centerY(), 400);
         System.out.println("Searching for delete item");
-        UiSelector deleteSelector = new UiSelector().text("Delete");
+        UiSelector deleteSelector = new UiSelector().text("Delete thread");
         UiObject deleteObject = new UiObject(deleteSelector);
         System.out.println("Clicking on delete item");
         deleteObject.click();
