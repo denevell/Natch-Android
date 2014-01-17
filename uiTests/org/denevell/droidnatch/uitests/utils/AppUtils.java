@@ -14,11 +14,16 @@ public class AppUtils {
         UiObject allAppsButton = new UiObject(new UiSelector().description("Apps"));
         allAppsButton.clickAndWaitForNewWindow();
         
-        UiObject appsTab = new UiObject(new UiSelector().text("Apps"));
+        try {
+            UiObject appsTab = new UiObject(new UiSelector().text("OK"));
+            appsTab.click();
+        } catch(Exception e) {
+            System.out.println("Couldn't press OK on the coach marks apps menu thing -- doesn't exist?");
+        }
+
+        UiObject demoWindow = new UiObject(new UiSelector().text("Apps"));
         appsTab.click();        
-        
-        UiObject appsTab = new UiObject(new UiSelector().text("OK"));
-        appsTab.click();
+
         
         UiScrollable appsView = new UiScrollable(new UiSelector().scrollable(true));
         appsView.setMaxSearchSwipes(20);
