@@ -37,7 +37,7 @@ public class VolleyRequestDELETE<T> implements VolleyRequest<T> {
             public Map<String, String> getHeaders() throws AuthFailureError {
                Map<String, String> headers = super.getHeaders();
                HashMap<String, String> map = new HashMap<String, String>(headers);
-               map.put("AuthKey", "7b20ac5e-9913-4e53-b042-8dc55b9704af");
+               map.put("AuthKey", "29c63eca-5a9a-41eb-995a-99a95e495f28");
                return map;
             }
         };
