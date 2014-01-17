@@ -32,10 +32,15 @@ RUN apt-get install -y libswt-gtk-3-java
 RUN wget http://dl.google.com/android/android-sdk_r22.3-linux.tgz && tar -xf /android-sdk_r22.3-linux.tgz
 RUN (while true; do echo 'y'; sleep 2; done) | /android-sdk-linux/tools/android update sdk -u --filter extra-google-m2repository,extra-google-google_play_services,extra-android-support,android-18,platform-tools,tools,extra-android-m2repository,build-tools-19.0.1,sysimg-18
 
-# Setup android emulator
+# Setup android emulator, start it so it saves a snapshot for quicker booting next time.
 
-RUN (while true; do echo 'no'; sleep 2; done) | ANDROID_HOME=/android-sdk-linux ANDROID_SDK_HOME=/android-sdk-linux /android-sdk-linux/tools/android create avd -n testy -t 1 --abi x86 --force
+RUN (while true; do echo 'no'; sleep 2; done) | ANDROID_HOME=/android-sdk-linux ANDROID_SDK_HOME=/android-sdk-linux /android-sdk-linux/tools/android create avd -n testy -t 1 --snapshot --abi x86 --force
 RUN sed -i 's/240/120/g' /android-sdk-linux/.android/avd/testy.avd/config.ini
+
+RUN ANDROID_SDK_HOME=/android-sdk-linux /android-sdk-linux/tools/emulator-x86 @testy -no-window & /android-sdk-linux/platform-tools/adb wait-for-device \
+&& while [ ! `/android-sdk-linux/platform-tools/adb shell getprop init.svc.bootanim | grep stopped` ]; do /android-sdk-linux/platform-tools/adb shell getprop init.svc.bootanim; done \
+&& /android-sdk-linux/platform-tools/adb start-server \
+&& echo avd snapshot save default-boot | nc -w 2 localhost 5554 && echo kill | nc -w 2 localhost 5554
 
 # So we pull down the robotium Android downloads
 
