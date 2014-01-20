@@ -34,13 +34,23 @@ RUN (while true; do echo 'y'; sleep 2; done) | /android-sdk-linux/tools/android 
 
 # Setup android emulator, start it so it saves a snapshot for quicker booting next time.
 
+RUN ls
+RUN ls
+
 RUN (while true; do echo 'no'; sleep 2; done) | ANDROID_HOME=/android-sdk-linux ANDROID_SDK_HOME=/android-sdk-linux /android-sdk-linux/tools/android create avd -n testy -t 1 --snapshot --abi x86 --force
 RUN sed -i 's/240/120/g' /android-sdk-linux/.android/avd/testy.avd/config.ini
 
-RUN ANDROID_SDK_HOME=/android-sdk-linux /android-sdk-linux/tools/emulator-x86 @testy -no-window & /android-sdk-linux/platform-tools/adb wait-for-device \
+RUN ANDROID_SDK_HOME=/android-sdk-linux ANDROID_HOME=/android-sdk-linux /android-sdk-linux/tools/emulator-x86 @testy -no-window & /android-sdk-linux/platform-tools/adb wait-for-device \
 && while [ ! `/android-sdk-linux/platform-tools/adb shell getprop init.svc.bootanim | grep stopped` ]; do /android-sdk-linux/platform-tools/adb shell getprop init.svc.bootanim; done \
-&& /android-sdk-linux/platform-tools/adb start-server \
-&& echo avd snapshot save default-boot | nc -w 2 localhost 5554 && echo kill | nc -w 2 localhost 5554
+&& ANDROID_HOME=/android-sdk-linux/ ANDROID_SDK_HOME=/android-sdk-linux/ /android-sdk-linux/platform-tools/adb start-server \
+&& echo "creating snapshot" \
+&& ps \
+&& (echo avd snapshot save default-boot | nc -v -w 2 localhost 5554) \
+&& echo "killing emulator" \
+&& ps \
+&& (echo kill | nc -v -w 2 localhost 5554) \
+&& echo "listing emulator" \
+&& ANDROID_HOME=/android-sdk-linux/ ANDROID_SDK_HOME=/android-sdk-linux/ /android-sdk-linux/tools/emulator-x86 @testy -snapshot-list
 
 # So we pull down the robotium Android downloads
 

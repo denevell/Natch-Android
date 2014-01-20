@@ -33,6 +33,8 @@ public class _34_AddThread extends UiAutomatorTestCase {
         // Assert
         UiObject firstRow = listThreadsPage.getThreadsRow(0);
         assertEquals("Correct thread input", subject, firstRow.getText());
+        
+        listThreadsPage.longPressDeleteThreadRow(0);
     }
 
 }

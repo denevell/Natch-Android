@@ -31,7 +31,7 @@ public class _5_DeleteThread extends UiAutomatorTestCase {
         listThreadsPage.waitForThreadsToLoad();
         UiObject firstRow = listThreadsPage.getThreadsRow(0);
         assertEquals("Correct thread input", subject, firstRow.getText());
-        listThreadsPage.longPressThreadRow(0);
+        listThreadsPage.longPressDeleteThreadRow(0);
         listThreadsPage.waitForThreadsToLoad();
         
         // Assert

@@ -22,7 +22,7 @@ public class ListThreadsPage {
        return new UiObject(new UiSelector().description("list_threads_row"+String.valueOf(pos)));
     }
 
-    public UiObject longPressThreadRow(int pos) throws UiObjectNotFoundException {
+    public UiObject longPressDeleteThreadRow(int pos) throws UiObjectNotFoundException {
         UiObject row = getThreadsRow(pos);
         System.out.println("Long pressing on list item");
         uiDevice.swipe(row.getBounds().centerX(), row.getBounds().centerY(), 
