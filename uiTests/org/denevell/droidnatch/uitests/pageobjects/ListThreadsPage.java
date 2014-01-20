@@ -48,7 +48,7 @@ public class ListThreadsPage {
         threadRow.waitForExists(10000);
         threadsList = getThreadsList();
         System.out.println("Found threads: " + threadsList.getChildCount());
-        getLoadingView().waitUntilGone(2000);
+        getLoadingView().waitUntilGone(10000);
         return threadsList;
     }
 
