@@ -8,8 +8,6 @@ The Android client to the Natch REST project.
 ## Done, needs UI test
 
 * I should delete a thread from within the thread page
-* I should load the posts in a thread after it's clicked on
-* I should add a post to a thread
 * I should delete post from a thread
 * I should be taken back to main threads page if I delete initial post in thread
 
@@ -66,3 +64,4 @@ The Android client to the Natch REST project.
 3. I should be able to add a new thread (subject only atm)
 4. I should refresh the (plus loading) threads after an add
 5. I should be able to delete a thread I have created 
+6. I should load the posts in a thread after it's clicked on, and add a post

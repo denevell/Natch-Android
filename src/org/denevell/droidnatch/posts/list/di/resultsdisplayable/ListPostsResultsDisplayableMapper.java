@@ -14,6 +14,7 @@ import org.denevell.natch.android.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.View;
 import android.widget.ListView;
 import dagger.Module;
 import dagger.Provides;
@@ -33,12 +34,13 @@ public class ListPostsResultsDisplayableMapper {
     public ResultsDisplayer<List<PostResource>> providResultDisplayer(
             Context appContext, 
             ClickableListView<PostResource> listView) {
-        ListPostsArrayAdapter arrayAdapter = new ListPostsArrayAdapter(appContext, R.layout.list_threads_row);
+        View loading = (View) mActivity.findViewById(R.id.list_posts_loading);
+        ListPostsArrayAdapter arrayAdapter = new ListPostsArrayAdapter(appContext, R.layout.list_posts_row);
         ListViewResultDisplayer<PostResource, List<PostResource>> displayer = 
                 new ListViewResultDisplayer<PostResource, List<PostResource>>(
                         listView.getListView(), 
                         arrayAdapter, 
-                        null,
+                        loading,
                         appContext);
         return displayer;
     } 

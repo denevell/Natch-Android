@@ -16,8 +16,7 @@ ENTRYPOINT DISPLAY=:0 Xvfb :0 -screen 0 640x480x8 & sleep 3 \
 && /android-sdk-linux/platform-tools/adb start-server \
 && /android-sdk-linux/platform-tools/adb wait-for-device \
 && while [ ! `/android-sdk-linux/platform-tools/adb shell getprop init.svc.bootanim | grep stopped` ]; do :; done \
-&& echo '=== running it and its tests' \
+&& echo '=== installing it and its tests' \
 && cd /Natch-Android/ && ANDROID_HOME=/android-sdk-linux gradle installDebug \
-&& /android-sdk-linux/platform-tools/adb shell am start -n org.denevell.natch.android/org.denevell.droidnatch.MainPageActivity \
 && ANDROID_HOME=/android-sdk-linux/ gradle unitTest \
 && ANDROID_HOME=/android-sdk-linux/ gradle -b uiTest.gradle uiRun

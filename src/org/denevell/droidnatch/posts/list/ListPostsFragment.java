@@ -18,7 +18,6 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.di.AddPostServicesMapper;
 import org.denevell.droidnatch.posts.list.di.DeletePostServicesMapper;
-import org.denevell.droidnatch.posts.list.di.DeleteThreadFromPostServicesMapper;
 import org.denevell.droidnatch.posts.list.di.ListPostsServiceMapper;
 import org.denevell.droidnatch.posts.list.di.resultsdisplayable.ListPostsResultsDisplayableMapper;
 import org.denevell.droidnatch.posts.list.entities.ListPostsResource;
@@ -80,7 +79,7 @@ public class ListPostsFragment extends ObservableFragment {
 
                     new AddPostServicesMapper(this),
 
-                    new DeleteThreadFromPostServicesMapper())
+                    new DeletePostServicesMapper())
                     .inject(this);
 
             ServiceCallThenDisplayController<ListPostsResource, List<PostResource>> listPostController = 

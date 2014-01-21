@@ -1,5 +1,6 @@
 package org.denevell.droidnatch.posts.list.di.resultsdisplayable;
 
+
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 
 import android.content.Context;
@@ -17,7 +18,8 @@ public class ListPostsArrayAdapter extends
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView v = (TextView) super.getView(position, convertView, parent);
-        v.setContentDescription(v.getContentDescription()+String.valueOf(position));
+        String pos = String.valueOf(position);
+        v.setContentDescription("list_posts_row"+pos);
         PostResource o = getItem(position);
         v.setText(o.getContent());
         return v;
