@@ -4,7 +4,6 @@ The Android client to the Natch REST project.
 
 ## Backlog
 
-
 ## Done, needs UI test
 
 * I should delete a thread from within the thread page
