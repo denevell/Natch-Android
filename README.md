@@ -4,10 +4,10 @@ The Android client to the Natch REST project.
 
 ## Backlog
 * UI TEST: I should delete a thread from within the thread page
+* UI TEST: I should delete post from a thread
 
 ## Done, needs UI test
 
-* I should delete post from a thread
 * I should be taken back to main threads page if I delete initial post in thread
 
 ## Ice-box
