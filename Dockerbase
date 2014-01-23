@@ -1,0 +1,81 @@
+FROM ubuntu:quantal
+
+# Get java, git and gradle
+
+RUN echo "deb http://dk.archive.ubuntu.com/ubuntu/ precise-security main universe multiverse" >> /etc/apt/sources.list
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository ppa:webupd8team/java && add-apt-repository ppa:cwchien/gradle
+RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+RUN apt-get update && apt-get install -y --force-yes oracle-java7-installer vim git gradle-1.9
+
+# Get xorg and and vnc
+
+RUN apt-get install -y xorg xvfb x11vnc ratpoison
+
+# Get packages needed to run Android
+
+RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 zlib1g:i386 
+RUN dpkg-divert --local --rename --add /sbin/initctl && ln -s /bin/true /sbin/initctl
+RUN apt-get install -y libsdl1.2debian:i386 libswt-gtk-3-java
+
+# Get android libs and setup targets
+
+RUN wget http://dl.google.com/android/android-sdk_r22.3-linux.tgz && tar -xf /android-sdk_r22.3-linux.tgz
+RUN (while true; do echo 'y'; sleep 2; done) | /android-sdk-linux/tools/android update sdk -u --filter extra-google-m2repository,extra-google-google_play_services,extra-android-support,android-18,platform-tools,tools,extra-android-m2repository,build-tools-19.0.1,sysimg-18
+
+# Setup android emulator, start it so it saves a snapshot for quicker booting next time.
+
+RUN (while true; do echo 'no'; sleep 2; done) | ANDROID_HOME=/android-sdk-linux ANDROID_SDK_HOME=/android-sdk-linux /android-sdk-linux/tools/android create avd -n testy -t 1 --snapshot --abi x86 --force
+RUN sed -i 's/240/120/g' /android-sdk-linux/.android/avd/testy.avd/config.ini
+
+RUN ANDROID_SDK_HOME=/android-sdk-linux ANDROID_HOME=/android-sdk-linux /android-sdk-linux/tools/emulator-x86 @testy -no-window & /android-sdk-linux/platform-tools/adb wait-for-device \
+&& while [ ! `/android-sdk-linux/platform-tools/adb shell getprop init.svc.bootanim | grep stopped` ]; do /android-sdk-linux/platform-tools/adb shell getprop init.svc.bootanim; done \
+&& ANDROID_HOME=/android-sdk-linux/ ANDROID_SDK_HOME=/android-sdk-linux/ /android-sdk-linux/platform-tools/adb start-server \
+&& echo "creating snapshot" \
+&& ps \
+&& (echo avd snapshot save default-boot | nc -v -w 2 localhost 5554) \
+&& echo "killing emulator" \
+&& ps \
+&& (echo kill | nc -v -w 2 localhost 5554) \
+&& echo "listing emulator" \
+&& ANDROID_HOME=/android-sdk-linux/ ANDROID_SDK_HOME=/android-sdk-linux/ /android-sdk-linux/tools/emulator-x86 @testy -snapshot-list
+
+# So we pull down the robotium Android downloads
+
+RUN git clone https://github.com/denevell/Natch-Android.git
+RUN cd Natch-Android/ && git pull origin master && ANDROID_HOME=/android-sdk-linux/ gradle unitTest
+
+# ===========================================================
+# Setup Rest project (stolen from from the Natch-Jsp project)
+# ===========================================================
+
+# Setup tomcat (install, setup java_home and enable admin panel)
+
+RUN apt-get install -y oracle-java7-installer tomcat7 tomcat7-admin vim
+RUN sed -i '/.*JAVA_HOME=.*/s#.*#JAVA_HOME=/usr/lib/jvm/java-7-oracle#' /etc/default/tomcat7
+RUN sed -i '/\/tomcat-users/s#.*#<role rolename="manager-gui"/><role rolename="admin-gui"/><user username="tomcat" password="tomcat" roles="manager-gui,admin-gui,manager-script"/></tomcat-users>#' /etc/tomcat7/tomcat-users.xml
+
+# Setup postgresql (install, add user and create databases)
+
+RUN apt-get install -y postgresql-9.1 && service postgresql stop
+RUN cp /etc/ssl/private/ssl-cert-snakeoil.key /var/lib/postgresql/9.1/main/server.key && cp /etc/ssl/certs/ssl-cert-snakeoil.pem /var/lib/postgresql/9.1/main/server.crt
+RUN chgrp ssl-cert /var/lib/postgresql/9.1/main/server.key && chgrp ssl-cert /var/lib/postgresql/9.1/main/server.crt
+RUN sed -i '/.*ssl.=.*/s#.*#ssl = true#' /etc/postgresql/9.1/main/postgresql.conf
+RUN su - postgres -c "/usr/lib/postgresql/9.1/bin/pg_ctl start -D /var/lib/postgresql/9.1/main -w -o \"-c config_file=/etc/postgresql/9.1/main/postgresql.conf\" && psql -c \"create user denevell password 'user';\"" && service postgresql stop
+RUN su - postgres -c "/usr/lib/postgresql/9.1/bin/pg_ctl start -D /var/lib/postgresql/9.1/main -w -o \"-c config_file=/etc/postgresql/9.1/main/postgresql.conf\" && psql -c \"create database testnatch owner denevell;\"" && service postgresql stop
+RUN su - postgres -c "/usr/lib/postgresql/9.1/bin/pg_ctl start -D /var/lib/postgresql/9.1/main -w -o \"-c config_file=/etc/postgresql/9.1/main/postgresql.conf\" && psql -c \"create database prodnatch owner denevell;\""
+
+# Install golang
+
+RUN add-apt-repository -y ppa:gophers/go && apt-get update && apt-get install -y golang && go get github.com/lib/pq
+
+# Setup the natch repo, including build but not tests (clone and build to get the jar files down)
+
+RUN apt-get install -y gradle-1.9 && git clone https://github.com/denevell/Natch-Jsp.git && cd Natch-Jsp/ && git submodule update --init --recursive && gradle dependencies && gradle build -x test
+
+# Copy the jpa jar files for tomcat
+
+RUN cp /root/.gradle/caches/artifacts-26/filestore/org.eclipse.persistence/eclipselink/2.4.0/jar/308afe8ba4418e0b21aafa610b30b2d31cf6dca1/eclipselink-2.4.0.jar /root/.gradle/caches/artifacts-26/filestore/org.eclipse.persistence/javax.persistence/2.0.4.v201112161009/jar/c80e63344e50193341479b1a3c176149518c8c6b/javax.persistence-2.0.4.v201112161009.jar /usr/share/tomcat7/lib/
+
+
