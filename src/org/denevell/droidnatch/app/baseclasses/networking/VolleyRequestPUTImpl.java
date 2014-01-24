@@ -20,6 +20,7 @@ public class VolleyRequestPUTImpl<T> implements VolleyRequest<T> {
     private String mUrl;
     private ErrorListener mErrorListener;
     private Listener<JSONObject> mListener;
+    private Map<String, String> headersMap = new HashMap<String, String>();
     private Object mBody;
     
     public VolleyRequestPUTImpl(
@@ -61,7 +62,7 @@ public class VolleyRequestPUTImpl<T> implements VolleyRequest<T> {
             public Map<String, String> getHeaders() throws AuthFailureError {
                Map<String, String> headers = super.getHeaders();
                HashMap<String, String> map = new HashMap<String, String>(headers);
-               map.put("AuthKey", "784fd3f6-1ca2-4521-97ed-2ffbe04350b1");
+               map.putAll(headersMap);
                return map;
             }
         };
@@ -72,5 +73,11 @@ public class VolleyRequestPUTImpl<T> implements VolleyRequest<T> {
     public void setUrl(String url) {
         mUrl = url;
     }
+
+    @Override
+    public void addHeader(String header, String value) {
+        headersMap.put(header, value);
+    }
+
 
 }

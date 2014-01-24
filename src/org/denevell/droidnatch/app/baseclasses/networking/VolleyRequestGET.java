@@ -39,4 +39,9 @@ public class VolleyRequestGET<T> implements VolleyRequest<T>{
         mUrl = url;
     }
 
+    @Override
+    public void addHeader(String header, String value) {
+
+    }
+
 }

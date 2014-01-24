@@ -11,6 +11,7 @@ public interface VolleyRequest<T> {
     public void setErrorListener(ErrorListener errorListener);
     public void setListener(Listener<JSONObject> listener);
     public void setUrl(String url);
+    public void addHeader(String header, String value);
     
     @SuppressWarnings("rawtypes")
     public Request getRequest();

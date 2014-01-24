@@ -17,6 +17,7 @@ public class VolleyRequestDELETE<T> implements VolleyRequest<T> {
     private String mUrl;
     private ErrorListener errorListener;
     private Listener<JSONObject> listener;
+    private Map<String, String> headersMap = new HashMap<String, String>();
 
     @Override
     public void setErrorListener(ErrorListener errorListener) {
@@ -37,7 +38,7 @@ public class VolleyRequestDELETE<T> implements VolleyRequest<T> {
             public Map<String, String> getHeaders() throws AuthFailureError {
                Map<String, String> headers = super.getHeaders();
                HashMap<String, String> map = new HashMap<String, String>(headers);
-               map.put("AuthKey", "784fd3f6-1ca2-4521-97ed-2ffbe04350b1");
+               map.putAll(headersMap);
                return map;
             }
         };
@@ -48,5 +49,11 @@ public class VolleyRequestDELETE<T> implements VolleyRequest<T> {
     public void setUrl(String url) {
         mUrl = url;
     }
+
+    @Override
+    public void addHeader(String header, String value) {
+        headersMap.put(header, value);
+    }
+
 
 }

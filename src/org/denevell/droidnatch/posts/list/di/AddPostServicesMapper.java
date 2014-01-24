@@ -62,6 +62,7 @@ public class AddPostServicesMapper {
                 new VolleyRequestPUTImpl<AddPostResourceReturnData>(
                     reponseConverter, 
                     body);
+        vollyRequest.addHeader("AuthKey", appContext.getString(R.string.services_session_id));
         String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_add_post);
         vollyRequest.setUrl(url);
         return vollyRequest;

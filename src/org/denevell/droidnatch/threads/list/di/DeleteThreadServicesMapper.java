@@ -45,6 +45,7 @@ public class DeleteThreadServicesMapper {
         String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_del); 
         VolleyRequestDELETE<DeletePostResourceReturnData> vollyRequest = 
                 new VolleyRequestDELETE<DeletePostResourceReturnData>();
+        vollyRequest.addHeader("AuthKey", appContext.getString(R.string.services_session_id));
         vollyRequest.setUrl(url);
         return vollyRequest;
     } 

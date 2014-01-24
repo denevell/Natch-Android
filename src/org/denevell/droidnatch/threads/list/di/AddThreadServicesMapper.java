@@ -49,6 +49,8 @@ public class AddThreadServicesMapper {
                 new VolleyRequestPUTImpl<AddPostResourceReturnData>(
                     reponseConverter, 
                     body);
+        vollyRequest.addHeader("AuthKey", appContext.getString(R.string.services_session_id));
+
         String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_addthread);
         vollyRequest.setUrl(url);
         return vollyRequest;
