@@ -3,6 +3,12 @@
 The Android client to the Natch REST project.
 
 ## Backlog
+* Tech task: Move setting the request headers to a method
+* Tech task: Move the auth key to strings.xml
+* Tech task: Method to change the base url from Application or a static class
+* Tech task: Build step to clear the database via sql call
+* Tech task: Build step to register and login a user via rest calls.
+* Tech task: Build step to add threads via rest calls
 * UI TEST: I should delete a thread from within the thread page
 * UI TEST: I should delete post from a thread
 
