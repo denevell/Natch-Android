@@ -61,7 +61,7 @@ public class VolleyRequestPUTImpl<T> implements VolleyRequest<T> {
             public Map<String, String> getHeaders() throws AuthFailureError {
                Map<String, String> headers = super.getHeaders();
                HashMap<String, String> map = new HashMap<String, String>(headers);
-               map.put("AuthKey", "29c63eca-5a9a-41eb-995a-99a95e495f28");
+               map.put("AuthKey", "784fd3f6-1ca2-4521-97ed-2ffbe04350b1");
                return map;
             }
         };
