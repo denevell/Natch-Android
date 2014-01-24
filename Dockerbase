@@ -76,6 +76,4 @@ RUN apt-get install -y gradle-1.9 && git clone https://github.com/denevell/Natch
 
 # Copy the jpa jar files for tomcat
 
-RUN cp /root/.gradle/caches/artifacts-26/filestore/org.eclipse.persistence/eclipselink/2.4.0/jar/308afe8ba4418e0b21aafa610b30b2d31cf6dca1/eclipselink-2.4.0.jar /root/.gradle/caches/artifacts-26/filestore/org.eclipse.persistence/javax.persistence/2.0.4.v201112161009/jar/c80e63344e50193341479b1a3c176149518c8c6b/javax.persistence-2.0.4.v201112161009.jar /usr/share/tomcat7/lib/
-
-
+RUN cp /root/.gradle/caches/modules-2/files-2.1/org.eclipse.persistence/eclipselink/2.4.0/308afe8ba4418e0b21aafa610b30b2d31cf6dca1/eclipselink-2.4.0.jar /root/.gradle/caches/modules-2/files-2.1/org.eclipse.persistence/javax.persistence/2.0.4.v201112161009/c80e63344e50193341479b1a3c176149518c8c6b/javax.persistence-2.0.4.v201112161009.jar /usr/share/tomcat7/lib/
