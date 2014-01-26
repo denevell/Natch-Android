@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Droidnatch</string>
-    <string name="url_baseursl">http://192.168.43.103:8080/Natch-REST-ForAutomatedTests/rest/</string>
+    <!--<string name="url_baseursl">http://192.168.43.103:8080/Natch-REST-ForAutomatedTests/rest/</string>-->
+    <string name="url_baseurl">http://denevell.org:8912/Natch-REST-ForAutomatedTests/rest/</string>
     <string name="url_threads">threads/0/100</string>
     <string name="url_posts">post/thread/{thread_id}/0/100</string>
     <string name="url_addthread">post/addthread</string>
