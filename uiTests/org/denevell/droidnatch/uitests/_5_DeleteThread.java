@@ -9,9 +9,10 @@ import org.denevell.droidnatch.uitests.utils.UiConstants;
 
 import com.android.uiautomator.core.UiObject;
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
+import org.denevell.droidnatch.uitests.utils.NatchUiAutomatorTests;
 
 
-public class _5_DeleteThread extends UiAutomatorTestCase {
+public class _5_DeleteThread extends NatchUiAutomatorTests {
     
     @Override
     protected void setUp() throws Exception {

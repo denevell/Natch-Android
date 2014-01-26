@@ -3,12 +3,13 @@ package org.denevell.droidnatch.uitests;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPage;
 import org.denevell.droidnatch.uitests.utils.AppUtils;
 import org.denevell.droidnatch.uitests.utils.UiConstants;
+import org.denevell.droidnatch.uitests.utils.NatchUiAutomatorTests;
+
 
 import com.android.uiautomator.core.UiObject;
-import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 
 
-public class _12_ListThreads extends UiAutomatorTestCase {
+public class _12_ListThreads extends NatchUiAutomatorTests {
     
     @Override
     protected void setUp() throws Exception {
@@ -32,14 +33,12 @@ public class _12_ListThreads extends UiAutomatorTestCase {
         // Arrange
         ListThreadsPage listThreadsPage = new ListThreadsPage(getUiDevice());
         UiObject loadingView = listThreadsPage.getLoadingView();
-        boolean exists = loadingView.waitForExists(10000);
 
         // Act 
-        System.out.println("Checking for loading view");
-        assertTrue("Loading view should show", exists);
         UiObject threads = listThreadsPage.waitForThreadsToLoad();
         loadingView = listThreadsPage.getLoadingView();
-        exists = loadingView.waitForExists(10000);
+        boolean exists = loadingView.waitForExists(10000);
+        System.out.println("Checking for disappeared loading view");
         assertFalse("Loading view should be hidden", exists);
         
         // Assert

@@ -18,7 +18,7 @@ public class ApplicationTests {
 		// Arrange
 		Urls.setBasePath("something");
 	    Robolectric.buildActivity(MainPageActivity.class).create().get();		
-				
+	    
 		// Assert
 		assertEquals("something", Urls.getBasePath());
 	}
