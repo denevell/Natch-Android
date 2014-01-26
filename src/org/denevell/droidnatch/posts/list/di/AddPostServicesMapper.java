@@ -1,7 +1,10 @@
 package org.denevell.droidnatch.posts.list.di;
 
-import javax.inject.Singleton;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
+import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestPUTImpl;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
@@ -14,9 +17,8 @@ import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.natch.android.R;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -63,7 +65,7 @@ public class AddPostServicesMapper {
                     reponseConverter, 
                     body);
         vollyRequest.addHeader("AuthKey", appContext.getString(R.string.services_session_id));
-        String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_add_post);
+        String url = Urls.getBasePath() + appContext.getString(R.string.url_add_post);
         vollyRequest.setUrl(url);
         return vollyRequest;
     } 

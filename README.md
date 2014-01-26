@@ -3,11 +3,11 @@
 The Android client to the Natch REST project.
 
 ## Backlog
-* Tech task: Method to change the base url from Application or a static class
+
+* Tech task: Java test step to register and login a user via rest calls.
 * Tech task: Method to change the session id from Application or a static class
-* Tech task: Build step to clear the database via sql call
-* Tech task: Build step to register and login a user via rest calls.
 * Tech task: Build step to add threads via rest calls
+* Tech task: Build step to clear the database via sql call
 * UI TEST: I should delete a thread from within the thread page
 * UI TEST: I should delete post from a thread
 
@@ -48,14 +48,14 @@ The Android client to the Natch REST project.
 
 --
 
-* Tech task: Move the auth key to strings.xml
-* Tech task: Move setting the request headers to a method
+## Dev complete
+
+* Tech task: Method to change the base url from Application or a static class
+* Task: Move the auth key to strings.xml
+* Task: Move setting the request headers to a method
 * Task: Setup ci server that simply builds it
 * Task: Setup ci server that runs ui tests
 * Task: Setup ci server that updates the dev version on the play store
-
-## Dev complete
-
 * Task: Start using gradle for normal builds
 * Task: Add robolectic
 * Task: Should start unit testing

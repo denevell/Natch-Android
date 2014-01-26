@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Droidnatch</string>
-    <string name="url_baseurl">http://denevell.org:8912/Natch-REST-ForAutomatedTests/rest/</string>
+    <string name="url_baseursl">http://192.168.43.103:8080/Natch-REST-ForAutomatedTests/rest/</string>
     <string name="url_threads">threads/0/100</string>
     <string name="url_posts">post/thread/{thread_id}/0/100</string>
     <string name="url_addthread">post/addthread</string>
@@ -11,5 +11,5 @@
     <string name="list_thread_loading">Loading posts</string>
     <string name="page_title_posts">Posts</string>
     <string name="page_title_threads">Threads</string>
-    <string name="services_session_id">784fd3f6-1ca2-4521-97ed-2ffbe04350b1</string>
+    <string name="services_session_id">3e15a07f-286a-44f6-85f4-159831b00a4e</string>
 </resources>

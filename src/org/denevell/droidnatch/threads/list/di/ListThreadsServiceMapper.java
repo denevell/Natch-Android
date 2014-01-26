@@ -1,5 +1,8 @@
 package org.denevell.droidnatch.threads.list.di;
 
+import android.content.Context;
+
+import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
@@ -11,7 +14,6 @@ import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.natch.android.R;
 
-import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 
@@ -40,7 +42,7 @@ public class ListThreadsServiceMapper {
     }
 
     private VolleyRequest<ListThreadsResource> providesRequest(Context appContext) {
-        String url = appContext.getString(R.string.url_baseurl) + appContext.getString(R.string.url_threads);
+        String url = Urls.getBasePath() + appContext.getString(R.string.url_threads);
         VolleyRequestGET<ListThreadsResource> v = 
                 new VolleyRequestGET<ListThreadsResource>();
         v.setUrl(url);
