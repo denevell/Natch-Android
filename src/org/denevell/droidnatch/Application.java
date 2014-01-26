@@ -17,7 +17,7 @@ public class Application extends android.app.Application {
      */
     private void setBasePathIfEmpty() {
         if(Urls.getBasePath()==null || Urls.getBasePath().isEmpty()) {
-            Urls.setBasePath(getString(R.string.url_baseursl));
+            Urls.setBasePath(getString(R.string.url_baseurl));
         }
     }
 }
