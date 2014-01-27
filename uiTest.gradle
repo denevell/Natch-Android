@@ -18,7 +18,7 @@ ant.importBuild "$System.env.ANDROID_HOME"+'/tools/ant/uibuild.xml'
 
 print ant.properties['source.dir']
 
-task uiBuild() << {
+task uiBuild(dependsOn: ['changeToHostToLocalhost']) << {
         ant.project.executeTarget('build')
 }
 
@@ -28,6 +28,15 @@ task uiInstall(dependsOn: ['uiBuild']) << {
 
 task uiRun(dependsOn: ['uiInstall']) << {
     Process proc = ["$System.env.ANDROID_HOME"+"/platform-tools/adb", "shell", "uiautomator", "runtest", project.name+"_tests.jar", "-e because broken"].execute()
+    proc.consumeProcessErrorStream(System.err)
+    proc.consumeProcessOutputStream(System.out)
+    if (proc.waitFor() != 0) {
+        throw new RuntimeException('exec failed')
+    }
+}
+
+task changeToHostToLocalhost() << {
+    Process proc = ["/bin/sed", "-i", "s/denevell.org:8912/10.0.2.2:8080/", "res/values/strings.xml"].execute()
     proc.consumeProcessErrorStream(System.err)
     proc.consumeProcessOutputStream(System.out)
     if (proc.waitFor() != 0) {
