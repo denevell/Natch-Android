@@ -1,8 +1,11 @@
 package org.denevell.droidnatch.posts.list;
 
-import java.util.List;
-
-import javax.inject.Inject;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
@@ -18,6 +21,7 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.di.AddPostServicesMapper;
 import org.denevell.droidnatch.posts.list.di.DeletePostServicesMapper;
+import org.denevell.droidnatch.posts.list.di.DeleteThreadFromPostServicesMapper;
 import org.denevell.droidnatch.posts.list.di.ListPostsServiceMapper;
 import org.denevell.droidnatch.posts.list.di.resultsdisplayable.ListPostsResultsDisplayableMapper;
 import org.denevell.droidnatch.posts.list.entities.ListPostsResource;
@@ -32,12 +36,11 @@ import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import dagger.ObjectGraph;
 
 public class ListPostsFragment extends ObservableFragment {
@@ -45,14 +48,17 @@ public class ListPostsFragment extends ObservableFragment {
     public static final String BUNDLE_KEY_THREAD_ID = "thread_id";
     public static final String BUNDLE_KEY_THREAD_NAME = "thread_name";
     private static final String TAG = ListPostsFragment.class.getSimpleName();
-    @Inject ServiceFetcher<DeletePostResourceReturnData> service;
-    @Inject ServiceFetcher<AddPostResourceReturnData> addPostService; 
-    @Inject ServiceFetcher<DeletePostResourceReturnData> deletePostService; 
-    @Inject ServiceFetcher<ListPostsResource> listPostsService; 
+    @Inject ServiceFetcher<AddPostResourceReturnData> addPostService;
+
+    @Inject @Named(DeleteThreadFromPostServicesMapper.DELETE_THREAD_FROM_POST_SERVICE) ServiceFetcher<DeletePostResourceReturnData> deleteThreadService;
+    @Inject @Named(DeleteThreadFromPostServicesMapper.DELETE_THREAD_FROM_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> deleteThreadVolleyRequest;
+    @Inject @Named(DeletePostServicesMapper.DELETE_POST_SERVICE) ServiceFetcher<DeletePostResourceReturnData> deletePostService;
+    @Inject @Named(DeletePostServicesMapper.DELETE_POST_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> deletePostVolleyRequest;
+
+    @Inject ServiceFetcher<ListPostsResource> listPostsService;
     @Inject ResultsDisplayer<List<PostResource>> resultsDisplayable;
     @Inject AddPostResourceInput addPostResourceInput;
     @Inject ClickableListView<PostResource> listView;
-    @Inject VolleyRequest<DeletePostResourceReturnData> deleteRequest;
     @Inject ScreenOpener screenOpener;
 
     @Override
@@ -76,10 +82,9 @@ public class ListPostsFragment extends ObservableFragment {
                     new ListPostsServiceMapper(this),
 
                     new DeletePostServicesMapper(),
+                    new DeleteThreadFromPostServicesMapper(),
 
-                    new AddPostServicesMapper(this),
-
-                    new DeletePostServicesMapper())
+                    new AddPostServicesMapper(this))
                     .inject(this);
 
             ServiceCallThenDisplayController<ListPostsResource, List<PostResource>> listPostController = 
@@ -97,18 +102,18 @@ public class ListPostsFragment extends ObservableFragment {
                             listPostController);
             addPostController.setup().go();
 
-            UiEventThenServiceCallController deleteController = 
+            UiEventThenServiceCallController deletePostController =
                     new UiEventThenServiceCallController(
                             providesDeletePostClickEvent(),
                             deletePostService,
                             null,
                             listPostController);
-            deleteController.setup().go();
+            deletePostController.setup().go();
 
             UiEventThenServiceThenUiEvent deleteThreadFromPostController = 
                     new UiEventThenServiceThenUiEvent(
                             providesLongClickDeleteThreadUiEvent(),
-                            service,
+                            deleteThreadService,
                             null,
                             providesGotoPreviousScreenUiEvent());
             deleteThreadFromPostController.setup().go();
@@ -132,7 +137,7 @@ public class ListPostsFragment extends ObservableFragment {
         LongClickDeletePostUiEvent event = new LongClickDeletePostUiEvent(
                 getActivity(), 
                 listView, 
-                deleteRequest);
+                deletePostVolleyRequest);
         return event;
     }    
     
@@ -140,7 +145,7 @@ public class ListPostsFragment extends ObservableFragment {
         LongClickDeleteThreadUiEvent event = new LongClickDeleteThreadUiEvent(
                 getActivity(), 
                 listView, 
-                deleteRequest);
+                deleteThreadVolleyRequest);
         return event;
     }    
 

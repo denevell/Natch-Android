@@ -1,14 +1,5 @@
 package org.denevell.droidnatch.app.baseclasses.networking;
 
-import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
-import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
-import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.util.Log;
 
@@ -20,6 +11,15 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
+import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
+import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
+import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
+import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.app.interfaces.VolleyRequest;
+import org.json.JSONObject;
 
 public class BaseService<T> implements Listener<JSONObject>, ErrorListener, ServiceFetcher<T> {
 

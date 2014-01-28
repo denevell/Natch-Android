@@ -21,21 +21,21 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module(injects = ListPostsFragment.class, complete = false, library=true)
-public class DeletePostServicesMapper {
+public class DeleteThreadFromPostServicesMapper {
 
-    public static final String DELETE_POST_VOLLEY_REQUEST = "delete post volley request";
-    public static final String DELETE_POST_SERVICE = "delete post service";
+    public static final String DELETE_THREAD_FROM_POST_SERVICE = "delete thread from post service";
+    public static final String DELETE_THREAD_FROM_VOLLEY_REQUEST = "delete thread from volley request";
 
-    public DeletePostServicesMapper() {
+    public DeleteThreadFromPostServicesMapper() {
     }
-
-    @Provides @Named(DELETE_POST_SERVICE)
+  
+    @Provides @Named(DELETE_THREAD_FROM_POST_SERVICE)
     public ServiceFetcher<DeletePostResourceReturnData> providesService(
             Context appContext, 
             ProgressIndicator progress, 
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory,
-            @Named(DELETE_POST_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> volleyRequest) {
+            @Named(DELETE_THREAD_FROM_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> volleyRequest) {
         return new BaseService<DeletePostResourceReturnData>(
                 appContext, 
                 volleyRequest,
@@ -45,7 +45,7 @@ public class DeletePostServicesMapper {
                 DeletePostResourceReturnData.class);
     }
 
-    @Provides @Singleton @Named(DELETE_POST_VOLLEY_REQUEST)
+    @Provides @Singleton @Named(DELETE_THREAD_FROM_VOLLEY_REQUEST)
     public VolleyRequest<DeletePostResourceReturnData> providesVolleyRequestDelete(
             ObjectToStringConverter reponseConverter,
             Context appContext) {
