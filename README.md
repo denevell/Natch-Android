@@ -2,7 +2,7 @@
 
 The Android client to the Natch REST project.
 
-## Backlog
+## Backlog  
 
 * Tech task: Build step to clear the database via sql call
 * UI TEST: I should delete a thread from within the thread page
