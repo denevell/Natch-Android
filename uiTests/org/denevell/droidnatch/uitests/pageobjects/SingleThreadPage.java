@@ -35,7 +35,7 @@ public class SingleThreadPage {
         threadRow.waitForExists(10000);
         UiObject postsList = getPostsList();
         System.out.println("Found posts: " + postsList.getChildCount());
-        getLoadingView().waitUntilGone(10000);
+        postsList.waitForExists(10000);
         return postsList;
     }    
     
@@ -63,6 +63,19 @@ public class SingleThreadPage {
          System.out.println("Clicking on delete item");
          deleteObject.click();
          return null;
-     }     
+     }
+
+    public UiObject longPressDeletePostRow(int pos) throws UiObjectNotFoundException {
+        UiObject row = getPostRow(pos);
+        System.out.println("Long pressing on list item");
+        uiDevice.swipe(row.getBounds().centerX(), row.getBounds().centerY(),
+                row.getBounds().centerX(), row.getBounds().centerY(), 400);
+        System.out.println("Searching for delete item");
+        UiSelector deleteSelector = new UiSelector().text("Delete post");
+        UiObject deleteObject = new UiObject(deleteSelector);
+        System.out.println("Clicking on delete item");
+        deleteObject.click();
+        return null;
+    }
 
 }

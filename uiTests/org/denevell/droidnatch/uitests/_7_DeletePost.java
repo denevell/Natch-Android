@@ -14,7 +14,7 @@ import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 import org.denevell.droidnatch.uitests.utils.NatchUiAutomatorTests;
 
 
-public class _6_AddPostToThread extends NatchUiAutomatorTests {
+public class _7_DeletePost extends NatchUiAutomatorTests {
     
     @Override
     protected void setUp() throws Exception {
@@ -22,35 +22,28 @@ public class _6_AddPostToThread extends NatchUiAutomatorTests {
         AppUtils.openAppNamed(getUiDevice(), UiConstants.appName);
     }
     
-    public void test_1_GotoNewThreadPage() throws Exception {
+    public void test_1_DeletePost() throws Exception {
         // Arrange
         @SuppressWarnings("deprecation")
         SingleThreadPage singleThreadPage = new SingleThreadPage(getUiDevice());
         String subject = new Date().toGMTString();
-        addThreadAndPost(getUiDevice(), subject, subject);
+        _6_AddPostToThread.addThreadAndPost(getUiDevice(), subject, subject);
+
+        // Act
+        singleThreadPage.waitForPostsToLoad();
+        UiObject firstPostRow = singleThreadPage.getPostRow(1);
+        assertTrue("First post exists", firstPostRow.exists());
+        singleThreadPage.longPressDeletePostRow(1);
+        singleThreadPage.waitForPostsToLoad();
 
         // Assert
-        UiObject firstPostRow = singleThreadPage.getPostRow(1);
-        assertEquals("Correct post input", subject, firstPostRow.getText());
-        
+        firstPostRow = singleThreadPage.getPostRow(1);
+        assertTrue("First post doesn't exist", firstPostRow.waitUntilGone(1000));
+        UiObject initialPostRow = singleThreadPage.getPostRow(0);
+        assertTrue("Initial post row still there", initialPostRow.waitForExists(1000));
+
         // Cleanup
         singleThreadPage.longPressDeleteThreadRow(0);
     }
-
-    public static void addThreadAndPost(UiDevice uiDevice, String threadTitle, String postTitle) throws Exception {
-        AddThreadPage page = new AddThreadPage(uiDevice);
-        ListThreadsPage listThreadsPage = new ListThreadsPage(uiDevice);
-        SingleThreadPage singleThreadPage = new SingleThreadPage(uiDevice);
-        page.addThread(threadTitle);
-        listThreadsPage.waitForThreadsToLoad();
-        UiObject firstRow = listThreadsPage.getThreadsRow(0);
-
-        // Act
-        firstRow.click();
-        singleThreadPage.waitForPostsToLoad();
-        singleThreadPage.addPost(postTitle);
-        singleThreadPage.waitForPostsToLoad();
-    }
-
 
 }

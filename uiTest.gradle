@@ -16,7 +16,7 @@ ant.importBuild "$System.env.ANDROID_HOME"+'/tools/ant/uibuild.xml'
 
 print ant.properties['source.dir']
 
-task uiBuild(dependsOn: ['changeAppServiceDetailsToLocalhostFromEmulator']) << {
+task uiBuild(dependsOn: ['installApp', 'changeToLocalhostService']) << {
         ant.project.executeTarget('build')
 }
 
@@ -33,14 +33,17 @@ task uiRun(dependsOn: ['uiInstall']) << {
     }
 }
 
-task changeAppServiceDetailsToLocalhostFromEmulator() << {
-    Process proc = ["/bin/bash", "emulatorTalkingToLocalServices.sh"].execute()
+task installApp() << {
+    Process proc = ["gradle", "installDebug"].execute()
     proc.consumeProcessErrorStream(System.err)
     proc.consumeProcessOutputStream(System.out)
     if (proc.waitFor() != 0) {
         throw new RuntimeException('exec failed')
     }
-    proc = ["/usr/bin/gradle", "installDebug"].execute()
+}
+
+task changeToLocalhostService() << {
+    Process proc = ["/bin/bash", "emulatorTalkingToLocalServices.sh"].execute()
     proc.consumeProcessErrorStream(System.err)
     proc.consumeProcessOutputStream(System.out)
     if (proc.waitFor() != 0) {
