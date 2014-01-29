@@ -4,7 +4,7 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* UI TEST: I should delete a thread from within the thread page
+* Start using Espresso testing framework.
 * Tech task: Build step to clear the database via sql call
 
 ## Ice-box
@@ -66,4 +66,5 @@ The Android client to the Natch REST project.
 4. I should refresh the (plus loading) threads after an add
 5. I should be able to delete a thread I have created 
 6. I should load the posts in a thread after it's clicked on, and add a post
-7. I should delete post from a thread, and then see the existing thread, one post less.
+#. I should delete post from a thread, and then see the existing thread, one post less.
+#. I should delete a thread from within the thread page
