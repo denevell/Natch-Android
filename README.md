@@ -5,6 +5,7 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * Tech task: Build step to clear the database via sql call
+* Should go to new thread once I add it.
 
 ## Ice-box
 
@@ -63,8 +64,8 @@ The Android client to the Natch REST project.
 1. I should see some threads in the app
 #. I should see a loading screen while the threads are loaded
 3. I should be able to add a new thread (subject only atm)
-#. I should refresh the (plus loading) threads after an add
-#. I should be able to delete a thread I have created 
+4. I should refresh the (plus loading) threads after an add
+5. I should be able to delete a thread I have created 
 #. I should load the posts in a thread after it's clicked on, and add a post
 #. I should delete post from a thread, and then see the existing thread, one post less.
 #. I should delete a thread from within the thread page

@@ -32,4 +32,7 @@ public class _12_ListThreads extends ActivityInstrumentationTestCase2<MainPageAc
         onView(withId(R.id.list_threads_listview)).check(matches(listViewHasElements()));
     }
 
+    // I deleted test two, since it relies on the services having not loaded, when Espresso ensures
+    // all services and tasks have finished before looking at the views.
+
 }
