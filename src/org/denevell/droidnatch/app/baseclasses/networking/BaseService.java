@@ -10,8 +10,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
 
+import org.denevell.droidnatch.Application;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
@@ -50,7 +50,7 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
     }
 
     public void go() {
-        RequestQueue queue = Volley.newRequestQueue(mAppContext);
+        RequestQueue queue = Application.getRequestQueue();//Volley.newRequestQueue(mAppContext);
         @SuppressWarnings("rawtypes")
         Request request = mVolleyRequest.getRequest();
         request.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));

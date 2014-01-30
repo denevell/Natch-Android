@@ -1,9 +1,10 @@
 package org.denevell.droidnatch.threads.list.di.resultdisplayer;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.inject.Singleton;
+import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
@@ -16,11 +17,11 @@ import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
-import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
-import android.view.View;
-import android.widget.ListView;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -57,7 +58,7 @@ public class ListThreadsResultsDisplayableMapper {
 
     @Provides @Singleton 
     public ClickableListView<ThreadResource> providesListView() {
-        ListView listView = (ListView) mActivity.findViewById(R.id.listView1);
+        ListView listView = (ListView) mActivity.findViewById(R.id.list_threads_listview);
         ClickableListView<ThreadResource> ltlv = 
                 new ClickableListView<ThreadResource>(
                         listView, 

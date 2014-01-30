@@ -14,20 +14,20 @@ repositories {
     mavenCentral()
 }
 
+//'com.squareup.dagger:dagger:1.1.0',
 dependencies {
         compile 'com.squareup.dagger:dagger-compiler:1.1.0'
         compile 'com.squareup.dagger:dagger:1.1.0'
         compile 'com.google.code.gson:gson:2.2.4'
         compile 'com.android.support:support-v4:19.0.0'
         compile 'org.mockito:mockito-all:1.9.5'
-}
-
-sourceSets {
-    main {
-        java {
-            srcDir 'src'
-        }
-    }
+	instrumentTestCompile files('libs/espresso-1.1.jar',
+		  'libs/testrunner-1.1.jar',
+		  'libs/testrunner-runtime-1.1.jar')
+	instrumentTestCompile 'com.google.guava:guava:14.0.1',
+		  'org.hamcrest:hamcrest-core:1.1',
+		  'org.hamcrest:hamcrest-integration:1.1',
+		  'org.hamcrest:hamcrest-library:1.1'
 }
 
 android {
@@ -52,14 +52,20 @@ android {
                     res.srcDirs = ['res']
                     assets.srcDirs = ['assets']
                 }
-                instrumentTest.setRoot('testFunctional')
-                instrumentTest.setRoot('testFunctional')
+                instrumentTest.setRoot('uiTests')
                 instrumentTest {
-                        java.srcDirs = ['testFunctional/src']
-                        res.srcDirs = ['testFunctional/res']
-                        assets.srcDirs = ['testFunctional/assets']
-                        resources.srcDirs = ['testFunctional/src']
+                        manifest.srcFile 'uiTests/AndroidManifest.xml'
+                        java.srcDirs = ['uiTests/src']
+                        //res.srcDirs = ['uiTests/res']
+                        //assets.srcDirs = ['uiTests/assets']
+                        //resources.srcDirs = ['uiTests/src']
                 }
+        }
+        defaultConfig {
+            testInstrumentationRunner 'com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner'
+        }
+        packagingOptions {
+          exclude 'LICENSE.txt'
         }
         compileSdkVersion 18
 }
@@ -76,7 +82,6 @@ sourceSets {
 }
 
 dependencies {
-        //unitTestCompile files('customcomponents/build/classes/release') //project(':customcomponents')
         unitTestCompile files("$project.buildDir/classes/debug")
         unitTestCompile 'junit:junit:4.11'
         unitTestCompile 'org.robolectric:robolectric:2.1.1'
