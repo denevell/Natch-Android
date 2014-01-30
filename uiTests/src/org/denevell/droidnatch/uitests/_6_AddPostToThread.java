@@ -3,47 +3,56 @@ package org.denevell.droidnatch.uitests;
 import android.test.ActivityInstrumentationTestCase2;
 
 import org.denevell.droidnatch.MainPageActivity;
+import org.denevell.droidnatch.posts.list.entities.PostResource;
+import org.denevell.droidnatch.threads.list.entities.ThreadResource;
+import org.denevell.natch.android.R;
+
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
+import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
 
 public class _6_AddPostToThread extends ActivityInstrumentationTestCase2<MainPageActivity> {
 
-    public _6_AddPostToThread(Class<MainPageActivity> activityClass) {
-        super(activityClass);
+    @SuppressWarnings("deprecation")
+    public _6_AddPostToThread() {
+        super("org.denevell.natch.android", MainPageActivity.class);
     }
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
+        registerIdlingResources(volleyResources);
+        getActivity();
     }
-    
+
     public void test_1_GotoNewThreadPage() throws Exception {
-//        // Arrange
-//        @SuppressWarnings("deprecation")
-//        SingleThreadPage singleThreadPage = new SingleThreadPage(getUiDevice());
-//        String subject = new Date().toGMTString();
-//        addThreadAndPost(getUiDevice(), subject, subject);
-//
-//        // Assert
-//        UiObject firstPostRow = singleThreadPage.getPostRow(1);
-//        assertEquals("Correct post input", subject, firstPostRow.getText());
-//
-//        // Cleanup
-//        singleThreadPage.longPressDeleteThreadRow(0);
-    }
+        onView(withId(R.id.editText1))
+                .perform(typeText("New thread to open"), pressImeActionButton());
 
-    public static void addThreadAndPost(String threadTitle, String postTitle) throws Exception {
-//        AddThreadPage page = new AddThreadPage(uiDevice);
-//        ListThreadsPage listThreadsPage = new ListThreadsPage(uiDevice);
-//        SingleThreadPage singleThreadPage = new SingleThreadPage(uiDevice);
-//        page.addThread(threadTitle);
-//        listThreadsPage.waitForThreadsToLoad();
-//        UiObject firstRow = listThreadsPage.getThreadsRow(0);
-//
-//        // Act
-//        firstRow.click();
-//        singleThreadPage.waitForPostsToLoad();
-//        singleThreadPage.addPost(postTitle);
-//        singleThreadPage.waitForPostsToLoad();
-    }
+        onData(allOf(is(instanceOf(ThreadResource.class))))
+                .atPosition(0)
+                .check(matches(is(withText("New thread to open"))));
 
+        onData(allOf(is(instanceOf(ThreadResource.class))))
+                .atPosition(0)
+                .perform(click());
+
+        onView(withId(R.id.editText1))
+                .perform(typeText("New post in thread"), pressImeActionButton());
+
+        onData(allOf(is(instanceOf(PostResource.class))))
+                .atPosition(1)
+                .check(matches(is(withText("New post in thread"))));
+    }
 
 }
