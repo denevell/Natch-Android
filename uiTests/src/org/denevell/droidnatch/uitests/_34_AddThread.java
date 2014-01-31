@@ -28,8 +28,8 @@ public class _34_AddThread extends ActivityInstrumentationTestCase2<MainPageActi
         super.setUp();
         VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
         registerIdlingResources(volleyResources);
+        TestUtils.deleteDb();
         getActivity();
-
     }
 
     public void test_34_AddThread() throws Exception {

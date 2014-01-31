@@ -16,10 +16,10 @@ import static com.google.android.apps.common.testing.ui.espresso.action.ViewActi
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
+import static org.denevell.droidnatch.uitests.CustomMatchers.*;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 
 public class _5_DeleteThread extends ActivityInstrumentationTestCase2<MainPageActivity> {
 
@@ -33,6 +33,7 @@ public class _5_DeleteThread extends ActivityInstrumentationTestCase2<MainPageAc
         super.setUp();
         VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
         registerIdlingResources(volleyResources);
+        TestUtils.deleteDb();
         getActivity();
 
     }
@@ -52,9 +53,8 @@ public class _5_DeleteThread extends ActivityInstrumentationTestCase2<MainPageAc
         onView(withText("Delete thread"))
                 .perform(click());
 
-        onData(allOf(is(instanceOf(ThreadResource.class))))
-                .atPosition(0)
-                .check(matches(is(not(withText("New thread to delete")))));
+        onView(withId(R.id.list_threads_listview))
+                .check(matches(listViewHasElements(0)));
     }
 
 

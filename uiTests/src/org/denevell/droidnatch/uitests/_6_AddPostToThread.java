@@ -32,10 +32,11 @@ public class _6_AddPostToThread extends ActivityInstrumentationTestCase2<MainPag
         super.setUp();
         VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
         registerIdlingResources(volleyResources);
+        TestUtils.deleteDb();
         getActivity();
     }
 
-    public void test_1_GotoNewThreadPage() throws Exception {
+    public void test_1_AddPostToThread() throws Exception {
         onView(withId(R.id.editText1))
                 .perform(typeText("New thread to open"), pressImeActionButton());
 

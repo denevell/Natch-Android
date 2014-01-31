@@ -1,10 +1,7 @@
-# Android Natch
-
 The Android client to the Natch REST project.
 
 ## Backlog  
 
-* Tech task: Build step to clear the database via sql call
 * Should go to new thread once I add it.
 * Should close the keyboard on clicking a list item
 * Shouldn't be able to click the edit text during the loading screens
@@ -44,6 +41,7 @@ The Android client to the Natch REST project.
 
 ## Dev complete
 
+* Tech task: Build step to clear the database via sql call
 * Tech task: Start using Espresso testing framework.
 * Tech task: UI build step to login and register
 * Tech task: UI build step to change session id

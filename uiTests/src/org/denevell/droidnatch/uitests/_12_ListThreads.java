@@ -2,6 +2,8 @@ package org.denevell.droidnatch.uitests;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
+
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.natch.android.R;
 
@@ -10,7 +12,7 @@ import static com.google.android.apps.common.testing.ui.espresso.Espresso.regist
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
-import static org.denevell.droidnatch.uitests.CustomMatchers.*;
+import static org.denevell.droidnatch.uitests.CustomMatchers.listViewHasElements;
 
 public class _12_ListThreads extends ActivityInstrumentationTestCase2<MainPageActivity> {
 
@@ -24,12 +26,22 @@ public class _12_ListThreads extends ActivityInstrumentationTestCase2<MainPageAc
         super.setUp();
         VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
         registerIdlingResources(volleyResources);
+        TestUtils.deleteDb();
         getActivity();
     }
     
     public void test_1_ListThreads() throws Exception {
-        onView(withId(R.id.list_threads_listview)).check(matches(isDisplayed()));
-        onView(withId(R.id.list_threads_listview)).check(matches(listViewHasElements()));
+        onView(withId(R.id.list_threads_listview))
+                .check(matches(listViewHasElements(0)));
+
+        onView(withId(R.id.editText1))
+                .perform(ViewActions.typeText("Listing threads"), ViewActions.pressImeActionButton());
+
+        onView(withId(R.id.list_threads_listview))
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.list_threads_listview))
+                .check(matches(listViewHasElements()));
     }
 
     // I deleted test two, since it relies on the services having not loaded, when Espresso ensures

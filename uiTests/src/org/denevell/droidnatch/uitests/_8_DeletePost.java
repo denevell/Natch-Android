@@ -36,8 +36,8 @@ public class _8_DeletePost extends ActivityInstrumentationTestCase2<MainPageActi
         super.setUp();
         VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
         registerIdlingResources(volleyResources);
+        TestUtils.deleteDb();
         getActivity();
-
     }
 
     public void test_1_DeletePost() throws Exception {
