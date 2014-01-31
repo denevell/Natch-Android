@@ -32,23 +32,4 @@ public class CustomMatchers {
         };
     }
 
-    public static Matcher<View> listViewElementContains(int pos, String containsText) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            public boolean matchesSafely(View view) {
-                if (!(view instanceof ListView)) {
-                    return false;
-                }
-                @SuppressWarnings("rawtypes")
-                Adapter adapter = ((ListView) view).getAdapter();
-                return false;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("list view has elements");
-            }
-        };
-    }
-
 }
