@@ -23,12 +23,11 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 
-public class _7_DeleteThreadFromThreadPage extends ActivityInstrumentationTestCase2<MainPageActivity> {
+public class _8_DeletePost extends ActivityInstrumentationTestCase2<MainPageActivity> {
 
     @SuppressWarnings("deprecation")
-    public _7_DeleteThreadFromThreadPage() {
+    public _8_DeletePost() {
         super("org.denevell.natch.android", MainPageActivity.class);
     }
 
@@ -41,7 +40,7 @@ public class _7_DeleteThreadFromThreadPage extends ActivityInstrumentationTestCa
 
     }
 
-    public void test_1_DeleteThread() throws Exception {
+    public void test_1_DeletePost() throws Exception {
         String date = new Date().toString();
         onView(withId(R.id.editText1))
                 .perform(typeText("New thread to open"+date), pressImeActionButton());
@@ -53,15 +52,22 @@ public class _7_DeleteThreadFromThreadPage extends ActivityInstrumentationTestCa
                 .atPosition(0)
                 .perform(click());
 
+        onView(withId(R.id.editText1))
+                .perform(typeText("New post in thread"), pressImeActionButton());
+
+        onView(withId(R.id.list_posts_listview))
+                .check(matches(CustomMatchers.listViewHasElements(2)));
+
         onData(allOf(is(instanceOf(PostResource.class))))
-                .atPosition(0)
+                .atPosition(1)
                 .perform(longClick());
 
-        onView(withText("Delete thread"))
+        onView(withText("Delete post"))
                 .perform(click());
 
-        onView(withContentDescription("list_threads_row0"))
-                .check(matches(is(not(withText("New thread to open"+date)))));
+        onView(withId(R.id.list_posts_listview))
+                .check(matches(CustomMatchers.listViewHasElements(1)));
+
     }
 
 }

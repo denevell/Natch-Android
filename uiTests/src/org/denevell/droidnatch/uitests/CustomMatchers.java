@@ -32,4 +32,27 @@ public class CustomMatchers {
         };
     }
 
+    public static Matcher<View> listViewHasElements(final int numOfElements) {
+        return new TypeSafeMatcher<View>() {
+
+            @Override
+            public boolean matchesSafely(View view) {
+                if (!(view instanceof ListView)) {
+                    return false;
+                }
+                @SuppressWarnings("rawtypes")
+                Adapter adapter = ((ListView) view).getAdapter();
+                if(adapter.getCount()==numOfElements) {
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("list view has so many elements: "  + numOfElements);
+            }
+        };
+    }
+
 }
