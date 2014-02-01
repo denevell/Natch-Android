@@ -68,6 +68,10 @@ public class ListViewResultDisplayer<T, U extends List<T>> implements
      * to views its hiding
      */
     private void toggleSiblingViews(boolean toggle) {
+        if(mLoadingView.getParent()==null || !(mLoadingView.getParent() instanceof ViewGroup)) {
+            Log.e(TAG, "Couldn't toggle sibling views since parent is null or not a ViewGroup.");
+            return;
+        }
         ViewGroup parent = ((ViewGroup)mLoadingView.getParent());
         int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {

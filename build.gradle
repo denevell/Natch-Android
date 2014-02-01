@@ -121,7 +121,7 @@ task changeToLocalhostService() << {
 
 task uiTests() << {
 	changeToLocalhostService.execute()
-	Process proc = ["gradle", "connectInstrumentTest"].execute()
+	Process proc = ["gradle", "connectInstrumentTest", "--info"].execute()
 	proc.consumeProcessErrorStream(System.err)
 	proc.consumeProcessOutputStream(System.out)
 	if (proc.waitFor() != 0) {

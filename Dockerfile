@@ -25,4 +25,4 @@ ENTRYPOINT DISPLAY=:0 Xvfb :0 -screen 0 640x480x8 & sleep 5 \
 && echo '=== installing it and its tests' \
 && cd /Natch-Android/  \
 && ANDROID_SDK_HOME=/android-sdk-linux ANDROID_HOME=/android-sdk-linux/ gradle unitTest \
-&& ANDROID_SDK_HOME=/android-sdk-linux ANDROID_HOME=/android-sdk-linux/ gradle -b uiTest.gradle uiRun )
+&& ANDROID_SDK_HOME=/android-sdk-linux ANDROID_HOME=/android-sdk-linux/ gradle uiTests )
