@@ -1,12 +1,12 @@
 package org.denevell.droidnatch.app.baseclasses.networking;
 
-import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.json.JSONObject;
-
 import com.android.volley.Request;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.denevell.droidnatch.app.interfaces.VolleyRequest;
+import org.json.JSONObject;
 
 public class VolleyRequestGET<T> implements VolleyRequest<T>{
     

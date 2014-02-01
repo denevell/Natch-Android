@@ -1,15 +1,16 @@
 package org.denevell.droidnatch.app.baseclasses;
 
-import java.util.List;
-
-import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
+
+import java.util.List;
 
 public class ListViewResultDisplayer<T, U extends List<T>> implements 
         ResultsDisplayer<U> {
@@ -49,6 +50,7 @@ public class ListViewResultDisplayer<T, U extends List<T>> implements
     @Override
     public void startLoading() {
         if(mLoadingView!=null) {
+            toggleSiblingViews(false);
             mLoadingView.setVisibility(View.VISIBLE);
         }
     }
@@ -57,6 +59,24 @@ public class ListViewResultDisplayer<T, U extends List<T>> implements
     public void stopLoading() {
         if(mLoadingView!=null) {
             mLoadingView.setVisibility(View.GONE);
+            toggleSiblingViews(true);
+        }
+    }
+
+    /**
+     * Used so when we start the loading view, we disable clicks
+     * to views its hiding
+     */
+    private void toggleSiblingViews(boolean toggle) {
+        ViewGroup parent = ((ViewGroup)mLoadingView.getParent());
+        int childCount = parent.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View v = parent.getChildAt(i);
+            if(v!=mLoadingView) {
+                v.setClickable(toggle);
+                v.setFocusable(toggle);
+                v.setFocusableInTouchMode(toggle);
+            }
         }
     }
 

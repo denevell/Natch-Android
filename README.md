@@ -2,8 +2,8 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
+* Refactor / redesign ui event object code.
 * Integrate Espresso tests with CI environment.
-* Shouldn't be able to click the edit text during the loading screens
 
 ## Ice-box
 
@@ -42,6 +42,7 @@ The Android client to the Natch REST project.
 
 * Should go to new thread once I add it.
 * Should close the keyboard on clicking a list item
+* Shouldn't be able to click the edit text during the loading screens
 * Task: Build step to clear the database via sql call
 * Task: Start using Espresso testing framework.
 * Task: UI build step to login and register
