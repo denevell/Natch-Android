@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
+import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
@@ -63,6 +64,7 @@ public class ListThreadsResultsDisplayableMapper {
                 new ClickableListView<ThreadResource>(
                         listView, 
                         mContextItemObserver,
+                        new HideKeyboard(),
                         new ListThreadsContextMenu());
         return ltlv;
     }

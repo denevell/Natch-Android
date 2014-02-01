@@ -10,10 +10,14 @@ import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
 
+import android.content.Context;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -27,6 +31,7 @@ public class ClickableListViewTests {
     private OnCreateContextMenuListener onCreateContextMenu = mock(OnCreateContextMenuListener.class);
     private ClickableListView<Object> clickableListView;
     private ListAdapter adapter;
+	private HideKeyboard hideKeyboard = mock(HideKeyboard.class);
 
     @Before
     public void setUp() throws Exception {
@@ -34,7 +39,8 @@ public class ClickableListViewTests {
         when(listView.getAdapter()).thenReturn(adapter);
         clickableListView = new ClickableListView<Object>(
                 listView, 
-                contextSelectedObservable, 
+                contextSelectedObservable,
+                hideKeyboard ,
                 onCreateContextMenu);
     }
 
@@ -78,6 +84,41 @@ public class ClickableListViewTests {
         verify(callback).onLongPress(adapterValue, 1, "a", 0);
         verify(callback1).onLongPress(adapterValue, 1, "a", 0);
     }
+    
+    @Test
+    public void shouldHideKeyboardOnItemClick() {
+		// Arrange
+        Context context = mock(Context.class);
+		AdapterView<?> av = mock(AdapterView.class);
+		when(av.getContext()).thenReturn(context);
+		View v = mock(View.class);
 
+    	// Act 
+    	clickableListView.onItemClick(av, v, 0, 0);
+    	
+        // Assert
+    	verify(hideKeyboard).hideKeyboard(context, v);
+    }
 
+    @Test
+    public void shouldntHideKeyboardOnItemClick() {
+		// Arrange
+        Context context = mock(Context.class);
+		AdapterView<?> av = mock(AdapterView.class);
+		when(av.getContext()).thenReturn(context);
+		View v = mock(View.class);
+        adapter = mock(ListAdapter.class);
+        when(listView.getAdapter()).thenReturn(adapter);
+        clickableListView = new ClickableListView<Object>(
+                listView, 
+                contextSelectedObservable,
+                null,
+                onCreateContextMenu);		
+
+    	// Act 
+    	clickableListView.onItemClick(av, v, 0, 0);
+    	
+        // Assert
+    	verify(hideKeyboard, Mockito.never()).hideKeyboard(context, v);
+    }    
 }

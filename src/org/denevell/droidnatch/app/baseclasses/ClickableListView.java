@@ -1,12 +1,5 @@
 package org.denevell.droidnatch.app.baseclasses;
 
-import java.util.ArrayList;
-
-import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
-import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
-import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
-import org.denevell.droidnatch.app.interfaces.OnPressObserver;
-
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +9,13 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
+import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
+import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
+import org.denevell.droidnatch.app.interfaces.OnPressObserver;
+
+import java.util.ArrayList;
+
 public class ClickableListView<T> implements 
                ContextItemSelected,
                OnLongPressObserver<T>, 
@@ -23,14 +23,17 @@ public class ClickableListView<T> implements
                OnItemClickListener {
 
     private static final String TAG = ClickableListView.class.getSimpleName();
+    private HideKeyboard mHideKeyboard;
     private ListView mListView;
     private ArrayList<OnLongPress<T>> mLongPressListeners = new ArrayList<OnLongPress<T>>();
     private ArrayList<OnPress<T>> mPressListeners = new ArrayList<OnPressObserver.OnPress<T>>();
 
     public ClickableListView(ListView listView, 
-            ContextItemSelectedObserver contextSelectedObservable, 
+            ContextItemSelectedObserver contextSelectedObservable,
+            HideKeyboard hideKeyboard,
             OnCreateContextMenuListener onCreateContextMenu) {
         mListView = listView;
+        mHideKeyboard = hideKeyboard;
         mListView.setOnCreateContextMenuListener(onCreateContextMenu);
         mListView.setOnItemClickListener(this);
         contextSelectedObservable.addContextItemSelectedCallback(this);
@@ -70,6 +73,7 @@ public class ClickableListView<T> implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
+            if(mHideKeyboard!=null && parent!=null) mHideKeyboard.hideKeyboard(parent.getContext(), view);
             Log.v(TAG, "Press issued");
             @SuppressWarnings("unchecked")
             T tr = (T) mListView.getAdapter().getItem(position);

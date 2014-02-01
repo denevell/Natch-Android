@@ -1,10 +1,12 @@
 package org.denevell.droidnatch.posts.list.di.resultsdisplayable;
 
-import java.util.List;
-
-import javax.inject.Singleton;
+import android.app.Activity;
+import android.content.Context;
+import android.view.View;
+import android.widget.ListView;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
+import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
@@ -12,10 +14,10 @@ import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.natch.android.R;
 
-import android.app.Activity;
-import android.content.Context;
-import android.view.View;
-import android.widget.ListView;
+import java.util.List;
+
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -49,7 +51,8 @@ public class ListPostsResultsDisplayableMapper {
     public ClickableListView<PostResource> provideListView() {
         ListView lv = (ListView) mActivity.findViewById(R.id.list_posts_listview);
         ClickableListView<PostResource> clv = new ClickableListView<PostResource>(lv, 
-                mObservableFragment, 
+                mObservableFragment,
+                new HideKeyboard(),
                 new ListPostsContextMenu());
         return clv;
     } 

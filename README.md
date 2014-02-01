@@ -2,8 +2,8 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
+* Integrate Espresso tests with CI environment.
 * Should go to new thread once I add it.
-* Should close the keyboard on clicking a list item
 * Shouldn't be able to click the edit text during the loading screens
 
 ## Ice-box
@@ -41,6 +41,7 @@ The Android client to the Natch REST project.
 
 ## Dev complete
 
+* Should close the keyboard on clicking a list item
 * Tech task: Build step to clear the database via sql call
 * Tech task: Start using Espresso testing framework.
 * Tech task: UI build step to login and register

@@ -39,7 +39,6 @@ public class _7_DeleteThreadFromThreadPage extends ActivityInstrumentationTestCa
         registerIdlingResources(volleyResources);
         TestUtils.deleteDb();
         getActivity();
-
     }
 
     public void test_1_DeleteThread() throws Exception {
