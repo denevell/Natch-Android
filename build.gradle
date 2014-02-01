@@ -107,3 +107,24 @@ task unitTest(type:Test, dependsOn: assemble) {
 }
 
 check.dependsOn unitTest
+
+// For Espresso ui tests
+
+task changeToLocalhostService() << {
+    Process proc = ["/bin/bash", "emulatorTalkingToLocalServices.sh"].execute()
+    proc.consumeProcessErrorStream(System.err)
+    proc.consumeProcessOutputStream(System.out)
+    if (proc.waitFor() != 0) {
+        throw new RuntimeException('exec failed')
+    }
+}
+
+task uiTests() << {
+	changeToLocalhostService.execute()
+	Process proc = ["gradle", "connectInstrumentTest"].execute()
+	proc.consumeProcessErrorStream(System.err)
+	proc.consumeProcessOutputStream(System.out)
+	if (proc.waitFor() != 0) {
+		throw new RuntimeException('exec failed')
+	}
+}
