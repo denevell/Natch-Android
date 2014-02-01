@@ -1,5 +1,7 @@
 package org.denevell.droidnatch.app.baseclasses.controllers;
 
+import android.util.Log;
+
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
@@ -7,8 +9,6 @@ import org.denevell.droidnatch.app.interfaces.GenericUiObservable.GenericUiObser
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-
-import android.util.Log;
 
 @SuppressWarnings("rawtypes")
 public class UiEventThenServiceCallController implements Controller, 
@@ -54,7 +54,7 @@ public class UiEventThenServiceCallController implements Controller,
             mLoadingView.stopLoading();
         }
         if(mUiEvent!=null) {
-            mUiEvent.success();
+            mUiEvent.success(r);
         }
         if(mNextController!=null) {
             Log.v(TAG, "Calling next controller");

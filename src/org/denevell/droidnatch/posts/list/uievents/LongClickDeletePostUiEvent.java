@@ -10,7 +10,7 @@ import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.natch.android.R;
 
-public class LongClickDeletePostUiEvent extends GenericUiObject implements OnLongPress<PostResource> {
+public class LongClickDeletePostUiEvent extends GenericUiObject<PostResource> implements OnLongPress<PostResource> {
     
     @SuppressWarnings("unused")
     private static final String TAG = LongClickDeletePostUiEvent.class.getSimpleName();
@@ -31,7 +31,7 @@ public class LongClickDeletePostUiEvent extends GenericUiObject implements OnLon
         if(position!=0) {
             String url = Urls.getBasePath() + mAppContext.getString(R.string.url_del);
             mDeleteRequest.setUrl(url+obj.getId());
-            submit();
+            submit(obj);
         }
     }
 

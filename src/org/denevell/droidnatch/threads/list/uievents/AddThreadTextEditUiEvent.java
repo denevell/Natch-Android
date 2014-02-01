@@ -1,13 +1,14 @@
 package org.denevell.droidnatch.threads.list.uievents;
 
-import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.baseclasses.GenericUiObject;
-import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
-
 import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.baseclasses.GenericUiObject;
+import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
+import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 
 public class AddThreadTextEditUiEvent extends GenericUiObject implements OnEditorActionListener {
     
@@ -19,9 +20,9 @@ public class AddThreadTextEditUiEvent extends GenericUiObject implements OnEdito
         mEditText = editText;
         mResourceInput = addPostResourceInput;
         editText.setOnEditorActionListener(this);
-        setOnSuccess(new GenericUiSuccess() {
+        setOnSuccess(new GenericUiSuccess<AddPostResourceReturnData>() {
             @Override
-            public void onGenericUiSuccess() {
+            public void onGenericUiSuccess(AddPostResourceReturnData tr) {
                 mEditText.setText("");
             }
         });
@@ -42,7 +43,7 @@ public class AddThreadTextEditUiEvent extends GenericUiObject implements OnEdito
         }
         mResourceInput.setContent("-");
         mResourceInput.setSubject(v.getText().toString());                  
-        submit();
+        submit(null);
         return true;
     }
 

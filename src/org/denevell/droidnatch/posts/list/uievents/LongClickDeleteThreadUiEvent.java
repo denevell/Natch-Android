@@ -31,7 +31,7 @@ public class LongClickDeleteThreadUiEvent extends GenericUiObject implements OnL
         if(position==0) {
             String url = Urls.getBasePath() + mAppContext.getString(R.string.url_del);
             mDeleteRequest.setUrl(url+obj.getId());
-            submit();
+            submit(obj);
         }
     }
 

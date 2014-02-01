@@ -1,15 +1,17 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
-import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.baseclasses.GenericUiObject;
-import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
-
 import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-public class AddPostTextEditGenericUiEvent extends GenericUiObject implements OnEditorActionListener {
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.baseclasses.GenericUiObject;
+import org.denevell.droidnatch.posts.list.entities.PostResource;
+import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
+import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
+
+public class AddPostTextEditGenericUiEvent extends GenericUiObject<PostResource> implements OnEditorActionListener {
     
     private EditText mEditText;
     private AddPostResourceInput mResourceInput;
@@ -19,9 +21,9 @@ public class AddPostTextEditGenericUiEvent extends GenericUiObject implements On
         mEditText = editText;
         mResourceInput = addPostResourceInput;
         editText.setOnEditorActionListener(this);
-        setOnSuccess(new GenericUiSuccess() {
+        setOnSuccess(new GenericUiSuccess<AddPostResourceReturnData>() {
             @Override
-            public void onGenericUiSuccess() {
+            public void onGenericUiSuccess(AddPostResourceReturnData object) {
                 mEditText.setText("");
             }
         });
@@ -42,7 +44,7 @@ public class AddPostTextEditGenericUiEvent extends GenericUiObject implements On
         }
         mResourceInput.setSubject("-");
         mResourceInput.setContent(v.getText().toString());                  
-        submit();
+        submit(null);
         return true;
     }
 

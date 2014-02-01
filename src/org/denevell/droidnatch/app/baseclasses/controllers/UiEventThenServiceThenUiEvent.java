@@ -1,5 +1,7 @@
 package org.denevell.droidnatch.app.baseclasses.controllers;
 
+import android.util.Log;
+
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
@@ -8,11 +10,9 @@ import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 
-import android.util.Log;
-
 @SuppressWarnings("rawtypes")
-public class UiEventThenServiceThenUiEvent implements Controller, 
-        ServiceCallbacks, 
+public class UiEventThenServiceThenUiEvent<T> implements Controller,
+        ServiceCallbacks<T>,
         GenericUiObserver {
 
     private static final String TAG = UiEventThenServiceThenUiEvent.class.getSimpleName();
@@ -25,7 +25,7 @@ public class UiEventThenServiceThenUiEvent implements Controller,
             GenericUiObservable uiEvent, 
             ServiceFetcher service,
             ResultsDisplayer loadingView, 
-            GenericUiObservable uiEventForAfterService) {
+            GenericUiObservable<T> uiEventForAfterService) {
         mUiEvent = uiEvent;
         mLoadingView = loadingView;
         mService = service;
@@ -49,16 +49,16 @@ public class UiEventThenServiceThenUiEvent implements Controller,
     }
 
     @Override
-    public void onServiceSuccess(Object r) {
+    public void onServiceSuccess(T r) {
         if(mLoadingView!=null) {
             mLoadingView.stopLoading();
         }
         if(mUiEvent!=null) {
-            mUiEvent.success();
+            mUiEvent.success(r);
         }
         if(mNextUiEvent!=null) {
             Log.v(TAG, "Calling next ui event");
-            mNextUiEvent.submit();
+            mNextUiEvent.submit(r);
         }
     }
 

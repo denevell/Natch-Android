@@ -2,14 +2,14 @@ package org.denevell.droidnatch.app.interfaces;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 
-public interface GenericUiObservable {
+public interface GenericUiObservable<T> {
 
     public static interface GenericUiObserver {
         void onGenericUiEvent();
     }
 
-    public static interface GenericUiSuccess {
-        void onGenericUiSuccess();
+    public static interface GenericUiSuccess<T> {
+        void onGenericUiSuccess(T object);
     }
 
     public static interface GenericUiFailure {
@@ -18,9 +18,9 @@ public interface GenericUiObservable {
 
     void setOnSubmitObserver(GenericUiObserver observer);
 
-    void submit();
+    void submit(T object);
 
-    void success();
+    void success(T result);
 
     void fail(FailureResult r);
     

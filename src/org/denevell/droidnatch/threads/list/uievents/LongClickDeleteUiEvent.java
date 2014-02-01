@@ -28,7 +28,7 @@ public class LongClickDeleteUiEvent extends GenericUiObject implements OnLongPre
     public void onLongPress(ThreadResource obj, int itemId, String optionName, int index) {
         String url = Urls.getBasePath() + mAppContext.getString(R.string.url_del);
         mDeleteRequest.setUrl(url+obj.getRootPostId());
-        submit();
+        submit(obj);
     }
 
 }

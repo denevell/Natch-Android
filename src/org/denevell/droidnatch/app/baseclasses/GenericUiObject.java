@@ -1,11 +1,11 @@
 package org.denevell.droidnatch.app.baseclasses;
 
+import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
-
-public class GenericUiObject implements GenericUiObservable {
+public class GenericUiObject<T> implements GenericUiObservable<T> {
 
     public GenericUiObject() {
     }
@@ -30,16 +30,16 @@ public class GenericUiObject implements GenericUiObservable {
     }
 
     @Override
-    public void submit() {
+    public void submit(T object) {
         for (GenericUiObserver observer: observers) {
            observer.onGenericUiEvent(); 
         }
     }
 
     @Override
-    public void success() {
+    public void success(T object) {
         for (GenericUiSuccess observer: successObservers) {
-           observer.onGenericUiSuccess();
+           observer.onGenericUiSuccess(object);
         }
     }
 
