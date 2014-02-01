@@ -4,7 +4,6 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
-import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
 import java.util.Date;
@@ -17,7 +16,6 @@ import static com.google.android.apps.common.testing.ui.espresso.action.ViewActi
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
-import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 import static org.denevell.droidnatch.uitests.CustomMatchers.listViewHasElements;
@@ -44,14 +42,7 @@ public class _7_DeleteThreadFromThreadPage extends ActivityInstrumentationTestCa
     public void test_1_DeleteThread() throws Exception {
         String date = new Date().toString();
         onView(withId(R.id.editText1))
-                .perform(typeText("New thread to open"+date), pressImeActionButton());
-
-        onView(withContentDescription("list_threads_row0"))
-                .check(matches(is(withText("New thread to open"+date))));
-
-        onData(allOf(is(instanceOf(ThreadResource.class))))
-                .atPosition(0)
-                .perform(click());
+                .perform(typeText("New thread to open" + date), pressImeActionButton());
 
         onData(allOf(is(instanceOf(PostResource.class))))
                 .atPosition(0)

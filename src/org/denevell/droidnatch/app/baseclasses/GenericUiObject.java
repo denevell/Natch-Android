@@ -32,7 +32,7 @@ public class GenericUiObject<T> implements GenericUiObservable<T> {
     @Override
     public void submit(T object) {
         for (GenericUiObserver observer: observers) {
-           observer.onGenericUiEvent(); 
+           observer.onGenericUiEvent(object);
         }
     }
 

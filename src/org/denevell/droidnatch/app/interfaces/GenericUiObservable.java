@@ -4,8 +4,8 @@ import org.denevell.droidnatch.app.baseclasses.FailureResult;
 
 public interface GenericUiObservable<T> {
 
-    public static interface GenericUiObserver {
-        void onGenericUiEvent();
+    public static interface GenericUiObserver<T> {
+        void onGenericUiEvent(T object);
     }
 
     public static interface GenericUiSuccess<T> {

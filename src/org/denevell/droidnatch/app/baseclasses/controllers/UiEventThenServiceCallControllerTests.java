@@ -53,7 +53,7 @@ public class UiEventThenServiceCallControllerTests {
     @Test
     public void shouldStartDisplayableLoadingOnUiEvent() {
         // Act
-        controller.onGenericUiEvent();
+        controller.onGenericUiEvent(null);
         
         // Assert
         verify(displayable).startLoading();
@@ -62,7 +62,7 @@ public class UiEventThenServiceCallControllerTests {
     @Test
     public void shouldStartServiceOnNetworkStart() {
         // Act
-        controller.onGenericUiEvent();
+        controller.onGenericUiEvent(null);
         
         // Assert
         verify(service).go();

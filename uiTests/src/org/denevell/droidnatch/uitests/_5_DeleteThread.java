@@ -8,6 +8,7 @@ import org.denevell.natch.android.R;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
@@ -41,6 +42,8 @@ public class _5_DeleteThread extends ActivityInstrumentationTestCase2<MainPageAc
     public void test_5_DeleteThread() throws Exception {
         onView(withId(R.id.editText1))
                 .perform(typeText("New thread to delete"), pressImeActionButton());
+
+        pressBack();
 
         onData(allOf(is(instanceOf(ThreadResource.class))))
                 .atPosition(0)

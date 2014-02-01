@@ -1,8 +1,11 @@
 package org.denevell.droidnatch.threads.list;
 
-import java.util.List;
-
-import javax.inject.Inject;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
@@ -10,8 +13,11 @@ import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.ServiceCallThenDisplayController;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceCallController;
+import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
+import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.threads.list.di.AddThreadServicesMapper;
@@ -26,14 +32,13 @@ import org.denevell.droidnatch.threads.list.entities.ListThreadsResourceToArrayL
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.uievents.AddThreadTextEditUiEvent;
 import org.denevell.droidnatch.threads.list.uievents.LongClickDeleteUiEvent;
+import org.denevell.droidnatch.threads.list.uievents.OpenNewThreadUiEvent;
 import org.denevell.natch.android.R;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import dagger.ObjectGraph;
 
 public class ListThreadsFragment extends ObservableFragment {
@@ -44,11 +49,12 @@ public class ListThreadsFragment extends ObservableFragment {
     @Inject ServiceFetcher<DeletePostResourceReturnData> deleteThreadService;
     @Inject ResultsDisplayer<List<ThreadResource>> resultsPane;
     @Inject AddPostResourceInput addPostResourceInput;
+    @Inject ScreenOpener screenOpener;
     @Inject ClickableListView<ThreadResource> onLongPressObserver;
     @Inject VolleyRequest<DeletePostResourceReturnData> deleteRequest;
 
     private ServiceCallThenDisplayController<ListThreadsResource, List<ThreadResource>> listThreadController;
-    private UiEventThenServiceCallController addThreadController;
+    private Controller addThreadController;
     private UiEventThenServiceCallController deleteThreadController;
 
     private void inject() {
@@ -87,11 +93,11 @@ public class ListThreadsFragment extends ObservableFragment {
             listThreadController.setup().go();
     
             addThreadController = 
-                new UiEventThenServiceCallController(
+                new UiEventThenServiceThenUiEvent(
                     providesEditTextUiEvent(addPostResourceInput), 
                     addPostService,
                     resultsPane,
-                    listThreadController);
+                    new OpenNewThreadUiEvent(screenOpener));
             addThreadController.setup().go();
 
             deleteThreadController = 

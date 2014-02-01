@@ -10,6 +10,7 @@ import org.denevell.natch.android.R;
 import java.util.Date;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
@@ -35,6 +36,7 @@ public class _34_AddThread extends ActivityInstrumentationTestCase2<MainPageActi
     public void test_34_AddThread() throws Exception {
         String date = new Date().toString();
         onView(withId(R.id.editText1)).perform(ViewActions.typeText("Hiya!"+date), ViewActions.pressImeActionButton());
+        pressBack();
         onView(withContentDescription("list_threads_row0")).check(matches(withText("Hiya!"+date)));
     }
 

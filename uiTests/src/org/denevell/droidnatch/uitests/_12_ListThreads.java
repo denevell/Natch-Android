@@ -2,6 +2,7 @@ package org.denevell.droidnatch.uitests;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.google.android.apps.common.testing.ui.espresso.Espresso;
 import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
 
 import org.denevell.droidnatch.MainPageActivity;
@@ -36,6 +37,8 @@ public class _12_ListThreads extends ActivityInstrumentationTestCase2<MainPageAc
 
         onView(withId(R.id.editText1))
                 .perform(ViewActions.typeText("Listing threads"), ViewActions.pressImeActionButton());
+
+        Espresso.pressBack();
 
         onView(withId(R.id.list_threads_listview))
                 .check(matches(isDisplayed()));

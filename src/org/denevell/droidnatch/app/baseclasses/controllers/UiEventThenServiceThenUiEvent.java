@@ -13,7 +13,7 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 @SuppressWarnings("rawtypes")
 public class UiEventThenServiceThenUiEvent<T> implements Controller,
         ServiceCallbacks<T>,
-        GenericUiObserver {
+        GenericUiObserver<T> {
 
     private static final String TAG = UiEventThenServiceThenUiEvent.class.getSimpleName();
     private GenericUiObservable mUiEvent;
@@ -73,7 +73,7 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
     }
 
     @Override
-    public void onGenericUiEvent() {
+    public void onGenericUiEvent(T object) {
         if(mService!=null) {
             mService.go();
         }

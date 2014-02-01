@@ -13,7 +13,7 @@ public class PreviousScreenUiEvent extends GenericUiObject {
         mScreenOpener = screenOpener;
         setOnSubmitObserver(new GenericUiObserver() {
             @Override
-            public void onGenericUiEvent() {
+            public void onGenericUiEvent(Object o) {
                 mScreenOpener.gotoPreviousScreen();
             }
         });
