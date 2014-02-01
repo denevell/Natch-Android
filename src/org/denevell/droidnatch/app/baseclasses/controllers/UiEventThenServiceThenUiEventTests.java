@@ -88,7 +88,7 @@ public class UiEventThenServiceThenUiEventTests {
         controller.onServiceSuccess(o);
         
         // Assert
-        verify(uiObservable).success();
+        verify(uiObservable).success(o);
     }
 
     @Test
@@ -100,7 +100,7 @@ public class UiEventThenServiceThenUiEventTests {
         controller.onServiceSuccess(o);
         
         // Assert
-        verify(nextController).submit();
+        verify(nextController).submit(o);
     }
 
     @Test

@@ -89,7 +89,7 @@ public class UiEventThenServiceCallControllerTests {
         controller.onServiceSuccess(o);
         
         // Assert
-        verify(uiObservable).success();
+        verify(uiObservable).success(o);
     }
 
     @Test
