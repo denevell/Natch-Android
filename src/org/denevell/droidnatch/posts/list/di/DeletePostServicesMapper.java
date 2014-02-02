@@ -53,7 +53,7 @@ public class DeletePostServicesMapper {
         VolleyRequestDELETE<DeletePostResourceReturnData> vollyRequest = 
                 new VolleyRequestDELETE<DeletePostResourceReturnData>();
         vollyRequest.setUrl(url);
-        vollyRequest.addHeader("AuthKey", appContext.getString(R.string.services_session_id));
+        vollyRequest.addHeader("AuthKey", Urls.getAuthKey());
         return vollyRequest;
     } 
 

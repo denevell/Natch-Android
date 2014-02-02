@@ -15,4 +15,11 @@ public class UrlsTests {
     	
     	assertEquals("basepath1", Urls.getBasePath());
     }
+
+    @Test
+    public void setAuthKey() {
+        Urls.setAuthKey("authkey1");
+
+        assertEquals("authkey1", Urls.getAuthKey());
+    }
 }

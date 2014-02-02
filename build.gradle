@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.android.tools.build:gradle:0.8.+'
     }
 }
 
@@ -14,7 +14,6 @@ repositories {
     mavenCentral()
 }
 
-//'com.squareup.dagger:dagger:1.1.0',
 dependencies {
         compile 'com.squareup.dagger:dagger-compiler:1.1.0'
         compile 'com.squareup.dagger:dagger:1.1.0'
@@ -53,13 +52,12 @@ android {
                     res.srcDirs = ['res']
                     assets.srcDirs = ['assets']
                 }
-                instrumentTest.setRoot('uiTests')
                 instrumentTest {
                         manifest.srcFile 'uiTests/AndroidManifest.xml'
                         java.srcDirs = ['uiTests/src']
-                        //res.srcDirs = ['uiTests/res']
+                        res.srcDirs = ['uiTests/res']
+                        resources.srcDirs = ['uiTests/src']
                         //assets.srcDirs = ['uiTests/assets']
-                        //resources.srcDirs = ['uiTests/src']
                 }
         }
         defaultConfig {

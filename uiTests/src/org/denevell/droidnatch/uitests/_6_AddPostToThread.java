@@ -1,9 +1,10 @@
 package org.denevell.droidnatch.uitests;
 
-import android.test.ActivityInstrumentationTestCase2;
-
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
+import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
+import org.denevell.droidnatch.uitests.utils.TestUtils;
+import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
@@ -18,10 +19,10 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 
-public class _6_AddPostToThread extends ActivityInstrumentationTestCase2<MainPageActivity> {
+public class _6_AddPostToThread extends NatchAndroidInstrumentationTestCase2 {
 
     @SuppressWarnings("deprecation")
-    public _6_AddPostToThread() {
+    public _6_AddPostToThread() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
     }
 

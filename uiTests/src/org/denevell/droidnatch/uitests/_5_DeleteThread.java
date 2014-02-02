@@ -1,9 +1,10 @@
 package org.denevell.droidnatch.uitests;
 
-import android.test.ActivityInstrumentationTestCase2;
-
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
+import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
+import org.denevell.droidnatch.uitests.utils.TestUtils;
+import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
@@ -17,15 +18,15 @@ import static com.google.android.apps.common.testing.ui.espresso.action.ViewActi
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
-import static org.denevell.droidnatch.uitests.CustomMatchers.*;
+import static org.denevell.droidnatch.uitests.CustomMatchers.listViewHasElements;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 
-public class _5_DeleteThread extends ActivityInstrumentationTestCase2<MainPageActivity> {
+public class _5_DeleteThread extends NatchAndroidInstrumentationTestCase2 {
 
     @SuppressWarnings("deprecation")
-    public _5_DeleteThread() {
+    public _5_DeleteThread() throws  Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
     }
 

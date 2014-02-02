@@ -1,33 +1,28 @@
 package org.denevell.droidnatch.uitests;
 
-import android.test.ActivityInstrumentationTestCase2;
-
 import com.google.android.apps.common.testing.ui.espresso.Espresso;
 import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
 
 import org.denevell.droidnatch.MainPageActivity;
+import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
 import org.denevell.natch.android.R;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
-import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static org.denevell.droidnatch.uitests.CustomMatchers.listViewHasElements;
 
-public class _12_ListThreads extends ActivityInstrumentationTestCase2<MainPageActivity> {
+public class _12_ListThreads extends NatchAndroidInstrumentationTestCase2 {
 
     @SuppressWarnings("deprecation")
-    public _12_ListThreads() {
+    public _12_ListThreads() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
     }
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
-        registerIdlingResources(volleyResources);
-        TestUtils.deleteDb();
         getActivity();
     }
     

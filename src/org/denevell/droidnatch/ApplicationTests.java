@@ -31,4 +31,23 @@ public class ApplicationTests {
 		// Assert
 		assertTrue(Urls.getBasePath().length()>0);
 	}
+
+    @Test
+    public void authKeyNotFromStringsXml() throws Exception {
+        // Arrange
+        Urls.setAuthKey("somethingk");
+        Robolectric.buildActivity(MainPageActivity.class).create().get();
+
+        // Assert
+        assertEquals("somethingk", Urls.getAuthKey());
+    }
+
+    @Test
+    public void authKeyFromStringsXmlIfNothingSet() throws Exception {
+        // Arrange
+        Robolectric.buildActivity(MainPageActivity.class).create().get();
+
+        // Assert
+        assertTrue(Urls.getAuthKey().length()>0);
+    }
 }

@@ -2,11 +2,6 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* Change url for ui tests in ui test class
-* Investigate gradle flavours
-* Get session id from static class instead of strings file
-* Change session id for ui tests in ui test class
-
 ## Ice-box
 
 ### Edit thread 
@@ -44,6 +39,9 @@ The Android client to the Natch REST project.
 
 ## Tasks complete
 
+* Task: Get session id from static class instead of strings file
+* Task: Change session id for ui tests in ui test class
+* Task: Change url for ui tests in ui test class
 * Task: Refactor / redesign ui event object code.
 * Task: Integrate Espresso tests with CI environment.
 * Task: Build step to clear the database via sql call

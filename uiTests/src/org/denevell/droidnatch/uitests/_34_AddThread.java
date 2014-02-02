@@ -1,10 +1,11 @@
 package org.denevell.droidnatch.uitests;
 
-import android.test.ActivityInstrumentationTestCase2;
-
 import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
 
 import org.denevell.droidnatch.MainPageActivity;
+import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
+import org.denevell.droidnatch.uitests.utils.TestUtils;
+import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
 
 import java.util.Date;
@@ -17,10 +18,10 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
-public class _34_AddThread extends ActivityInstrumentationTestCase2<MainPageActivity> {
+public class _34_AddThread extends NatchAndroidInstrumentationTestCase2 {
 
     @SuppressWarnings("deprecation")
-    public _34_AddThread() {
+    public _34_AddThread() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
     }
 

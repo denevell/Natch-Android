@@ -17,6 +17,7 @@ public class Application extends android.app.Application {
         super.onCreate();
         appInstance = this;
         setBasePathIfEmpty();
+        setAuthKeyIfEmpty();
     }
 
     /**
@@ -30,6 +31,12 @@ public class Application extends android.app.Application {
         }
     }
 
+    private void setAuthKeyIfEmpty() {
+        if(Urls.getAuthKey()==null || Urls.getAuthKey().isEmpty()) {
+            Urls.setAuthKey(getString(R.string.services_session_id));
+        }
+    }
+
     public synchronized static RequestQueue getRequestQueue () {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(appInstance);
@@ -37,8 +44,6 @@ public class Application extends android.app.Application {
         Log.d("TEST", "entering getRequestQueue");
         Log.d("TEST", "Application instance: " + appInstance);
         Log.d("TEST", "requestQueue instance: " + requestQueue);
-
-        Thread.currentThread().dumpStack();
 
         return requestQueue;
     }

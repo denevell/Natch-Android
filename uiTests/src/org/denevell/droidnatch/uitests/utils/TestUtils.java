@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.uitests;
+package org.denevell.droidnatch.uitests.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
