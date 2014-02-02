@@ -2,7 +2,10 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* Refactor / redesign ui event object code.
+* Change url for ui tests in ui test class
+* Investigate gradle flavours
+* Get session id from static class instead of strings file
+* Change session id for ui tests in ui test class
 
 ## Ice-box
 
@@ -36,9 +39,12 @@ The Android client to the Natch REST project.
 
 ## Dev complete
 
-* Should go to new thread once I add it.
 * Should close the keyboard on clicking a list item
 * Shouldn't be able to click the edit text during the loading screens
+
+## Tasks complete
+
+* Task: Refactor / redesign ui event object code.
 * Task: Integrate Espresso tests with CI environment.
 * Task: Build step to clear the database via sql call
 * Task: Start using Espresso testing framework.

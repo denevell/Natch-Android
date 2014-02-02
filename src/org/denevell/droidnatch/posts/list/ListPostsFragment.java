@@ -15,7 +15,7 @@ import org.denevell.droidnatch.app.baseclasses.controllers.ServiceCallThenDispla
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceCallController;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
-import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
+import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -150,7 +150,7 @@ public class ListPostsFragment extends ObservableFragment {
         return event;
     }
 
-    private GenericUiObservable providesGotoPreviousScreenUiEvent() {
+    private ReceivingUiObject providesGotoPreviousScreenUiEvent() {
         PreviousScreenUiEvent pse = new PreviousScreenUiEvent(screenOpener);
         return pse;
     }        

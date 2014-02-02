@@ -5,7 +5,7 @@ import android.util.Log;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
 import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
+import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -19,13 +19,13 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
     private ActivatingUiObject<T> mUiEvent;
     private ResultsDisplayer mLoadingView;
     private ServiceFetcher mService;
-    private GenericUiObservable mNextUiEvent;
+    private ReceivingUiObject mNextUiEvent;
 
     public UiEventThenServiceThenUiEvent(
             ActivatingUiObject<T> activatingUiEvent,
             ServiceFetcher service,
             ResultsDisplayer loadingView, 
-            GenericUiObservable<T> uiEventForAfterService) {
+            ReceivingUiObject<T> uiEventForAfterService) {
         mUiEvent = activatingUiEvent;
         mLoadingView = loadingView;
         mService = service;
@@ -58,7 +58,7 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
         }
         if(mNextUiEvent!=null) {
             Log.v(TAG, "Calling next ui event");
-            mNextUiEvent.submit(r);
+            mNextUiEvent.success(r);
         }
     }
 
