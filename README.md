@@ -3,7 +3,6 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * Refactor / redesign ui event object code.
-* Integrate Espresso tests with CI environment.
 
 ## Ice-box
 
@@ -11,7 +10,6 @@ The Android client to the Natch REST project.
 
 * I should be able to edit my thread title
 * I should see an error on edit thread if there
-* I should see a specific editing loading screen
 
 ### Delete thread 
 
@@ -20,14 +18,12 @@ The Android client to the Natch REST project.
 
 ### Add threads
 
-* I should see add thread loading screen after the thread add
 * I should see an error if add failed
 
 ### List threads
 
 * I should see a error screen if they fail to load
 * I should be able to refresh the threads
-* I should see a loading icon while the threads load
 * I should see a retry option
 * I shouldn't add the thread on empty editext
 * I should see empty screen on no threads
@@ -43,6 +39,7 @@ The Android client to the Natch REST project.
 * Should go to new thread once I add it.
 * Should close the keyboard on clicking a list item
 * Shouldn't be able to click the edit text during the loading screens
+* Task: Integrate Espresso tests with CI environment.
 * Task: Build step to clear the database via sql call
 * Task: Start using Espresso testing framework.
 * Task: UI build step to login and register
@@ -64,7 +61,6 @@ The Android client to the Natch REST project.
 ### Stories (Numbers relate to classes names in the uiTests dir)
 
 1. I should see some threads in the app
-#. I should see a loading screen while the threads are loaded
 3. I should be able to add a new thread (subject only atm)
 4. I should refresh the (plus loading) threads after an add
 5. I should be able to delete a thread I have created 

@@ -52,7 +52,7 @@ public class ListThreadsResultsDisplayableMapper {
                 new ListViewResultDisplayer<ThreadResource, List<ThreadResource>>(
                         listView.getListView(), 
                         listAdapter, 
-                        loadingListView,
+                        null,
                         appContext);
         return displayer;
     }

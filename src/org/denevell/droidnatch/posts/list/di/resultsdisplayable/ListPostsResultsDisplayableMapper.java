@@ -42,7 +42,7 @@ public class ListPostsResultsDisplayableMapper {
                 new ListViewResultDisplayer<PostResource, List<PostResource>>(
                         listView.getListView(), 
                         arrayAdapter, 
-                        loading,
+                        null,
                         appContext);
         return displayer;
     } 
