@@ -14,6 +14,7 @@ import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.ServiceCallThenDisplayController;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceCallController;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
 import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
@@ -94,9 +95,9 @@ public class ListPostsFragment extends ObservableFragment {
                     new ListPostsResourceToArrayList());
             listPostController.setup().go();
 
-            UiEventThenServiceCallController addPostController = 
+            UiEventThenServiceCallController addPostController =
                     new UiEventThenServiceCallController(
-                            providesAddPostTextUiEvent(addPostResourceInput), 
+                            providesAddPostTextUiEvent(addPostResourceInput),
                             addPostService,
                             null,
                             listPostController);
@@ -110,7 +111,7 @@ public class ListPostsFragment extends ObservableFragment {
                             listPostController);
             deletePostController.setup().go();
 
-            UiEventThenServiceThenUiEvent deleteThreadFromPostController = 
+            UiEventThenServiceThenUiEvent deleteThreadFromPostController =
                     new UiEventThenServiceThenUiEvent(
                             providesLongClickDeleteThreadUiEvent(),
                             deleteThreadService,
@@ -124,30 +125,30 @@ public class ListPostsFragment extends ObservableFragment {
         }            
     }
     
-    private GenericUiObservable providesAddPostTextUiEvent(AddPostResourceInput resourceInput) {
+    private ActivatingUiObject providesAddPostTextUiEvent(AddPostResourceInput resourceInput) {
         EditText editText = (EditText) getActivity().findViewById(R.id.editText1);
-        GenericUiObservable genericUiEvent = 
+        ActivatingUiObject genericUiEvent =
                 new AddPostTextEditGenericUiEvent(
                         editText, 
                         resourceInput);
         return genericUiEvent;
     }    
     
-    private GenericUiObservable providesDeletePostClickEvent() {
-        LongClickDeletePostUiEvent event = new LongClickDeletePostUiEvent(
+    private ActivatingUiObject providesDeletePostClickEvent() {
+        ActivatingUiObject event = new LongClickDeletePostUiEvent(
                 getActivity(), 
                 listView, 
                 deletePostVolleyRequest);
         return event;
     }    
     
-    private GenericUiObservable providesLongClickDeleteThreadUiEvent() {
-        LongClickDeleteThreadUiEvent event = new LongClickDeleteThreadUiEvent(
-                getActivity(), 
-                listView, 
+    private ActivatingUiObject providesLongClickDeleteThreadUiEvent() {
+        ActivatingUiObject event = new LongClickDeleteThreadUiEvent(
+                getActivity(),
+                listView,
                 deleteThreadVolleyRequest);
         return event;
-    }    
+    }
 
     private GenericUiObservable providesGotoPreviousScreenUiEvent() {
         PreviousScreenUiEvent pse = new PreviousScreenUiEvent(screenOpener);

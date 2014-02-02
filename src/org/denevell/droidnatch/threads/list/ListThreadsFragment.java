@@ -14,8 +14,8 @@ import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.ServiceCallThenDisplayController;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceCallController;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
 import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -114,15 +114,15 @@ public class ListThreadsFragment extends ObservableFragment {
         }    
     }
 
-    private GenericUiObservable providesEditTextUiEvent(AddPostResourceInput resourceInput) {
+    private ActivatingUiObject providesEditTextUiEvent(AddPostResourceInput resourceInput) {
         EditText editText = (EditText) getActivity().findViewById(R.id.editText1);
         return new AddThreadTextEditUiEvent(
                         editText, 
                         resourceInput);
     }    
     
-    private GenericUiObservable providesDeleteThreadUiEvent() {
-        LongClickDeleteUiEvent event = new LongClickDeleteUiEvent(
+    private ActivatingUiObject providesDeleteThreadUiEvent() {
+        ActivatingUiObject event = new LongClickDeleteUiEvent(
                 getActivity(), 
                 onLongPressObserver, 
                 deleteRequest);

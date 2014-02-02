@@ -3,9 +3,8 @@ package org.denevell.droidnatch.app.baseclasses.controllers;
 import android.util.Log;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
 import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
-import org.denevell.droidnatch.app.interfaces.GenericUiObservable.GenericUiObserver;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -13,16 +12,16 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 @SuppressWarnings("rawtypes")
 public class UiEventThenServiceCallController<T> implements Controller,
         ServiceCallbacks, 
-        GenericUiObserver<T> {
+        ActivatingUiObject.GenericUiObserver {
 
     private static final String TAG = UiEventThenServiceCallController.class.getSimpleName();
-    private GenericUiObservable mUiEvent;
+    private ActivatingUiObject mUiEvent;
     private ResultsDisplayer mLoadingView;
     private ServiceFetcher mService;
     private Controller mNextController;
 
     public UiEventThenServiceCallController(
-            GenericUiObservable uiEvent, 
+            ActivatingUiObject uiEvent,
             ServiceFetcher service,
             ResultsDisplayer loadingView, 
             Controller nextController) {
@@ -73,13 +72,13 @@ public class UiEventThenServiceCallController<T> implements Controller,
     }
 
     @Override
-    public void onGenericUiEvent(T object) {
+    public void onUiEventActivated() {
         if(mService!=null) {
             mService.go();
         }
         if(mLoadingView!=null) {
             mLoadingView.startLoading();
         }
-    }
 
+    }
 }
