@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.denevell.droidnatch.MainPageActivity;
@@ -26,7 +27,14 @@ public class NatchAndroidInstrumentationTestCase2 extends ActivityInstrumentatio
         super.setUp();
         TestUtils.deleteDb();
 
+        // Register
         HttpClient httpclient = new DefaultHttpClient();
+        HttpPut httpput = new HttpPut("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/user/");
+        httpput.addHeader("Content-Type", "application/json");
+        httpput.setEntity(new StringEntity("{\"username\":\"aaron\", \"password\":\"aaron\"}"));
+        httpclient.execute(httpput);
+        // Login
+        httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/user/login");
         httppost.addHeader("Content-Type", "application/json");
         httppost.setEntity(new StringEntity("{\"username\":\"aaron\", \"password\":\"aaron\"}"));
@@ -34,7 +42,7 @@ public class NatchAndroidInstrumentationTestCase2 extends ActivityInstrumentatio
         LoginResourceReturnData login = new Gson().fromJson(new InputStreamReader(response.getEntity().getContent()), LoginResourceReturnData.class);
 
         Urls.setBasePath("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/");
-        Urls.setsAuthKey(login.getAuthKey());
+        Urls.setAuthKey(login.getAuthKey());
 
         getActivity();
         Espresso.registerIdlingResources(new VolleyIdlingResource("VolleyCalls"));

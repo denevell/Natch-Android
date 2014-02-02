@@ -2,6 +2,8 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
+* User a lower resource hungry emulator in the docker container.
+
 ## Ice-box
 
 ### Edit thread 

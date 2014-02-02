@@ -24,5 +24,4 @@ ENTRYPOINT DISPLAY=:0 Xvfb :0 -screen 0 640x480x8 & sleep 5 \
 && DISPLAY=:0 ANDROID_SDK_HOME=/android-sdk-linux ANDROID_HOME=/android-sdk-linux /android-sdk-linux/tools/emulator-x86 @testy -snapshot-list \
 && echo '=== installing it and its tests' \
 && cd /Natch-Android/  \
-&& ANDROID_SDK_HOME=/android-sdk-linux ANDROID_HOME=/android-sdk-linux/ gradle unitTest \
-&& ANDROID_SDK_HOME=/android-sdk-linux ANDROID_HOME=/android-sdk-linux/ gradle uiTests )
+&& ANDROID_SDK_HOME=/android-sdk-linux ANDROID_HOME=/android-sdk-linux/ gradle unitTest connectedInstrumentTest )

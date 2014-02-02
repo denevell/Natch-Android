@@ -7,7 +7,7 @@ RUN apt-get install -y software-properties-common
 RUN add-apt-repository ppa:webupd8team/java && add-apt-repository ppa:cwchien/gradle
 RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
 RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-RUN apt-get update && apt-get install -y --force-yes oracle-java7-installer vim git gradle-1.9
+RUN apt-get update && apt-get install -y --force-yes oracle-java7-installer vim git gradle-1.10
 
 # Get xorg and and vnc
 
@@ -72,7 +72,7 @@ RUN add-apt-repository -y ppa:gophers/go && apt-get update && apt-get install -y
 
 # Setup the natch repo, including build but not tests (clone and build to get the jar files down)
 
-RUN apt-get install -y gradle-1.9 && git clone https://github.com/denevell/Natch-Jsp.git && cd Natch-Jsp/ && git submodule update --init --recursive && gradle dependencies && gradle build -x test
+RUN apt-get install -y gradle-1.10 && git clone https://github.com/denevell/Natch-Jsp.git && cd Natch-Jsp/ && git submodule update --init --recursive && gradle dependencies && gradle build -x test
 
 # Copy the jpa jar files for tomcat
 
