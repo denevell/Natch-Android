@@ -4,8 +4,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
 import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.app.interfaces.GenericUiObservable;
 import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.junit.Before;
@@ -20,7 +20,7 @@ public class UiEventThenServiceCallControllerTests {
     private UiEventThenServiceCallController controller;
     private ServiceFetcher service = mock(ServiceFetcher.class);
     private ResultsDisplayer displayable = mock(ResultsDisplayer.class);
-    private GenericUiObservable uiObservable = mock(GenericUiObservable.class);
+    private ActivatingUiObject uiObservable = mock(ActivatingUiObject.class);
     private Controller nextController = mock(Controller.class);
 
     @Before
@@ -53,7 +53,7 @@ public class UiEventThenServiceCallControllerTests {
     @Test
     public void shouldStartDisplayableLoadingOnUiEvent() {
         // Act
-        controller.onGenericUiEvent(null);
+        controller.onUiEventActivated();
         
         // Assert
         verify(displayable).startLoading();
@@ -62,7 +62,7 @@ public class UiEventThenServiceCallControllerTests {
     @Test
     public void shouldStartServiceOnNetworkStart() {
         // Act
-        controller.onGenericUiEvent(null);
+        controller.onUiEventActivated();
         
         // Assert
         verify(service).go();
