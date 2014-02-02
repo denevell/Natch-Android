@@ -94,7 +94,7 @@ public class ListThreadsFragment extends ObservableFragment {
     
             addThreadController = 
                 new UiEventThenServiceThenUiEvent(
-                    providesEditTextUiEvent(addPostResourceInput), 
+                    providesEditTextUiActivator(addPostResourceInput),
                     addPostService,
                     resultsPane,
                     new OpenNewThreadUiEvent(screenOpener));
@@ -102,7 +102,7 @@ public class ListThreadsFragment extends ObservableFragment {
 
             deleteThreadController = 
                 new UiEventThenServiceCallController(
-                        providesDeleteThreadUiEvent(),
+                        providesDeleteThreadUiActivator(),
                         deleteThreadService,
                         resultsPane,
                         listThreadController);
@@ -114,14 +114,14 @@ public class ListThreadsFragment extends ObservableFragment {
         }    
     }
 
-    private ActivatingUiObject providesEditTextUiEvent(AddPostResourceInput resourceInput) {
+    private ActivatingUiObject providesEditTextUiActivator(AddPostResourceInput resourceInput) {
         EditText editText = (EditText) getActivity().findViewById(R.id.editText1);
         return new AddThreadTextEditUiEvent(
                         editText, 
                         resourceInput);
     }    
     
-    private ActivatingUiObject providesDeleteThreadUiEvent() {
+    private ActivatingUiObject providesDeleteThreadUiActivator() {
         ActivatingUiObject event = new LongClickDeleteUiEvent(
                 getActivity(), 
                 onLongPressObserver, 

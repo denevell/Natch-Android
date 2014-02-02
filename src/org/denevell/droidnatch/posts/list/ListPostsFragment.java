@@ -97,7 +97,7 @@ public class ListPostsFragment extends ObservableFragment {
 
             UiEventThenServiceCallController addPostController =
                     new UiEventThenServiceCallController(
-                            providesAddPostTextUiEvent(addPostResourceInput),
+                            providesAddPostTextUiActivator(addPostResourceInput),
                             addPostService,
                             null,
                             listPostController);
@@ -105,7 +105,7 @@ public class ListPostsFragment extends ObservableFragment {
 
             UiEventThenServiceCallController deletePostController =
                     new UiEventThenServiceCallController(
-                            providesDeletePostClickEvent(),
+                            providesDeletePostClickActivator(),
                             deletePostService,
                             null,
                             listPostController);
@@ -113,10 +113,10 @@ public class ListPostsFragment extends ObservableFragment {
 
             UiEventThenServiceThenUiEvent deleteThreadFromPostController =
                     new UiEventThenServiceThenUiEvent(
-                            providesLongClickDeleteThreadUiEvent(),
+                            providesLongClickDeleteThreadUiActivator(),
                             deleteThreadService,
                             null,
-                            providesGotoPreviousScreenUiEvent());
+                            providesGotoPreviousScreenUiReceiver());
             deleteThreadFromPostController.setup().go();
 
         } catch (Exception e) {
@@ -125,7 +125,7 @@ public class ListPostsFragment extends ObservableFragment {
         }            
     }
     
-    private ActivatingUiObject providesAddPostTextUiEvent(AddPostResourceInput resourceInput) {
+    private ActivatingUiObject providesAddPostTextUiActivator(AddPostResourceInput resourceInput) {
         EditText editText = (EditText) getActivity().findViewById(R.id.editText1);
         ActivatingUiObject genericUiEvent =
                 new AddPostTextEditGenericUiEvent(
@@ -134,7 +134,7 @@ public class ListPostsFragment extends ObservableFragment {
         return genericUiEvent;
     }    
     
-    private ActivatingUiObject providesDeletePostClickEvent() {
+    private ActivatingUiObject providesDeletePostClickActivator() {
         ActivatingUiObject event = new LongClickDeletePostUiEvent(
                 getActivity(), 
                 listView, 
@@ -142,7 +142,7 @@ public class ListPostsFragment extends ObservableFragment {
         return event;
     }    
     
-    private ActivatingUiObject providesLongClickDeleteThreadUiEvent() {
+    private ActivatingUiObject providesLongClickDeleteThreadUiActivator() {
         ActivatingUiObject event = new LongClickDeleteThreadUiEvent(
                 getActivity(),
                 listView,
@@ -150,7 +150,7 @@ public class ListPostsFragment extends ObservableFragment {
         return event;
     }
 
-    private ReceivingUiObject providesGotoPreviousScreenUiEvent() {
+    private ReceivingUiObject providesGotoPreviousScreenUiReceiver() {
         PreviousScreenUiEvent pse = new PreviousScreenUiEvent(screenOpener);
         return pse;
     }        
