@@ -23,7 +23,7 @@ import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.threads.list.di.AddThreadServicesMapper;
 import org.denevell.droidnatch.threads.list.di.DeleteThreadServicesMapper;
 import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper;
-import org.denevell.droidnatch.threads.list.di.resultdisplayer.ListThreadsResultsDisplayableMapper;
+import org.denevell.droidnatch.threads.list.di.ListThreadsUiEventMapper;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
@@ -44,7 +44,7 @@ public class ListThreadsFragment extends ObservableFragment {
     @Inject ServiceFetcher<ListThreadsResource> listThreadsService;
     @Inject ServiceFetcher<AddPostResourceReturnData> addPostService;
     @Inject ServiceFetcher<DeletePostResourceReturnData> deleteThreadService;
-    @Inject ReceivingUiObject<ListThreadsResource> resultsPane;
+    @Inject ReceivingUiObject<ListThreadsResource> listViewReceivingUiObject;
     @Inject AddPostResourceInput addPostResourceInput;
     @Inject ScreenOpener screenOpener;
     @Inject ClickableListView<ThreadResource> onLongPressObserver;
@@ -54,12 +54,9 @@ public class ListThreadsFragment extends ObservableFragment {
         ObjectGraph.create(
                 new ScreenOpenerMapper(getActivity()),
                 new CommonMapper(getActivity()),
-
                 new ListThreadsServiceMapper(),
-                new ListThreadsResultsDisplayableMapper(getActivity(), this),
-
+                new ListThreadsUiEventMapper(getActivity(), this),
                 new DeleteThreadServicesMapper(),
-
                 new AddThreadServicesMapper()
         ).inject(this);
     }
@@ -82,15 +79,15 @@ public class ListThreadsFragment extends ObservableFragment {
                 new UiEventThenServiceThenUiEvent<ListThreadsResource>(
                     null,
                     listThreadsService,
-                    (ProgressIndicator) resultsPane,
-                    resultsPane );
+                    (ProgressIndicator) listViewReceivingUiObject,
+                        listViewReceivingUiObject);
             listThreadController.setup();
             
             Controller addThreadController =
                 new UiEventThenServiceThenUiEvent<AddPostResourceReturnData>(
                     providesEditTextUiActivator(addPostResourceInput),
                     addPostService,
-                    (ProgressIndicator) resultsPane,
+                    (ProgressIndicator) listViewReceivingUiObject,
                     new OpenNewThreadUiEvent(screenOpener));
             addThreadController.setup();
 
@@ -98,7 +95,7 @@ public class ListThreadsFragment extends ObservableFragment {
                 new UiEventThenServiceCallController(
                     providesDeleteThreadUiActivator(),
                     deleteThreadService,
-                    (ProgressIndicator) resultsPane,
+                    (ProgressIndicator) listViewReceivingUiObject,
                     listThreadController);
             deleteThreadController.setup().go();
 

@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.posts.list.di.resultsdisplayable;
+package org.denevell.droidnatch.posts.list;
 
 
 import org.denevell.droidnatch.posts.list.entities.PostResource;

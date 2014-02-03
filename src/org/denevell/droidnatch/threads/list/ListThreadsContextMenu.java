@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list.di.resultdisplayer;
+package org.denevell.droidnatch.threads.list;
 
 import android.view.ContextMenu;
 import android.view.Menu;

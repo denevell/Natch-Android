@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list.di.resultdisplayer;
+package org.denevell.droidnatch.threads.list.di;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
-import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
+import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
@@ -16,6 +16,8 @@ import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
+import org.denevell.droidnatch.threads.list.ListThreadsArrayAdapter;
+import org.denevell.droidnatch.threads.list.ListThreadsContextMenu;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
@@ -29,29 +31,29 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module(injects = {ListThreadsFragment.class}, complete=false, library=true)
-public class ListThreadsResultsDisplayableMapper {
+public class ListThreadsUiEventMapper {
     
     public static final String PROVIDES_LIST_THREADS_LIST_CLICK = "list_threads_list_click";
-    private static final String TAG = ListThreadsResultsDisplayableMapper.class.getSimpleName();
+    private static final String TAG = ListThreadsUiEventMapper.class.getSimpleName();
     private Activity mActivity;
     private ContextItemSelectedObserver mContextItemObserver;
 
-    public ListThreadsResultsDisplayableMapper(Activity activity,
-            ContextItemSelectedObserver contextItemObserver) {
+    public ListThreadsUiEventMapper(Activity activity,
+                                    ContextItemSelectedObserver contextItemObserver) {
         mActivity = activity;
         mContextItemObserver = contextItemObserver;
     }
 
     @Provides @Singleton
-    public ReceivingUiObject<ListThreadsResource> provideResultsDisplayer(
+    public ReceivingUiObject<ListThreadsResource> providesReceivingUiObject(
             Context appContext, 
             ClickableListView<ThreadResource> listView,
             // We're taking in the OnPress simply so it's constructed.
             OnPress<ThreadResource> listClickListener) {
         View loadingListView = mActivity.findViewById(R.id.list_threads_loading);
         ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(appContext, R.layout.list_threads_row);
-        ListViewResultDisplayer<ThreadResource, List<ThreadResource>, ListThreadsResource> displayer =
-                new ListViewResultDisplayer<ThreadResource, List<ThreadResource>, ListThreadsResource>(
+        ListViewUiEvent<ThreadResource, List<ThreadResource>, ListThreadsResource> displayer =
+                new ListViewUiEvent<ThreadResource, List<ThreadResource>, ListThreadsResource>(
                         listView.getListView(), 
                         listAdapter, 
                         null,
@@ -79,7 +81,7 @@ public class ListThreadsResultsDisplayableMapper {
 
     @Provides @Singleton 
     public OnPress<ThreadResource> providesOnListClickAction(
-            final ClickableListView<ThreadResource>onPressObserver, 
+            final ClickableListView<ThreadResource> onPressObserver,
             final ScreenOpener screenOpener) {
         OnPress<ThreadResource> onPress = new OnPress<ThreadResource>() {
                     @Override

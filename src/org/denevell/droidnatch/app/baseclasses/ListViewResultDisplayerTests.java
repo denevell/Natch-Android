@@ -26,14 +26,14 @@ public class ListViewResultDisplayerTests  {
     
     private ListView list = mock(ListView.class);
     private ArrayAdapter<Object> adapter = mock(ArrayAdapter.class);
-    private ListViewResultDisplayer<Object, List<Object>, Object> displayer;
+    private ListViewUiEvent<Object, List<Object>, Object> displayer;
     private View loadingView = mock(View.class);
     private Context context = mock(Context.class);
 	private TypeAdapter<Object, List<Object>> typeAdapter = mock(TypeAdapter.class);
 
     @Before
     public void setup() {
-        displayer = new ListViewResultDisplayer<Object, List<Object>, Object>(list, adapter, loadingView, context, typeAdapter );
+        displayer = new ListViewUiEvent<Object, List<Object>, Object>(list, adapter, loadingView, context, typeAdapter );
     }
     
     @Test

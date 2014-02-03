@@ -14,21 +14,21 @@ import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 
 import java.util.List;
 
-public class ListViewResultDisplayer<T, U extends List<T>, S> implements 
+public class ListViewUiEvent<T, U extends List<T>, S> implements
          ReceivingUiObject<S>, ProgressIndicator{
     
-    private static final String TAG = ListViewResultDisplayer.class.getSimpleName();
+    private static final String TAG = ListViewUiEvent.class.getSimpleName();
     private final TypeAdapter<S,U> mTypeAdapter;
     private ArrayAdapter<T> mListAdapter;
     private ListView mList;
     private Context mAppContext;
     private View mLoadingView;
 
-    public ListViewResultDisplayer(
-            ListView list, 
-            ArrayAdapter<T> adapter, 
+    public ListViewUiEvent(
+            ListView list,
+            ArrayAdapter<T> adapter,
             View loadingView,
-            Context appContext, 
+            Context appContext,
             TypeAdapter<S, U> typeAdapter) {
         mListAdapter = adapter;
         mList = list;
