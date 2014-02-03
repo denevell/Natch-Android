@@ -9,9 +9,9 @@ import android.widget.EditText;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
-import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceCallController;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
 import org.denevell.droidnatch.app.interfaces.Controller;
@@ -75,7 +75,7 @@ public class ListThreadsFragment extends ObservableFragment {
         try {
             inject();
 
-            Controller listThreadController =
+            final Controller listThreadController =
                 new UiEventThenServiceThenUiEvent<ListThreadsResource>(
                     null,
                     listThreadsService,
@@ -92,11 +92,18 @@ public class ListThreadsFragment extends ObservableFragment {
             addThreadController.setup();
 
             Controller deleteThreadController =
-                new UiEventThenServiceCallController(
+                new UiEventThenServiceThenUiEvent(
                     providesDeleteThreadUiActivator(),
                     deleteThreadService,
                     (ProgressIndicator) listViewReceivingUiObject,
-                    listThreadController);
+                    new ReceivingUiObject() {
+                        @Override
+                        public void success(Object v) {
+                            listThreadController.go();
+                        }
+                        @Override
+                        public void fail(FailureResult r) { }
+                    });
             deleteThreadController.setup().go();
 
         } catch (Exception e) {

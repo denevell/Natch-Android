@@ -9,9 +9,9 @@ import android.widget.EditText;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
-import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceCallController;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
@@ -81,7 +81,7 @@ public class ListPostsFragment extends ObservableFragment {
                     new AddPostServicesMapper(this))
                     .inject(this);
 
-            UiEventThenServiceThenUiEvent<ListPostsResource> listPostController =
+            final UiEventThenServiceThenUiEvent<ListPostsResource> listPostController =
                     new UiEventThenServiceThenUiEvent<ListPostsResource>(
                     null,
                     listPostsService,
@@ -89,20 +89,31 @@ public class ListPostsFragment extends ObservableFragment {
                             listViewReceivingUiObject);
             listPostController.setup();
 
-            UiEventThenServiceCallController addPostController =
-                    new UiEventThenServiceCallController(
+            ReceivingUiObject listPostControllerConverter = new ReceivingUiObject() {
+                @Override
+                public void success(Object result) {
+                    listPostController.go();
+                }
+
+                @Override
+                public void fail(FailureResult r) {
+
+                }
+            };
+            UiEventThenServiceThenUiEvent addPostController =
+                    new UiEventThenServiceThenUiEvent (
                             providesAddPostTextUiActivator(addPostResourceInput),
                             addPostService,
                             null,
-                            listPostController);
+                            listPostControllerConverter);
             addPostController.setup().go();
 
-            UiEventThenServiceCallController deletePostController =
-                    new UiEventThenServiceCallController(
+            UiEventThenServiceThenUiEvent deletePostController =
+                    new UiEventThenServiceThenUiEvent (
                             providesDeletePostClickActivator(),
                             deletePostService,
                             null,
-                            listPostController);
+                            listPostControllerConverter);
             deletePostController.setup().go();
 
             UiEventThenServiceThenUiEvent deleteThreadFromPostController =
