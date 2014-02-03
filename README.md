@@ -2,7 +2,11 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* User a lower resource hungry emulator in the docker container.
+* Use a lower resource hungry emulator in the docker container.
+* Think about using an event bus
+* Think about controllers as views
+* I should be able to add a thread subject and content
+* I should be able to see the thread subject and content in the list thread page
 
 ## Ice-box
 
