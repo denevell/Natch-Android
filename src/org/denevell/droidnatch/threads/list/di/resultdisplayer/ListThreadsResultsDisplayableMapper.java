@@ -11,10 +11,12 @@ import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewResultDisplayer;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
-import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
+import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
+import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
+import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
@@ -41,19 +43,25 @@ public class ListThreadsResultsDisplayableMapper {
     }
 
     @Provides @Singleton
-    public ResultsDisplayer<List<ThreadResource>> provideResultsDisplayer(
+    public ReceivingUiObject<ListThreadsResource> provideResultsDisplayer(
             Context appContext, 
             ClickableListView<ThreadResource> listView,
             // We're taking in the OnPress simply so it's constructed.
             OnPress<ThreadResource> listClickListener) {
         View loadingListView = mActivity.findViewById(R.id.list_threads_loading);
         ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(appContext, R.layout.list_threads_row);
-        ListViewResultDisplayer<ThreadResource, List<ThreadResource>> displayer = 
-                new ListViewResultDisplayer<ThreadResource, List<ThreadResource>>(
+        ListViewResultDisplayer<ThreadResource, List<ThreadResource>, ListThreadsResource> displayer =
+                new ListViewResultDisplayer<ThreadResource, List<ThreadResource>, ListThreadsResource>(
                         listView.getListView(), 
                         listAdapter, 
                         null,
-                        appContext);
+                        appContext,
+                        new TypeAdapter<ListThreadsResource, List<ThreadResource>>() {
+                            @Override
+                            public List<ThreadResource> convert(ListThreadsResource ob) {
+                                return ob.getThreads();
+                            }
+                        });
         return displayer;
     }
 

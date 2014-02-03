@@ -5,8 +5,8 @@ import android.util.Log;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
 import org.denevell.droidnatch.app.interfaces.Controller;
+import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
-import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 
@@ -17,14 +17,14 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
 
     private static final String TAG = UiEventThenServiceThenUiEvent.class.getSimpleName();
     private ActivatingUiObject<T> mUiEvent;
-    private ResultsDisplayer mLoadingView;
+    private ProgressIndicator mLoadingView;
     private ServiceFetcher mService;
     private ReceivingUiObject mNextUiEvent;
 
     public UiEventThenServiceThenUiEvent(
             ActivatingUiObject<T> activatingUiEvent,
             ServiceFetcher service,
-            ResultsDisplayer loadingView, 
+            ProgressIndicator loadingView,
             ReceivingUiObject<T> uiEventForAfterService) {
         mUiEvent = activatingUiEvent;
         mLoadingView = loadingView;
@@ -37,6 +37,8 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
     public UiEventThenServiceThenUiEvent setup() {
         if(mUiEvent!=null) {
             mUiEvent.setOnSubmitObserver(this);
+        } else {
+            onUiEventActivated();
         }
         if(mService!=null) {
             mService.setServiceCallbacks(this);
@@ -46,12 +48,13 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
 
     @Override
     public void go() {
+        onUiEventActivated();
     }
 
     @Override
     public void onServiceSuccess(T r) {
         if(mLoadingView!=null) {
-            mLoadingView.stopLoading();
+            mLoadingView.stop();
         }
         if(mUiEvent!=null) {
             mUiEvent.success(r);
@@ -68,7 +71,7 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
             mUiEvent.fail(r);
         }
         if(mLoadingView!=null) {
-            mLoadingView.stopLoading();
+            mLoadingView.stop();
         }
     }
 
@@ -78,7 +81,7 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
             mService.go();
         }
         if(mLoadingView!=null) {
-            mLoadingView.startLoading();
+            mLoadingView.start();
         }
     }
 }

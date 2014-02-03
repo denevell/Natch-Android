@@ -11,12 +11,11 @@ import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
-import org.denevell.droidnatch.app.baseclasses.controllers.ServiceCallThenDisplayController;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceCallController;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
+import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
-import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
@@ -26,7 +25,6 @@ import org.denevell.droidnatch.posts.list.di.DeleteThreadFromPostServicesMapper;
 import org.denevell.droidnatch.posts.list.di.ListPostsServiceMapper;
 import org.denevell.droidnatch.posts.list.di.resultsdisplayable.ListPostsResultsDisplayableMapper;
 import org.denevell.droidnatch.posts.list.entities.ListPostsResource;
-import org.denevell.droidnatch.posts.list.entities.ListPostsResourceToArrayList;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.posts.list.uievents.AddPostTextEditGenericUiEvent;
 import org.denevell.droidnatch.posts.list.uievents.LongClickDeletePostUiEvent;
@@ -36,8 +34,6 @@ import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;
-
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -57,7 +53,7 @@ public class ListPostsFragment extends ObservableFragment {
     @Inject @Named(DeletePostServicesMapper.DELETE_POST_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> deletePostVolleyRequest;
 
     @Inject ServiceFetcher<ListPostsResource> listPostsService;
-    @Inject ResultsDisplayer<List<PostResource>> resultsDisplayable;
+    @Inject ReceivingUiObject<ListPostsResource> resultsDisplayable;
     @Inject AddPostResourceInput addPostResourceInput;
     @Inject ClickableListView<PostResource> listView;
     @Inject ScreenOpener screenOpener;
@@ -88,12 +84,13 @@ public class ListPostsFragment extends ObservableFragment {
                     new AddPostServicesMapper(this))
                     .inject(this);
 
-            ServiceCallThenDisplayController<ListPostsResource, List<PostResource>> listPostController = 
-                    new ServiceCallThenDisplayController<ListPostsResource, List<PostResource>>(
-                    listPostsService, 
-                    resultsDisplayable,
-                    new ListPostsResourceToArrayList());
-            listPostController.setup().go();
+            UiEventThenServiceThenUiEvent<ListPostsResource> listPostController =
+                    new UiEventThenServiceThenUiEvent<ListPostsResource>(
+                    null,
+                    listPostsService,
+                    (ProgressIndicator) resultsDisplayable,
+                    resultsDisplayable);
+            listPostController.setup();
 
             UiEventThenServiceCallController addPostController =
                     new UiEventThenServiceCallController(
@@ -117,7 +114,7 @@ public class ListPostsFragment extends ObservableFragment {
                             deleteThreadService,
                             null,
                             providesGotoPreviousScreenUiReceiver());
-            deleteThreadFromPostController.setup().go();
+            deleteThreadFromPostController.setup();
 
         } catch (Exception e) {
             Log.e(TAG, "Failed to start mapper", e);

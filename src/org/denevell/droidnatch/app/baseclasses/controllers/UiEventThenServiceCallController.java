@@ -5,7 +5,7 @@ import android.util.Log;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
 import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.app.interfaces.ResultsDisplayer;
+import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 
@@ -16,14 +16,14 @@ public class UiEventThenServiceCallController<T> implements Controller,
 
     private static final String TAG = UiEventThenServiceCallController.class.getSimpleName();
     private ActivatingUiObject mUiEvent;
-    private ResultsDisplayer mLoadingView;
+    private ProgressIndicator mLoadingView;
     private ServiceFetcher mService;
     private Controller mNextController;
 
     public UiEventThenServiceCallController(
             ActivatingUiObject uiEvent,
             ServiceFetcher service,
-            ResultsDisplayer loadingView, 
+            ProgressIndicator loadingView,
             Controller nextController) {
         mUiEvent = uiEvent;
         mLoadingView = loadingView;
@@ -50,7 +50,7 @@ public class UiEventThenServiceCallController<T> implements Controller,
     @Override
     public void onServiceSuccess(Object r) {
         if(mLoadingView!=null) {
-            mLoadingView.stopLoading();
+            mLoadingView.stop();
         }
         if(mUiEvent!=null) {
             mUiEvent.success(r);
@@ -67,7 +67,7 @@ public class UiEventThenServiceCallController<T> implements Controller,
             mUiEvent.fail(r);
         }
         if(mLoadingView!=null) {
-            mLoadingView.stopLoading();
+            mLoadingView.stop();
         }
     }
 
@@ -77,7 +77,7 @@ public class UiEventThenServiceCallController<T> implements Controller,
             mService.go();
         }
         if(mLoadingView!=null) {
-            mLoadingView.startLoading();
+            mLoadingView.start();
         }
 
     }

@@ -8,9 +8,11 @@ import static org.mockito.Mockito.verify;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
 
 import android.content.Context;
@@ -24,13 +26,14 @@ public class ListViewResultDisplayerTests  {
     
     private ListView list = mock(ListView.class);
     private ArrayAdapter<Object> adapter = mock(ArrayAdapter.class);
-    private ListViewResultDisplayer<Object, List<Object>> displayer;
+    private ListViewResultDisplayer<Object, List<Object>, Object> displayer;
     private View loadingView = mock(View.class);
     private Context context = mock(Context.class);
+	private TypeAdapter<Object, List<Object>> typeAdapter = mock(TypeAdapter.class);
 
     @Before
     public void setup() {
-        displayer = new ListViewResultDisplayer<Object, List<Object>>(list, adapter, loadingView, context);
+        displayer = new ListViewResultDisplayer<Object, List<Object>, Object>(list, adapter, loadingView, context, typeAdapter );
     }
     
     @Test
@@ -39,7 +42,7 @@ public class ListViewResultDisplayerTests  {
         List<Object> success = new ArrayList<Object>();
         
         // Act
-        displayer.onSuccess(success);
+        displayer.success(success);
         
         // Assert
         verify(list).setAdapter(adapter);
@@ -49,9 +52,11 @@ public class ListViewResultDisplayerTests  {
     public void shouldClearThenAddToAdapterOnSuccess() {
         //Arrange
         List<Object> success = new ArrayList<Object>();
+        List<Object> newObject = new ArrayList<Object>();
+        Mockito.when(typeAdapter.convert(success)).thenReturn(newObject);
         
         // Act
-        displayer.onSuccess(success);
+        displayer.success(success);
         
         // Assert
         verify(adapter).clear();
@@ -61,7 +66,7 @@ public class ListViewResultDisplayerTests  {
     @Test
     public void onFinishedLoadingSetNullEmptyView() {
         //Arrange / Act
-        displayer.stopLoading();
+        displayer.stop();
         
         // Assert
         verify(loadingView).setVisibility(View.GONE);
@@ -70,7 +75,7 @@ public class ListViewResultDisplayerTests  {
     @Test
     public void onLoadingShowLoadingView() {
         //Arrange / Act
-        displayer.startLoading();
+        displayer.start();
         
         // Assert
         verify(loadingView).setVisibility(View.VISIBLE);
@@ -82,7 +87,7 @@ public class ListViewResultDisplayerTests  {
         FailureResult fail = new FailureResult();
         
         // Act
-        displayer.onFail(fail);
+        displayer.fail(fail);
     }
 
     @Test
@@ -92,7 +97,7 @@ public class ListViewResultDisplayerTests  {
         fail.setErrorMessage("hiya");
         
         // Act
-        displayer.onFail(fail);
+        displayer.fail(fail);
         
         // Assert
         verify(fail, times(2)).getErrorMessage();

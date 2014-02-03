@@ -8,8 +8,9 @@ import android.widget.TextView.OnEditorActionListener;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
+import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 
-public class AddThreadTextEditUiEvent implements ActivatingUiObject, OnEditorActionListener {
+public class AddThreadTextEditUiEvent implements ActivatingUiObject<AddPostResourceReturnData>, OnEditorActionListener {
     
     private EditText mEditText;
     private AddPostResourceInput mResourceInput;
@@ -39,7 +40,7 @@ public class AddThreadTextEditUiEvent implements ActivatingUiObject, OnEditorAct
     }
 
     @Override
-    public void success(Object result) {
+    public void success(AddPostResourceReturnData result) {
         mEditText.setText("");
     }
 
