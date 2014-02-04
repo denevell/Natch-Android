@@ -9,6 +9,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
@@ -16,7 +17,7 @@ import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 
 import java.util.ArrayList;
 
-public class ClickableListView<T> implements 
+public class ClickableListView<T> implements
                ContextItemSelected,
                OnLongPressObserver<T>, 
                OnPressObserver<T>, 
@@ -64,6 +65,7 @@ public class ClickableListView<T> implements
             for (OnLongPress<T> listener: mLongPressListeners) {
                 listener.onLongPress(tr, item.getItemId(), item.getTitle().toString(), index);
             }
+            EventBus.getBus().post(tr);
         } catch (Exception e) {
             Log.e(TAG, "Couldn't process oncontextitemselected event.", e);
         }

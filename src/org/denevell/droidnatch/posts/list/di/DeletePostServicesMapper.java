@@ -31,13 +31,11 @@ public class DeletePostServicesMapper {
 
     @Provides @Named(DELETE_POST_SERVICE)
     public ServiceFetcher<DeletePostResourceReturnData> providesService(
-            Context appContext, 
-            ProgressIndicator progress, 
+            ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory,
             @Named(DELETE_POST_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> volleyRequest) {
         return new BaseService<DeletePostResourceReturnData>(
-                appContext, 
                 volleyRequest,
                 progress, 
                 converter, 

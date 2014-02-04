@@ -33,10 +33,8 @@ public class ListPostsServiceMapper {
             ObjectToStringConverter responseConverter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<ListPostsResource> volleyRequest, 
-            Context appContext, 
             ProgressIndicator progress) {
         return new BaseService<ListPostsResource>(
-                appContext, 
                 volleyRequest,
                 progress, 
                 responseConverter,

@@ -30,10 +30,9 @@ public class ListThreadsServiceMapper {
     public ServiceFetcher<ListThreadsResource> provideService(
             ObjectToStringConverter responseConverter, 
             FailureResultFactory failureFactory, 
-            Context appContext, 
+            Context appContext,
             ProgressIndicator progress) {
         return new BaseService<ListThreadsResource>(
-                appContext, 
                 providesRequest(appContext),
                 progress, 
                 responseConverter,

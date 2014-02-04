@@ -6,29 +6,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.denevell.droidnatch.app.baseclasses.ClickableListView;
+import com.squareup.otto.Subscribe;
+
+import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
-import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
-import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
 import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
-import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.threads.list.di.AddThreadServicesMapper;
-import org.denevell.droidnatch.threads.list.di.DeleteThreadServicesMapper;
 import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper;
 import org.denevell.droidnatch.threads.list.di.ListThreadsUiEventMapper;
-import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
-import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
-import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
-import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-import org.denevell.droidnatch.threads.list.uievents.LongClickDeleteUiEvent;
 import org.denevell.natch.android.R;
 
 import javax.inject.Inject;
@@ -36,25 +26,18 @@ import javax.inject.Inject;
 import dagger.ObjectGraph;
 
 public class ListThreadsFragment extends ObservableFragment {
+    public static class CallControllerListThreads {}
     private static final String TAG = ListThreadsFragment.class.getSimpleName();
 
     @Inject ServiceFetcher<ListThreadsResource> listThreadsService;
-    @Inject ServiceFetcher<AddPostResourceReturnData> addPostService;
-    @Inject ServiceFetcher<DeletePostResourceReturnData> deleteThreadService;
     @Inject ReceivingUiObject<ListThreadsResource> listViewReceivingUiObject;
-    @Inject AddPostResourceInput addPostResourceInput;
-    @Inject ScreenOpener screenOpener;
-    @Inject ClickableListView<ThreadResource> onLongPressObserver;
-    @Inject VolleyRequest<DeletePostResourceReturnData> deleteRequest;
 
     private void inject() {
         ObjectGraph.create(
-                new ScreenOpenerMapper(getActivity()),
                 new CommonMapper(getActivity()),
+                new ScreenOpenerMapper(getActivity()),
                 new ListThreadsServiceMapper(),
-                new ListThreadsUiEventMapper(getActivity(), this),
-                new DeleteThreadServicesMapper(),
-                new AddThreadServicesMapper()
+                new ListThreadsUiEventMapper(getActivity(), this)
         ).inject(this);
     }
     
@@ -76,37 +59,25 @@ public class ListThreadsFragment extends ObservableFragment {
                 new UiEventThenServiceThenUiEvent<ListThreadsResource>(
                     null,
                     listThreadsService,
-                    (ProgressIndicator) listViewReceivingUiObject,
-                    listViewReceivingUiObject);
-            listThreadController.setup();
-
-            Controller deleteThreadController =
-                new UiEventThenServiceThenUiEvent(
-                    providesDeleteThreadUiActivator(),
-                    deleteThreadService,
-                    (ProgressIndicator) listViewReceivingUiObject,
-                    new ReceivingUiObject() {
+                    null,
+                    listViewReceivingUiObject) {
                         @Override
-                        public void success(Object v) {
-                            listThreadController.go();
+                        public UiEventThenServiceThenUiEvent setup() {
+                            EventBus.getBus().register(this);
+                            return super.setup();
                         }
-                        @Override
-                        public void fail(FailureResult r) { }
-                    });
-            deleteThreadController.setup().go();
+
+                        @Subscribe
+                        public void callController(CallControllerListThreads ob) {
+                            onUiEventActivated();
+                        }
+                };
+            listThreadController.setup();
 
         } catch (Exception e) {
             Log.e(TAG, "Failed to start di mapper", e);
             return;
         }    
     }
-
-    private ActivatingUiObject providesDeleteThreadUiActivator() {
-        ActivatingUiObject event = new LongClickDeleteUiEvent(
-                getActivity(), 
-                onLongPressObserver, 
-                deleteRequest);
-        return event;
-    }      
 
 }

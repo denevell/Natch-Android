@@ -29,13 +29,11 @@ public class AddThreadServicesMapper {
 
     @Provides @Singleton
     public ServiceFetcher<AddPostResourceReturnData> providesService(
-            Context appContext, 
-            ProgressIndicator progress, 
+            ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<AddPostResourceReturnData> volleyRequest) {
         return new BaseService<AddPostResourceReturnData>(
-                appContext, 
                 volleyRequest,
                 progress, 
                 converter, 

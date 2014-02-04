@@ -11,6 +11,7 @@ import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
+import org.denevell.droidnatch.threads.list.views.LongClickDeleteUiEvent;
 import org.denevell.natch.android.R;
 
 import javax.inject.Singleton;
@@ -18,7 +19,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(complete = false, library = true)
+@Module(injects = {LongClickDeleteUiEvent.class}, complete = false, library = true)
 public class DeleteThreadServicesMapper {
     
     public DeleteThreadServicesMapper() {
@@ -26,13 +27,11 @@ public class DeleteThreadServicesMapper {
 
     @Provides @Singleton
     public ServiceFetcher<DeletePostResourceReturnData> providesService(
-            Context appContext, 
-            ProgressIndicator progress, 
+            ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<DeletePostResourceReturnData> volleyRequest) {
         return new BaseService<DeletePostResourceReturnData>(
-                appContext, 
                 volleyRequest,
                 progress, 
                 converter, 

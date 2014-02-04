@@ -84,4 +84,5 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
             mLoadingView.start();
         }
     }
+
 }

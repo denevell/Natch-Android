@@ -1,6 +1,5 @@
 package org.denevell.droidnatch.app.baseclasses.networking;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -24,7 +23,6 @@ import org.json.JSONObject;
 public class BaseService<T> implements Listener<JSONObject>, ErrorListener, ServiceFetcher<T> {
 
     private static final String TAG = BaseService.class.getSimpleName();
-    private Context mAppContext;
     protected ProgressIndicator mProgress;
     protected ServiceCallbacks<T> mCallbacks;
     private FailureResultFactory mFailureResultFactory;
@@ -33,13 +31,11 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
     private Class<T> mClass;
 
     public BaseService(
-            Context applicationContext, 
-            VolleyRequest<T> volleyRequest, 
+            VolleyRequest<T> volleyRequest,
             ProgressIndicator progress, 
             ObjectToStringConverter responseConverter,
             FailureResultFactory failureResultFactory, 
             Class<T> classInstance) {
-        mAppContext = applicationContext;
         mProgress = progress;
         mFailureResultFactory = failureResultFactory;
         mVolleyRequest = volleyRequest;
