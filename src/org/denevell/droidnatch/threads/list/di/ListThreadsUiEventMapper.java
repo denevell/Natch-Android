@@ -12,6 +12,8 @@ import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
+import org.denevell.droidnatch.threads.list.ListThreadsArrayAdapter;
+import org.denevell.droidnatch.threads.list.ListThreadsContextMenu;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;

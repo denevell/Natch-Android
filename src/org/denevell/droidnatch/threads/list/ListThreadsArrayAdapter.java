@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list.di;
+package org.denevell.droidnatch.threads.list;
 
 import android.content.Context;
 import android.view.View;
