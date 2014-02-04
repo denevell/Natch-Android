@@ -9,6 +9,7 @@ import com.squareup.otto.Subscribe;
 
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
@@ -69,9 +70,9 @@ public class LongClickDeleteUiEvent extends View implements ActivatingUiObject {
     }
 
     @Subscribe
-    public void onLongPress(ThreadResource obj) {
+    public void onLongPress(ClickableListView.LongPressListViewEvent<ThreadResource> obj) {
         String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
-        mDeleteRequest.setUrl(url+obj.getRootPostId());
+        mDeleteRequest.setUrl(url+obj.ob.getRootPostId());
         mCallback.onUiEventActivated();
     }
 

@@ -12,21 +12,30 @@ import android.widget.ListView;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
 import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
-import org.denevell.droidnatch.app.interfaces.OnLongPressObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 
 import java.util.ArrayList;
 
 public class ClickableListView<T> implements
                ContextItemSelected,
-               OnLongPressObserver<T>, 
-               OnPressObserver<T>, 
+               OnPressObserver<T>,
                OnItemClickListener {
 
     private static final String TAG = ClickableListView.class.getSimpleName();
+    public static class LongPressListViewEvent<T> {
+        public final T ob;
+        public final long id;
+        public final String title;
+        public final int index;
+        public LongPressListViewEvent(T ob, long id,String title, int index) {
+            this.ob = ob;
+            this.id = id;
+            this.title = title;
+            this.index = index;
+        }
+    }
     private HideKeyboard mHideKeyboard;
     private ListView mListView;
-    private ArrayList<OnLongPress<T>> mLongPressListeners = new ArrayList<OnLongPress<T>>();
     private ArrayList<OnPress<T>> mPressListeners = new ArrayList<OnPressObserver.OnPress<T>>();
 
     public ClickableListView(ListView listView, 
@@ -41,11 +50,6 @@ public class ClickableListView<T> implements
     }
 
     @Override
-    public void addOnLongClickListener(OnLongPress<T> callback) {
-        mLongPressListeners.add(callback);
-    }
-
-    @Override
     public void addOnPressListener(OnPress<T> callback) {
         mPressListeners.add(callback);
     }
@@ -53,7 +57,7 @@ public class ClickableListView<T> implements
     public ListView getListView() {
         return mListView;
     }
-    
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         try {
@@ -62,10 +66,7 @@ public class ClickableListView<T> implements
             int index = info.position;
             @SuppressWarnings("unchecked")
             T tr = (T) mListView.getAdapter().getItem(index);
-            for (OnLongPress<T> listener: mLongPressListeners) {
-                listener.onLongPress(tr, item.getItemId(), item.getTitle().toString(), index);
-            }
-            EventBus.getBus().post(tr);
+            EventBus.getBus().post(new LongPressListViewEvent<T>(tr, item.getItemId(), item.getTitle().toString(), index));
         } catch (Exception e) {
             Log.e(TAG, "Couldn't process oncontextitemselected event.", e);
         }

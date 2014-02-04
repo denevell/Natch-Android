@@ -142,7 +142,6 @@ public class ListPostsFragment extends ObservableFragment {
     private ActivatingUiObject providesDeletePostClickActivator() {
         ActivatingUiObject event = new LongClickDeletePostUiEvent(
                 getActivity(), 
-                listView, 
                 deletePostVolleyRequest);
         return event;
     }    
@@ -150,7 +149,6 @@ public class ListPostsFragment extends ObservableFragment {
     private ActivatingUiObject providesLongClickDeleteThreadUiActivator() {
         ActivatingUiObject event = new LongClickDeleteThreadUiEvent(
                 getActivity(),
-                listView,
                 deleteThreadVolleyRequest);
         return event;
     }
