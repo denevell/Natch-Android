@@ -42,7 +42,6 @@ public class LongClickDeleteUiEvent extends View implements ActivatingUiObject {
         ).inject(this);
     }
 
-
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -86,11 +85,9 @@ public class LongClickDeleteUiEvent extends View implements ActivatingUiObject {
 
     @Override
     public void success(Object result) {
-
     }
 
     @Override
     public void fail(FailureResult r) {
-
     }
 }

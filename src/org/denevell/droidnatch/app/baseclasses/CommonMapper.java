@@ -7,13 +7,14 @@ import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.threads.list.views.AddThreadEditText;
+import org.denevell.droidnatch.threads.list.views.ListThreadsView;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {AddThreadEditText.class},
+@Module(injects = {AddThreadEditText.class, ListThreadsView.class},
         complete = false,
         library = true)
 public class CommonMapper {
