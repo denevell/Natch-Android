@@ -9,7 +9,6 @@ import android.widget.ListView;
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
-import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
@@ -36,12 +35,9 @@ public class ListThreadsUiEventMapper {
     public static final String PROVIDES_LIST_THREADS_LIST_CLICK = "list_threads_list_click";
     private static final String TAG = ListThreadsUiEventMapper.class.getSimpleName();
     private Activity mActivity;
-    private ContextItemSelectedObserver mContextItemObserver;
 
-    public ListThreadsUiEventMapper(Activity activity,
-                                    ContextItemSelectedObserver contextItemObserver) {
+    public ListThreadsUiEventMapper(Activity activity) {
         mActivity = activity;
-        mContextItemObserver = contextItemObserver;
     }
 
     @Provides @Singleton
@@ -73,7 +69,6 @@ public class ListThreadsUiEventMapper {
         ClickableListView<ThreadResource> ltlv = 
                 new ClickableListView<ThreadResource>(
                         listView, 
-                        mContextItemObserver,
                         new HideKeyboard(),
                         new ListThreadsContextMenu());
         return ltlv;

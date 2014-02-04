@@ -2,6 +2,7 @@ package org.denevell.droidnatch.posts.list.di;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ListView;
 
@@ -31,8 +32,7 @@ public class ListPostsUiEventMapper {
     private Activity mActivity;
     private ObservableFragment mObservableFragment;
 
-    public ListPostsUiEventMapper(ObservableFragment listPostsFragment) {
-        mObservableFragment = listPostsFragment;
+    public ListPostsUiEventMapper(Fragment listPostsFragment) {
         mActivity = listPostsFragment.getActivity();
     }
     
@@ -56,7 +56,6 @@ public class ListPostsUiEventMapper {
     public ClickableListView<PostResource> provideListView() {
         ListView lv = (ListView) mActivity.findViewById(R.id.list_posts_listview);
         ClickableListView<PostResource> clv = new ClickableListView<PostResource>(lv, 
-                mObservableFragment,
                 new HideKeyboard(),
                 new ListPostsContextMenu());
         return clv;

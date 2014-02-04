@@ -12,8 +12,6 @@ import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
-import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
-import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
@@ -39,12 +37,7 @@ public class ListThreadsView extends View {
                 new CommonMapper((Activity) getContext()),
                 new ScreenOpenerMapper((FragmentActivity) getContext()),
                 new ListThreadsServiceMapper(),
-                new ListThreadsUiEventMapper(((Activity) getContext()), new ContextItemSelectedObserver() {
-                    @Override
-                    public void addContextItemSelectedCallback(ContextItemSelected contextItem) {
-
-                    }
-                })
+                new ListThreadsUiEventMapper((Activity) getContext())
         ).inject(this);
     }
 

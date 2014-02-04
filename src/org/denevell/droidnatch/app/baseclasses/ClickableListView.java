@@ -1,7 +1,6 @@
 package org.denevell.droidnatch.app.baseclasses;
 
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
@@ -9,15 +8,14 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.squareup.otto.Subscribe;
+
 import org.denevell.droidnatch.EventBus;
-import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
-import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 
 import java.util.ArrayList;
 
 public class ClickableListView<T> implements
-               ContextItemSelected,
                OnPressObserver<T>,
                OnItemClickListener {
 
@@ -39,14 +37,13 @@ public class ClickableListView<T> implements
     private ArrayList<OnPress<T>> mPressListeners = new ArrayList<OnPressObserver.OnPress<T>>();
 
     public ClickableListView(ListView listView, 
-            ContextItemSelectedObserver contextSelectedObservable,
             HideKeyboard hideKeyboard,
             OnCreateContextMenuListener onCreateContextMenu) {
         mListView = listView;
         mHideKeyboard = hideKeyboard;
         mListView.setOnCreateContextMenuListener(onCreateContextMenu);
         mListView.setOnItemClickListener(this);
-        contextSelectedObservable.addContextItemSelectedCallback(this);
+        EventBus.getBus().register(this);
     }
 
     @Override
@@ -58,19 +55,18 @@ public class ClickableListView<T> implements
         return mListView;
     }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
+    @Subscribe
+    public void onContextItemSelected(ObservableFragment.MenuItemHolder item) {
         try {
             Log.v(TAG, "Long press issued");
-            AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+            AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.item.getMenuInfo();
             int index = info.position;
             @SuppressWarnings("unchecked")
             T tr = (T) mListView.getAdapter().getItem(index);
-            EventBus.getBus().post(new LongPressListViewEvent(tr, item.getItemId(), item.getTitle().toString(), index));
+            EventBus.getBus().post(new LongPressListViewEvent(tr, item.item.getItemId(), item.item.getTitle().toString(), index));
         } catch (Exception e) {
             Log.e(TAG, "Couldn't process oncontextitemselected event.", e);
         }
-        return true;
     }
 
     @Override
