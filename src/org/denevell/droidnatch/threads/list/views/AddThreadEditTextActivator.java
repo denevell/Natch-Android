@@ -11,7 +11,7 @@ import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
-import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
+import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -19,14 +19,14 @@ import org.denevell.droidnatch.app.views.EditTextHideKeyboard;
 import org.denevell.droidnatch.threads.list.di.AddThreadServicesMapper;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
-import org.denevell.droidnatch.threads.list.uievents.OpenNewThreadUiEvent;
+import org.denevell.droidnatch.threads.list.uievents.OpenNewThreadReceiver;
 
 import javax.inject.Inject;
 
 import dagger.ObjectGraph;
 
-public class AddThreadEditText extends EditTextHideKeyboard implements
-        ActivatingUiObject<AddPostResourceReturnData>,
+public class AddThreadEditTextActivator extends EditTextHideKeyboard implements
+        Activator<AddPostResourceReturnData>,
         TextView.OnEditorActionListener {
 
     @Inject AddPostResourceInput addPostResourceInput;
@@ -34,7 +34,7 @@ public class AddThreadEditText extends EditTextHideKeyboard implements
     @Inject ScreenOpener screenOpener;
     private GenericUiObserver mCallback;
 
-    public AddThreadEditText(Context context, AttributeSet attrs) {
+    public AddThreadEditTextActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
         ObjectGraph.create(
                 new ScreenOpenerMapper((FragmentActivity) context),
@@ -52,7 +52,7 @@ public class AddThreadEditText extends EditTextHideKeyboard implements
                         this,
                         addPostService,
                         null,
-                        new OpenNewThreadUiEvent(screenOpener));
+                        new OpenNewThreadReceiver(screenOpener));
         addThreadController.setup();
     }
 

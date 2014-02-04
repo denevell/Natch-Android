@@ -8,14 +8,14 @@ import android.view.View;
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
-import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
+import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-import org.denevell.droidnatch.threads.list.views.AddThreadEditText;
+import org.denevell.droidnatch.threads.list.views.AddThreadEditTextActivator;
 import org.denevell.droidnatch.threads.list.views.ListThreadsView;
 import org.denevell.natch.android.R;
 
@@ -27,7 +27,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {ListThreadsFragment.class, AddThreadEditText.class, ListThreadsView.class}, complete=false, library=true)
+@Module(injects = {ListThreadsFragment.class, AddThreadEditTextActivator.class, ListThreadsView.class}, complete=false, library=true)
 public class ListThreadsUiEventMapper {
     
     public static final String PROVIDES_LIST_THREADS_LIST_CLICK = "list_threads_list_click";
@@ -39,7 +39,7 @@ public class ListThreadsUiEventMapper {
     }
 
     @Provides @Singleton
-    public ReceivingUiObject<ListThreadsResource> providesReceivingUiObject(
+    public Receiver<ListThreadsResource> providesReceivingUiObject(
             Context appContext, 
             ClickableListView<ThreadResource> listView,
             // We're taking in the OnPress simply so it's constructed.

@@ -13,9 +13,9 @@ import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
-import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
+import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
+import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
@@ -53,7 +53,8 @@ public class ListPostsFragment extends ObservableFragment {
     @Inject @Named(DeletePostServicesMapper.DELETE_POST_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> deletePostVolleyRequest;
 
     @Inject ServiceFetcher<ListPostsResource> listPostsService;
-    @Inject ReceivingUiObject<ListPostsResource> listViewReceivingUiObject;
+    @Inject
+    Receiver<ListPostsResource> listViewReceivingUiObject;
     @Inject AddPostResourceInput addPostResourceInput;
     @Inject ClickableListView<PostResource> listView;
     @Inject ScreenOpener screenOpener;
@@ -89,7 +90,7 @@ public class ListPostsFragment extends ObservableFragment {
                             listViewReceivingUiObject);
             listPostController.setup();
 
-            ReceivingUiObject listPostControllerConverter = new ReceivingUiObject() {
+            Receiver listPostControllerConverter = new Receiver() {
                 @Override
                 public void success(Object result) {
                     listPostController.go();
@@ -130,30 +131,30 @@ public class ListPostsFragment extends ObservableFragment {
         }            
     }
     
-    private ActivatingUiObject providesAddPostTextUiActivator(AddPostResourceInput resourceInput) {
+    private Activator providesAddPostTextUiActivator(AddPostResourceInput resourceInput) {
         EditText editText = (EditText) getActivity().findViewById(R.id.editText1);
-        ActivatingUiObject genericUiEvent =
+        Activator genericUiEvent =
                 new AddPostTextEditGenericUiEvent(
                         editText, 
                         resourceInput);
         return genericUiEvent;
     }    
     
-    private ActivatingUiObject providesDeletePostClickActivator() {
-        ActivatingUiObject event = new LongClickDeletePostUiEvent(
+    private Activator providesDeletePostClickActivator() {
+        Activator event = new LongClickDeletePostUiEvent(
                 getActivity(), 
                 deletePostVolleyRequest);
         return event;
     }    
     
-    private ActivatingUiObject providesLongClickDeleteThreadUiActivator() {
-        ActivatingUiObject event = new LongClickDeleteThreadUiEvent(
+    private Activator providesLongClickDeleteThreadUiActivator() {
+        Activator event = new LongClickDeleteThreadUiEvent(
                 getActivity(),
                 deleteThreadVolleyRequest);
         return event;
     }
 
-    private ReceivingUiObject providesGotoPreviousScreenUiReceiver() {
+    private Receiver providesGotoPreviousScreenUiReceiver() {
         PreviousScreenUiEvent pse = new PreviousScreenUiEvent(screenOpener);
         return pse;
     }        

@@ -6,11 +6,11 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
+import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 
 public class AddPostTextEditGenericUiEvent implements
-        ActivatingUiObject ,OnEditorActionListener {
+        Activator,OnEditorActionListener {
     
     private EditText mEditText;
     private AddPostResourceInput mResourceInput;

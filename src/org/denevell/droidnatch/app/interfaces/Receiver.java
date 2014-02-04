@@ -2,7 +2,7 @@ package org.denevell.droidnatch.app.interfaces;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 
-public interface ReceivingUiObject<T> {
+public interface Receiver<T> {
 
     void success(T result);
 

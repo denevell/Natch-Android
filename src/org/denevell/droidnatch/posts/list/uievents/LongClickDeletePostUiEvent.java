@@ -8,12 +8,12 @@ import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
+import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.natch.android.R;
 
-public class LongClickDeletePostUiEvent implements ActivatingUiObject {
+public class LongClickDeletePostUiEvent implements Activator {
     
     @SuppressWarnings("unused")
     private static final String TAG = LongClickDeletePostUiEvent.class.getSimpleName();

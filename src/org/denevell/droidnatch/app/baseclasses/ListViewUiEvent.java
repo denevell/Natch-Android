@@ -9,13 +9,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
+import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 
 import java.util.List;
 
 public class ListViewUiEvent<T, U extends List<T>, S> implements
-         ReceivingUiObject<S>, ProgressIndicator{
+        Receiver<S>, ProgressIndicator{
     
     private static final String TAG = ListViewUiEvent.class.getSimpleName();
     private final TypeAdapter<S,U> mTypeAdapter;

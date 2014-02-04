@@ -2,7 +2,7 @@ package org.denevell.droidnatch.app.interfaces;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 
-public interface ActivatingUiObject<T> {
+public interface Activator<T> {
 
     public static interface GenericUiObserver {
         void onUiEventActivated();

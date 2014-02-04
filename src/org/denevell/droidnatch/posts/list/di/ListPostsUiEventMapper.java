@@ -8,7 +8,7 @@ import android.view.View;
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
-import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
+import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.posts.list.ListPostsArrayAdapter;
 import org.denevell.droidnatch.posts.list.ListPostsContextMenu;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
@@ -35,7 +35,7 @@ public class ListPostsUiEventMapper {
     }
     
     @Provides @Singleton
-    public ReceivingUiObject<ListPostsResource> providesReceivingUiObject (
+    public Receiver<ListPostsResource> providesReceivingUiObject (
             Context appContext, 
             ClickableListView<PostResource> listView) {
         View loading = (View) mActivity.findViewById(R.id.list_posts_loading);

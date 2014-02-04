@@ -4,9 +4,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
+import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
+import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +20,8 @@ public class UiEventThenServiceThenUiEventTests {
     private UiEventThenServiceThenUiEvent controller;
     private ServiceFetcher service = mock(ServiceFetcher.class);
     private ProgressIndicator displayable = mock(ProgressIndicator.class);
-    private ActivatingUiObject uiObservable = mock(ActivatingUiObject.class);
-    private ReceivingUiObject nextUiEvent = mock(ReceivingUiObject.class);
+    private Activator uiObservable = mock(Activator.class);
+    private Receiver nextUiEvent = mock(Receiver.class);
 
     @Before
     public void setUp() throws Exception {

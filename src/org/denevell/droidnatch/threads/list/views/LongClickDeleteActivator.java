@@ -13,12 +13,11 @@ import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
-import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
+import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Controller;
-import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
+import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.di.DeleteThreadServicesMapper;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
@@ -28,13 +27,13 @@ import javax.inject.Inject;
 
 import dagger.ObjectGraph;
 
-public class LongClickDeleteUiEvent extends View implements ActivatingUiObject {
+public class LongClickDeleteActivator extends View implements Activator {
     
     @Inject VolleyRequest<DeletePostResourceReturnData> mDeleteRequest;
     private GenericUiObserver mCallback;
     @Inject ServiceFetcher<DeletePostResourceReturnData> deleteThreadService;
 
-    public LongClickDeleteUiEvent(Context context, AttributeSet attrs) {
+    public LongClickDeleteActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
         ObjectGraph.create(
                 new CommonMapper((Activity) context),
@@ -50,10 +49,10 @@ public class LongClickDeleteUiEvent extends View implements ActivatingUiObject {
                 this,
                 deleteThreadService,
                 null,
-                new ReceivingUiObject<DeletePostResourceReturnData>() {
+                new Receiver<DeletePostResourceReturnData>() {
                     @Override
                     public void success(DeletePostResourceReturnData v) {
-                        EventBus.getBus().post(new ListThreadsFragment.CallControllerListThreads());
+                        EventBus.getBus().post(new ListThreadsView.CallControllerListThreads());
                     }
                     @Override
                     public void fail(FailureResult r) { }

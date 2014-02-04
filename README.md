@@ -2,7 +2,6 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* Think about controllers as views
 * Use a lower resource hungry emulator in the docker container.
 * I should be able to add a thread subject and content
 * I should be able to see the thread subject and content in the list thread page
@@ -44,6 +43,7 @@ The Android client to the Natch REST project.
 
 ## Tasks complete
 
+* Task: Think about controllers as views
 * Task: Get session id from static class instead of strings file
 * Task: Change session id for ui tests in ui test class
 * Task: Change url for ui tests in ui test class

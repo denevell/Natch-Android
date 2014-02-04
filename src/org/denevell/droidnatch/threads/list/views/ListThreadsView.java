@@ -12,9 +12,8 @@ import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
-import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
+import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper;
 import org.denevell.droidnatch.threads.list.di.ListThreadsUiEventMapper;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
@@ -26,7 +25,10 @@ import dagger.ObjectGraph;
 public class ListThreadsView extends View {
 
     @Inject ServiceFetcher<ListThreadsResource> listThreadsService;
-    @Inject ReceivingUiObject<ListThreadsResource> listViewReceivingUiObject;
+    @Inject Receiver<ListThreadsResource> listViewReceivingUiObject;
+    private UiEventThenServiceThenUiEvent controller;
+
+    public static class CallControllerListThreads {}
 
     public ListThreadsView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -45,20 +47,23 @@ public class ListThreadsView extends View {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         createObjectGraph();
-        new UiEventThenServiceThenUiEvent<ListThreadsResource>(
+        controller = new UiEventThenServiceThenUiEvent<ListThreadsResource>(
                 null,
                 listThreadsService,
                 null,
-                listViewReceivingUiObject) {
-            @Override
-            public UiEventThenServiceThenUiEvent setup() {
-                EventBus.getBus().register(this);
-                return super.setup();
-            }
-            @Subscribe
-            public void callController(ListThreadsFragment.CallControllerListThreads ob) {
-                onUiEventActivated();
-            }
-        }.setup();
+                listViewReceivingUiObject).setup();
+        EventBus.getBus().register(this);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+    }
+
+    @Subscribe
+    public void getServiceRestartEvent(CallControllerListThreads event) {
+        if(controller!=null)  {
+            controller.onUiEventActivated();
+        }
     }
 }

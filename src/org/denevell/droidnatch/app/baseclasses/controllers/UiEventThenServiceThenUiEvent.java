@@ -3,29 +3,29 @@ package org.denevell.droidnatch.app.baseclasses.controllers;
 import android.util.Log;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.interfaces.ActivatingUiObject;
+import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
+import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 
 @SuppressWarnings("rawtypes")
 public class UiEventThenServiceThenUiEvent<T> implements Controller,
         ServiceCallbacks<T>,
-        ActivatingUiObject.GenericUiObserver {
+        Activator.GenericUiObserver {
 
     private static final String TAG = UiEventThenServiceThenUiEvent.class.getSimpleName();
-    private ActivatingUiObject<T> mUiEvent;
+    private Activator<T> mUiEvent;
     private ProgressIndicator mLoadingView;
     private ServiceFetcher mService;
-    private ReceivingUiObject mNextUiEvent;
+    private Receiver mNextUiEvent;
 
     public UiEventThenServiceThenUiEvent(
-            ActivatingUiObject<T> activatingUiEvent,
+            Activator<T> activatingUiEvent,
             ServiceFetcher service,
             ProgressIndicator loadingView,
-            ReceivingUiObject<T> uiEventForAfterService) {
+            Receiver<T> uiEventForAfterService) {
         mUiEvent = activatingUiEvent;
         mLoadingView = loadingView;
         mService = service;

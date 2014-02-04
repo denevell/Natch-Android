@@ -10,7 +10,6 @@ import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.natch.android.R;
 
 public class ListThreadsFragment extends ObservableFragment {
-    public static class CallControllerListThreads {}
     private static final String TAG = ListThreadsFragment.class.getSimpleName();
 
     @Override
@@ -25,6 +24,5 @@ public class ListThreadsFragment extends ObservableFragment {
             return null;
         }
     }
-    
 
 }

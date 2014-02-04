@@ -1,10 +1,10 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
+import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 
-public class PreviousScreenUiEvent implements ReceivingUiObject {
+public class PreviousScreenUiEvent implements Receiver {
 
     @SuppressWarnings("unused")
     private static final String TAG = PreviousScreenUiEvent.class.getSimpleName();
