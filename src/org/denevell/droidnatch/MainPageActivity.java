@@ -1,15 +1,17 @@
 package org.denevell.droidnatch;
 
-import org.denevell.droidnatch.threads.list.ListThreadsFragment;
-import org.denevell.natch.android.R;
-
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Window;
 
-public class MainPageActivity extends FragmentActivity {
+import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
+import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
+import org.denevell.droidnatch.threads.list.ListThreadsFragment;
+import org.denevell.natch.android.R;
+
+public class MainPageActivity extends FragmentActivity implements ContextItemSelectedObserver {
 
     private static final String TAG = MainPageActivity.class.getSimpleName();
 
@@ -43,5 +45,9 @@ public class MainPageActivity extends FragmentActivity {
             return;
         }
     }
-    
+
+    @Override
+    public void addContextItemSelectedCallback(ContextItemSelected contextItem) {
+
+    }
 }

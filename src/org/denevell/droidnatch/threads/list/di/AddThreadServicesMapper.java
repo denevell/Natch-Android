@@ -13,6 +13,7 @@ import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
+import org.denevell.droidnatch.threads.list.views.AddThreadEditText;
 import org.denevell.natch.android.R;
 
 import javax.inject.Singleton;
@@ -20,7 +21,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {ListThreadsFragment.class}, complete = false, library=true)
+@Module(injects = {ListThreadsFragment.class, AddThreadEditText.class}, complete = false, library=true)
 public class AddThreadServicesMapper {
     
     public AddThreadServicesMapper() {

@@ -13,7 +13,7 @@
         <requestFocus />
     </LinearLayout>
 
-    <org.denevell.droidnatch.app.views.EditTextHideKeyboard
+    <org.denevell.droidnatch.threads.list.views.AddThreadEditText
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

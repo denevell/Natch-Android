@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
@@ -29,9 +28,7 @@ import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-import org.denevell.droidnatch.threads.list.uievents.AddThreadTextEditUiEvent;
 import org.denevell.droidnatch.threads.list.uievents.LongClickDeleteUiEvent;
-import org.denevell.droidnatch.threads.list.uievents.OpenNewThreadUiEvent;
 import org.denevell.natch.android.R;
 
 import javax.inject.Inject;
@@ -80,16 +77,8 @@ public class ListThreadsFragment extends ObservableFragment {
                     null,
                     listThreadsService,
                     (ProgressIndicator) listViewReceivingUiObject,
-                        listViewReceivingUiObject);
+                    listViewReceivingUiObject);
             listThreadController.setup();
-            
-            Controller addThreadController =
-                new UiEventThenServiceThenUiEvent<AddPostResourceReturnData>(
-                    providesEditTextUiActivator(addPostResourceInput),
-                    addPostService,
-                    (ProgressIndicator) listViewReceivingUiObject,
-                    new OpenNewThreadUiEvent(screenOpener));
-            addThreadController.setup();
 
             Controller deleteThreadController =
                 new UiEventThenServiceThenUiEvent(
@@ -112,13 +101,6 @@ public class ListThreadsFragment extends ObservableFragment {
         }    
     }
 
-    private ActivatingUiObject<AddPostResourceReturnData> providesEditTextUiActivator(AddPostResourceInput resourceInput) {
-        EditText editText = (EditText) getActivity().findViewById(R.id.editText1);
-        return new AddThreadTextEditUiEvent(
-                        editText, 
-                        resourceInput);
-    }    
-    
     private ActivatingUiObject providesDeleteThreadUiActivator() {
         ActivatingUiObject event = new LongClickDeleteUiEvent(
                 getActivity(), 

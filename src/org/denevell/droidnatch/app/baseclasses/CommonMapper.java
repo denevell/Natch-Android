@@ -1,17 +1,20 @@
 package org.denevell.droidnatch.app.baseclasses;
 
-import javax.inject.Singleton;
+import android.app.Activity;
+import android.content.Context;
 
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
+import org.denevell.droidnatch.threads.list.views.AddThreadEditText;
 
-import android.app.Activity;
-import android.content.Context;
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
-@Module(complete = false, 
+@Module(injects = {AddThreadEditText.class},
+        complete = false,
         library = true)
 public class CommonMapper {
     
