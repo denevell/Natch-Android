@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.ListView;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
-import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
@@ -44,7 +42,7 @@ public class ListPostsUiEventMapper {
         ListPostsArrayAdapter arrayAdapter = new ListPostsArrayAdapter(appContext, R.layout.list_posts_row);
         ListViewUiEvent<PostResource, List<PostResource>, ListPostsResource> displayer =
                 new ListViewUiEvent<PostResource, List<PostResource>, ListPostsResource>(
-                        listView.getListView(), 
+                        listView,
                         arrayAdapter, 
                         null,
                         appContext,
@@ -54,11 +52,9 @@ public class ListPostsUiEventMapper {
 
     @Provides @Singleton
     public ClickableListView<PostResource> provideListView() {
-        ListView lv = (ListView) mActivity.findViewById(R.id.list_posts_listview);
-        ClickableListView<PostResource> clv = new ClickableListView<PostResource>(lv, 
-                new HideKeyboard(),
-                new ListPostsContextMenu());
-        return clv;
+        ClickableListView lv = (ClickableListView) mActivity.findViewById(R.id.list_posts_listview);
+        lv.setOnCreateContextMenuListener(new ListPostsContextMenu());
+        return lv;
     } 
 
 }

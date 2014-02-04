@@ -1,10 +1,10 @@
 package org.denevell.droidnatch.app.baseclasses;
 
+import android.content.Context;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -15,7 +15,7 @@ import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 
 import java.util.ArrayList;
 
-public class ClickableListView<T> implements
+public class ClickableListView<T> extends ListView implements
                OnPressObserver<T>,
                OnItemClickListener {
 
@@ -33,26 +33,31 @@ public class ClickableListView<T> implements
         }
     }
     private HideKeyboard mHideKeyboard;
-    private ListView mListView;
     private ArrayList<OnPress<T>> mPressListeners = new ArrayList<OnPressObserver.OnPress<T>>();
 
-    public ClickableListView(ListView listView, 
-            HideKeyboard hideKeyboard,
-            OnCreateContextMenuListener onCreateContextMenu) {
-        mListView = listView;
-        mHideKeyboard = hideKeyboard;
-        mListView.setOnCreateContextMenuListener(onCreateContextMenu);
-        mListView.setOnItemClickListener(this);
+    public ClickableListView(Context context, AttributeSet attrSet) {
+        super(context, attrSet);
+         //   HideKeyboard hideKeyboard,
+          //  OnCreateContextMenuListener onCreateContextMenu) {
+        //mHideKeyboard = hideKeyboard;
+        setOnItemClickListener(this);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
         EventBus.getBus().register(this);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        EventBus.getBus().unregister(this);
     }
 
     @Override
     public void addOnPressListener(OnPress<T> callback) {
         mPressListeners.add(callback);
-    }
-
-    public ListView getListView() {
-        return mListView;
     }
 
     @Subscribe
@@ -62,7 +67,7 @@ public class ClickableListView<T> implements
             AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.item.getMenuInfo();
             int index = info.position;
             @SuppressWarnings("unchecked")
-            T tr = (T) mListView.getAdapter().getItem(index);
+            T tr = (T) getAdapter().getItem(index);
             EventBus.getBus().post(new LongPressListViewEvent(tr, item.item.getItemId(), item.item.getTitle().toString(), index));
         } catch (Exception e) {
             Log.e(TAG, "Couldn't process oncontextitemselected event.", e);
@@ -75,7 +80,7 @@ public class ClickableListView<T> implements
             if(mHideKeyboard!=null && parent!=null) mHideKeyboard.hideKeyboard(parent.getContext(), view);
             Log.v(TAG, "Press issued");
             @SuppressWarnings("unchecked")
-            T tr = (T) mListView.getAdapter().getItem(position);
+            T tr = (T) getAdapter().getItem(position);
             for (OnPress<T> listener: mPressListeners) {
                 listener.onPress(tr);
             }

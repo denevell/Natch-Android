@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
-import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ReceivingUiObject;
@@ -50,7 +48,7 @@ public class ListThreadsUiEventMapper {
         ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(appContext, R.layout.list_threads_row);
         ListViewUiEvent<ThreadResource, List<ThreadResource>, ListThreadsResource> displayer =
                 new ListViewUiEvent<ThreadResource, List<ThreadResource>, ListThreadsResource>(
-                        listView.getListView(), 
+                        listView,
                         listAdapter, 
                         null,
                         appContext,
@@ -65,13 +63,9 @@ public class ListThreadsUiEventMapper {
 
     @Provides @Singleton 
     public ClickableListView<ThreadResource> providesListView() {
-        ListView listView = (ListView) mActivity.findViewById(R.id.list_threads_listview);
-        ClickableListView<ThreadResource> ltlv = 
-                new ClickableListView<ThreadResource>(
-                        listView, 
-                        new HideKeyboard(),
-                        new ListThreadsContextMenu());
-        return ltlv;
+        ClickableListView listView = (ClickableListView) mActivity.findViewById(R.id.list_threads_listview);
+        listView.setOnCreateContextMenuListener(new ListThreadsContextMenu());
+        return listView;
     }
 
     @Provides @Singleton 
