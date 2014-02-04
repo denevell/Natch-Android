@@ -22,12 +22,12 @@ public class ClickableListView<T> implements
                OnItemClickListener {
 
     private static final String TAG = ClickableListView.class.getSimpleName();
-    public static class LongPressListViewEvent<T> {
-        public final T ob;
+    public static class LongPressListViewEvent {
+        public final Object ob;
         public final long id;
         public final String title;
         public final int index;
-        public LongPressListViewEvent(T ob, long id,String title, int index) {
+        public LongPressListViewEvent(Object ob, long id,String title, int index) {
             this.ob = ob;
             this.id = id;
             this.title = title;
@@ -66,7 +66,7 @@ public class ClickableListView<T> implements
             int index = info.position;
             @SuppressWarnings("unchecked")
             T tr = (T) mListView.getAdapter().getItem(index);
-            EventBus.getBus().post(new LongPressListViewEvent<T>(tr, item.getItemId(), item.getTitle().toString(), index));
+            EventBus.getBus().post(new LongPressListViewEvent(tr, item.getItemId(), item.getTitle().toString(), index));
         } catch (Exception e) {
             Log.e(TAG, "Couldn't process oncontextitemselected event.", e);
         }

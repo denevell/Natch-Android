@@ -52,7 +52,7 @@ public class ListPostsUiEventMapper {
         return displayer;
     } 
 
-    @Provides
+    @Provides @Singleton
     public ClickableListView<PostResource> provideListView() {
         ListView lv = (ListView) mActivity.findViewById(R.id.list_posts_listview);
         ClickableListView<PostResource> clv = new ClickableListView<PostResource>(lv, 

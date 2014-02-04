@@ -30,11 +30,14 @@ public class LongClickDeleteThreadUiEvent implements ActivatingUiObject {
     }
 
     @Subscribe
-    public void onLongPress(ClickableListView.LongPressListViewEvent<PostResource> obj) {
-        if(obj.index==0) {
-            String url = Urls.getBasePath() + mAppContext.getString(R.string.url_del);
-            mDeleteRequest.setUrl(url + obj.ob.getId());
-            mCallback.onUiEventActivated();
+    public void onLongPress(ClickableListView.LongPressListViewEvent obj) {
+        if(obj.ob instanceof PostResource) {
+            PostResource tr = (PostResource) obj.ob;
+            if(obj.index==0) {
+                String url = Urls.getBasePath() + mAppContext.getString(R.string.url_del);
+                mDeleteRequest.setUrl(url + tr.getId());
+                mCallback.onUiEventActivated();
+            }
         }
     }
 
