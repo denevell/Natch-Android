@@ -13,8 +13,8 @@
         <requestFocus />
     </LinearLayout>
 
-    <org.denevell.droidnatch.app.views.EditTextHideKeyboard
-        android:id="@+id/editText1"
+    <org.denevell.droidnatch.posts.list.views.AddPostTextEditGenericUiEvent
+        android:id="@+id/list_posts_addpost_edittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -30,7 +30,7 @@
         android:id="@+id/list_posts_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editText1"
+        android:layout_below="@id/list_posts_addpost_edittext"
         android:contentDescription="list_posts_listview" 
         />
     

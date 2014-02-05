@@ -6,6 +6,7 @@ import android.content.Context;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
+import org.denevell.droidnatch.posts.list.views.AddPostTextEditGenericUiEvent;
 import org.denevell.droidnatch.threads.list.views.AddThreadEditTextActivator;
 import org.denevell.droidnatch.threads.list.views.ListThreadsView;
 
@@ -14,7 +15,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {AddThreadEditTextActivator.class, ListThreadsView.class},
+@Module(injects = {AddThreadEditTextActivator.class, ListThreadsView.class, AddPostTextEditGenericUiEvent.class},
         complete = false,
         library = true)
 public class CommonMapper {
