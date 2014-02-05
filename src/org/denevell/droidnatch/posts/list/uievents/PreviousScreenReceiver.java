@@ -4,13 +4,13 @@ import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 
-public class PreviousScreenUiEvent implements Receiver {
+public class PreviousScreenReceiver implements Receiver {
 
     @SuppressWarnings("unused")
-    private static final String TAG = PreviousScreenUiEvent.class.getSimpleName();
+    private static final String TAG = PreviousScreenReceiver.class.getSimpleName();
     private ScreenOpener mScreenOpener;
 
-    public PreviousScreenUiEvent(ScreenOpener screenOpener) {
+    public PreviousScreenReceiver(ScreenOpener screenOpener) {
         mScreenOpener = screenOpener;
     }
 

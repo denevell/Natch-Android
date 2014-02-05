@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.posts.list.views;
+package org.denevell.droidnatch.posts.list.uievents;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,14 +22,14 @@ import javax.inject.Inject;
 
 import dagger.ObjectGraph;
 
-public class ListPostsView extends View {
+public class ListPostsViewStarter extends View {
 
     private UiEventThenServiceThenUiEvent controller;
     public static class CallControllerListPosts {}
     @Inject ServiceFetcher<ListPostsResource> listPostsService;
     @Inject Receiver<ListPostsResource> listViewReceivingUiObject;
 
-    public ListPostsView(Context context, AttributeSet attrs) {
+    public ListPostsViewStarter(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

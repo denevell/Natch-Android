@@ -13,7 +13,7 @@ import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
-import org.denevell.droidnatch.threads.list.views.AddThreadEditTextActivator;
+import org.denevell.droidnatch.threads.list.uievents.AddThreadEditTextActivator;
 import org.denevell.natch.android.R;
 
 import javax.inject.Singleton;

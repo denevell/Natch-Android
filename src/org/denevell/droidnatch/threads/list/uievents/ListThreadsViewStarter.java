@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list.views;
+package org.denevell.droidnatch.threads.list.uievents;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,7 +22,7 @@ import javax.inject.Inject;
 
 import dagger.ObjectGraph;
 
-public class ListThreadsView extends View {
+public class ListThreadsViewStarter extends View {
 
     @Inject ServiceFetcher<ListThreadsResource> listThreadsService;
     @Inject Receiver<ListThreadsResource> listViewReceivingUiObject;
@@ -30,7 +30,7 @@ public class ListThreadsView extends View {
 
     public static class CallControllerListThreads {}
 
-    public ListThreadsView(Context context, AttributeSet attrs) {
+    public ListThreadsViewStarter(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list.views;
+package org.denevell.droidnatch.threads.list.uievents;
 
 import android.app.Activity;
 import android.content.Context;
@@ -52,7 +52,7 @@ public class LongClickDeleteActivator extends View implements Activator {
                 new Receiver<DeletePostResourceReturnData>() {
                     @Override
                     public void success(DeletePostResourceReturnData v) {
-                        EventBus.getBus().post(new ListThreadsView.CallControllerListThreads());
+                        EventBus.getBus().post(new ListThreadsViewStarter.CallControllerListThreads());
                     }
                     @Override
                     public void fail(FailureResult r) { }

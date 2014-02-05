@@ -12,7 +12,7 @@ import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.posts.list.views.AddPostTextEditGenericUiEvent;
+import org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.natch.android.R;
@@ -22,7 +22,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {ListPostsFragment.class, AddPostTextEditGenericUiEvent.class}, complete = false, library=true)
+@Module(injects = {ListPostsFragment.class, AddPostTextEditActivator.class}, complete = false, library=true)
 public class AddPostServicesMapper {
     
     private Bundle mBundle;

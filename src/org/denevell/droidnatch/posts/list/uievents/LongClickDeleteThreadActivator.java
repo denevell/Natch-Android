@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.posts.list.views;
+package org.denevell.droidnatch.posts.list.uievents;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,7 +21,6 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.di.DeleteThreadFromPostServicesMapper;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
-import org.denevell.droidnatch.posts.list.uievents.PreviousScreenUiEvent;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;
 
@@ -54,7 +53,7 @@ public class LongClickDeleteThreadActivator extends View implements Activator {
                         this,
                         deleteThreadService,
                         null,
-                        new PreviousScreenUiEvent(screenOpener));
+                        new PreviousScreenReceiver(screenOpener));
         deleteThreadFromPostController.setup();
         EventBus.getBus().register(this);
     }

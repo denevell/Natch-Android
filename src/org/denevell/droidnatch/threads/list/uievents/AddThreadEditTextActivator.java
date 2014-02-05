@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list.views;
+package org.denevell.droidnatch.threads.list.uievents;
 
 import android.app.Activity;
 import android.content.Context;

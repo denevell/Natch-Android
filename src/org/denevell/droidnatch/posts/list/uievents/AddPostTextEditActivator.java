@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.posts.list.views;
+package org.denevell.droidnatch.posts.list.uievents;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,7 +25,7 @@ import javax.inject.Inject;
 
 import dagger.ObjectGraph;
 
-public class AddPostTextEditGenericUiEvent extends EditTextHideKeyboard implements
+public class AddPostTextEditActivator extends EditTextHideKeyboard implements
         Activator,OnEditorActionListener {
     
     private EditText mEditText;
@@ -33,7 +33,7 @@ public class AddPostTextEditGenericUiEvent extends EditTextHideKeyboard implemen
     @Inject ServiceFetcher<AddPostResourceReturnData> addPostService;
     @Inject AddPostResourceInput addPostResourceInput;
 
-    public AddPostTextEditGenericUiEvent(Context context, AttributeSet attrSet) {
+    public AddPostTextEditActivator(Context context, AttributeSet attrSet) {
         super(context, attrSet);
         setOnEditorActionListener(this);
     }
@@ -55,7 +55,7 @@ public class AddPostTextEditGenericUiEvent extends EditTextHideKeyboard implemen
                         new Receiver() {
                             @Override
                             public void success(Object result) {
-                                EventBus.getBus().post(new ListPostsView.CallControllerListPosts());
+                                EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts());
                             }
                             @Override public void fail(FailureResult r) { }
                         });

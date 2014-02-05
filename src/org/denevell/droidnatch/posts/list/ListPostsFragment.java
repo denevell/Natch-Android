@@ -18,10 +18,9 @@ import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.di.DeletePostServicesMapper;
-import org.denevell.droidnatch.posts.list.di.DeleteThreadFromPostServicesMapper;
-import org.denevell.droidnatch.posts.list.uievents.LongClickDeletePostUiEvent;
-import org.denevell.droidnatch.posts.list.views.AddPostTextEditGenericUiEvent;
-import org.denevell.droidnatch.posts.list.views.ListPostsView;
+import org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator;
+import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
+import org.denevell.droidnatch.posts.list.uievents.LongClickDeletePostActivator;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;
 
@@ -36,8 +35,6 @@ public class ListPostsFragment extends ObservableFragment {
     public static final String BUNDLE_KEY_THREAD_NAME = "thread_name";
     private static final String TAG = ListPostsFragment.class.getSimpleName();
 
-    @Inject @Named(DeleteThreadFromPostServicesMapper.DELETE_THREAD_FROM_POST_SERVICE) ServiceFetcher<DeletePostResourceReturnData> deleteThreadService;
-    @Inject @Named(DeleteThreadFromPostServicesMapper.DELETE_THREAD_FROM_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> deleteThreadVolleyRequest;
     @Inject @Named(DeletePostServicesMapper.DELETE_POST_SERVICE) ServiceFetcher<DeletePostResourceReturnData> deletePostService;
     @Inject @Named(DeletePostServicesMapper.DELETE_POST_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> deletePostVolleyRequest;
 
@@ -59,19 +56,18 @@ public class ListPostsFragment extends ObservableFragment {
             ObjectGraph.create(
                     new ScreenOpenerMapper(getActivity()),
                     new CommonMapper(getActivity()),
-                    new DeletePostServicesMapper(),
-                    new DeleteThreadFromPostServicesMapper())
+                    new DeletePostServicesMapper())
                     .inject(this);
 
-            AddPostTextEditGenericUiEvent addPost = (AddPostTextEditGenericUiEvent) getActivity().findViewById(R.id.list_posts_addpost_edittext);
+            AddPostTextEditActivator addPost = (AddPostTextEditActivator) getActivity().findViewById(R.id.list_posts_addpost_edittext);
             addPost.setup(getArguments());
-            ListPostsView listPosts = (ListPostsView) getActivity().findViewById(R.id.list_posts_listpostsview_holder);
+            ListPostsViewStarter listPosts = (ListPostsViewStarter) getActivity().findViewById(R.id.list_posts_listpostsview_holder);
             listPosts.setup(getArguments());
 
             Receiver listPostControllerConverter = new Receiver() {
                 @Override
                 public void success(Object result) {
-                    EventBus.getBus().post(new ListPostsView.CallControllerListPosts());
+                    EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts());
                 }
                 @Override public void fail(FailureResult r) {  }
             };
@@ -90,7 +86,7 @@ public class ListPostsFragment extends ObservableFragment {
     }
     
     private Activator providesDeletePostClickActivator() {
-        Activator event = new LongClickDeletePostUiEvent(
+        Activator event = new LongClickDeletePostActivator(
                 getActivity(), 
                 deletePostVolleyRequest);
         return event;

@@ -5,12 +5,12 @@
     android:layout_height="fill_parent"
     >
 
-    <org.denevell.droidnatch.posts.list.views.ListPostsView
+    <org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter
         android:id="@+id/list_posts_listpostsview_holder"
         android:layout_width="0dp"
         android:layout_height="0dp" />
 
-    <org.denevell.droidnatch.posts.list.views.LongClickDeleteThreadActivator
+    <org.denevell.droidnatch.posts.list.uievents.LongClickDeleteThreadActivator
         android:layout_width="0dp"
         android:layout_height="0dp" />
 
@@ -22,7 +22,7 @@
         <requestFocus />
     </LinearLayout>
 
-    <org.denevell.droidnatch.posts.list.views.AddPostTextEditGenericUiEvent
+    <org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator
         android:id="@+id/list_posts_addpost_edittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

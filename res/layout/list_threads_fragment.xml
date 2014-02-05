@@ -13,15 +13,15 @@
         <requestFocus />
     </LinearLayout>
 
-    <org.denevell.droidnatch.threads.list.views.LongClickDeleteActivator
+    <org.denevell.droidnatch.threads.list.uievents.LongClickDeleteActivator
         android:layout_width="0dp"
         android:layout_height="0dp" />
 
-    <org.denevell.droidnatch.threads.list.views.ListThreadsView
+    <org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter
         android:layout_width="0dp"
         android:layout_height="0dp" />
 
-    <org.denevell.droidnatch.threads.list.views.AddThreadEditTextActivator
+    <org.denevell.droidnatch.threads.list.uievents.AddThreadEditTextActivator
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
