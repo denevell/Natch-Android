@@ -4,44 +4,39 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
-import org.denevell.droidnatch.app.interfaces.OnLongPressObserver.OnLongPress;
+import org.denevell.droidnatch.app.baseclasses.ObservableFragment.MenuItemHolder;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 
 @RunWith(RobolectricTestRunner.class)
 @SuppressWarnings("unchecked")
 public class ClickableListViewTests {
 
-    private ListView listView = mock(ListView.class);
-    private ContextItemSelectedObserver contextSelectedObservable = mock(ContextItemSelectedObserver.class);
-    private OnCreateContextMenuListener onCreateContextMenu = mock(OnCreateContextMenuListener.class);
     private ClickableListView<Object> clickableListView;
     private ListAdapter adapter;
 	private HideKeyboard hideKeyboard = mock(HideKeyboard.class);
 
     @Before
     public void setUp() throws Exception {
+        AttributeSet attrs = mock(AttributeSet.class);
+		clickableListView = Mockito.spy(new ClickableListView(
+                Robolectric.application, 
+                attrs));
         adapter = mock(ListAdapter.class);
-        when(listView.getAdapter()).thenReturn(adapter);
-        clickableListView = new ClickableListView<Object>(
-                listView, 
-                contextSelectedObservable,
-                hideKeyboard ,
-                onCreateContextMenu);
+        when(clickableListView.getAdapter()).thenReturn(adapter);
     }
 
     @Test
@@ -66,23 +61,21 @@ public class ClickableListViewTests {
     public void shouldCallListenersOnLongClick() {
         // Arrange
         AdapterContextMenuInfo menuInfo = mock(AdapterContextMenuInfo.class);
+        menuInfo.position = 3;
         MenuItem item = mock(MenuItem.class);
-        when(item.getItemId()).thenReturn(1);
+        when(item.getItemId()).thenReturn(3);
         when(item.getTitle()).thenReturn("a");
         when(item.getMenuInfo()).thenReturn(menuInfo);
         Object adapterValue = new Object();
-        when(adapter.getItem(0)).thenReturn(adapterValue);
-        OnLongPress<Object> callback = mock(OnLongPress.class);
-        OnLongPress<Object> callback1 = mock(OnLongPress.class);
+        when(adapter.getItem(3)).thenReturn(adapterValue);
 
         // Act 
-        clickableListView.addOnLongClickListener(callback);
-        clickableListView.addOnLongClickListener(callback1);
-        clickableListView.onContextItemSelected(item);
+
+        clickableListView.onContextItemSelected(new MenuItemHolder(item));
 
         // Assert
-        verify(callback).onLongPress(adapterValue, 1, "a", 0);
-        verify(callback1).onLongPress(adapterValue, 1, "a", 0);
+        verify(adapter).getItem(3);
+        // Should really check the event bus is being called...
     }
     
     @Test
@@ -91,6 +84,7 @@ public class ClickableListViewTests {
         Context context = mock(Context.class);
 		AdapterView<?> av = mock(AdapterView.class);
 		when(av.getContext()).thenReturn(context);
+		clickableListView.setKeyboadHider(hideKeyboard);
 		View v = mock(View.class);
 
     	// Act 
@@ -106,14 +100,9 @@ public class ClickableListViewTests {
         Context context = mock(Context.class);
 		AdapterView<?> av = mock(AdapterView.class);
 		when(av.getContext()).thenReturn(context);
+		clickableListView.setKeyboadHider(null);
 		View v = mock(View.class);
-        adapter = mock(ListAdapter.class);
-        when(listView.getAdapter()).thenReturn(adapter);
-        clickableListView = new ClickableListView<Object>(
-                listView, 
-                contextSelectedObservable,
-                null,
-                onCreateContextMenu);		
+
 
     	// Act 
     	clickableListView.onItemClick(av, v, 0, 0);

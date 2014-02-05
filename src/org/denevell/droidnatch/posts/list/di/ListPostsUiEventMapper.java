@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
+import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.interfaces.Receiver;
@@ -52,6 +53,7 @@ public class ListPostsUiEventMapper {
     @Provides @Singleton
     public ClickableListView<PostResource> provideListView() {
         ClickableListView lv = (ClickableListView) mActivity.findViewById(R.id.list_posts_listview);
+        lv.setKeyboadHider(new HideKeyboard());
         lv.setOnCreateContextMenuListener(new ListPostsContextMenu());
         return lv;
     } 

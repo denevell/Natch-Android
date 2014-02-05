@@ -18,8 +18,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
-import android.content.Context;
-
 import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;
 
@@ -31,10 +29,8 @@ public class BaseServiceTests {
     private FailureResultFactory failureResultFactory = mock(FailureResultFactory.class);
     private ProgressIndicator progress = mock(ProgressIndicator.class);
     private ObjectToStringConverter responseConverter = mock(ObjectToStringConverter.class);
-    private Context context = mock(Context.class);
     private VolleyRequest<Object> volleyRequest = mock(VolleyRequest.class);
     private BaseService<Object> service = new BaseService<Object>(
-            context,
             volleyRequest, 
             progress, 
             responseConverter, 

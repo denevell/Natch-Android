@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
+import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.Receiver;
@@ -67,6 +68,7 @@ public class ListThreadsUiEventMapper {
     @Provides @Singleton 
     public ClickableListView<ThreadResource> providesListView() {
         ClickableListView listView = (ClickableListView) mActivity.findViewById(R.id.list_threads_listview);
+        listView.setKeyboadHider(new HideKeyboard());
         listView.setOnCreateContextMenuListener(new ListThreadsContextMenu());
         return listView;
     }

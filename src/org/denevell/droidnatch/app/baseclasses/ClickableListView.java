@@ -37,8 +37,11 @@ public class ClickableListView<T> extends ListView implements
 
     public ClickableListView(Context context, AttributeSet attrSet) {
         super(context, attrSet);
-        mHideKeyboard = new HideKeyboard();
         setOnItemClickListener(this);
+    }
+
+    public void setKeyboadHider(HideKeyboard kbh) {
+        mHideKeyboard = kbh;
     }
 
     @Override
