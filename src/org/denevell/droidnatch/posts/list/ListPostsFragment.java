@@ -20,8 +20,6 @@ import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.di.DeletePostServicesMapper;
 import org.denevell.droidnatch.posts.list.di.DeleteThreadFromPostServicesMapper;
 import org.denevell.droidnatch.posts.list.uievents.LongClickDeletePostUiEvent;
-import org.denevell.droidnatch.posts.list.uievents.LongClickDeleteThreadUiEvent;
-import org.denevell.droidnatch.posts.list.uievents.PreviousScreenUiEvent;
 import org.denevell.droidnatch.posts.list.views.AddPostTextEditGenericUiEvent;
 import org.denevell.droidnatch.posts.list.views.ListPostsView;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
@@ -85,14 +83,6 @@ public class ListPostsFragment extends ObservableFragment {
                             listPostControllerConverter);
             deletePostController.setup().go();
 
-            UiEventThenServiceThenUiEvent deleteThreadFromPostController =
-                    new UiEventThenServiceThenUiEvent<DeletePostResourceReturnData>(
-                            providesLongClickDeleteThreadUiActivator(),
-                            deleteThreadService,
-                            null,
-                            providesGotoPreviousScreenUiReceiver());
-            deleteThreadFromPostController.setup();
-
         } catch (Exception e) {
             Log.e(TAG, "Failed to start mapper", e);
             return;
@@ -105,17 +95,5 @@ public class ListPostsFragment extends ObservableFragment {
                 deletePostVolleyRequest);
         return event;
     }    
-    
-    private Activator providesLongClickDeleteThreadUiActivator() {
-        Activator event = new LongClickDeleteThreadUiEvent(
-                getActivity(),
-                deleteThreadVolleyRequest);
-        return event;
-    }
-
-    private Receiver providesGotoPreviousScreenUiReceiver() {
-        PreviousScreenUiEvent pse = new PreviousScreenUiEvent(screenOpener);
-        return pse;
-    }
 
 }

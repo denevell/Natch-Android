@@ -11,6 +11,7 @@ import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
+import org.denevell.droidnatch.posts.list.views.LongClickDeleteThreadActivator;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;
 
@@ -20,7 +21,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = ListPostsFragment.class, complete = false, library=true)
+@Module(injects = {ListPostsFragment.class, LongClickDeleteThreadActivator.class}, complete = false, library=true)
 public class DeleteThreadFromPostServicesMapper {
 
     public static final String DELETE_THREAD_FROM_POST_SERVICE = "delete thread from post service";
