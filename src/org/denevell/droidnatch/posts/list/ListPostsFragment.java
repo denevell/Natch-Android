@@ -6,39 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.denevell.droidnatch.EventBus;
-import org.denevell.droidnatch.app.baseclasses.CommonMapper;
-import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
-import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
-import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
-import org.denevell.droidnatch.app.interfaces.Activator;
-import org.denevell.droidnatch.app.interfaces.Receiver;
-import org.denevell.droidnatch.app.interfaces.ScreenOpener;
-import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.posts.list.di.DeletePostServicesMapper;
 import org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator;
 import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
-import org.denevell.droidnatch.posts.list.uievents.LongClickDeletePostActivator;
-import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import dagger.ObjectGraph;
 
 public class ListPostsFragment extends ObservableFragment {
     
     public static final String BUNDLE_KEY_THREAD_ID = "thread_id";
     public static final String BUNDLE_KEY_THREAD_NAME = "thread_name";
     private static final String TAG = ListPostsFragment.class.getSimpleName();
-
-    @Inject @Named(DeletePostServicesMapper.DELETE_POST_SERVICE) ServiceFetcher<DeletePostResourceReturnData> deletePostService;
-    @Inject @Named(DeletePostServicesMapper.DELETE_POST_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> deletePostVolleyRequest;
-
-    @Inject ScreenOpener screenOpener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,43 +30,14 @@ public class ListPostsFragment extends ObservableFragment {
     public void onResume() {
         super.onResume();
         try {
-            ObjectGraph.create(
-                    new ScreenOpenerMapper(getActivity()),
-                    new CommonMapper(getActivity()),
-                    new DeletePostServicesMapper())
-                    .inject(this);
-
             AddPostTextEditActivator addPost = (AddPostTextEditActivator) getActivity().findViewById(R.id.list_posts_addpost_edittext);
             addPost.setup(getArguments());
             ListPostsViewStarter listPosts = (ListPostsViewStarter) getActivity().findViewById(R.id.list_posts_listpostsview_holder);
             listPosts.setup(getArguments());
-
-            Receiver listPostControllerConverter = new Receiver() {
-                @Override
-                public void success(Object result) {
-                    EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts());
-                }
-                @Override public void fail(FailureResult r) {  }
-            };
-            UiEventThenServiceThenUiEvent deletePostController =
-                    new UiEventThenServiceThenUiEvent (
-                            providesDeletePostClickActivator(),
-                            deletePostService,
-                            null,
-                            listPostControllerConverter);
-            deletePostController.setup().go();
-
         } catch (Exception e) {
             Log.e(TAG, "Failed to start mapper", e);
             return;
         }            
     }
     
-    private Activator providesDeletePostClickActivator() {
-        Activator event = new LongClickDeletePostActivator(
-                getActivity(), 
-                deletePostVolleyRequest);
-        return event;
-    }    
-
 }

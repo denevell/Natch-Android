@@ -38,16 +38,16 @@ public class LongClickDeleteThreadActivator extends View implements Activator {
 
     public LongClickDeleteThreadActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
-        ObjectGraph.create(
-                new ScreenOpenerMapper((FragmentActivity) getContext()),
-                new CommonMapper((Activity) context),
-                new DeleteThreadFromPostServicesMapper()
-        ).inject(this);
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        ObjectGraph.create(
+                new ScreenOpenerMapper((FragmentActivity) getContext()),
+                new CommonMapper((Activity) getContext()),
+                new DeleteThreadFromPostServicesMapper()
+        ).inject(this);
         UiEventThenServiceThenUiEvent deleteThreadFromPostController =
                 new UiEventThenServiceThenUiEvent<DeletePostResourceReturnData>(
                         this,
