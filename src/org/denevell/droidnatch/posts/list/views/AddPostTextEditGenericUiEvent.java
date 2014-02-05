@@ -17,7 +17,6 @@ import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.EditTextHideKeyboard;
-import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.posts.list.di.AddPostServicesMapper;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
@@ -56,7 +55,7 @@ public class AddPostTextEditGenericUiEvent extends EditTextHideKeyboard implemen
                         new Receiver() {
                             @Override
                             public void success(Object result) {
-                                EventBus.getBus().post(new ListPostsFragment.CallControllerListPosts());
+                                EventBus.getBus().post(new ListPostsView.CallControllerListPosts());
                             }
                             @Override public void fail(FailureResult r) { }
                         });

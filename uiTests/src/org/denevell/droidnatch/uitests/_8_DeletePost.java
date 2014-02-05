@@ -45,7 +45,7 @@ public class _8_DeletePost extends NatchAndroidInstrumentationTestCase2 {
         onView(withId(R.id.editText1))
                 .perform(typeText("New thread to open" + date), pressImeActionButton());
 
-        onView(withId(R.id.editText1))
+        onView(withId(R.id.list_posts_addpost_edittext))
                 .perform(typeText("New post in thread"), pressImeActionButton());
 
         onView(withId(R.id.list_posts_listview))

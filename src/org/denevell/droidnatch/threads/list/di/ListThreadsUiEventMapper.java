@@ -12,6 +12,7 @@ import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
+import org.denevell.droidnatch.posts.list.views.ListPostsView;
 import org.denevell.droidnatch.threads.list.ListThreadsArrayAdapter;
 import org.denevell.droidnatch.threads.list.ListThreadsContextMenu;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
@@ -29,7 +30,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {ListThreadsFragment.class, AddThreadEditTextActivator.class, ListThreadsView.class}, complete=false, library=true)
+@Module(injects = {ListThreadsFragment.class, AddThreadEditTextActivator.class, ListThreadsView.class, ListPostsView.class}, complete=false, library=true)
 public class ListThreadsUiEventMapper {
     
     public static final String PROVIDES_LIST_THREADS_LIST_CLICK = "list_threads_list_click";

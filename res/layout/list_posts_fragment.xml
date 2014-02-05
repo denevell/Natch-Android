@@ -5,6 +5,11 @@
     android:layout_height="fill_parent"
     >
 
+    <org.denevell.droidnatch.posts.list.views.ListPostsView
+        android:id="@+id/list_posts_listpostsview_holder"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
     <LinearLayout
         android:focusable="true"
         android:focusableInTouchMode="true"

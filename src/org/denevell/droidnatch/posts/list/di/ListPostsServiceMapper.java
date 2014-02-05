@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import org.denevell.droidnatch.Urls;
-import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
@@ -24,8 +23,8 @@ public class ListPostsServiceMapper {
    
     private Bundle mBundle;
 
-    public ListPostsServiceMapper(ObservableFragment listPostsFragment) {
-        mBundle = listPostsFragment.getArguments();
+    public ListPostsServiceMapper(Bundle bundl3) {
+        mBundle = bundl3;
     }
     
     @Provides

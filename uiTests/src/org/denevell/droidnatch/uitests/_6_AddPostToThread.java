@@ -39,7 +39,7 @@ public class _6_AddPostToThread extends NatchAndroidInstrumentationTestCase2 {
         onView(withId(R.id.editText1))
                 .perform(typeText("New thread to open"), pressImeActionButton());
 
-        onView(withId(R.id.editText1))
+        onView(withId(R.id.list_posts_addpost_edittext))
                 .perform(typeText("New post in thread"), pressImeActionButton());
 
         onData(allOf(is(instanceOf(PostResource.class))))

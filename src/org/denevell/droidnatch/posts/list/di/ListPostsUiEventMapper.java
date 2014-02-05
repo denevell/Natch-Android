@@ -2,7 +2,6 @@ package org.denevell.droidnatch.posts.list.di;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.view.View;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
@@ -30,8 +29,8 @@ public class ListPostsUiEventMapper {
     private Activity mActivity;
     private ObservableFragment mObservableFragment;
 
-    public ListPostsUiEventMapper(Fragment listPostsFragment) {
-        mActivity = listPostsFragment.getActivity();
+    public ListPostsUiEventMapper(Activity activity) {
+        mActivity = activity;
     }
     
     @Provides @Singleton
