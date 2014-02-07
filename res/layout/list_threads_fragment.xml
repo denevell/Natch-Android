@@ -79,10 +79,17 @@
             android:text="Slide to add"
         />
 
+        <RelativeLayout
+            android:id="@+id/list_threads_add_thread_empty_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/list_threads_add_thread_drag_view_textview"
+         />
+
         <ScrollView
-            android:paddingBottom="40dp"
             android:id="@+id/list_threads_add_thread_pane_scrollview"
-            android:layout_above="@id/list_threads_add_thread_drag_view_textview"
+            android:layout_above="@+id/list_threads_add_thread_empty_view"
+            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
