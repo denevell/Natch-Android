@@ -29,7 +29,8 @@ public class ClickableListViewTests {
     private ListAdapter adapter;
 	private HideKeyboard hideKeyboard = mock(HideKeyboard.class);
 
-    @Before
+    @SuppressWarnings("rawtypes")
+	@Before
     public void setUp() throws Exception {
         AttributeSet attrs = mock(AttributeSet.class);
 		clickableListView = Mockito.spy(new ClickableListView(

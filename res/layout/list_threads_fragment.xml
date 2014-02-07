@@ -1,54 +1,146 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="?android:attr/buttonBarStyle"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:collapsedHeight="40dp"
+    app:dragView="@+id/list_threads_add_thread_drag_view_textview"
+    android:layout_gravity="top">
 
-    <LinearLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <requestFocus />
-    </LinearLayout>
-
-    <org.denevell.droidnatch.threads.list.uievents.LongClickDeleteActivator
-        android:layout_width="0dp"
-        android:layout_height="0dp" />
-
-    <org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter
-        android:layout_width="0dp"
-        android:layout_height="0dp" />
-
-    <org.denevell.droidnatch.threads.list.uievents.AddThreadEditTextActivator
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:imeOptions="actionDone"
-        android:ems="10"
-        android:inputType="textCapSentences" 
-        android:contentDescription="addthread_edittext" 
-        />
-
-    <org.denevell.droidnatch.app.baseclasses.ClickableListView
-        android:id="@+id/list_threads_listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/editText1"
-        android:contentDescription="listthreads_listview" 
-        />
-
-    <include
-        android:contentDescription="listthreads_loading_view"
-        android:id="@+id/list_threads_loading"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        layout="@layout/list_threads_loading_page">
-    </include>
+        >
 
-</RelativeLayout>
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <requestFocus />
+        </LinearLayout>
+
+        <org.denevell.droidnatch.threads.list.uievents.LongClickDeleteActivator
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+
+        <org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+
+        <org.denevell.droidnatch.threads.list.uievents.AddThreadEditTextActivator
+            android:id="@+id/editText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:imeOptions="actionDone"
+            android:ems="10"
+            android:visibility="gone"
+            android:inputType="textCapSentences"
+            android:contentDescription="addthread_edittext"
+            />
+
+        <org.denevell.droidnatch.app.baseclasses.ClickableListView
+            android:id="@+id/list_threads_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:contentDescription="listthreads_listview"
+            />
+
+        <include
+            android:contentDescription="listthreads_loading_view"
+            android:id="@+id/list_threads_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/list_threads_loading_page">
+        </include>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        >
+
+        <TextView
+            android:id="@+id/list_threads_add_thread_drag_view_textview"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            android:gravity="center|bottom"
+            android:textSize="20sp"
+            android:text="Slide to add"
+        />
+
+        <ScrollView
+            android:paddingBottom="40dp"
+            android:id="@+id/list_threads_add_thread_pane_scrollview"
+            android:layout_above="@id/list_threads_add_thread_drag_view_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    />
+
+                <EditText
+                    android:id="@+id/list_threads_add_thread_subject_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext|flagNavigateNext"
+                    android:nextFocusForward="@+id/list_threads_add_thread_content_edittext"
+                    android:gravity="center"
+                    android:hint="Subject"
+                    />
+
+                <EditText
+                    android:id="@+id/list_threads_add_thread_content_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:imeOptions="actionNext|flagNavigateNext"
+                    android:nextFocusForward="@+id/list_threads_add_thread_tags_edittext"
+                    android:gravity="center"
+                    android:hint="Content"
+                    />
+
+                <EditText
+                    android:id="@+id/list_threads_add_thread_tags_edittext"
+                    android:layout_width="match_parent"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="Tags"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Add"/>
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </RelativeLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
