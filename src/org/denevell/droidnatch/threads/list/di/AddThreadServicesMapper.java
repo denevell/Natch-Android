@@ -10,10 +10,8 @@ import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
-import org.denevell.droidnatch.threads.list.uievents.AddThreadEditTextActivator;
 import org.denevell.natch.android.R;
 
 import javax.inject.Singleton;
@@ -21,7 +19,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {ListThreadsFragment.class, AddThreadEditTextActivator.class}, complete = false, library=true)
+@Module(
+        complete = false, library=true)
 public class AddThreadServicesMapper {
     
     public AddThreadServicesMapper() {

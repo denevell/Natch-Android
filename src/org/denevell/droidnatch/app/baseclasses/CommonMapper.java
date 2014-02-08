@@ -10,17 +10,27 @@ import org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator;
 import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
 import org.denevell.droidnatch.posts.list.uievents.LongClickDeletePostActivator;
 import org.denevell.droidnatch.posts.list.uievents.LongClickDeleteThreadActivator;
-import org.denevell.droidnatch.threads.list.uievents.AddThreadEditTextActivator;
+import org.denevell.droidnatch.posts.list.uievents.PreviousScreenReceiver;
+import org.denevell.droidnatch.threads.list.uievents.AddThreadViewActivator;
 import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
+import org.denevell.droidnatch.threads.list.uievents.LongClickDeleteActivator;
+import org.denevell.droidnatch.threads.list.uievents.OpenNewThreadReceiver;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {AddThreadEditTextActivator.class, ListThreadsViewStarter.class,
-        AddPostTextEditActivator.class, ListPostsViewStarter.class,
-        LongClickDeleteThreadActivator.class, LongClickDeletePostActivator.class},
+@Module(injects = {AddThreadViewActivator.class,
+        AddThreadEditTextActivator.class,
+        AddPostTextEditActivator.class,
+        PreviousScreenReceiver.class,
+        LongClickDeletePostActivator.class,
+        LongClickDeleteActivator.class,
+        ListPostsViewStarter.class,
+        ListThreadsViewStarter.class,
+        OpenNewThreadReceiver.class,
+        LongClickDeleteThreadActivator.class},
         complete = false,
         library = true)
 public class CommonMapper {

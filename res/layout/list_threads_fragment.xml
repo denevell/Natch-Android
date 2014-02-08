@@ -93,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
-            <LinearLayout
+            <org.denevell.droidnatch.threads.list.uievents.AddThreadViewActivator
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -139,11 +139,12 @@
                     android:hint="Tags"
                     />
                 <Button
+                    android:id="@+id/list_threads_add_thread_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Add"/>
-            </LinearLayout>
+            </org.denevell.droidnatch.threads.list.uievents.AddThreadViewActivator>
 
 
         </ScrollView>

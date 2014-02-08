@@ -57,7 +57,7 @@ public class LongClickDeleteActivator extends View implements Activator {
                     @Override
                     public void fail(FailureResult r) { }
                 });
-        deleteThreadController.setup().go();
+        deleteThreadController.setup();
         EventBus.getBus().register(this);
     }
 

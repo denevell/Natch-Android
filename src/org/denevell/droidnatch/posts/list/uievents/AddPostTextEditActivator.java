@@ -59,7 +59,7 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
                             }
                             @Override public void fail(FailureResult r) { }
                         });
-        addPostController.setup().go();
+        addPostController.setup();
     }
 
     @Override

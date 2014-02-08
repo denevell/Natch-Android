@@ -59,7 +59,7 @@ public class LongClickDeletePostActivator extends View
                             }
                             @Override public void fail(FailureResult r) { }
                         });
-        deletePostController.setup().go();
+        deletePostController.setup();
         EventBus.getBus().register(this);
     }
 
