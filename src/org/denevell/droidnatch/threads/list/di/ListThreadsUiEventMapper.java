@@ -30,7 +30,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {ListThreadsFragment.class, AddThreadEditTextActivator.class, ListThreadsViewStarter.class, ListPostsViewStarter.class}, complete=false, library=true)
+@Module(injects = {ListThreadsFragment.class, ListThreadsViewStarter.class, ListPostsViewStarter.class}, complete=false, library=true)
 public class ListThreadsUiEventMapper {
     
     public static final String PROVIDES_LIST_THREADS_LIST_CLICK = "list_threads_list_click";
