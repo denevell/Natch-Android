@@ -18,6 +18,7 @@ import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class BaseService<T> implements Listener<JSONObject>, ErrorListener, ServiceFetcher<T> {
@@ -73,6 +74,16 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
     @Override
     public void onResponse(JSONObject response) {
         if(response!=null) Log.v(TAG, "Response: " + response.toString());
+        try {
+            Object s = response.get("successful");
+            if(s!=null && s instanceof Boolean && ((Boolean)s)==false) {
+                NetworkResponse nr = new NetworkResponse(400,null,null,false);
+                onErrorResponse(new VolleyError(nr));
+                return;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         if(mProgress!=null) {
             mProgress.stop();
         }

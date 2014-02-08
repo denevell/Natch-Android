@@ -79,8 +79,11 @@ public class AddThreadViewActivator extends LinearLayout implements
     @Override
     public void success(AddPostResourceReturnData result) {
         mSubject.setText("");
+        mSubject.setError(null);
         mContent.setText("");
+        mContent.setError(null);
         mTags.setText("");
+        mTags.setError(null);
     }
 
     @Override
