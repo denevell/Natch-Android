@@ -98,9 +98,21 @@
                     android:inputType="text"
                     android:singleLine="true"
                     android:imeOptions="actionNext|flagNavigateNext"
-                    android:nextFocusForward="@+id/list_threads_add_thread_content_edittext"
+                    android:nextFocusForward="@+id/list_threads_add_thread_tags_edittext"
                     android:gravity="center"
                     android:hint="Subject"
+                    />
+
+                <EditText
+                    android:id="@+id/list_threads_add_thread_tags_edittext"
+                    android:layout_width="match_parent"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:imeOptions="actionNext|flagNavigateNext"
+                    android:nextFocusForward="@+id/list_threads_add_thread_content_edittext"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="Tags"
                     />
 
                 <EditText
@@ -109,21 +121,9 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:lines="5"
-                    android:imeOptions="actionNext|flagNavigateNext"
-                    android:nextFocusForward="@+id/list_threads_add_thread_tags_edittext"
+                    android:imeOptions="actionDone"
                     android:gravity="center"
                     android:hint="Content"
-                    />
-
-                <EditText
-                    android:id="@+id/list_threads_add_thread_tags_edittext"
-                    android:layout_width="match_parent"
-                    android:singleLine="true"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:hint="Tags"
                     />
                 <Button
                     android:id="@+id/list_threads_add_thread_button"
