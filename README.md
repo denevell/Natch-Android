@@ -3,13 +3,20 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * Use a lower resource hungry emulator in the docker container.
+* I should be able to edit my thread title and content
 
 ## Ice-box
 
 ### Edit thread 
 
-* I should be able to edit my thread title
 * I should see an error on edit thread if there
+* I shouldn't be able to edit thread if not mine
+
+### Edit post 
+
+* I should be able to edit my post
+* I shouldn't be able to edit post if not mine
+* I should see an error on edit post if there
 
 ### Delete thread 
 
@@ -19,6 +26,7 @@ The Android client to the Natch REST project.
 ### Add threads
 
 * I should see an error if add failed
+* I should be able to add tags when adding a thread
 
 ### List threads
 
@@ -27,7 +35,7 @@ The Android client to the Natch REST project.
 * I should see a retry option
 * I shouldn't add the thread on empty editext
 * I should see empty screen on no threads
-* I should keep the found threads on rotate / onResume
+* I should keep the found threads on rotate / onResume / app close
 * I should be able to press more to see more threads
 * I should see how many more pages there are to view
 * I should be able to set the numbers of threads shown
