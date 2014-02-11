@@ -3,8 +3,6 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * Use a lower resource hungry emulator in the docker container.
-* I should be able to add a thread subject and content
-* I should be able to see the thread subject and content in the list thread page
 
 ## Ice-box
 
@@ -69,8 +67,8 @@ The Android client to the Natch REST project.
 
 ### Stories (Numbers relate to classes names in the uiTests dir)
 
-1. I should see some threads in the app
-3. I should be able to add a new thread (subject only atm)
+1. I should see some threads along with content of first post in the app
+3. I should be able to add a new thread and first post in thread
 4. I should refresh the (plus loading) threads after an add
 5. I should be able to delete a thread I have created 
 6. I should load the posts in a thread after it's clicked on, and add a post

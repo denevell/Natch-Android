@@ -33,7 +33,8 @@ public class _34_AddThread extends NatchAndroidInstrumentationTestCase2 {
 
     public void test_34_AddThread() throws Exception {
         String date = new Date().toString();
-        new AddThreadPO().addThread("Hiya!"+date, "Hiya!"+date);
+        new AddThreadPO().addThread("Hiya!"+date, "Content"+date);
+        onView(withContentDescription("list_posts_row0")).check(matches(withText("Content"+date)));
         pressBack();
         onView(withContentDescription("list_threads_row0")).check(matches(withText("Hiya!"+date)));
     }
