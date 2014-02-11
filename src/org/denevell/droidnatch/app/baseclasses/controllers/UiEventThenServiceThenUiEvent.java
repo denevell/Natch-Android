@@ -16,22 +16,22 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
         Activator.GenericUiObserver {
 
     private static final String TAG = UiEventThenServiceThenUiEvent.class.getSimpleName();
+    private Receiver<T>[] mNextUiEvents;
     private Activator<T> mUiEvent;
     private ProgressIndicator mLoadingView;
     private ServiceFetcher mService;
-    private Receiver mNextUiEvent;
 
     public UiEventThenServiceThenUiEvent(
             Activator<T> activatingUiEvent,
             ServiceFetcher service,
             ProgressIndicator loadingView,
-            Receiver<T> uiEventForAfterService) {
+            Receiver<T> ...uiEventForAfterService) {
         mUiEvent = activatingUiEvent;
         mLoadingView = loadingView;
         mService = service;
-        mNextUiEvent = uiEventForAfterService;
+        mNextUiEvents = uiEventForAfterService;
     }
-    
+
     @SuppressWarnings("unchecked")
     @Override
     public UiEventThenServiceThenUiEvent setup() {
@@ -59,9 +59,13 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
         if(mUiEvent!=null) {
             mUiEvent.success(r);
         }
-        if(mNextUiEvent!=null) {
-            Log.v(TAG, "Calling next ui event");
-            mNextUiEvent.success(r);
+        if(mNextUiEvents!=null) {
+            for (Receiver<T> event : mNextUiEvents) {
+                if(r!=null) {
+                    Log.v(TAG, "Calling next ui event");
+                    event.success(r);
+                }
+            }
         }
     }
 

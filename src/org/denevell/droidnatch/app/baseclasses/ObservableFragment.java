@@ -6,7 +6,7 @@ import android.view.MenuItem;
 
 import org.denevell.droidnatch.EventBus;
 
-public class ObservableFragment extends Fragment  {
+public class ObservableFragment extends Fragment {
     
     private static final String TAG = ObservableFragment.class.getSimpleName();
     public static class MenuItemHolder {

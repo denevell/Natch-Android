@@ -2,6 +2,7 @@ package org.denevell.droidnatch.uitests;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
+import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
@@ -13,8 +14,6 @@ import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressB
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
@@ -41,8 +40,7 @@ public class _5_DeleteThread extends NatchAndroidInstrumentationTestCase2 {
     }
 
     public void test_5_DeleteThread() throws Exception {
-        onView(withId(R.id.editText1))
-                .perform(typeText("New thread to delete"), pressImeActionButton());
+        new AddThreadPO().addThread("New thread to delete", "New thread to delete");
 
         pressBack();
 

@@ -2,8 +2,11 @@ package org.denevell.droidnatch.threads.list.uievents;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -39,9 +42,15 @@ public class AddThreadViewActivator extends LinearLayout implements
     private TextView mSubject;
     private TextView mContent;
     private TextView mTags;
+    private Runnable mSuccessCallback;
 
     public AddThreadViewActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
+        LayoutInflater.from(context).inflate(R.layout.add_thread_layout, this, true);
+        mButton = (Button) findViewById(R.id.add_thread_button);
+        mSubject = (TextView) findViewById(R.id.add_thread_subject_edittext);
+        mContent = (TextView) findViewById(R.id.add_thread_content_edittext);
+        mTags = (TextView) findViewById(R.id.add_thread_tags_edittext);
     }
 
     private void inject() {
@@ -55,11 +64,6 @@ public class AddThreadViewActivator extends LinearLayout implements
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        mButton = (Button) findViewById(R.id.list_threads_add_thread_button);
-        mSubject = (TextView) findViewById(R.id.list_threads_add_thread_subject_edittext);
-        mContent = (TextView) findViewById(R.id.list_threads_add_thread_content_edittext);
-        mTags = (TextView) findViewById(R.id.list_threads_add_thread_tags_edittext);
-
         mButton.setOnClickListener(this);
         inject();
         Controller addThreadController =
@@ -69,6 +73,28 @@ public class AddThreadViewActivator extends LinearLayout implements
                         null,
                         new OpenNewThreadReceiver(screenOpener));
         addThreadController.setup();
+    }
+
+    public Parcelable getInstanceState() {
+        Bundle b = new Bundle();
+        b.putParcelable("subject", mSubject.onSaveInstanceState());
+        b.putParcelable("content", mContent.onSaveInstanceState());
+        b.putParcelable("tags", mTags.onSaveInstanceState());
+        b.putParcelable("state", onSaveInstanceState());
+        return b;
+    }
+
+    public void setInstanceState(Parcelable p) {
+        if(p instanceof Bundle) {
+            Bundle b = (Bundle) p;
+            mSubject.onRestoreInstanceState(b.getParcelable("subject"));
+            mContent.onRestoreInstanceState(b.getParcelable("content"));
+            mTags.onRestoreInstanceState(b.getParcelable("tags"));
+            onRestoreInstanceState(b.getParcelable("state"));
+        } else {
+            onRestoreInstanceState(p);
+        }
+
     }
 
     @Override
@@ -84,6 +110,11 @@ public class AddThreadViewActivator extends LinearLayout implements
         mContent.setError(null);
         mTags.setText("");
         mTags.setError(null);
+        if(mSuccessCallback!=null) mSuccessCallback.run();
+    }
+
+    public void setSuccessCallback(Runnable runnable) {
+        mSuccessCallback = runnable;
     }
 
     @Override
@@ -101,4 +132,5 @@ public class AddThreadViewActivator extends LinearLayout implements
         addPostResourceInput.setTags(Arrays.asList(tags));
         mCallback.onUiEventActivated();
     }
+
 }

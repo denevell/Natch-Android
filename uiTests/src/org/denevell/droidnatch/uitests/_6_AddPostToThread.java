@@ -2,6 +2,7 @@ package org.denevell.droidnatch.uitests;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
+import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
@@ -36,8 +37,7 @@ public class _6_AddPostToThread extends NatchAndroidInstrumentationTestCase2 {
     }
 
     public void test_1_AddPostToThread() throws Exception {
-        onView(withId(R.id.editText1))
-                .perform(typeText("New thread to open"), pressImeActionButton());
+        new AddThreadPO().addThread("New thread", "New thread");
 
         onView(withId(R.id.list_posts_addpost_edittext))
                 .perform(typeText("New post in thread"), pressImeActionButton());

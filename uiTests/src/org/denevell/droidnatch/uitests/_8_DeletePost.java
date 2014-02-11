@@ -2,6 +2,7 @@ package org.denevell.droidnatch.uitests;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
+import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
@@ -42,8 +43,7 @@ public class _8_DeletePost extends NatchAndroidInstrumentationTestCase2 {
 
     public void test_1_DeletePost() throws Exception {
         String date = new Date().toString();
-        onView(withId(R.id.editText1))
-                .perform(typeText("New thread to open" + date), pressImeActionButton());
+        new AddThreadPO().addThread("New thread to open"+date, "New thread to open"+date);
 
         onView(withId(R.id.list_posts_addpost_edittext))
                 .perform(typeText("New post in thread"), pressImeActionButton());
