@@ -6,6 +6,7 @@ import android.content.Context;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
+import org.denevell.droidnatch.posts.list.uievents.EditPostViewActivator;
 import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
 import org.denevell.droidnatch.posts.list.uievents.LongClickDeletePostActivator;
 import org.denevell.droidnatch.posts.list.uievents.LongClickDeleteThreadActivator;
@@ -23,6 +24,7 @@ import dagger.Provides;
 
 @Module(injects = {AddThreadViewActivator.class,
         PreviousScreenReceiver.class,
+        EditPostViewActivator.class,
         LongClickDeletePostActivator.class,
         LongClickDeleteActivator.class,
         ListPostsViewStarter.class,
