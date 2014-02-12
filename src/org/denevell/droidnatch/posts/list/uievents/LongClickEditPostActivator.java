@@ -53,7 +53,7 @@ public class LongClickEditPostActivator extends View
                 ((DialogFragment)old).show(mActivity.getSupportFragmentManager(), "editpost_dialogue");
             } else {
                 EditPostDialogueFragment df = new EditPostDialogueFragment();
-                df.setPostId(((PostResource) obj.ob).getId());
+                df.setPost((PostResource) obj.ob);
                 df.setArguments(new Bundle());
                 mActivity.getSupportFragmentManager().beginTransaction().addToBackStack("editpost_dialogue").add(df, "editpost_dialogue").commit();
             }
@@ -73,13 +73,13 @@ public class LongClickEditPostActivator extends View
 
     public static class EditPostDialogueFragment extends DialogFragment {
         public EditPostViewActivator view;
-        private long mPostId;
+        private PostResource mPost;
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             setRetainInstance(true);
             view = new EditPostViewActivator(getActivity(), null);
-            view.setPostId(mPostId);
+            view.setPost(mPost);
             Parcelable args = getArguments().getParcelable("view_state");
             if(args!=null) view.setInstanceState(args);
             view.setSuccessCallback(new Runnable() {
@@ -110,8 +110,8 @@ public class LongClickEditPostActivator extends View
             super.onDestroyView();
         }
 
-        public void setPostId(long id) {
-            mPostId = id;
+        public void setPost(PostResource ob) {
+           mPost = ob;
         }
     }
 }

@@ -23,6 +23,7 @@ import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.di.EditPostServicesMapper;
 import org.denevell.droidnatch.posts.list.entities.EditPostResource;
 import org.denevell.droidnatch.posts.list.entities.EditPostResourceReturnData;
+import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.natch.android.R;
 
 import javax.inject.Inject;
@@ -39,7 +40,7 @@ public class EditPostViewActivator extends LinearLayout implements
     private Button mButton;
     private TextView mContent;
     private Runnable mSuccessCallback;
-    private long mPostId;
+    private PostResource mPost;
 
     public EditPostViewActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -58,6 +59,7 @@ public class EditPostViewActivator extends LinearLayout implements
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        mContent.setText(mPost.getContent());
         mButton.setOnClickListener(this);
         inject();
         Controller addThreadController =
@@ -119,11 +121,11 @@ public class EditPostViewActivator extends LinearLayout implements
     @Override
     public void onClick(View view) {
         mEditPostResourceInput.setContent(mContent.getText().toString());
-        mVolleyRequest.setUrl(mVolleyRequest.getRequest().getUrl() + "/" + mPostId);
+        mVolleyRequest.setUrl(mVolleyRequest.getRequest().getUrl() + "/" + mPost.getId());
         mCallback.onUiEventActivated();
     }
 
-    public void setPostId(long postId) {
-        mPostId = postId;
+    public void setPost(PostResource post) {
+        mPost = post;
     }
 }
