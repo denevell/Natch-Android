@@ -3,7 +3,7 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * Use a lower resource hungry emulator in the docker container.
-* I should be able to edit my thread title and content
+* UI TEST: I should be able to edit my thread title and content
 * UI TEST: I should be able to edit my post
 
 ## Ice-box

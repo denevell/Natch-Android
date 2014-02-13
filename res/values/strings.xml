@@ -8,6 +8,7 @@
     <string name="url_addthread">post/addthread</string>
     <string name="url_add_post">post/add</string>
     <string name="url_edit_post">post/editpost</string>
+    <string name="url_edit_thread">post/editthread</string>
     <string name="url_del">post/del/</string>
     <string name="list_threads_loading">Loading threads</string>
     <string name="list_thread_loading">Loading posts</string>

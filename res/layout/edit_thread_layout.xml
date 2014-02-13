@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        >
+
+        <ScrollView
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <EditText
+                    android:id="@+id/edit_thread_subject_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/edit_thread_content_edittext"
+                    android:hint="Subject"
+                    />
+
+                <EditText
+                    android:id="@+id/edit_thread_content_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:lines="5"
+                    android:imeOptions="actionDone"
+                    android:hint="Content"
+                    />
+
+                <Button
+                    android:id="@+id/edit_thread_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Edit"/>
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
