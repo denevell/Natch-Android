@@ -1,5 +1,9 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
+import org.denevell.droidnatch.EventBus;
+import org.denevell.droidnatch.app.baseclasses.ClickableListView;
+import org.denevell.droidnatch.posts.list.entities.PostResource;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -14,19 +18,11 @@ import android.view.View;
 
 import com.squareup.otto.Subscribe;
 
-import org.denevell.droidnatch.EventBus;
-import org.denevell.droidnatch.app.baseclasses.ClickableListView;
-import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.interfaces.Activator;
-import org.denevell.droidnatch.posts.list.entities.PostResource;
-
-public class LongClickEditThreadActivator extends View
-        implements Activator {
+public class LongClickEditThreadActivator extends View {
 
     @SuppressWarnings("unused")
     private static final String TAG = LongClickEditThreadActivator.class.getSimpleName();
     private final FragmentActivity mActivity;
-    private GenericUiObserver mCallback;
 
     public LongClickEditThreadActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -55,21 +51,10 @@ public class LongClickEditThreadActivator extends View
                 EditPostDialogueFragment df = new EditPostDialogueFragment();
                 df.setPost((PostResource) obj.ob);
                 df.setArguments(new Bundle());
-                mActivity.getSupportFragmentManager().beginTransaction().addToBackStack("editthread_dialogue").add(df, "editthread_dialogue").commit();
+                mActivity.getSupportFragmentManager().beginTransaction().add(df, "editthread_dialogue").commit();
             }
         }
     }
-
-    @Override
-    public void setOnSubmitObserver(GenericUiObserver observer) {
-        mCallback = observer;
-    }
-
-    @Override
-    public void success(Object result) {  }
-
-    @Override
-    public void fail(FailureResult r) { }
 
     public static class EditPostDialogueFragment extends DialogFragment {
         public EditThreadViewActivator view;

@@ -1,12 +1,6 @@
 package org.denevell.droidnatch.threads.list.uievents;
 
-import android.app.Activity;
-import android.content.Context;
-import android.support.v4.app.FragmentActivity;
-import android.util.AttributeSet;
-import android.view.View;
-
-import com.squareup.otto.Subscribe;
+import javax.inject.Inject;
 
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
@@ -18,7 +12,13 @@ import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper;
 import org.denevell.droidnatch.threads.list.di.ListThreadsUiEventMapper;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 
-import javax.inject.Inject;
+import android.app.Activity;
+import android.content.Context;
+import android.support.v4.app.FragmentActivity;
+import android.util.AttributeSet;
+import android.view.View;
+
+import com.squareup.otto.Subscribe;
 
 import dagger.ObjectGraph;
 
@@ -26,7 +26,7 @@ public class ListThreadsViewStarter extends View {
 
     @Inject ServiceFetcher<ListThreadsResource> listThreadsService;
     @Inject Receiver<ListThreadsResource> listViewReceivingUiObject;
-    private UiEventThenServiceThenUiEvent controller;
+    private UiEventThenServiceThenUiEvent<ListThreadsResource> controller;
 
     public static class CallControllerListThreads {}
 
@@ -43,7 +43,8 @@ public class ListThreadsViewStarter extends View {
         ).inject(this);
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         createObjectGraph();

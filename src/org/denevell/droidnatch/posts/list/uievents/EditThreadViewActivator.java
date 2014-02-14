@@ -1,15 +1,6 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import javax.inject.Inject;
 
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
@@ -26,8 +17,16 @@ import org.denevell.droidnatch.posts.list.entities.EditPostResourceReturnData;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.natch.android.R;
 
-import javax.inject.Inject;
-
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import dagger.ObjectGraph;
 
 public class EditThreadViewActivator extends LinearLayout implements
@@ -65,14 +64,15 @@ public class EditThreadViewActivator extends LinearLayout implements
         mSubject.setText(mPost.getSubject());
         mButton.setOnClickListener(this);
         inject();
-        Controller addThreadController =
+        @SuppressWarnings("unchecked")
+		Controller addThreadController =
                 new UiEventThenServiceThenUiEvent<EditPostResourceReturnData>(
                         this,
                         mEditPostService,
                         null,
-                        new Receiver() {
+                        new Receiver<EditPostResourceReturnData>() {
                             @Override
-                            public void success(Object result) {
+                            public void success(EditPostResourceReturnData result) {
                                 EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts());
                             }
                             @Override public void fail(FailureResult r) { }

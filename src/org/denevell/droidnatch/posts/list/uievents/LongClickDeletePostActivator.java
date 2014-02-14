@@ -1,11 +1,7 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
-import android.app.Activity;
-import android.content.Context;
-import android.util.AttributeSet;
-import android.view.View;
-
-import com.squareup.otto.Subscribe;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
@@ -22,13 +18,17 @@ import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import android.app.Activity;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.View;
+
+import com.squareup.otto.Subscribe;
 
 import dagger.ObjectGraph;
 
 public class LongClickDeletePostActivator extends View
-        implements Activator {
+        implements Activator<DeletePostResourceReturnData> {
     
     @SuppressWarnings("unused")
     private static final String TAG = LongClickDeletePostActivator.class.getSimpleName();
@@ -47,14 +47,15 @@ public class LongClickDeletePostActivator extends View
                         new CommonMapper((Activity) getContext()),
                         new DeletePostServicesMapper()
                 ).inject(this);
-        UiEventThenServiceThenUiEvent deletePostController =
-                new UiEventThenServiceThenUiEvent (
+        @SuppressWarnings("unchecked")
+		UiEventThenServiceThenUiEvent<DeletePostResourceReturnData> deletePostController =
+                new UiEventThenServiceThenUiEvent<DeletePostResourceReturnData> (
                         this,
                         deletePostService,
                         null,
-                        new Receiver() {
+                        new Receiver<DeletePostResourceReturnData>() {
                             @Override
-                            public void success(Object result) {
+                            public void success(DeletePostResourceReturnData result) {
                                 EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts());
                             }
                             @Override public void fail(FailureResult r) { }
@@ -85,7 +86,7 @@ public class LongClickDeletePostActivator extends View
     }
 
     @Override
-    public void success(Object result) {
+    public void success(DeletePostResourceReturnData result) {
 
     }
 

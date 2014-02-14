@@ -26,7 +26,8 @@ import dagger.Provides;
 public class AddThreadUiEventMapper {
 
     public static final String PROVIDES_ADD_THREAD_POPUP= "add thread dialogue popup";
-    private static final String TAG = AddThreadUiEventMapper.class.getSimpleName();
+    @SuppressWarnings("unused")
+	private static final String TAG = AddThreadUiEventMapper.class.getSimpleName();
     private FragmentActivity mActivity;
 
     public AddThreadUiEventMapper(FragmentActivity activity) {
@@ -44,7 +45,7 @@ public class AddThreadUiEventMapper {
                 } else {
                     AddThreadDialogueFragment df = new AddThreadDialogueFragment();
                     df.setArguments(new Bundle());
-                    mActivity.getSupportFragmentManager().beginTransaction().addToBackStack("tag").add(df, "tag").commit();
+                    mActivity.getSupportFragmentManager().beginTransaction().add(df, "tag").commit();
                 }
             }
             @Override public void fail(FailureResult r) { }

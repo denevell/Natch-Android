@@ -3,8 +3,6 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * Use a lower resource hungry emulator in the docker container.
-* UI TEST: I should be able to edit my thread title and content
-* UI TEST: I should be able to edit my post
 
 ## Ice-box
 
@@ -82,3 +80,5 @@ The Android client to the Natch REST project.
 6. I should load the posts in a thread after it's clicked on, and add a post
 7. I should delete a thread from within the thread page
 8. I should delete post from a thread, and then see the existing thread, one post less.
+9. I should be able to edit my post
+10: I should be able to edit my thread title and content

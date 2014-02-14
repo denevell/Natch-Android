@@ -1,9 +1,9 @@
 package org.denevell.droidnatch.threads.list.di;
 
-import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
-import android.view.View;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
@@ -22,11 +22,9 @@ import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
 import org.denevell.natch.android.R;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.inject.Singleton;
-
+import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
 import dagger.Module;
 import dagger.Provides;
 
@@ -47,7 +45,7 @@ public class ListThreadsUiEventMapper {
             ClickableListView<ThreadResource> listView,
             // We're taking in the OnPress simply so it's constructed.
             OnPress<ThreadResource> listClickListener) {
-        View loadingListView = mActivity.findViewById(R.id.list_threads_loading);
+        //View loadingListView = mActivity.findViewById(R.id.list_threads_loading);
         ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(appContext, R.layout.list_threads_row);
         ListViewUiEvent<ThreadResource, List<ThreadResource>, ListThreadsResource> displayer =
                 new ListViewUiEvent<ThreadResource, List<ThreadResource>, ListThreadsResource>(
@@ -64,7 +62,8 @@ public class ListThreadsUiEventMapper {
         return displayer;
     }
 
-    @Provides @Singleton 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Provides @Singleton 
     public ClickableListView<ThreadResource> providesListView() {
         ClickableListView listView = (ClickableListView) mActivity.findViewById(R.id.list_threads_listview);
         listView.setKeyboadHider(new HideKeyboard());

@@ -1,12 +1,7 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
-import android.app.Activity;
-import android.content.Context;
-import android.support.v4.app.FragmentActivity;
-import android.util.AttributeSet;
-import android.view.View;
-
-import com.squareup.otto.Subscribe;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
@@ -24,12 +19,17 @@ import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import android.app.Activity;
+import android.content.Context;
+import android.support.v4.app.FragmentActivity;
+import android.util.AttributeSet;
+import android.view.View;
+
+import com.squareup.otto.Subscribe;
 
 import dagger.ObjectGraph;
 
-public class LongClickDeleteThreadActivator extends View implements Activator {
+public class LongClickDeleteThreadActivator extends View implements Activator<DeletePostResourceReturnData> {
 
     private GenericUiObserver mCallback;
     @Inject @Named(DeleteThreadFromPostServicesMapper.DELETE_THREAD_FROM_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> mDeleteRequest;
@@ -48,7 +48,8 @@ public class LongClickDeleteThreadActivator extends View implements Activator {
                 new CommonMapper((Activity) getContext()),
                 new DeleteThreadFromPostServicesMapper()
         ).inject(this);
-        UiEventThenServiceThenUiEvent deleteThreadFromPostController =
+        @SuppressWarnings("unchecked")
+		UiEventThenServiceThenUiEvent<DeletePostResourceReturnData> deleteThreadFromPostController =
                 new UiEventThenServiceThenUiEvent<DeletePostResourceReturnData>(
                         this,
                         deleteThreadService,
@@ -82,7 +83,7 @@ public class LongClickDeleteThreadActivator extends View implements Activator {
     }
 
     @Override
-    public void success(Object result) {
+    public void success(DeletePostResourceReturnData result) {
     }
 
     @Override

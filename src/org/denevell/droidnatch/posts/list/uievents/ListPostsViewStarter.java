@@ -24,7 +24,7 @@ import dagger.ObjectGraph;
 
 public class ListPostsViewStarter extends View {
 
-    private UiEventThenServiceThenUiEvent controller;
+    private UiEventThenServiceThenUiEvent<ListPostsResource> controller;
     public static class CallControllerListPosts {}
     @Inject ServiceFetcher<ListPostsResource> listPostsService;
     @Inject Receiver<ListPostsResource> listViewReceivingUiObject;
@@ -39,7 +39,8 @@ public class ListPostsViewStarter extends View {
         EventBus.getBus().register(this);
     }
 
-    public void setup(Bundle bundle) {
+    @SuppressWarnings("unchecked")
+	public void setup(Bundle bundle) {
         ObjectGraph.create(
                 new CommonMapper((Activity) getContext()),
                 new ListPostsServiceMapper(bundle),

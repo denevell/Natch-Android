@@ -1,13 +1,6 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.KeyEvent;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
+import javax.inject.Inject;
 
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
@@ -21,14 +14,18 @@ import org.denevell.droidnatch.posts.list.di.AddPostServicesMapper;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 
-import javax.inject.Inject;
-
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.KeyEvent;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import dagger.ObjectGraph;
 
 public class AddPostTextEditActivator extends EditTextHideKeyboard implements
-        Activator,OnEditorActionListener {
+        Activator<AddPostResourceReturnData>,OnEditorActionListener {
     
-    private EditText mEditText;
     private GenericUiObserver mCallback;
     @Inject ServiceFetcher<AddPostResourceReturnData> addPostService;
     @Inject AddPostResourceInput addPostResourceInput;
@@ -47,14 +44,15 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
 
     public void setup(Bundle arguments) {
         inject(arguments);
-        UiEventThenServiceThenUiEvent addPostController =
-                new UiEventThenServiceThenUiEvent (
+		@SuppressWarnings("unchecked")
+        UiEventThenServiceThenUiEvent<AddPostResourceReturnData> addPostController =
+                new UiEventThenServiceThenUiEvent<AddPostResourceReturnData> (
                         this,
                         addPostService,
                         null,
-                        new Receiver() {
+                        new Receiver<AddPostResourceReturnData>() {
                             @Override
-                            public void success(Object result) {
+                            public void success(AddPostResourceReturnData result) {
                                 EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts());
                             }
                             @Override public void fail(FailureResult r) { }
@@ -79,7 +77,7 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
     }
 
     @Override
-    public void success(Object result) {
+    public void success(AddPostResourceReturnData result) {
         setText("");
     }
 

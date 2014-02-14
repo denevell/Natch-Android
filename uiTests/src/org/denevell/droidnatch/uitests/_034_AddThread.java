@@ -15,10 +15,10 @@ import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewA
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
-public class _34_AddThread extends NatchAndroidInstrumentationTestCase2 {
+public class _034_AddThread extends NatchAndroidInstrumentationTestCase2 {
 
     @SuppressWarnings("deprecation")
-    public _34_AddThread() throws Exception {
+    public _034_AddThread() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
     }
 

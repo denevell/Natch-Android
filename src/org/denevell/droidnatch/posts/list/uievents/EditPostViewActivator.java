@@ -62,14 +62,15 @@ public class EditPostViewActivator extends LinearLayout implements
         mContent.setText(mPost.getContent());
         mButton.setOnClickListener(this);
         inject();
-        Controller addThreadController =
+		@SuppressWarnings("unchecked")
+		Controller addThreadController =
                 new UiEventThenServiceThenUiEvent<EditPostResourceReturnData>(
                         this,
                         mEditPostService,
                         null,
-                        new Receiver() {
+                        new Receiver<EditPostResourceReturnData>() {
                             @Override
-                            public void success(Object result) {
+                            public void success(EditPostResourceReturnData result) {
                                 EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts());
                             }
                             @Override public void fail(FailureResult r) { }

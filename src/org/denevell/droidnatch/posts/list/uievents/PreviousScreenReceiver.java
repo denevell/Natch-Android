@@ -4,6 +4,7 @@ import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 
+@SuppressWarnings("rawtypes")
 public class PreviousScreenReceiver implements Receiver {
 
     @SuppressWarnings("unused")

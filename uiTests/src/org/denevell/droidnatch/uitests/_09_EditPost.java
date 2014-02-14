@@ -8,27 +8,26 @@ import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
 
-import java.util.Date;
-
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.clearText;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.closeSoftKeyboard;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
-import static org.denevell.droidnatch.uitests.CustomMatchers.listViewHasElements;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 
-public class _8_DeletePost extends NatchAndroidInstrumentationTestCase2 {
+public class _09_EditPost extends NatchAndroidInstrumentationTestCase2 {
 
     @SuppressWarnings("deprecation")
-    public _8_DeletePost() throws Exception {
+    public _09_EditPost() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
     }
 
@@ -41,26 +40,28 @@ public class _8_DeletePost extends NatchAndroidInstrumentationTestCase2 {
         getActivity();
     }
 
-    public void test_1_DeletePost() throws Exception {
-        String date = new Date().toString();
-        new AddThreadPO().addThread("New thread to open"+date, "New thread to open"+date);
+    public void test_1_EditPost() throws Exception {
+        new AddThreadPO().addThread("New thread", "New thread");
 
         onView(withId(R.id.list_posts_addpost_edittext))
                 .perform(typeText("New post in thread"), pressImeActionButton());
-
-        onView(withId(R.id.list_posts_listview))
-                .check(matches(listViewHasElements(2)));
 
         onData(allOf(is(instanceOf(PostResource.class))))
                 .atPosition(1)
                 .perform(longClick());
 
-        onView(withText("Delete post"))
+        onView(withText("Edit post"))
                 .perform(click());
 
-        onView(withId(R.id.list_posts_listview))
-                .check(matches(listViewHasElements(1)));
+        onView(withId(R.id.edit_post_edittext)).perform(clearText(), typeText("Edited"), pressImeActionButton());
 
+        closeSoftKeyboard(); Thread.sleep(100);
+
+        onView(withText("Edit")).perform(click());
+
+        onData(allOf(is(instanceOf(PostResource.class))))
+                .atPosition(1)
+                .check(matches(is(withText("Edited"))));
     }
 
 }

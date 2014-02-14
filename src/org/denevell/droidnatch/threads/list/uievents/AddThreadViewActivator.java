@@ -1,16 +1,8 @@
 package org.denevell.droidnatch.threads.list.uievents;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v4.app.FragmentActivity;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import java.util.Arrays;
+
+import javax.inject.Inject;
 
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
@@ -25,10 +17,17 @@ import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.natch.android.R;
 
-import java.util.Arrays;
-
-import javax.inject.Inject;
-
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.v4.app.FragmentActivity;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import dagger.ObjectGraph;
 
 public class AddThreadViewActivator extends LinearLayout implements
@@ -66,7 +65,8 @@ public class AddThreadViewActivator extends LinearLayout implements
         super.onAttachedToWindow();
         mButton.setOnClickListener(this);
         inject();
-        Controller addThreadController =
+        @SuppressWarnings("unchecked")
+		Controller addThreadController =
                 new UiEventThenServiceThenUiEvent<AddPostResourceReturnData>(
                         this,
                         addPostService,

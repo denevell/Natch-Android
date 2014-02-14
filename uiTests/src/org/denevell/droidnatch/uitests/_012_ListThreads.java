@@ -12,10 +12,10 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static org.denevell.droidnatch.uitests.CustomMatchers.listViewHasElements;
 
-public class _12_ListThreads extends NatchAndroidInstrumentationTestCase2 {
+public class _012_ListThreads extends NatchAndroidInstrumentationTestCase2 {
 
     @SuppressWarnings("deprecation")
-    public _12_ListThreads() throws Exception {
+    public _012_ListThreads() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
     }
 

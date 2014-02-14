@@ -1,11 +1,6 @@
 package org.denevell.droidnatch.threads.list.uievents;
 
-import android.app.Activity;
-import android.content.Context;
-import android.util.AttributeSet;
-import android.view.View;
-
-import com.squareup.otto.Subscribe;
+import javax.inject.Inject;
 
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
@@ -23,11 +18,16 @@ import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnDat
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
-import javax.inject.Inject;
+import android.app.Activity;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.View;
+
+import com.squareup.otto.Subscribe;
 
 import dagger.ObjectGraph;
 
-public class LongClickDeleteActivator extends View implements Activator {
+public class LongClickDeleteActivator extends View implements Activator<DeletePostResourceReturnData> {
     
     @Inject VolleyRequest<DeletePostResourceReturnData> mDeleteRequest;
     private GenericUiObserver mCallback;
@@ -44,7 +44,8 @@ public class LongClickDeleteActivator extends View implements Activator {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        Controller deleteThreadController =
+        @SuppressWarnings("unchecked")
+		Controller deleteThreadController =
             new UiEventThenServiceThenUiEvent<DeletePostResourceReturnData>(
                 this,
                 deleteThreadService,
@@ -83,7 +84,7 @@ public class LongClickDeleteActivator extends View implements Activator {
     }
 
     @Override
-    public void success(Object result) {
+    public void success(DeletePostResourceReturnData result) {
     }
 
     @Override

@@ -1,23 +1,19 @@
 package org.denevell.droidnatch.threads.list.uievents;
 
-import android.util.Log;
-import android.widget.EditText;
+import java.util.HashMap;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 
-import java.util.HashMap;
+import android.util.Log;
 
 public class OpenNewThreadReceiver implements
         Receiver<AddPostResourceReturnData> {
 
     private static final String TAG = OpenNewThreadReceiver.class.getSimpleName();
-    private EditText mEditText;
-    private AddPostResourceInput mResourceInput;
     private ScreenOpener mScreenOpener;
 
     public OpenNewThreadReceiver(ScreenOpener screenOpener) {

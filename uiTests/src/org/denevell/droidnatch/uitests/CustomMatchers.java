@@ -1,5 +1,6 @@
 package org.denevell.droidnatch.uitests;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ListView;
@@ -20,6 +21,27 @@ public class CustomMatchers {
                 @SuppressWarnings("rawtypes")
                 Adapter adapter = ((ListView) view).getAdapter();
                 if(adapter.getCount()>0) {
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("list view has elements");
+            }
+        };
+    }
+
+    public static Matcher<View> viewHasActivityTitle(final String suggestedTitle) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public boolean matchesSafely(View view) {
+                if (!(view instanceof View)) {
+                    return false;
+                }
+                String title = ((Activity) view.getContext()).getTitle().toString();
+                if(title.equals(suggestedTitle)) {
                     return true;
                 }
                 return false;
