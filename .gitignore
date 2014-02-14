@@ -9,3 +9,4 @@ gen/
 .DS_Store
 .settings
 .classpath
+/.apt_generated
