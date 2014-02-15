@@ -3,8 +3,10 @@ package org.denevell.droidnatch.posts.list.uievents;
 import javax.inject.Inject;
 
 import org.denevell.droidnatch.AppWideMapper;
+import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
+import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.Receiver;
@@ -30,15 +32,10 @@ public class ListPostsViewStarter extends View {
     public static class CallControllerListPosts {}
     @Inject ServiceFetcher<ThreadResource> listPostsService;
     @Inject Receiver<ThreadResource> listViewReceivingUiObject;
+    @Inject ListPostsPaginationObject mPaginationObject;
 
     public ListPostsViewStarter(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        EventBus.getBus().register(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -60,8 +57,15 @@ public class ListPostsViewStarter extends View {
     }
 
     @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        EventBus.getBus().register(this);
+    }
+
+    @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        EventBus.getBus().unregister(this);
     }
 
     @Subscribe
@@ -69,5 +73,10 @@ public class ListPostsViewStarter extends View {
         if(controller!=null) {
             controller.onUiEventActivated();
         }
+    }
+
+    @Subscribe
+    public void resetPaginationObject(ObservableFragment.FragmentStopped event) {
+    	mPaginationObject.range = mPaginationObject.defaultRange;
     }
 }

@@ -3,6 +3,7 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * Use a lower resource hungry emulator in the docker container.
+* Bug: Thread title on edit and rotation
 * UI TEST: I should be able to press more to see more threads
 * UI TEST: I should be able to press more to see more posts 
 

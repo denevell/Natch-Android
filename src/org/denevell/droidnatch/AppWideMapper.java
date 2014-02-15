@@ -11,10 +11,11 @@ public class AppWideMapper {
     public static class PaginationObject {
         public int start = 0;
         public int range = 5;
+        public int defaultRange = 5;
 		public long totalNumber = 0;
     }
 
-	public class ListPostsPaginationObject extends PaginationObject { }
+	public class ListPostsPaginationObject extends PaginationObject {}
 	public class ListThreadsPaginationObject extends PaginationObject { }
 
 	private static AppWideMapper sStaticInstance;
