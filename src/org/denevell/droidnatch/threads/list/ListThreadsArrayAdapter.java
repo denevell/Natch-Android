@@ -21,4 +21,5 @@ public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
         v.setText(o.getSubject());
         return v;
     }
+    
 }

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.inject.Singleton;
 
+import org.denevell.droidnatch.EventBus;
+import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
@@ -12,11 +14,13 @@ import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.TypeAdapter;
+import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
 import org.denevell.droidnatch.threads.list.ListThreadsArrayAdapter;
 import org.denevell.droidnatch.threads.list.ListThreadsContextMenu;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
+import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper.PaginationObject;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
@@ -25,6 +29,9 @@ import org.denevell.natch.android.R;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import dagger.Module;
 import dagger.Provides;
 
@@ -64,10 +71,27 @@ public class ListThreadsUiEventMapper {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	@Provides @Singleton 
-    public ClickableListView<ThreadResource> providesListView() {
+    public ClickableListView<ThreadResource> providesListView(
+    		final PaginationObject pagination,
+    		final VolleyRequest<ListThreadsResource> request) {
+
         ClickableListView listView = (ClickableListView) mActivity.findViewById(R.id.list_threads_listview);
         listView.setKeyboadHider(new HideKeyboard());
         listView.setOnCreateContextMenuListener(new ListThreadsContextMenu());
+        Button button = new Button(mActivity);
+        button.setText("More");
+        button.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if(pagination.start+pagination.range<pagination.totalNumber) {
+					pagination.start+=1;
+				}
+				String url = Urls.getBasePath() + mActivity.getString(R.string.url_threads) + "" + pagination.start + "/" + pagination.range;
+				request.setUrl(url);
+				EventBus.getBus().post(new ListThreadsViewStarter.CallControllerListThreads());
+			}
+		});
+		listView.addFooterView(button);
         return listView;
     }
 

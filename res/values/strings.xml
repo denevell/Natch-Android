@@ -3,7 +3,7 @@
     <string name="app_name">Droidnatch</string>
     <string name="services_session_id">784fd3f6-1ca2-4521-97ed-2ffbe04350b1</string>
     <string name="url_baseurl">http://denevell.org:8912/Natch-REST-ForAutomatedTests/rest/</string>
-    <string name="url_threads">threads/0/100</string>
+    <string name="url_threads">threads/</string>
     <string name="url_posts">post/thread/{thread_id}/0/100</string>
     <string name="url_addthread">post/addthread</string>
     <string name="url_add_post">post/add</string>

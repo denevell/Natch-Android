@@ -9,6 +9,8 @@ import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThe
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper;
+import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper.PaginationObject;
+import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper.PaginationUpdater;
 import org.denevell.droidnatch.threads.list.di.ListThreadsUiEventMapper;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 
@@ -24,8 +26,10 @@ import dagger.ObjectGraph;
 
 public class ListThreadsViewStarter extends View {
 
-    @Inject ServiceFetcher<ListThreadsResource> listThreadsService;
-    @Inject Receiver<ListThreadsResource> listViewReceivingUiObject;
+    @Inject ServiceFetcher<ListThreadsResource> mListThreadsService;
+    @Inject Receiver<ListThreadsResource> mListViewReceivingUiObject;
+    @Inject PaginationObject mPaginationObject;
+    @Inject PaginationUpdater mPaginationUpdater;
     private UiEventThenServiceThenUiEvent<ListThreadsResource> controller;
 
     public static class CallControllerListThreads {}
@@ -50,9 +54,9 @@ public class ListThreadsViewStarter extends View {
         createObjectGraph();
         controller = new UiEventThenServiceThenUiEvent<ListThreadsResource>(
                 null,
-                listThreadsService,
+                mListThreadsService,
                 null,
-                listViewReceivingUiObject).setup();
+                mListViewReceivingUiObject, mPaginationUpdater).setup();
         EventBus.getBus().register(this);
     }
 
