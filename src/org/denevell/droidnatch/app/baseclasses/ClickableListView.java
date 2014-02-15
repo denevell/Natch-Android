@@ -1,5 +1,10 @@
 package org.denevell.droidnatch.app.baseclasses;
 
+import java.util.ArrayList;
+
+import org.denevell.droidnatch.EventBus;
+import org.denevell.droidnatch.app.interfaces.OnPressObserver;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -9,11 +14,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.squareup.otto.Subscribe;
-
-import org.denevell.droidnatch.EventBus;
-import org.denevell.droidnatch.app.interfaces.OnPressObserver;
-
-import java.util.ArrayList;
 
 public class ClickableListView<T> extends ListView implements
                OnPressObserver<T>,
@@ -31,12 +31,6 @@ public class ClickableListView<T> extends ListView implements
             this.title = title;
             this.index = index;
         }
-    }
-
-    public static class ListThreadsPaginationObject {
-        public int start = 0;
-        public int range = 5;
-		public long totalNumber = 0;
     }
 
     private HideKeyboard mHideKeyboard;

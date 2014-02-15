@@ -2,8 +2,8 @@ package org.denevell.droidnatch.threads.list.di;
 
 import javax.inject.Singleton;
 
+import org.denevell.droidnatch.AppWideMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.Urls;
-import org.denevell.droidnatch.app.baseclasses.ClickableListView.ListThreadsPaginationObject;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestGET;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
@@ -46,7 +46,8 @@ public class ListThreadsServiceMapper {
     }
 
     @Provides @Singleton
-    public VolleyRequest<ListThreadsResource> providesRequest(Context appContext, ListThreadsPaginationObject pagination) {
+    public VolleyRequest<ListThreadsResource> providesRequest(Context appContext, 
+    		ListThreadsPaginationObject pagination) {
         String url = Urls.getBasePath() + appContext.getString(R.string.url_threads) + "" + pagination.start + "/" + pagination.range;
         VolleyRequestGET<ListThreadsResource> v = 
                 new VolleyRequestGET<ListThreadsResource>();

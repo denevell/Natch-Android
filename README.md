@@ -4,7 +4,7 @@ The Android client to the Natch REST project.
 
 * Use a lower resource hungry emulator in the docker container.
 * UI TEST: I should be able to press more to see more threads
-* I should be able to press more to see more posts 
+* UI TEST: I should be able to press more to see more posts 
 
 ## Ice-box
 

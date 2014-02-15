@@ -6,10 +6,10 @@ import java.util.List;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.denevell.droidnatch.AppWideMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
-import org.denevell.droidnatch.app.baseclasses.ClickableListView.ListThreadsPaginationObject;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent.AvailableItems;

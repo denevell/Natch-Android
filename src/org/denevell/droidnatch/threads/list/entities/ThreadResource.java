@@ -1,9 +1,12 @@
 package org.denevell.droidnatch.threads.list.entities;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import org.denevell.droidnatch.posts.list.entities.PostResource;
 
 public class ThreadResource {
 
@@ -15,6 +18,7 @@ public class ThreadResource {
 	private long creation;
 	private long modification;
 	private long rootPostId;
+    private List<PostResource> posts = new ArrayList<PostResource>();
 	
 	public ThreadResource(ThreadResource tr) {
 		subject = tr.subject;
@@ -118,7 +122,9 @@ public class ThreadResource {
         return dateString;
 	}
 
-
+    public List<PostResource> getPosts() {
+        return posts;
+    }
 
     public long getRootPostId() {
         return rootPostId;

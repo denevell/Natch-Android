@@ -2,16 +2,24 @@ package org.denevell.droidnatch;
 
 import javax.inject.Singleton;
 
-import org.denevell.droidnatch.app.baseclasses.ClickableListView.ListThreadsPaginationObject;
-
 import dagger.Module;
 import dagger.Provides;
 
 @Module(library=true, complete=false)
 public class AppWideMapper {
 	
+    public static class PaginationObject {
+        public int start = 0;
+        public int range = 5;
+		public long totalNumber = 0;
+    }
+
+	public class ListPostsPaginationObject extends PaginationObject { }
+	public class ListThreadsPaginationObject extends PaginationObject { }
+
 	private static AppWideMapper sStaticInstance;
-	private static ListThreadsPaginationObject sPaginationObject;
+	private static ListPostsPaginationObject sPostsPaginationObject;
+	private static ListThreadsPaginationObject sThreadsPaginationObject;
 	private AppWideMapper() {}
 
 	public static AppWideMapper getInstance() {
@@ -25,10 +33,18 @@ public class AppWideMapper {
 
     @Provides @Singleton
     public ListThreadsPaginationObject threadsPaginationObject() {
-    	if(sPaginationObject==null) {
-    		sPaginationObject = new ListThreadsPaginationObject();
+    	if(sThreadsPaginationObject==null) {
+    		sThreadsPaginationObject = new ListThreadsPaginationObject();
     	}
-		return sPaginationObject;
+		return sThreadsPaginationObject;
+    }
+
+    @Provides @Singleton
+    public ListPostsPaginationObject postsPaginationObject() {
+    	if(sPostsPaginationObject==null) {
+    		sPostsPaginationObject = new ListPostsPaginationObject();
+    	}
+		return sPostsPaginationObject;
     }
 
 }
