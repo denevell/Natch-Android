@@ -3,8 +3,10 @@ package org.denevell.droidnatch.threads.list.di;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.denevell.droidnatch.AppWideMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
@@ -20,7 +22,6 @@ import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
 import org.denevell.droidnatch.threads.list.ListThreadsArrayAdapter;
 import org.denevell.droidnatch.threads.list.ListThreadsContextMenu;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
-import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper.PaginationObject;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
@@ -38,7 +39,8 @@ import dagger.Provides;
 @Module(injects = {ListThreadsFragment.class, ListThreadsViewStarter.class, ListPostsViewStarter.class}, complete=false, library=true)
 public class ListThreadsUiEventMapper {
     
-    public static final String PROVIDES_LIST_THREADS_LIST_CLICK = "list_threads_list_click";
+    public static final String PROVIDES_LIST_THREADS_PAGINATION_BUTTON = "List view pagination button";
+	public static final String PROVIDES_LIST_THREADS_LIST_CLICK = "list_threads_list_click";
     private static final String TAG = ListThreadsUiEventMapper.class.getSimpleName();
     private Activity mActivity;
 
@@ -72,28 +74,35 @@ public class ListThreadsUiEventMapper {
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	@Provides @Singleton 
     public ClickableListView<ThreadResource> providesListView(
-    		final PaginationObject pagination,
-    		final VolleyRequest<ListThreadsResource> request) {
-
+    		@Named(PROVIDES_LIST_THREADS_PAGINATION_BUTTON) Button moreButton) {
         ClickableListView listView = (ClickableListView) mActivity.findViewById(R.id.list_threads_listview);
         listView.setKeyboadHider(new HideKeyboard());
         listView.setOnCreateContextMenuListener(new ListThreadsContextMenu());
-        Button button = new Button(mActivity);
+		listView.addFooterView(moreButton);
+        return listView;
+    }
+
+    @Provides @Singleton @Named(PROVIDES_LIST_THREADS_PAGINATION_BUTTON)
+    public Button providesOnPaginationButton(
+    		final VolleyRequest<ListThreadsResource> request,
+    		final ListThreadsPaginationObject pagination) {
+        final Button button = new Button(mActivity);
         button.setText("More");
         button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				if(pagination.start+pagination.range<pagination.totalNumber) {
 					pagination.range+=1;
+				    String url = Urls.getBasePath() + mActivity.getString(R.string.url_threads) + "" + pagination.start + "/" + pagination.range;
+				    request.setUrl(url);
+				    EventBus.getBus().post(new ListThreadsViewStarter.CallControllerListThreads());
+				} else {
+					button.setVisibility(View.GONE);
 				}
-				String url = Urls.getBasePath() + mActivity.getString(R.string.url_threads) + "" + pagination.start + "/" + pagination.range;
-				request.setUrl(url);
-				EventBus.getBus().post(new ListThreadsViewStarter.CallControllerListThreads());
 			}
 		});
-		listView.addFooterView(button);
-        return listView;
-    }
+        return button;
+	}
 
     @Provides @Singleton 
     public OnPress<ThreadResource> providesOnListClickAction(

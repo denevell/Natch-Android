@@ -2,6 +2,7 @@ package org.denevell.droidnatch.threads.list.uievents;
 
 import javax.inject.Inject;
 
+import org.denevell.droidnatch.AppWideMapper;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
@@ -9,7 +10,6 @@ import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThe
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper;
-import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper.PaginationObject;
 import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper.PaginationUpdater;
 import org.denevell.droidnatch.threads.list.di.ListThreadsUiEventMapper;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
@@ -28,7 +28,6 @@ public class ListThreadsViewStarter extends View {
 
     @Inject ServiceFetcher<ListThreadsResource> mListThreadsService;
     @Inject Receiver<ListThreadsResource> mListViewReceivingUiObject;
-    @Inject PaginationObject mPaginationObject;
     @Inject PaginationUpdater mPaginationUpdater;
     private UiEventThenServiceThenUiEvent<ListThreadsResource> controller;
 
@@ -40,6 +39,7 @@ public class ListThreadsViewStarter extends View {
 
     private void createObjectGraph() {
         ObjectGraph.create(
+        		AppWideMapper.getInstance(),
                 new CommonMapper((Activity) getContext()),
                 new ScreenOpenerMapper((FragmentActivity) getContext()),
                 new ListThreadsServiceMapper(),
