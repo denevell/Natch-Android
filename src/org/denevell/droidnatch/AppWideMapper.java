@@ -31,7 +31,7 @@ public class AppWideMapper {
 
     public static class ListThreadsPaginationObject {
         public int start = 0;
-        public int range = 2;
+        public int range = 5;
 		public long totalNumber = 0;
     }
 
