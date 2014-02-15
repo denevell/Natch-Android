@@ -2,6 +2,8 @@ package org.denevell.droidnatch;
 
 import javax.inject.Singleton;
 
+import org.denevell.droidnatch.app.baseclasses.ClickableListView.ListThreadsPaginationObject;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -27,12 +29,6 @@ public class AppWideMapper {
     		sPaginationObject = new ListThreadsPaginationObject();
     	}
 		return sPaginationObject;
-    }
-
-    public static class ListThreadsPaginationObject {
-        public int start = 0;
-        public int range = 5;
-		public long totalNumber = 0;
     }
 
 }

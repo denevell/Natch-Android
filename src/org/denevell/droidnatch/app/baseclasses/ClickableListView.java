@@ -32,6 +32,13 @@ public class ClickableListView<T> extends ListView implements
             this.index = index;
         }
     }
+
+    public static class ListThreadsPaginationObject {
+        public int start = 0;
+        public int range = 5;
+		public long totalNumber = 0;
+    }
+
     private HideKeyboard mHideKeyboard;
     private ArrayList<OnPress<T>> mPressListeners = new ArrayList<OnPressObserver.OnPress<T>>();
 

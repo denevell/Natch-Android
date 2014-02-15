@@ -42,7 +42,9 @@ public class ListPostsUiEventMapper {
                         arrayAdapter, 
                         null,
                         appContext,
-                        new ListPostsResourceToArrayList());
+                        new ListPostsResourceToArrayList(),
+                        null,
+                        null);
         return displayer;
     } 
 

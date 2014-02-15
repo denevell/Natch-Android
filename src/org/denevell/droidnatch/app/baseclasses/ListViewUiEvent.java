@@ -1,5 +1,11 @@
 package org.denevell.droidnatch.app.baseclasses;
 
+import java.util.List;
+
+import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
+import org.denevell.droidnatch.app.interfaces.Receiver;
+import org.denevell.droidnatch.app.interfaces.TypeAdapter;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -8,33 +14,37 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.Receiver;
-import org.denevell.droidnatch.app.interfaces.TypeAdapter;
-
-import java.util.List;
-
 public class ListViewUiEvent<T, U extends List<T>, S> implements
         Receiver<S>, ProgressIndicator{
     
-    private static final String TAG = ListViewUiEvent.class.getSimpleName();
+    public interface AvailableItems<S> {
+    	int getTotalAvailableForList(S ob);
+	}
+
+	private static final String TAG = ListViewUiEvent.class.getSimpleName();
     private final TypeAdapter<S,U> mTypeAdapter;
     private ArrayAdapter<T> mListAdapter;
     private ListView mList;
     private Context mAppContext;
     private View mLoadingView;
+	private AvailableItems<S> mAvailableItems;
+	private View mPaginationButton;
 
     public ListViewUiEvent(
             ListView list,
             ArrayAdapter<T> adapter,
             View loadingView,
             Context appContext,
-            TypeAdapter<S, U> typeAdapter) {
+            TypeAdapter<S, U> typeAdapter,
+            AvailableItems<S> availableItems,
+            View paginationButton) {
         mListAdapter = adapter;
         mList = list;
         mLoadingView = loadingView;
         mAppContext = appContext;
         mTypeAdapter = typeAdapter;
+        mAvailableItems = availableItems;
+        mPaginationButton = paginationButton;
     }
 
     /**
@@ -65,6 +75,21 @@ public class ListViewUiEvent<T, U extends List<T>, S> implements
         U converted = mTypeAdapter.convert(result);
         mListAdapter.addAll(converted);
         mList.setAdapter(mListAdapter);
+        int availableForList = totalAvailableForList(result);
+        if(mList.getFooterViewsCount()==0 && availableForList>converted.size() && mPaginationButton!=null) {
+			mList.addFooterView(mPaginationButton);
+        }
+        if(mList.getFooterViewsCount()!=0 && availableForList<=converted.size() && mPaginationButton!=null) { 
+			mList.removeFooterView(mPaginationButton);
+        }
+    }
+    
+    private int totalAvailableForList(S object) {
+    	if(mAvailableItems==null) {
+    		return 0;
+    	} else {
+    		return mAvailableItems.getTotalAvailableForList(object);
+    	}
     }
 
     @Override
@@ -74,7 +99,6 @@ public class ListViewUiEvent<T, U extends List<T>, S> implements
             s = fail.getErrorMessage();
         }
         Toast.makeText(mAppContext, s, Toast.LENGTH_LONG).show();
-
     }
 
     @Override

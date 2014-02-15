@@ -3,6 +3,8 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * Use a lower resource hungry emulator in the docker container.
+* UI TEST: I should be able to press more to see more threads
+* I should be able to press more to see more posts 
 
 ## Ice-box
 
@@ -34,9 +36,7 @@ The Android client to the Natch REST project.
 * I shouldn't add the thread on empty editext
 * I should see empty screen on no threads
 * I should keep the found threads on rotate / onResume / app close
-* I should be able to press more to see more threads
-* I should see how many more pages there are to view
-* I should be able to set the numbers of threads shown
+* I should be able to keep the position of the refreshed list
 
 --
 

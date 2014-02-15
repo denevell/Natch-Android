@@ -6,12 +6,13 @@ import java.util.List;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import org.denevell.droidnatch.AppWideMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
+import org.denevell.droidnatch.app.baseclasses.ClickableListView.ListThreadsPaginationObject;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
+import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent.AvailableItems;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
@@ -53,7 +54,9 @@ public class ListThreadsUiEventMapper {
             Context appContext, 
             ClickableListView<ThreadResource> listView,
             // We're taking in the OnPress simply so it's constructed.
-            OnPress<ThreadResource> listClickListener) {
+            OnPress<ThreadResource> listClickListener,
+    		@Named(PROVIDES_LIST_THREADS_PAGINATION_BUTTON) Button moreButton
+    		) {
         //View loadingListView = mActivity.findViewById(R.id.list_threads_loading);
         ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(appContext, R.layout.list_threads_row);
         ListViewUiEvent<ThreadResource, List<ThreadResource>, ListThreadsResource> displayer =
@@ -67,18 +70,24 @@ public class ListThreadsUiEventMapper {
                             public List<ThreadResource> convert(ListThreadsResource ob) {
                                 return ob.getThreads();
                             }
-                        });
+                        },
+                        new AvailableItems<ListThreadsResource>() {
+							@Override
+							public int getTotalAvailableForList(ListThreadsResource ob) {
+								if(ob==null) return 0;
+								else return (int) ob.getNumOfThreads();
+							}
+						},
+						moreButton);
         return displayer;
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	@Provides @Singleton 
-    public ClickableListView<ThreadResource> providesListView(
-    		@Named(PROVIDES_LIST_THREADS_PAGINATION_BUTTON) Button moreButton) {
+    public ClickableListView<ThreadResource> providesListView() {
         ClickableListView listView = (ClickableListView) mActivity.findViewById(R.id.list_threads_listview);
         listView.setKeyboadHider(new HideKeyboard());
         listView.setOnCreateContextMenuListener(new ListThreadsContextMenu());
-		listView.addFooterView(moreButton);
         return listView;
     }
 
@@ -91,14 +100,10 @@ public class ListThreadsUiEventMapper {
         button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				if(pagination.start+pagination.range<pagination.totalNumber) {
-					pagination.range+=1;
-				    String url = Urls.getBasePath() + mActivity.getString(R.string.url_threads) + "" + pagination.start + "/" + pagination.range;
-				    request.setUrl(url);
-				    EventBus.getBus().post(new ListThreadsViewStarter.CallControllerListThreads());
-				} else {
-					button.setVisibility(View.GONE);
-				}
+				pagination.range+=1;
+			    String url = Urls.getBasePath() + mActivity.getString(R.string.url_threads) + "" + pagination.start + "/" + pagination.range;
+			    request.setUrl(url);
+			    EventBus.getBus().post(new ListThreadsViewStarter.CallControllerListThreads());
 			}
 		});
         return button;
