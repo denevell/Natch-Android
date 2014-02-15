@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Droidnatch</string>
-    <string name="services_session_id">784fd3f6-1ca2-4521-97ed-2ffbe04350b1</string>
+    <string name="services_session_id">d29ca2b2-d315-4af7-97ce-0607dd9cf3f5</string>
     <string name="url_baseurl">http://denevell.org:8912/Natch-REST-ForAutomatedTests/rest/</string>
     <string name="url_threads">threads/</string>
     <string name="url_posts">post/thread/{thread_id}/0/100</string>

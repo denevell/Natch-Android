@@ -84,7 +84,7 @@ public class ListThreadsUiEventMapper {
 			@Override
 			public void onClick(View arg0) {
 				if(pagination.start+pagination.range<pagination.totalNumber) {
-					pagination.start+=1;
+					pagination.range+=1;
 				}
 				String url = Urls.getBasePath() + mActivity.getString(R.string.url_threads) + "" + pagination.start + "/" + pagination.range;
 				request.setUrl(url);

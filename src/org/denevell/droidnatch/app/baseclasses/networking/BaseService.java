@@ -82,7 +82,7 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
                 return;
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         if(mProgress!=null) {
             mProgress.stop();

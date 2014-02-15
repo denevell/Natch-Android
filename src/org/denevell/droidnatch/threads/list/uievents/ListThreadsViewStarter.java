@@ -63,6 +63,7 @@ public class ListThreadsViewStarter extends View {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        EventBus.getBus().unregister(this);
     }
 
     @Subscribe
