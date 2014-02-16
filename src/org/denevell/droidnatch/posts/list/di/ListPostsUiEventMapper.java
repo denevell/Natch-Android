@@ -76,7 +76,7 @@ public class ListPostsUiEventMapper {
         button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				pagination.range+=1;
+				pagination.paginate();
 			    String url = mActivity.getString(R.string.url_baseurl)+mActivity.getString(R.string.url_posts);
                 url = url.replace("{thread_id}", mTheadId);
                 url += pagination.start+"/"+pagination.range;

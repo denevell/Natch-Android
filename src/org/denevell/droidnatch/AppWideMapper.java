@@ -12,11 +12,14 @@ public class AppWideMapper {
         public int start = 0;
         public int range = 5;
         public int defaultRange = 5;
-		public long totalNumber = 0;
+        public int paginationMaximum = 5;
+		public void paginate() {
+			range=range+paginationMaximum;
+		}
     }
 
 	public class ListPostsPaginationObject extends PaginationObject {}
-	public class ListThreadsPaginationObject extends PaginationObject { }
+	public class ListThreadsPaginationObject extends PaginationObject {}
 
 	private static AppWideMapper sStaticInstance;
 	private static ListPostsPaginationObject sPostsPaginationObject;

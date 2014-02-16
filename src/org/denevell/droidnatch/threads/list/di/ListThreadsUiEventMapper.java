@@ -100,7 +100,7 @@ public class ListThreadsUiEventMapper {
         button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				pagination.range+=1;
+				pagination.paginate();
 			    String url = Urls.getBasePath() + mActivity.getString(R.string.url_threads) + "" + pagination.start + "/" + pagination.range;
 			    request.setUrl(url);
 			    EventBus.getBus().post(new ListThreadsViewStarter.CallControllerListThreads());
