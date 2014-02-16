@@ -1,41 +1,47 @@
 package org.denevell.droidnatch.app.views;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
+import android.view.Window;
 
 public class DialogueFragmentWithView extends DialogFragmentWithRotationFix {
-	public View mView;
+	
+	public static interface InitialiseView {
+		public void intialise(View v, DialogFragment df);
+	}
+	
+	public int mLayout;
+	public InitialiseView mInitView;
 
-	public static DialogueFragmentWithView getInstance(View view) {
+	public static DialogueFragmentWithView getInstance(int view, InitialiseView initView) {
 		DialogueFragmentWithView instance = new DialogueFragmentWithView();
-		instance.mView = view;
+		instance.mLayout = view;
+		instance.mInitView = initView;
 		return instance;
 	}
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		setRetainInstance(true);
-		if (getDialog() != null) {
-			return getDialog();
-		} else {
-			return new AlertDialog.Builder(getActivity()).setView(mView)
-					.create();
-		}
+		Dialog onCreateDialog = super.onCreateDialog(savedInstanceState);
+		onCreateDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		return onCreateDialog;
 	}
-
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = LayoutInflater.from(getActivity()).inflate(mLayout, container, false);
+		if(mInitView!=null) mInitView.intialise(view, this);
+		return view;
+	}
+	
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		View view = mView;
-		if (view != null && view.getParent() != null
-				&& view.getParent() instanceof ViewGroup) {
-			ViewParent parent = view.getParent();
-			((ViewGroup) parent).removeView(view);
-		}
 	}
 
 }

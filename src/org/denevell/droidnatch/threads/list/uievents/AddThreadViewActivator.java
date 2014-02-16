@@ -72,7 +72,7 @@ public class AddThreadViewActivator extends LinearLayout implements
                         new OpenNewThreadReceiver(screenOpener));
         addThreadController.setup();
     }
-
+    
     @Override
     public void setOnSubmitObserver(GenericUiObserver observer) {
         mCallback = observer;

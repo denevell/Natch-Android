@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="lib" path="/home/user/android-sdks/extras/android/support/v4/android-support-v4.jar" sourcepath="/home/user/android-sdks/extras/android/support/v4/src/java"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry excluding="**/*Tests.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>

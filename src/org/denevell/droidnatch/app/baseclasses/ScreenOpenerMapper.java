@@ -1,11 +1,8 @@
 package org.denevell.droidnatch.app.baseclasses;
 
-import android.support.v4.app.FragmentActivity;
-
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 
-import javax.inject.Singleton;
-
+import android.support.v4.app.FragmentActivity;
 import dagger.Module;
 import dagger.Provides;
 

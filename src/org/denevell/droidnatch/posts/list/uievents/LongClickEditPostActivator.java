@@ -3,10 +3,13 @@ package org.denevell.droidnatch.posts.list.uievents;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.views.ClickableListView;
 import org.denevell.droidnatch.app.views.DialogueFragmentWithView;
+import org.denevell.droidnatch.app.views.DialogueFragmentWithView.InitialiseView;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
+import org.denevell.natch.android.R;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.View;
@@ -37,20 +40,30 @@ public class LongClickEditPostActivator extends View {
     }
 
     @Subscribe
-    public void onLongPress(ClickableListView.LongPressListViewEvent obj) {
+    public void onLongPress(final ClickableListView.LongPressListViewEvent obj) {
         if(obj.index!=0 && obj.ob instanceof PostResource && obj.title.equals("Edit post")) {
-            EditPostViewActivator view = new EditPostViewActivator(mActivity, null);
-            view.setPost((PostResource) obj.ob);
 
-            final DialogueFragmentWithView df = DialogueFragmentWithView.getInstance(view);
+			InitialiseView initView = new InitialiseView() {
+				@Override
+				public void intialise(View v, final DialogFragment df) {
+					if (v instanceof EditPostViewActivator) {
+						EditPostViewActivator view = (EditPostViewActivator) v;
+						view.setPost((PostResource) obj.ob);
+						view.setSuccessCallback(new Runnable() {
+							@Override
+							public void run() {
+								df.getDialog().dismiss();
+							}
+						});
+					}
+				}
+			};
+
+            final DialogueFragmentWithView df = 
+            		DialogueFragmentWithView.getInstance(
+            				R.layout.edit_post_dialogue_layout, 
+            				initView);
             df.setArguments(new Bundle());
-
-            view.setSuccessCallback(new Runnable() {
-                @Override
-                public void run() {
-                    df.getDialog().dismiss();
-                }
-            });
 
             mActivity.getSupportFragmentManager().beginTransaction().add(df, "editthread_dialogue").commit();
         }
