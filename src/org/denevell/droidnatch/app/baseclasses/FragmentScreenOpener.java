@@ -34,7 +34,7 @@ public class FragmentScreenOpener implements ScreenOpener {
             .beginTransaction()
             .addToBackStack(newInstance.getClass().getSimpleName())
             .replace(R.id.fragment_holder, newInstance) 
-            .commit();            
+            .commitAllowingStateLoss();            
         } catch (Exception e) {
             Log.e(TAG, "Couldn't open screen: " + screenClass, e);
         }

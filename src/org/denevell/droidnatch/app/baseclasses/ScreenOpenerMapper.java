@@ -19,7 +19,7 @@ public class ScreenOpenerMapper {
         mActivity = mainPageActivity;
     }
 
-    @Provides @Singleton
+    @Provides 
     public ScreenOpener providesScreenOpener() {
         return new FragmentScreenOpener(mActivity);
     }

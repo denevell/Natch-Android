@@ -42,7 +42,8 @@ public class AddThreadUiEventMapper {
 					}
 				});
                 df.setArguments(new Bundle());
-                mActivity.getSupportFragmentManager().beginTransaction().add(df, "tag").commit();
+                df.show(mActivity.getSupportFragmentManager(), "tag");
+                //mActivity.getSupportFragmentManager().beginTransaction().add(df, "tag").commit();
             }
             @Override public void fail(FailureResult r) { }
         };

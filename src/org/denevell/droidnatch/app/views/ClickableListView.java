@@ -65,7 +65,7 @@ public class ClickableListView<T> extends ListView implements
     }
 
     @Subscribe
-    public void onContextItemSelected(ObservableFragment.MenuItemHolder item) {
+    public void onContextItemSelected(ObservableFragment.ContextMenuItemHolder item) {
         try {
             Log.v(TAG, "Long press issued");
             AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.item.getMenuInfo();
