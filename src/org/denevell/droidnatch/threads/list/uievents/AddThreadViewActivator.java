@@ -19,8 +19,6 @@ import org.denevell.natch.android.R;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -73,28 +71,6 @@ public class AddThreadViewActivator extends LinearLayout implements
                         null,
                         new OpenNewThreadReceiver(screenOpener));
         addThreadController.setup();
-    }
-
-    public Parcelable getInstanceState() {
-        Bundle b = new Bundle();
-        b.putParcelable("subject", mSubject.onSaveInstanceState());
-        b.putParcelable("content", mContent.onSaveInstanceState());
-        b.putParcelable("tags", mTags.onSaveInstanceState());
-        b.putParcelable("state", onSaveInstanceState());
-        return b;
-    }
-
-    public void setInstanceState(Parcelable p) {
-        if(p instanceof Bundle) {
-            Bundle b = (Bundle) p;
-            mSubject.onRestoreInstanceState(b.getParcelable("subject"));
-            mContent.onRestoreInstanceState(b.getParcelable("content"));
-            mTags.onRestoreInstanceState(b.getParcelable("tags"));
-            onRestoreInstanceState(b.getParcelable("state"));
-        } else {
-            onRestoreInstanceState(p);
-        }
-
     }
 
     @Override

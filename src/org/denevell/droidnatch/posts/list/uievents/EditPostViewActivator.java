@@ -1,15 +1,6 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import javax.inject.Inject;
 
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
@@ -26,8 +17,14 @@ import org.denevell.droidnatch.posts.list.entities.EditPostResourceReturnData;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.natch.android.R;
 
-import javax.inject.Inject;
-
+import android.app.Activity;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import dagger.ObjectGraph;
 
 public class EditPostViewActivator extends LinearLayout implements
@@ -78,24 +75,6 @@ public class EditPostViewActivator extends LinearLayout implements
                             @Override public void fail(FailureResult r) { }
                         });
         addThreadController.setup();
-    }
-
-    public Parcelable getInstanceState() {
-        Bundle b = new Bundle();
-        b.putParcelable("content", mContent.onSaveInstanceState());
-        b.putParcelable("state", onSaveInstanceState());
-        return b;
-    }
-
-    public void setInstanceState(Parcelable p) {
-        if(p instanceof Bundle) {
-            Bundle b = (Bundle) p;
-            mContent.onRestoreInstanceState(b.getParcelable("content"));
-            onRestoreInstanceState(b.getParcelable("state"));
-        } else {
-            onRestoreInstanceState(p);
-        }
-
     }
 
     @Override

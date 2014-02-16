@@ -19,8 +19,6 @@ import org.denevell.natch.android.R;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,26 +83,6 @@ public class EditThreadViewActivator extends LinearLayout implements
         addThreadController.setup();
     }
 
-    public Parcelable getInstanceState() {
-        Bundle b = new Bundle();
-        b.putParcelable("content", mContent.onSaveInstanceState());
-        b.putParcelable("subject", mSubject.onSaveInstanceState());
-        b.putParcelable("state", onSaveInstanceState());
-        return b;
-    }
-
-    public void setInstanceState(Parcelable p) {
-        if(p instanceof Bundle) {
-            Bundle b = (Bundle) p;
-            mContent.onRestoreInstanceState(b.getParcelable("content"));
-            mSubject.onRestoreInstanceState(b.getParcelable("subject"));
-            onRestoreInstanceState(b.getParcelable("state"));
-        } else {
-            onRestoreInstanceState(p);
-        }
-
-    }
-
     @Override
     public void setOnSubmitObserver(GenericUiObserver observer) {
         mCallback = observer;
@@ -142,4 +120,5 @@ public class EditThreadViewActivator extends LinearLayout implements
     public void setPost(PostResource post) {
         mPost = post;
     }
+    
 }
