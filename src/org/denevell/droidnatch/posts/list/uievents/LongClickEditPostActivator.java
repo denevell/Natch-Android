@@ -11,7 +11,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.View;
@@ -44,16 +43,10 @@ public class LongClickEditPostActivator extends View {
     @Subscribe
     public void onLongPress(ClickableListView.LongPressListViewEvent obj) {
         if(obj.index!=0 && obj.ob instanceof PostResource && obj.title.equals("Edit post")) {
-            Fragment old = mActivity.getSupportFragmentManager().findFragmentByTag("editpost_dialogue");
             EditPostDialogueFragment df = new EditPostDialogueFragment();
-            if(old!=null && old instanceof DialogFragment) {
-                ((DialogFragment)old).show(mActivity.getSupportFragmentManager(), "editpost_dialogue");
-                df.setPost((PostResource) obj.ob);
-            } else {
-                df.setPost((PostResource) obj.ob);
-                df.setArguments(new Bundle());
-                mActivity.getSupportFragmentManager().beginTransaction().add(df, "editpost_dialogue").commit();
-            }
+            df.setPost((PostResource) obj.ob);
+            df.setArguments(new Bundle());
+            mActivity.getSupportFragmentManager().beginTransaction().add(df, "editpost_dialogue").commit();
         }
     }
 

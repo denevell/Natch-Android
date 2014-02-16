@@ -1,13 +1,7 @@
 package org.denevell.droidnatch.threads.list.di;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import javax.inject.Named;
+import javax.inject.Singleton;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.Receiver;
@@ -16,9 +10,13 @@ import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.uievents.AddThreadViewActivator;
 import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
 
-import javax.inject.Named;
-import javax.inject.Singleton;
-
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import dagger.Module;
 import dagger.Provides;
 
@@ -39,14 +37,9 @@ public class AddThreadUiEventMapper {
         return new Receiver<Void>() {
             @Override
             public void success(Void result) {
-                Fragment old = mActivity.getSupportFragmentManager().findFragmentByTag("tag");
-                if(old!=null && old instanceof  DialogFragment) {
-                    ((DialogFragment)old).show(mActivity.getSupportFragmentManager(), "tag");
-                } else {
-                    AddThreadDialogueFragment df = new AddThreadDialogueFragment();
-                    df.setArguments(new Bundle());
-                    mActivity.getSupportFragmentManager().beginTransaction().add(df, "tag").commit();
-                }
+            	AddThreadDialogueFragment df = new AddThreadDialogueFragment();
+                df.setArguments(new Bundle());
+                mActivity.getSupportFragmentManager().beginTransaction().add(df, "tag").commit();
             }
             @Override public void fail(FailureResult r) { }
         };

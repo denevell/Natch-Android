@@ -1,7 +1,7 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
-import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.ClickableListView;
+import org.denevell.droidnatch.app.baseclasses.ViewThatListensOnEventBus;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 
 import android.app.AlertDialog;
@@ -11,14 +11,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
-import android.view.View;
 
 import com.squareup.otto.Subscribe;
 
-public class LongClickEditThreadActivator extends View {
+public class LongClickEditThreadActivator extends ViewThatListensOnEventBus {
 
     @SuppressWarnings("unused")
     private static final String TAG = LongClickEditThreadActivator.class.getSimpleName();
@@ -29,30 +27,13 @@ public class LongClickEditThreadActivator extends View {
         mActivity = (FragmentActivity)getContext();
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        EventBus.getBus().register(this);
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        EventBus.getBus().unregister(this);
-    }
-
     @Subscribe
     public void onLongPress(ClickableListView.LongPressListViewEvent obj) {
         if(obj.index==0 && obj.ob instanceof PostResource && obj.title.equals("Edit thread")) {
-            Fragment old = mActivity.getSupportFragmentManager().findFragmentByTag("editthread_dialogue");
-            if(old!=null && old instanceof DialogFragment) {
-                ((DialogFragment)old).show(mActivity.getSupportFragmentManager(), "editthread_dialogue");
-            } else {
-                EditPostDialogueFragment df = new EditPostDialogueFragment();
-                df.setPost((PostResource) obj.ob);
-                df.setArguments(new Bundle());
-                mActivity.getSupportFragmentManager().beginTransaction().add(df, "editthread_dialogue").commit();
-            }
+            EditPostDialogueFragment df = new EditPostDialogueFragment();
+            df.setPost((PostResource) obj.ob);
+            df.setArguments(new Bundle());
+            mActivity.getSupportFragmentManager().beginTransaction().add(df, "editthread_dialogue").commit();
         }
     }
 
