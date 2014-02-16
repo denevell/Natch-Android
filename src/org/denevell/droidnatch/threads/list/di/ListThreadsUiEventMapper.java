@@ -83,7 +83,7 @@ public class ListThreadsUiEventMapper {
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-	@Provides @Singleton 
+	@Provides @Singleton
     public ClickableListView<ThreadResource> providesListView() {
         ClickableListView listView = (ClickableListView) mActivity.findViewById(R.id.list_threads_listview);
         listView.setKeyboadHider(new HideKeyboard());
