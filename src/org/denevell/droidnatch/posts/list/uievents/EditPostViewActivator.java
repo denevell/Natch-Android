@@ -59,7 +59,9 @@ public class EditPostViewActivator extends LinearLayout implements
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        mContent.setText(mPost.getContent());
+        if(mContent.getText().length()==0) {
+        	mContent.setText(mPost.getContent());
+        }
         mButton.setOnClickListener(this);
         inject();
 		@SuppressWarnings("unchecked")

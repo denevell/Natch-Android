@@ -47,7 +47,7 @@
         android:contentDescription="add_post_edittext" 
         />    
 
-    <org.denevell.droidnatch.app.baseclasses.ClickableListView
+    <org.denevell.droidnatch.app.views.ClickableListView
         android:id="@+id/list_posts_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,8 +1,10 @@
-package org.denevell.droidnatch.app.baseclasses;
+package org.denevell.droidnatch.app.views;
 
 import java.util.ArrayList;
 
 import org.denevell.droidnatch.EventBus;
+import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
+import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 
 import android.content.Context;

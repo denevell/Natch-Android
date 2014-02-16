@@ -7,12 +7,12 @@ import javax.inject.Singleton;
 
 import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.EventBus;
-import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent.AvailableItems;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
+import org.denevell.droidnatch.app.views.ClickableListView;
 import org.denevell.droidnatch.posts.list.ListPostsArrayAdapter;
 import org.denevell.droidnatch.posts.list.ListPostsContextMenu;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;

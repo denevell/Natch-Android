@@ -1,16 +1,15 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
 import org.denevell.droidnatch.EventBus;
-import org.denevell.droidnatch.app.baseclasses.ClickableListView;
+import org.denevell.droidnatch.app.views.ClickableListView;
+import org.denevell.droidnatch.app.views.DialogFragmentWithRotationFix;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.View;
@@ -50,7 +49,7 @@ public class LongClickEditPostActivator extends View {
         }
     }
 
-    public static class EditPostDialogueFragment extends DialogFragment {
+    public static class EditPostDialogueFragment extends DialogFragmentWithRotationFix {
         public EditPostViewActivator view;
         private PostResource mPost;
 
@@ -74,19 +73,6 @@ public class LongClickEditPostActivator extends View {
         public void onSaveInstanceState(Bundle outState) {
             getArguments().putParcelable("view_state", view.getInstanceState());
             super.onSaveInstanceState(outState);
-        }
-
-        @Override
-        public void onDismiss(DialogInterface dialog) {
-            getArguments().putParcelable("view_state", view.getInstanceState());
-            super.onDismiss(dialog);
-        }
-
-        @Override
-        public void onDestroyView() {
-            if (getDialog() != null && getRetainInstance())
-                getDialog().setDismissMessage(null);
-            super.onDestroyView();
         }
 
         public void setPost(PostResource ob) {

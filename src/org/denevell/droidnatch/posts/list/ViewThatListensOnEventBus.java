@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.app.baseclasses;
+package org.denevell.droidnatch.posts.list;
 
 import org.denevell.droidnatch.EventBus;
 

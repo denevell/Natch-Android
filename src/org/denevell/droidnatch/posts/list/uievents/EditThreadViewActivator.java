@@ -30,7 +30,8 @@ import android.widget.TextView;
 import dagger.ObjectGraph;
 
 public class EditThreadViewActivator extends LinearLayout implements
-        Activator<EditPostResourceReturnData>, View.OnClickListener {
+        Activator<EditPostResourceReturnData>, 
+        View.OnClickListener {
 
     @Inject EditPostResource mEditPostResourceInput;
     @Inject VolleyRequest<EditPostResourceReturnData> mVolleyRequest;
@@ -60,8 +61,12 @@ public class EditThreadViewActivator extends LinearLayout implements
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        mContent.setText(mPost.getContent());
-        mSubject.setText(mPost.getSubject());
+        if(mContent.getText().length()==0) {
+        	mContent.setText(mPost.getContent());
+        }
+        if(mSubject.getText().length()==0) {
+        	mSubject.setText(mPost.getSubject());
+        }
         mButton.setOnClickListener(this);
         inject();
         @SuppressWarnings("unchecked")

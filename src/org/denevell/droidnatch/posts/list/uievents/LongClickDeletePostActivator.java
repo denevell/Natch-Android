@@ -5,7 +5,6 @@ import javax.inject.Named;
 
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
-import org.denevell.droidnatch.app.baseclasses.ClickableListView;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
@@ -13,6 +12,7 @@ import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
+import org.denevell.droidnatch.app.views.ClickableListView;
 import org.denevell.droidnatch.posts.list.di.DeletePostServicesMapper;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
