@@ -2,5 +2,5 @@
     <factorypathentry kind="WKSPJAR" id="/Natch-Android/libs/dagger-1.1.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="WKSPJAR" id="/Natch-Android/libs/dagger-compiler-1.1.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="WKSPJAR" id="/Natch-Android/libs/javax.inject-1.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="WKSPJAR" id="/Natch-Android/libs/javawriter-2.2.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/Natch-Android/libs/javawriter-2.1.1.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>

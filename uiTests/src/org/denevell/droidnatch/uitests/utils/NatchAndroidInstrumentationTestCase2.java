@@ -1,9 +1,6 @@
 package org.denevell.droidnatch.uitests.utils;
 
-import android.test.ActivityInstrumentationTestCase2;
-
-import com.google.android.apps.common.testing.ui.espresso.Espresso;
-import com.google.gson.Gson;
+import java.io.InputStreamReader;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -13,12 +10,19 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.uitests.utils.LoginResourceReturnData;
+import org.denevell.droidnatch.uitests.utils.TestUtils;
+import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 
-import java.io.InputStreamReader;
+import android.test.ActivityInstrumentationTestCase2;
+
+import com.google.android.apps.common.testing.ui.espresso.Espresso;
+import com.google.gson.Gson;
 
 public class NatchAndroidInstrumentationTestCase2 extends ActivityInstrumentationTestCase2<MainPageActivity> {
 
-    public NatchAndroidInstrumentationTestCase2(String pkg, Class<MainPageActivity> activityClass) throws Exception {
+    @SuppressWarnings("deprecation")
+	public NatchAndroidInstrumentationTestCase2(String pkg, Class<MainPageActivity> activityClass) throws Exception {
         super(pkg, activityClass);
     }
 

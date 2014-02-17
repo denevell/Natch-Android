@@ -1,13 +1,5 @@
 package org.denevell.droidnatch.uitests;
 
-import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
-import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
-import org.denevell.droidnatch.uitests.utils.TestUtils;
-import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
-
-import java.util.Date;
-
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
@@ -15,9 +7,16 @@ import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewA
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
+import java.util.Date;
+
+import org.denevell.droidnatch.MainPageActivity;
+import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
+import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
+import org.denevell.droidnatch.uitests.utils.TestUtils;
+import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
+
 public class _034_AddThread extends NatchAndroidInstrumentationTestCase2 {
 
-    @SuppressWarnings("deprecation")
     public _034_AddThread() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
     }

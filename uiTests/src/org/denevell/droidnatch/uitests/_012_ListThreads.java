@@ -14,7 +14,6 @@ import static org.denevell.droidnatch.uitests.CustomMatchers.listViewHasElements
 
 public class _012_ListThreads extends NatchAndroidInstrumentationTestCase2 {
 
-    @SuppressWarnings("deprecation")
     public _012_ListThreads() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
     }

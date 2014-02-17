@@ -26,7 +26,6 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class _09_EditPost extends NatchAndroidInstrumentationTestCase2 {
 
-    @SuppressWarnings("deprecation")
     public _09_EditPost() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
     }
@@ -40,7 +39,8 @@ public class _09_EditPost extends NatchAndroidInstrumentationTestCase2 {
         getActivity();
     }
 
-    public void test_1_EditPost() throws Exception {
+    @SuppressWarnings("unchecked")
+	public void test_1_EditPost() throws Exception {
         new AddThreadPO().addThread("New thread", "New thread");
 
         onView(withId(R.id.list_posts_addpost_edittext))

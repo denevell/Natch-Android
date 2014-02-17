@@ -1,17 +1,15 @@
 package org.denevell.droidnatch.uitests.utils;
 
+import java.lang.reflect.Field;
+import java.util.Set;
+
+import org.denevell.droidnatch.Application;
+
 import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.google.android.apps.common.testing.ui.espresso.IdlingResource;
-
-import org.denevell.droidnatch.Application;
-
-import java.lang.reflect.Field;
-import java.util.Set;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
     public class VolleyIdlingResource implements IdlingResource {
         private static final String TAG = "VolleyIdlingResource";
@@ -24,7 +22,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
         private RequestQueue mVolleyRequestQueue;
 
         public VolleyIdlingResource(String resourceName) throws SecurityException, NoSuchFieldException {
-            this.resourceName = checkNotNull(resourceName);
+            this.resourceName = resourceName;
 
             mVolleyRequestQueue = Application.getRequestQueue();
 
@@ -37,7 +35,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
             return resourceName;
         }
 
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings({ "unchecked", "rawtypes" })
         @Override
         public boolean isIdleNow() {
             try {
