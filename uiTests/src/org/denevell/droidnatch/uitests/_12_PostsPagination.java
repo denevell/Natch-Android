@@ -52,8 +52,6 @@ public class _12_PostsPagination extends NatchAndroidInstrumentationTestCase2 {
         onView(ViewMatchers.withText("More"))
         	.perform(ViewActions.click());
 
-        Thread.sleep(1000);
-
         onView(withId(R.id.list_posts_listview))
         	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(6)));
     }
