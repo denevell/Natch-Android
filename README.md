@@ -4,8 +4,8 @@ The Android client to the Natch REST project.
 
 * Use a lower resource hungry emulator in the docker container.
 * Bug: Thread title on edit and rotation
-* UI TEST: I should be able to press more to see more threads
-* UI TEST: I should be able to press more to see more posts 
+* I should be able to login and change the auth key for the calls.
+* I should see whether I am logged in or not, showing who I am logged in as.
 
 ## Ice-box
 
@@ -36,6 +36,7 @@ The Android client to the Natch REST project.
 * I should see a retry option
 * I shouldn't add the thread on empty editext
 * I should see empty screen on no threads
+* I should be able to specify / change the default number of threads / posts to see on pagination.
 * I should keep the found threads on rotate / onResume / app close
 * I should be able to keep the position of the refreshed list
 
@@ -83,3 +84,5 @@ The Android client to the Natch REST project.
 8. I should delete post from a thread, and then see the existing thread, one post less.
 9. I should be able to edit my post
 10: I should be able to edit my thread title and content
+11: I should be able to press more to see more threads
+12: I should be able to press more to see more posts 

@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 
 import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.EventBus;
+import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent.AvailableItems;
@@ -77,7 +78,7 @@ public class ListPostsUiEventMapper {
 			@Override
 			public void onClick(View arg0) {
 				pagination.paginate();
-			    String url = mActivity.getString(R.string.url_baseurl)+mActivity.getString(R.string.url_posts);
+			    String url = Urls.getBasePath()+mActivity.getString(R.string.url_posts);
                 url = url.replace("{thread_id}", mTheadId);
                 url += pagination.start+"/"+pagination.range;
 			    request.setUrl(url);

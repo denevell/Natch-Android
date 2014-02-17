@@ -56,13 +56,19 @@ public class CustomMatchers {
     public static Matcher<View> listViewHasElements(final int numOfElements) {
         return new TypeSafeMatcher<View>() {
 
-            @Override
+            private int mAdapterCount;
+
+			@Override
             public boolean matchesSafely(View view) {
                 if (!(view instanceof ListView)) {
                     return false;
                 }
-                Adapter adapter = ((ListView) view).getAdapter();
-                if(adapter.getCount()==numOfElements) {
+                ListView listView = (ListView) view;
+				Adapter adapter = listView.getAdapter();
+                mAdapterCount = adapter.getCount();
+				int countMinusHeadersAndFooters = mAdapterCount-listView.getFooterViewsCount()-listView.getHeaderViewsCount();
+				mAdapterCount = countMinusHeadersAndFooters;
+				if(countMinusHeadersAndFooters==numOfElements) {
                     return true;
                 }
                 return false;
@@ -70,7 +76,7 @@ public class CustomMatchers {
 
             @Override
             public void describeTo(Description description) {
-                description.appendText("list view has so many elements: "  + numOfElements);
+                description.appendText("list view should have "  + numOfElements + " elements but got: " + mAdapterCount);
             }
         };
     }

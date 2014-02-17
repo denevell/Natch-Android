@@ -27,9 +27,9 @@ import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
 
-public class _010_EditThread extends NatchAndroidInstrumentationTestCase2 {
+public class _10_EditThread extends NatchAndroidInstrumentationTestCase2 {
 
-    public _010_EditThread() throws Exception {
+    public _10_EditThread() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
     }
 
