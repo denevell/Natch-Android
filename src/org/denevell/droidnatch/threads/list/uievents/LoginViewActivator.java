@@ -7,6 +7,7 @@ import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.Activator;
+import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.threads.list.di.LoginServicesMapper;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
@@ -55,11 +56,12 @@ public class LoginViewActivator extends LinearLayout implements
         mButton.setOnClickListener(this);
         mUsername = (EditText) findViewById(R.id.login_username_edittext);
         mPassword = (EditText) findViewById(R.id.login_password_edittext);
-        new UiEventThenServiceThenUiEvent<LoginResourceReturnData>(
+        Receiver<LoginResourceReturnData> things = null;
+		new UiEventThenServiceThenUiEvent<LoginResourceReturnData>(
                 this,
                 mLoginService,
                 null,
-                null).setup();
+                things).setup();
     }
     
     @Override

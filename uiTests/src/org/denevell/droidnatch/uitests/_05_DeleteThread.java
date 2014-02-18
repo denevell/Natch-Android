@@ -17,12 +17,13 @@ import static org.hamcrest.CoreMatchers.is;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
-import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
+import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
+import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
 
-public class _05_DeleteThread extends NatchAndroidInstrumentationTestCase2 {
+public class _05_DeleteThread extends NatchAndroidInstrumentationWithLogin {
 
     public _05_DeleteThread() throws  Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
@@ -39,7 +40,7 @@ public class _05_DeleteThread extends NatchAndroidInstrumentationTestCase2 {
     }
 
     @SuppressWarnings("unchecked")
-	public void test_5_DeleteThread() throws Exception {
+	public void test() throws Exception {
         new AddThreadPO().addThread("New thread to delete", "New thread to delete");
 
         pressBack();
@@ -55,8 +56,7 @@ public class _05_DeleteThread extends NatchAndroidInstrumentationTestCase2 {
         onView(withText("Delete thread"))
                 .perform(click());
 
-        onView(withId(R.id.list_threads_listview))
-                .check(matches(listViewHasElements(0)));
+        new ListThreadsPO().checkNoThreads();
     }
 
 

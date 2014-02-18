@@ -5,7 +5,6 @@ The Android client to the Natch REST project.
 * Tech: Use a lower resource hungry emulator in the docker container.
 * Bug: Thread title on edit and rotation
 * Bug: More button on threads page
-* UI test: I should be able to login and change the auth key for the calls.
 * I should see whether I am logged in or not, showing who I am logged in as.
 
 ## Ice-box
@@ -76,6 +75,7 @@ The Android client to the Natch REST project.
 
 ### Stories (Numbers relate to classes names in the uiTests dir)
 
+0. I should be able to login and change the auth key for the calls.
 1. I should see some threads along with content of first post in the app
 3. I should be able to add a new thread and first post in thread
 4. I should refresh the (plus loading) threads after an add
@@ -87,3 +87,4 @@ The Android client to the Natch REST project.
 10: I should be able to edit my thread title and content
 11: I should be able to press more to see more threads
 12: I should be able to press more to see more posts 
+13. I should see error logging on in cases of bad username / password

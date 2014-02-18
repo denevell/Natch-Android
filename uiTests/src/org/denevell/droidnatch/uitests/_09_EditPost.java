@@ -3,7 +3,7 @@ package org.denevell.droidnatch.uitests;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
-import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
+import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
@@ -24,7 +24,7 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 
-public class _09_EditPost extends NatchAndroidInstrumentationTestCase2 {
+public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
 
     public _09_EditPost() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);

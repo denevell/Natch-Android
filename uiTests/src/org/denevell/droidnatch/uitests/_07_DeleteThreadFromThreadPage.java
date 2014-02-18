@@ -18,12 +18,12 @@ import java.util.Date;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
-import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
+import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
 
-public class _07_DeleteThreadFromThreadPage extends NatchAndroidInstrumentationTestCase2 {
+public class _07_DeleteThreadFromThreadPage extends NatchAndroidInstrumentationWithLogin {
 
     public _07_DeleteThreadFromThreadPage() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
@@ -39,7 +39,7 @@ public class _07_DeleteThreadFromThreadPage extends NatchAndroidInstrumentationT
     }
 
     @SuppressWarnings("unchecked")
-	public void test_1_DeleteThread() throws Exception {
+	public void test() throws Exception {
         String date = new Date().toString();
         new AddThreadPO().addThread("New thread to open"+date, "New thread ot open"+date);
 

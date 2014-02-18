@@ -61,7 +61,7 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
         }
         if(mNextUiEvents!=null) {
             for (Receiver<T> event : mNextUiEvents) {
-                if(r!=null) {
+                if(r!=null && event!=null) {
                     Log.v(TAG, "Calling next ui event");
                     event.success(r);
                 }

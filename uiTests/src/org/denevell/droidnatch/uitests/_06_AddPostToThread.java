@@ -15,12 +15,12 @@ import static org.hamcrest.CoreMatchers.is;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
-import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
+import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
 
-public class _06_AddPostToThread extends NatchAndroidInstrumentationTestCase2 {
+public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
 
     public _06_AddPostToThread() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);

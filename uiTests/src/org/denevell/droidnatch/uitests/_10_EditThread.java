@@ -22,12 +22,12 @@ import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.CustomMatchers;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
-import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
+import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
 
-public class _10_EditThread extends NatchAndroidInstrumentationTestCase2 {
+public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
 
     public _10_EditThread() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
@@ -43,7 +43,7 @@ public class _10_EditThread extends NatchAndroidInstrumentationTestCase2 {
     }
 
     @SuppressWarnings("unchecked")
-	public void test_1_EditPost() throws Exception {
+	public void test_1_EditThread() throws Exception {
         new AddThreadPO().addThread("New title thread", "New thread");
 
         onView(withId(R.id.list_posts_addpost_edittext)).check(matches(CustomMatchers.viewHasActivityTitle("New title thread")));

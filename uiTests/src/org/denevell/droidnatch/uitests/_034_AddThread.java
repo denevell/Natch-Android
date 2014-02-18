@@ -11,11 +11,11 @@ import java.util.Date;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
-import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
+import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 
-public class _034_AddThread extends NatchAndroidInstrumentationTestCase2 {
+public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
 
     public _034_AddThread() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);

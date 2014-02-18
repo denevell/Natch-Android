@@ -20,12 +20,12 @@ import java.util.Date;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
-import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationTestCase2;
+import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
 
-public class _08_DeletePost extends NatchAndroidInstrumentationTestCase2 {
+public class _08_DeletePost extends NatchAndroidInstrumentationWithLogin {
 
     public _08_DeletePost() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
