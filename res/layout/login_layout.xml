@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp" >
 
-        <RelativeLayout
+    <ScrollView
+        android:id="@+id/list_threads_add_thread_pane_scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        >
+        android:layout_alignParentTop="true"
+        tools:ignore="UselessParent" >
 
-        <ScrollView
-            android:id="@+id/list_threads_add_thread_pane_scrollview"
-            android:layout_above="@+id/list_threads_add_thread_empty_view"
-            android:layout_alignParentTop="true"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
-            <LinearLayout
+            android:orientation="vertical" >
+
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:visibility="gone"
+                tools:ignore="TextFields" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    />
+            <EditText
+                android:id="@+id/login_username_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:imeOptions="actionNext|flagNavigateNext"
+                android:inputType="text"
+                android:text="aaron"
+                android:nextFocusForward="@+id/login_password_edittext"
+                android:singleLine="true"
+                tools:ignore="HardcodedText" />
 
-                <EditText
-                    android:id="@+id/login_username_edittext"
-                    android:layout_width="match_parent"
-                    android:singleLine="true"
-                    android:inputType="text"
-                    android:imeOptions="actionNext|flagNavigateNext"
-                    android:nextFocusForward="@+id/login_password_edittext"
-                    android:layout_height="wrap_content"
-                    android:hint="Username"
-                    />
+            <EditText
+                android:id="@+id/login_password_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="aaron"
+                android:hint="Password"
+                android:imeOptions="actionNext|flagNavigateNext"
+                android:inputType="text|textPassword"
+                android:nextFocusForward="@+id/login_button"
+                android:singleLine="true"
+                tools:ignore="HardcodedText" />
 
-                <EditText
-                    android:id="@+id/login_password_edittext"
-                    android:layout_width="match_parent"
-                    android:singleLine="true"
-                    android:inputType="text|textPassword"
-                    android:imeOptions="actionNext|flagNavigateNext"
-                    android:nextFocusForward="@+id/login_button"
-                    android:layout_height="wrap_content"
-                    android:hint="Password"
-                    />
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Login"
+                tools:ignore="HardcodedText" />
 
-                <Button
-                    android:id="@+id/login_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Login"/>
-            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
-        </ScrollView>
-        
-        
-   </RelativeLayout>
+</RelativeLayout>
