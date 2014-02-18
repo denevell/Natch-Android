@@ -7,6 +7,7 @@ import org.hamcrest.TypeSafeMatcher;
 import android.app.Activity;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 public class CustomMatchers {
@@ -80,5 +81,30 @@ public class CustomMatchers {
             }
         };
     }
+
+	public static Matcher<? super View> showsErrorString() {
+        return new TypeSafeMatcher<View>() {
+
+            private int mAdapterCount;
+
+			@Override
+            public boolean matchesSafely(View view) {
+                if (!(view instanceof EditText)) {
+                    return false;
+                }
+                EditText v = (EditText) view;
+                String error = v.getError().toString();
+				if(error != null && error.length()>0) {
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Edit text should have error string");
+            }
+        };
+	}
 
 }
