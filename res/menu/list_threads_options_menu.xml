@@ -4,5 +4,9 @@
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
         android:title="Add thread" tools:ignore="HardcodedText"/>
+    <item
+        android:orderInCategory="101"
+        android:showAsAction="ifRoom"
+        android:title="Login" tools:ignore="HardcodedText"/>
 
 </menu>

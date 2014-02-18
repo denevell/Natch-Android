@@ -20,7 +20,7 @@ public class ListThreadsFragment extends ObservableFragment {
         try {
             getActivity().setTitle(R.string.page_title_threads);
             setHasOptionsMenu(true);
-            View v = inflater.inflate(R.layout.list_threads_fragment, container, false);
+            View v = inflater.inflate(R.layout.threads_list_fragment, container, false);
             return v;
         } catch (Exception e) {
             Log.e(TAG, "Failed to start di mapper", e);
