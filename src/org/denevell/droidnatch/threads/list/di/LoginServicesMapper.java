@@ -4,7 +4,7 @@ import javax.inject.Singleton;
 
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
-import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestPOST;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
@@ -15,6 +15,9 @@ import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 import org.denevell.natch.android.R;
 
 import android.content.Context;
+
+import com.android.volley.Request;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -44,8 +47,9 @@ public class LoginServicesMapper {
             LoginResourceInput input,
             Context appContext) {
         String url = Urls.getBasePath() + appContext.getString(R.string.url_login);
-        VolleyRequestPOST<LoginResourceReturnData> vollyRequest = 
-                new VolleyRequestPOST<LoginResourceReturnData>(reponseConverter, input);
+        VolleyRequestImpl<LoginResourceReturnData> vollyRequest = 
+                new VolleyRequestImpl<LoginResourceReturnData>(reponseConverter, input,
+                		Request.Method.POST);
         vollyRequest.setUrl(url);
         return vollyRequest;
     } 

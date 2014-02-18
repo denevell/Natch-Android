@@ -1,10 +1,10 @@
 package org.denevell.droidnatch.threads.list.di;
 
-import android.content.Context;
+import javax.inject.Singleton;
 
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
-import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestPUTImpl;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
@@ -14,7 +14,9 @@ import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.natch.android.R;
 
-import javax.inject.Singleton;
+import android.content.Context;
+
+import com.android.volley.Request;
 
 import dagger.Module;
 import dagger.Provides;
@@ -45,10 +47,11 @@ public class AddThreadServicesMapper {
             ObjectToStringConverter reponseConverter,
             AddPostResourceInput body,
             Context appContext) {
-        VolleyRequestPUTImpl<AddPostResourceReturnData> vollyRequest = 
-                new VolleyRequestPUTImpl<AddPostResourceReturnData>(
+        VolleyRequestImpl<AddPostResourceReturnData> vollyRequest = 
+                new VolleyRequestImpl<AddPostResourceReturnData>(
                     reponseConverter, 
-                    body);
+                    body,
+                    Request.Method.PUT);
         vollyRequest.addHeader("AuthKey", Urls.getAuthKey());
 
         String url = Urls.getBasePath() + appContext.getString(R.string.url_addthread);

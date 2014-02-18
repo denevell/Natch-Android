@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 import org.denevell.droidnatch.AppWideMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
-import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestGET;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
@@ -18,6 +18,9 @@ import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
 import org.denevell.natch.android.R;
 
 import android.content.Context;
+
+import com.android.volley.Request;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -49,8 +52,8 @@ public class ListThreadsServiceMapper {
     public VolleyRequest<ListThreadsResource> providesRequest(Context appContext, 
     		ListThreadsPaginationObject pagination) {
         String url = Urls.getBasePath() + appContext.getString(R.string.url_threads) + "" + pagination.start + "/" + pagination.range;
-        VolleyRequestGET<ListThreadsResource> v = 
-                new VolleyRequestGET<ListThreadsResource>();
+        VolleyRequestImpl<ListThreadsResource> v = new VolleyRequestImpl<ListThreadsResource>(
+        		null, null, Request.Method.GET);
         v.setUrl(url);
         return v;
     }

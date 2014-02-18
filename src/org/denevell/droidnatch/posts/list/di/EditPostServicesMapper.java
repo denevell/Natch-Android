@@ -1,10 +1,10 @@
 package org.denevell.droidnatch.posts.list.di;
 
-import android.content.Context;
+import javax.inject.Singleton;
 
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
-import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestPOST;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
@@ -14,7 +14,9 @@ import org.denevell.droidnatch.posts.list.entities.EditPostResource;
 import org.denevell.droidnatch.posts.list.entities.EditPostResourceReturnData;
 import org.denevell.natch.android.R;
 
-import javax.inject.Singleton;
+import android.content.Context;
+
+import com.android.volley.Request;
 
 import dagger.Module;
 import dagger.Provides;
@@ -50,10 +52,11 @@ public class EditPostServicesMapper {
             ObjectToStringConverter reponseConverter,
             EditPostResource body,
             Context appContext) {
-        VolleyRequestPOST<EditPostResourceReturnData> volleyRequest =
-                new VolleyRequestPOST<EditPostResourceReturnData>(
+        VolleyRequestImpl<EditPostResourceReturnData> volleyRequest =
+                new VolleyRequestImpl<EditPostResourceReturnData>(
                     reponseConverter, 
-                    body);
+                    body,
+                    Request.Method.POST);
         volleyRequest.addHeader("AuthKey", Urls.getAuthKey());
         String url = Urls.getBasePath() + appContext.getString(R.string.url_edit_post);
         volleyRequest.setUrl(url);

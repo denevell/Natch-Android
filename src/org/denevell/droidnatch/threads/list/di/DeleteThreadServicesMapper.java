@@ -1,10 +1,10 @@
 package org.denevell.droidnatch.threads.list.di;
 
-import android.content.Context;
+import javax.inject.Singleton;
 
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
-import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestDELETE;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
@@ -14,8 +14,9 @@ import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnDat
 import org.denevell.droidnatch.threads.list.uievents.LongClickDeleteActivator;
 import org.denevell.natch.android.R;
 
-import javax.inject.Singleton;
+import com.android.volley.Request;
 
+import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 
@@ -44,8 +45,9 @@ public class DeleteThreadServicesMapper {
             ObjectToStringConverter reponseConverter,
             Context appContext) {
         String url = Urls.getBasePath() + appContext.getString(R.string.url_del);
-        VolleyRequestDELETE<DeletePostResourceReturnData> vollyRequest = 
-                new VolleyRequestDELETE<DeletePostResourceReturnData>();
+        VolleyRequestImpl<DeletePostResourceReturnData> vollyRequest = 
+                new VolleyRequestImpl<DeletePostResourceReturnData>(null, null,
+                		Request.Method.DELETE);
         vollyRequest.addHeader("AuthKey", Urls.getAuthKey());
         vollyRequest.setUrl(url);
         return vollyRequest;

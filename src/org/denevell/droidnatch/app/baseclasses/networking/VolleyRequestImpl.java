@@ -14,7 +14,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-public class VolleyRequestPUTImpl<T> implements VolleyRequest<T> {
+public class VolleyRequestImpl<T> implements VolleyRequest<T> {
     
     private ObjectToStringConverter mResponseConverter;
     private String mUrl;
@@ -22,12 +22,15 @@ public class VolleyRequestPUTImpl<T> implements VolleyRequest<T> {
     private Listener<JSONObject> mListener;
     private Map<String, String> headersMap = new HashMap<String, String>();
     private Object mBody;
+	private int mRequestType;
     
-    public VolleyRequestPUTImpl(
+    public VolleyRequestImpl(
             ObjectToStringConverter responseConverter, 
-            Object body) {
+            Object body,
+            int requestType) {
         mResponseConverter = responseConverter;
         mBody = body;
+        mRequestType = requestType;
     }
     
     public ObjectToStringConverter getResponseConverter() {
@@ -47,16 +50,18 @@ public class VolleyRequestPUTImpl<T> implements VolleyRequest<T> {
     @SuppressWarnings("rawtypes")
     @Override
     public Request getRequest() {
-        String json = mResponseConverter.encode(mBody);
         JSONObject jOb = null;
-        try {
-            jOb = new JSONObject(json);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
+    	if(mBody!=null) {
+                String json = mResponseConverter.encode(mBody);
+                try {
+                    jOb = new JSONObject(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+    	}
         JsonObjectRequest jsObjRequest = new JsonObjectRequest( 
-                Request.Method.PUT, mUrl, jOb,
+                mRequestType, mUrl, jOb,
                 mListener, mErrorListener) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {

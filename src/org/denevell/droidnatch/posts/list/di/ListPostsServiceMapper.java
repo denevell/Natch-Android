@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
-import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestGET;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
@@ -17,6 +17,9 @@ import org.denevell.natch.android.R;
 
 import android.content.Context;
 import android.os.Bundle;
+
+import com.android.volley.Request;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -51,7 +54,8 @@ public class ListPostsServiceMapper {
                 + appContext.getString(R.string.url_posts);
         url = url.replace("{thread_id}", (CharSequence) mBundle.getString(ListPostsFragment.BUNDLE_KEY_THREAD_ID));
         url += pagination.start+"/"+pagination.range;
-        VolleyRequestGET<ThreadResource> v = new VolleyRequestGET<ThreadResource>();
+        VolleyRequestImpl<ThreadResource> v = new VolleyRequestImpl<ThreadResource>(
+        		null, null, Request.Method.GET);
         v.setUrl(url);
         return v;
     } 
