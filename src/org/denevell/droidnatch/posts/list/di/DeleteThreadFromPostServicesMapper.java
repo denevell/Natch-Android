@@ -1,11 +1,14 @@
 package org.denevell.droidnatch.posts.list.di;
 
+import java.util.Map;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
@@ -55,7 +58,12 @@ public class DeleteThreadFromPostServicesMapper {
         		new VolleyRequestImpl<DeletePostResourceReturnData>(null, null, 
                         Request.Method.DELETE);
         vollyRequest.setUrl(url);
-        vollyRequest.addHeader("AuthKey", Urls.getAuthKey());
+        vollyRequest.addLazyHeader(new LazyHeadersCallback() {
+			@Override
+			public void run(Map<String, String> headersMap) {
+				headersMap.put("AuthKey", Urls.getAuthKey());
+			}
+		});
         return vollyRequest;
     } 
 

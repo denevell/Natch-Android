@@ -1,5 +1,6 @@
 package org.denevell.droidnatch.app.baseclasses.networking;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,13 +17,18 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 public class VolleyRequestImpl<T> implements VolleyRequest<T> {
     
-    private ObjectToStringConverter mResponseConverter;
+    public static interface LazyHeadersCallback {
+    	void run(Map<String, String> headersMap);
+	}
+
+	private ObjectToStringConverter mResponseConverter;
     private String mUrl;
     private ErrorListener mErrorListener;
     private Listener<JSONObject> mListener;
     private Map<String, String> headersMap = new HashMap<String, String>();
     private Object mBody;
 	private int mRequestType;
+	private ArrayList<LazyHeadersCallback> mLazyHeaderCallbacks = new ArrayList<VolleyRequestImpl.LazyHeadersCallback>();
     
     public VolleyRequestImpl(
             ObjectToStringConverter responseConverter, 
@@ -67,6 +73,9 @@ public class VolleyRequestImpl<T> implements VolleyRequest<T> {
             public Map<String, String> getHeaders() throws AuthFailureError {
                Map<String, String> headers = super.getHeaders();
                HashMap<String, String> map = new HashMap<String, String>(headers);
+               for (LazyHeadersCallback i: mLazyHeaderCallbacks) {
+            	   i.run(headersMap);
+               }
                map.putAll(headersMap);
                return map;
             }
@@ -82,6 +91,10 @@ public class VolleyRequestImpl<T> implements VolleyRequest<T> {
     @Override
     public void addHeader(String header, String value) {
         headersMap.put(header, value);
+    }
+
+    public void addLazyHeader(LazyHeadersCallback callback) {
+    	mLazyHeaderCallbacks.add(callback);
     }
 
 

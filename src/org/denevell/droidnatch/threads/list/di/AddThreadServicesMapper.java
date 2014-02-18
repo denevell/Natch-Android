@@ -1,10 +1,13 @@
 package org.denevell.droidnatch.threads.list.di;
 
+import java.util.Map;
+
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.networking.BaseService;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
@@ -52,8 +55,12 @@ public class AddThreadServicesMapper {
                     reponseConverter, 
                     body,
                     Request.Method.PUT);
-        vollyRequest.addHeader("AuthKey", Urls.getAuthKey());
-
+        vollyRequest.addLazyHeader(new LazyHeadersCallback() {
+			@Override
+			public void run(Map<String, String> headersMap) {
+				headersMap.put("AuthKey", Urls.getAuthKey());
+			}
+		});
         String url = Urls.getBasePath() + appContext.getString(R.string.url_addthread);
         vollyRequest.setUrl(url);
         return vollyRequest;
