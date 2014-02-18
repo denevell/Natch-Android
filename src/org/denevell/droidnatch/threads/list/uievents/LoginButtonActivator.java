@@ -42,7 +42,7 @@ public class LoginButtonActivator extends ViewThatListensOnEventBus {
 				}
 			}
 		};
-		DialogueFragmentWithView.getInstance(R.layout.login_layout, viewInit)
+		DialogueFragmentWithView.getInstance(R.layout.login_dialogue_layout, viewInit)
 			.show(mActivity.getSupportFragmentManager(), "login popup");
 	}
 

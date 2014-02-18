@@ -5,7 +5,7 @@ The Android client to the Natch REST project.
 * Tech: Use a lower resource hungry emulator in the docker container.
 * Bug: Thread title on edit and rotation
 * Bug: More button on threads page
-* I should be able to login and change the auth key for the calls.
+* UI test: I should be able to login and change the auth key for the calls.
 * I should see whether I am logged in or not, showing who I am logged in as.
 
 ## Ice-box
