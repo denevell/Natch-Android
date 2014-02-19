@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.Properties;
 
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.content.pm.ActivityInfo;
+
 /**
  * Created by user on 31/01/14.
  */
@@ -31,5 +35,16 @@ public class TestUtils {
         statement.execute("delete from ThreadEntity");
         statement.execute("delete from PostEntity");
     }
+
+	public static void toggleOrientationChange(Activity act, Instrumentation instru) {
+		int orientation = act.getRequestedOrientation();
+        if(orientation==ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+        	act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        } else {
+        	act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        instru.waitForIdleSync();
+	}
+        	
 
 }

@@ -2,6 +2,7 @@ package org.denevell.droidnatch.uitests;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.closeSoftKeyboard;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.clearText;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
@@ -28,8 +29,10 @@ public class _00_Login extends NatchAndroidInstrumentation {
     
     public void testSuccess() throws Exception {
         onView(withText("Login")).perform(click());
-        onView(withId(R.id.login_username_edittext)).perform(typeText("aaron"), pressImeActionButton());
-        onView(withId(R.id.login_password_edittext)).perform(typeText("aaron"), pressImeActionButton());
+        onView(withId(R.id.login_username_edittext))
+        	.perform(clearText(), typeText("aaron"), pressImeActionButton());
+        onView(withId(R.id.login_password_edittext))
+        	.perform(clearText(), typeText("aaron"), pressImeActionButton());
         closeSoftKeyboard();
         Thread.sleep(100);
         onView(withText("Login")).perform(click());

@@ -20,12 +20,13 @@ import static org.hamcrest.CoreMatchers.is;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
-import org.denevell.droidnatch.uitests.CustomMatchers;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
+
+import android.content.pm.ActivityInfo;
 
 public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
 
@@ -43,26 +44,46 @@ public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
     }
 
     @SuppressWarnings("unchecked")
-	public void test_1_EditThread() throws Exception {
+	public void test() throws Exception {
         new AddThreadPO().addThread("New title thread", "New thread");
 
         onView(withId(R.id.list_posts_addpost_edittext)).check(matches(CustomMatchers.viewHasActivityTitle("New title thread")));
 
         onData(allOf(is(instanceOf(PostResource.class)))) .atPosition(0) .perform(longClick());
-        onView(withText("Edit thread")).perform(click());
 
-        onView(withId(R.id.edit_thread_subject_edittext)).perform(clearText(), typeText("Edited title"), pressImeActionButton());
-        onView(withId(R.id.edit_thread_content_edittext)).perform(clearText(), typeText("Edited post"), pressImeActionButton());
-        closeSoftKeyboard(); Thread.sleep(100);
+        onView(withText("Edit thread")).perform(click());
+        
+        onView(withId(R.id.edit_thread_subject_edittext)).perform(
+        		clearText(), 
+        		typeText("Edited title"),
+        		closeSoftKeyboard());
+
+        Thread.sleep(100);
+
+        onView(withId(R.id.edit_thread_content_edittext)).perform(
+        		clearText(), 
+        		typeText("Edited post"),
+        		closeSoftKeyboard());
+        
+        Thread.sleep(100);
+        
         onView(withText("Edit")).perform(click());
 
         onData(allOf(is(instanceOf(PostResource.class)))).atPosition(0).check(matches(is(withText("Edited post"))));
-
         onView(withId(R.id.list_posts_addpost_edittext)).check(matches(CustomMatchers.viewHasActivityTitle("Edited title")));
+
+        // So we can be sure it's the same after rotation
+        TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
+
+        onData(allOf(is(instanceOf(PostResource.class)))).atPosition(0).check(matches(is(withText("Edited post"))));
+        onView(withId(R.id.list_posts_addpost_edittext)).check(matches(CustomMatchers.viewHasActivityTitle("Edited title")));
+
+        TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
 
         pressBack();
 
         onView(withContentDescription("list_threads_row0")).check(matches(withText("Edited title")));
     }
+
 
 }

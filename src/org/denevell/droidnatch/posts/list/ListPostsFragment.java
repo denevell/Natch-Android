@@ -1,15 +1,15 @@
 package org.denevell.droidnatch.posts.list;
 
+import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
+import org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator;
+import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
+import org.denevell.natch.android.R;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
-import org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator;
-import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
-import org.denevell.natch.android.R;
 
 public class ListPostsFragment extends ObservableFragment {
     
@@ -38,6 +38,14 @@ public class ListPostsFragment extends ObservableFragment {
             Log.e(TAG, "Failed to start mapper", e);
             return;
         }            
+    }
+    
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+    	super.onSaveInstanceState(outState);
+    	if(getArguments()!=null && getActivity().getTitle()!=null) {
+    		getArguments().putString(BUNDLE_KEY_THREAD_NAME, getActivity().getTitle().toString());
+    	}
     }
     
 }

@@ -8,7 +8,6 @@ import android.view.MenuItem;
 
 public class ObservableFragment extends Fragment {
     
-
 	private static final String TAG = ObservableFragment.class.getSimpleName();
     public static class MenuItemHolder {
         public MenuItem item;
@@ -51,5 +50,6 @@ public class ObservableFragment extends Fragment {
         EventBus.getBus().post(new FragmentStopped(this));
     	super.onDestroyView();
     }
+    
     
 }

@@ -21,6 +21,8 @@ public class AddThreadPO {
         closeSoftKeyboard();
         onView(withText("Add thread")).perform(click());
         onView(withId(R.id.add_thread_subject_edittext)).perform(typeText(subject), ViewActions.pressImeActionButton());
+        closeSoftKeyboard();
+        Thread.sleep(100);
         onView(withId(R.id.add_thread_content_edittext)).perform(typeText(content), ViewActions.pressImeActionButton());
         closeSoftKeyboard();
         Thread.sleep(100);

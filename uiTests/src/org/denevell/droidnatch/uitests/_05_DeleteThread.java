@@ -7,9 +7,7 @@ import static com.google.android.apps.common.testing.ui.espresso.Espresso.regist
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
-import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
-import static org.denevell.droidnatch.uitests.CustomMatchers.listViewHasElements;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
@@ -21,7 +19,6 @@ import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
-import org.denevell.natch.android.R;
 
 public class _05_DeleteThread extends NatchAndroidInstrumentationWithLogin {
 

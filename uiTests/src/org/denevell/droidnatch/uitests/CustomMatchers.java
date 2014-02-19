@@ -85,8 +85,6 @@ public class CustomMatchers {
 	public static Matcher<? super View> showsErrorString() {
         return new TypeSafeMatcher<View>() {
 
-            private int mAdapterCount;
-
 			@Override
             public boolean matchesSafely(View view) {
                 if (!(view instanceof EditText)) {

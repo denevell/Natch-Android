@@ -3,9 +3,9 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * Tech: Use a lower resource hungry emulator in the docker container.
-* Bug: Thread title on edit and rotation
-* Bug: More button on threads page
 * I should see whether I am logged in or not, showing who I am logged in as.
+* I should be able to logout
+* I should only be able to add thread if I'm logged in
 
 ## Ice-box
 
