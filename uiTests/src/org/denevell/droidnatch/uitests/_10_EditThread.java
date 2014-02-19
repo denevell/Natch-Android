@@ -20,6 +20,7 @@ import static org.hamcrest.CoreMatchers.is;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
+import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
@@ -66,13 +67,13 @@ public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
         
         onView(withText("Edit")).perform(click());
 
-        onData(allOf(is(instanceOf(PostResource.class)))).atPosition(0).check(matches(is(withText("Edited post"))));
+        new ListPostsPO().postHasContent(0, "Edited post");
         onView(withId(R.id.list_posts_addpost_edittext)).check(matches(CustomMatchers.viewHasActivityTitle("Edited title")));
 
         // So we can be sure it's the same after rotation
         TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
 
-        onData(allOf(is(instanceOf(PostResource.class)))).atPosition(0).check(matches(is(withText("Edited post"))));
+        new ListPostsPO().postHasContent(0, "Edited post");
         onView(withId(R.id.list_posts_addpost_edittext)).check(matches(CustomMatchers.viewHasActivityTitle("Edited title")));
 
         TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());

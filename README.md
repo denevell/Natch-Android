@@ -89,3 +89,4 @@ The Android client to the Natch REST project.
 12: I should be able to press more to see more posts 
 13: I should see whether I am logged in or not, showing who I am logged in as.
 14: I should see the author of the thread on the threads page
+15: I should see the author of a post in a thread page

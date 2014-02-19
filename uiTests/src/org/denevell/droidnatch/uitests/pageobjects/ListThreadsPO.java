@@ -1,6 +1,8 @@
 package org.denevell.droidnatch.uitests.pageobjects;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
@@ -24,9 +26,10 @@ public class ListThreadsPO {
         	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(numThreads)));
 	}
 
-	public void threadHasAuthor(int i, String string) {
+	public ListThreadsPO threadHasAuthor(int i, String string) {
         onView(withContentDescription("list_threads_row_author"+i))
         	.check(matches(withText(string)));
+        return this;
 	}
 
 	public void threadHasContent(int i, String string) {

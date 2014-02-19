@@ -15,6 +15,7 @@ import static org.hamcrest.CoreMatchers.is;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
+import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
@@ -42,9 +43,7 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
         onView(withId(R.id.list_posts_addpost_edittext))
                 .perform(typeText("New post in thread"), pressImeActionButton());
 
-        onData(allOf(is(instanceOf(PostResource.class))))
-                .atPosition(1)
-                .check(matches(is(withText("New post in thread"))));
+        new ListPostsPO().postHasContent(1, "New post in thread");
     }
 
 }

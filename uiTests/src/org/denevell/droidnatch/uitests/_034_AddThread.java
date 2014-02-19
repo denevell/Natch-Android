@@ -11,6 +11,7 @@ import java.util.Date;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
+import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
@@ -33,7 +34,7 @@ public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
     public void test_34_AddThread() throws Exception {
         String date = new Date().toString();
         new AddThreadPO().addThread("Hiya!"+date, "Content"+date);
-        onView(withContentDescription("list_posts_row0")).check(matches(withText("Content"+date)));
+        new ListPostsPO().postHasContent(0, "Content"+date);
         pressBack();
         onView(withContentDescription("list_threads_row0")).check(matches(withText("Hiya!"+date)));
     }
