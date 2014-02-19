@@ -42,9 +42,8 @@
                 android:layout_height="wrap_content"
                 android:text="aaron"
                 android:hint="Password"
-                android:imeOptions="actionNext|flagNavigateNext"
+                android:imeOptions="actionDone"
                 android:inputType="text|textPassword"
-                android:nextFocusForward="@+id/login_button"
                 android:singleLine="true"
                 tools:ignore="HardcodedText" />
 

@@ -1,16 +1,11 @@
 package org.denevell.droidnatch.uitests;
 
-import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
-import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
-import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
-import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
-import org.denevell.natch.android.R;
 
 public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
 
@@ -27,7 +22,6 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
         new ListThreadsPO().checkNoThreads();
         new AddThreadPO().addThread("Listing threads", "Listing threads");
         pressBack();
-        onView(withId(R.id.list_threads_listview)).check(matches(isDisplayed()));
         new ListThreadsPO().checkHasNumberOfThreads(1);
     }
 

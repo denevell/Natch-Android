@@ -42,9 +42,7 @@ public class _05_DeleteThread extends NatchAndroidInstrumentationWithLogin {
 
         pressBack();
 
-        onData(allOf(is(instanceOf(ThreadResource.class))))
-                .atPosition(0)
-                .check(matches(is(withText("New thread to delete"))));
+        new ListThreadsPO().threadHasContent(0, "New thread to delete");
 
         onData(allOf(is(instanceOf(ThreadResource.class))))
                 .atPosition(0)

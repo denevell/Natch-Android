@@ -31,9 +31,10 @@ public class AddThreadPO {
         onView(withText("Add")).perform(click());
     }
     
-    public void addThreadAndPressBack(String subject, String content) throws Exception {
+    public AddThreadPO addThreadAndPressBack(String subject, String content) throws Exception {
     	addThread(subject, content);
     	Espresso.pressBack();
+    	return this;
 	}
 
 }

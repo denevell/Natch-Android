@@ -1,6 +1,8 @@
 package org.denevell.droidnatch.uitests.pageobjects;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
@@ -11,14 +13,25 @@ import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertio
 
 public class ListThreadsPO {
 
-	public void checkNoThreads() {
+	public ListThreadsPO checkNoThreads() {
     	onView(withText("Login")); // So we wait...
         onView(withId(R.id.list_threads_listview)).check(ViewAssertions.matches(CustomMatchers.listViewHasElements(0)));
+        return this;
 	}
 
 	public void checkHasNumberOfThreads(int numThreads) {
         onView(withId(R.id.list_threads_listview))
         	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(numThreads)));
+	}
+
+	public void threadHasAuthor(int i, String string) {
+        onView(withContentDescription("list_threads_row_author"+i))
+        	.check(matches(withText(string)));
+	}
+
+	public void threadHasContent(int i, String string) {
+        onView(withContentDescription("list_threads_row"+i))
+        	.check(matches(withText(string)));
 	}
 
 }

@@ -1,13 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
     <TextView
-		xmlns:android="http://schemas.android.com/apk/res/android"
-	    xmlns:tools="http://schemas.android.com/tools"
-        android:id="@android:id/text1"
+        android:id="@+id/list_thread_row_title_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/list_thread_row_author_textview"
         android:contentDescription="list_threads_row"
-        android:layout_width="match_parent"
+        android:paddingBottom="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:text="Title"
+        android:ellipsize="end"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/list_thread_row_author_textview"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        />
+        android:layout_alignParentRight="true"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:contentDescription="list_threads_row_author"
+        android:paddingRight="5dp"
+        android:paddingTop="10dp"
+        android:text="author"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>
