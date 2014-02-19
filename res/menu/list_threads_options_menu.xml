@@ -10,5 +10,10 @@
         android:orderInCategory="101"
         android:showAsAction="ifRoom"
         android:title="Login" tools:ignore="HardcodedText"/>
+    <item
+        android:id="@+id/threads_option_menu_register"
+        android:orderInCategory="102"
+        android:showAsAction="ifRoom"
+        android:title="Register" tools:ignore="HardcodedText"/>
 
 </menu>

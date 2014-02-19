@@ -96,18 +96,17 @@ public class LoginViewActivator extends LinearLayout implements
         }
     }
 
-	@Override
-	public void setFinishedCallback(Runnable runnable) {
-        mSuccessCallback = runnable;
-	}
-
-
     @Override
     public void fail(FailureResult f) {
         if(f!=null && f.getErrorMessage()!=null) {
         	mUsername.setError("Login failed.");
         }
     }
+
+	@Override
+	public void setFinishedCallback(Runnable runnable) {
+        mSuccessCallback = runnable;
+	}
 
     @Override
     public void onClick(View view) {

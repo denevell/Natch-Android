@@ -17,6 +17,7 @@ import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
 import org.denevell.droidnatch.threads.list.uievents.LoginViewActivator;
 import org.denevell.droidnatch.threads.list.uievents.LongClickDeleteActivator;
 import org.denevell.droidnatch.threads.list.uievents.OpenNewThreadReceiver;
+import org.denevell.droidnatch.threads.list.uievents.RegisterViewActivator;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,6 +26,7 @@ import dagger.Provides;
 
 @Module(injects = {
 		LoginViewActivator.class,
+		RegisterViewActivator.class,
 		AddThreadViewActivator.class,
         PreviousScreenReceiver.class,
         EditPostViewActivator.class,
