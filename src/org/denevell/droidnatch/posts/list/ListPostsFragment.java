@@ -27,15 +27,15 @@ public class ListPostsFragment extends ObservableFragment {
     }
     
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+    	super.onViewCreated(view, savedInstanceState);
         try {
             AddPostTextEditActivator addPost = (AddPostTextEditActivator) getActivity().findViewById(R.id.list_posts_addpost_edittext);
             addPost.setup(getArguments());
             ListPostsViewStarter listPosts = (ListPostsViewStarter) getActivity().findViewById(R.id.list_posts_listpostsview_holder);
             listPosts.setup(getArguments());
         } catch (Exception e) {
-            Log.e(TAG, "Failed to start mapper", e);
+            Log.e(TAG, "Setup views", e);
             return;
         }            
     }

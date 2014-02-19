@@ -32,7 +32,7 @@ public class ListPostsServiceMapper {
         mBundle = bundl3;
     }
     
-    @Provides
+    @Provides @Singleton
     public ServiceFetcher<ThreadResource> provideService(
             ObjectToStringConverter responseConverter, 
             FailureResultFactory failureFactory, 
