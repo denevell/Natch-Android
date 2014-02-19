@@ -27,7 +27,8 @@ public class LoginButtonActivator extends ViewThatListensOnEventBus {
 
 	@Subscribe
 	public void onOptionMenu(ObservableFragment.OptionMenuItemHolder menu) {
-		if(!menu.item.getTitle().equals("Login")) return;
+		int itemId = menu.item.getItemId();
+		if(itemId!=R.id.threads_option_menu_login) return;
 		InitialiseView viewInit = new InitialiseView() {
 			@Override
 			public void intialise(View v, final DialogFragment df) {
