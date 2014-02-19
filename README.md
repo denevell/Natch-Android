@@ -3,6 +3,7 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * Tech: Use a lower resource hungry emulator in the docker container.
+* I should be able to register
 * I should be able to logout
 * I should only be able to add thread if I'm logged in
 
