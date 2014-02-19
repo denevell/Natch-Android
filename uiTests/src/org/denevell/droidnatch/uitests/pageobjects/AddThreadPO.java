@@ -20,13 +20,16 @@ public class AddThreadPO {
     public void addThread(String subject, String content) throws Exception {
         closeSoftKeyboard();
         onView(withText("Add thread")).perform(click());
-        onView(withId(R.id.add_thread_subject_edittext)).perform(typeText(subject), ViewActions.pressImeActionButton());
-        closeSoftKeyboard();
-        Thread.sleep(100);
-        onView(withId(R.id.add_thread_content_edittext)).perform(typeText(content), ViewActions.pressImeActionButton());
-        closeSoftKeyboard();
-        Thread.sleep(100);
-        closeSoftKeyboard();
+        onView(withId(R.id.add_thread_subject_edittext))
+        	.perform(typeText(subject), 
+        			ViewActions.pressImeActionButton(),
+        			ViewActions.closeSoftKeyboard());
+        Thread.sleep(300);
+        onView(withId(R.id.add_thread_content_edittext))
+        	.perform(typeText(content), 
+        			ViewActions.pressImeActionButton(),
+        			ViewActions.closeSoftKeyboard());
+        Thread.sleep(300);
         //onView(withId(R.id.add_thread_button)).perform(click());
         onView(withText("Add")).perform(click());
     }

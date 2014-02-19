@@ -8,6 +8,7 @@ import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.Activator;
+import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.threads.list.di.LoginServicesMapper;
@@ -27,7 +28,9 @@ import android.widget.LinearLayout;
 import dagger.ObjectGraph;
 
 public class LoginViewActivator extends LinearLayout implements
-        Activator<LoginResourceReturnData>, View.OnClickListener {
+        Activator<LoginResourceReturnData>, 
+        View.OnClickListener,
+        Finishable {
 
     public class LoginSuccessfulEvent {
 		public LoginResourceReturnData result;
@@ -93,9 +96,11 @@ public class LoginViewActivator extends LinearLayout implements
         }
     }
 
-    public void setSuccessCallback(Runnable runnable) {
+	@Override
+	public void setFinishedCallback(Runnable runnable) {
         mSuccessCallback = runnable;
-    }
+	}
+
 
     @Override
     public void fail(FailureResult f) {

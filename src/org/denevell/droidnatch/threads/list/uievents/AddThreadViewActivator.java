@@ -10,6 +10,7 @@ import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Controller;
+import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.threads.list.di.AddThreadServicesMapper;
@@ -29,7 +30,9 @@ import android.widget.TextView;
 import dagger.ObjectGraph;
 
 public class AddThreadViewActivator extends LinearLayout implements
-        Activator<AddPostResourceReturnData>, View.OnClickListener {
+        Activator<AddPostResourceReturnData>, 
+        View.OnClickListener,
+        Finishable {
 
     @Inject AddPostResourceInput addPostResourceInput;
     @Inject ServiceFetcher<AddPostResourceReturnData> addPostService;
@@ -89,7 +92,8 @@ public class AddThreadViewActivator extends LinearLayout implements
         if(mSuccessCallback!=null) mSuccessCallback.run();
     }
 
-    public void setSuccessCallback(Runnable runnable) {
+    @Override
+    public void setFinishedCallback(Runnable runnable) {
         mSuccessCallback = runnable;
     }
 

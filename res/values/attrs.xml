@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+     <declare-styleable name="DialogueOpener">
+     	<attr name="dialogue_layout" format="reference"></attr>
+     	<attr name="option_menu_item" format="reference"></attr>
+     </declare-styleable>
+    
+</resources>

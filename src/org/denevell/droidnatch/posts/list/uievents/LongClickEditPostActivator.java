@@ -8,7 +8,6 @@ import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.natch.android.R;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
@@ -63,8 +62,6 @@ public class LongClickEditPostActivator extends View {
             		DialogueFragmentWithView.getInstance(
             				R.layout.edit_post_dialogue_layout, 
             				initView);
-            df.setArguments(new Bundle());
-
             mActivity.getSupportFragmentManager().beginTransaction().add(df, "editthread_dialogue").commit();
         }
     }
