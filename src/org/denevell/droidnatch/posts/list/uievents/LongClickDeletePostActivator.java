@@ -1,18 +1,18 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import java.util.Map;
 
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ClickableListView;
-import org.denevell.droidnatch.posts.list.di.DeletePostServicesMapper;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;
@@ -22,6 +22,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.android.volley.Request;
 import com.squareup.otto.Subscribe;
 
 import dagger.ObjectGraph;
@@ -32,7 +33,7 @@ public class LongClickDeletePostActivator extends View
     @SuppressWarnings("unused")
     private static final String TAG = LongClickDeletePostActivator.class.getSimpleName();
     private GenericUiObserver mCallback;
-    @Inject @Named(DeletePostServicesMapper.DELETE_POST_SERVICE) ServiceFetcher<Void, DeletePostResourceReturnData> deletePostService;
+	private ServiceFetcher<Void, DeletePostResourceReturnData> mService;
 
     public LongClickDeletePostActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -42,14 +43,29 @@ public class LongClickDeletePostActivator extends View
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
                 ObjectGraph.create(
-                        new CommonMapper((Activity) getContext()),
-                        new DeletePostServicesMapper()
+                        new CommonMapper((Activity) getContext())
                 ).inject(this);
+                
+        String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
+		Activity act = (Activity) getContext();
+		mService 
+        	= new ServiceBuilder<Void, DeletePostResourceReturnData>()
+        		.url(url)
+        		.method(Request.Method.DELETE)
+        		.addLazyHeader(new LazyHeadersCallback() {
+					@Override
+					public void run(Map<String, String> headersMap) {
+						headersMap.put("AuthKey", Urls.getAuthKey());
+					}
+				 })
+        		.create(act, DeletePostResourceReturnData.class);
+                
+                
         @SuppressWarnings("unchecked")
 		UiEventThenServiceThenUiEvent<DeletePostResourceReturnData> deletePostController =
                 new UiEventThenServiceThenUiEvent<DeletePostResourceReturnData> (
                         this,
-                        deletePostService,
+                        mService,
                         null,
                         new Receiver<DeletePostResourceReturnData>() {
                             @Override
@@ -73,7 +89,7 @@ public class LongClickDeletePostActivator extends View
         if(obj.index!=0 && obj.ob instanceof PostResource && obj.title.equals("Delete post")) {
             PostResource pr = (PostResource) obj.ob;
             String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
-            deletePostService.getRequest().setUrl(url + pr.getId());
+            mService.getRequest().setUrl(url + pr.getId());
             mCallback.onUiEventActivated();
         }
     }
