@@ -1,5 +1,8 @@
 package org.denevell.droidnatch.threads.list.uievents;
 
+import javax.inject.Inject;
+
+import org.denevell.droidnatch.AppWideMapper;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
@@ -9,12 +12,18 @@ import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.threads.list.ListThreadsUiEventMapper;
+import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
+import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.RegisterResourceInput;
 import org.denevell.droidnatch.threads.list.entities.RegisterResourceReturnData;
+import org.denevell.droidnatch.threads.list.uievents.LoginViewActivator.RefreshOptionsMenuReceiver;
+import org.denevell.droidnatch.threads.list.uievents.LoginViewActivator.UpdateLoginInfoReceiver;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +46,7 @@ public class RegisterViewActivator extends LinearLayout implements
 	private EditText mUsername;
 	private EditText mPassword;
 	private ServiceFetcher<RegisterResourceInput, RegisterResourceReturnData> mRegisterService;
+	@Inject ServiceFetcher<LoginResourceInput, LoginResourceReturnData> mLoginService;
 
     public RegisterViewActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -44,8 +54,11 @@ public class RegisterViewActivator extends LinearLayout implements
     }
 
     private void inject() {
-        ObjectGraph.create(
-                new CommonMapper((Activity) getContext())
+        Activity activity = (Activity) getContext();
+		ObjectGraph.create(
+                new CommonMapper(activity),
+                AppWideMapper.getInstance(),
+				new ListThreadsUiEventMapper(activity)
         ).inject(this);
     }
 
@@ -80,9 +93,24 @@ public class RegisterViewActivator extends LinearLayout implements
         mCallback = observer;
     }
 
-    @Override
+	@Override
     public void success(RegisterResourceReturnData result) {
         if(mSuccessCallback!=null) mSuccessCallback.run();
+        
+        FragmentActivity act = (FragmentActivity) getContext();
+
+		LoginResourceInput entity = mLoginService.getRequest().getBody();
+        entity.setPassword(mPassword.getText().toString());
+        entity.setUsername(mUsername.getText().toString());
+
+		@SuppressWarnings({ "unchecked", "unused" })
+		UiEventThenServiceThenUiEvent<LoginResourceReturnData> con = 
+			new UiEventThenServiceThenUiEvent<LoginResourceReturnData>(
+				null,
+				mLoginService, 
+				null, 
+				new RefreshOptionsMenuReceiver(act),
+				new UpdateLoginInfoReceiver(mUsername)).setup();
     }
 
 	@Override

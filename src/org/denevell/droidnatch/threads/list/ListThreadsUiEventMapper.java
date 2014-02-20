@@ -21,6 +21,8 @@ import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 import org.denevell.droidnatch.app.views.ClickableListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
+import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
+import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
 import org.denevell.natch.android.R;
@@ -120,6 +122,16 @@ public class ListThreadsUiEventMapper {
         		.pagination(pagination)
         		.create(mActivity, ListThreadsResource.class);
 		return listThreadsService;
+	}
+
+    @Provides @Singleton 
+    public ServiceFetcher<LoginResourceInput, LoginResourceReturnData> providesLoginService(
+    		ListThreadsPaginationObject pagination) {
+		String url = Urls.getBasePath() + mActivity.getString(R.string.url_login);
+		return new ServiceBuilder<LoginResourceInput, LoginResourceReturnData>()
+				.url(url).method(Request.Method.POST)
+				.entity(new LoginResourceInput())
+				.create(mActivity, LoginResourceReturnData.class);
 	}
 
     @Provides @Singleton 
