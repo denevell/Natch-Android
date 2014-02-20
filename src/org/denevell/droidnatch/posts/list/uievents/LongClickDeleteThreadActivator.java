@@ -12,7 +12,6 @@ import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThe
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.app.views.ClickableListView;
 import org.denevell.droidnatch.posts.list.di.DeleteThreadFromPostServicesMapper;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
@@ -32,8 +31,7 @@ import dagger.ObjectGraph;
 public class LongClickDeleteThreadActivator extends View implements Activator<DeletePostResourceReturnData> {
 
     private GenericUiObserver mCallback;
-    @Inject @Named(DeleteThreadFromPostServicesMapper.DELETE_THREAD_FROM_VOLLEY_REQUEST) VolleyRequest<Void, DeletePostResourceReturnData> mDeleteRequest;
-    @Inject @Named(DeleteThreadFromPostServicesMapper.DELETE_THREAD_FROM_POST_SERVICE) ServiceFetcher<DeletePostResourceReturnData> deleteThreadService;
+    @Inject @Named(DeleteThreadFromPostServicesMapper.DELETE_THREAD_FROM_POST_SERVICE) ServiceFetcher<Void, DeletePostResourceReturnData> mDeleteThreadService;
     @Inject ScreenOpener screenOpener;
 
     public LongClickDeleteThreadActivator(Context context, AttributeSet attrs) {
@@ -52,7 +50,7 @@ public class LongClickDeleteThreadActivator extends View implements Activator<De
 		UiEventThenServiceThenUiEvent<DeletePostResourceReturnData> deleteThreadFromPostController =
                 new UiEventThenServiceThenUiEvent<DeletePostResourceReturnData>(
                         this,
-                        deleteThreadService,
+                        mDeleteThreadService,
                         null,
                         new PreviousScreenReceiver(screenOpener));
         deleteThreadFromPostController.setup();
@@ -71,7 +69,7 @@ public class LongClickDeleteThreadActivator extends View implements Activator<De
             PostResource tr = (PostResource) obj.ob;
             if(obj.index==0) {
                 String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
-                mDeleteRequest.setUrl(url + tr.getId());
+                mDeleteThreadService.getRequest().setUrl(url + tr.getId());
                 mCallback.onUiEventActivated();
             }
         }

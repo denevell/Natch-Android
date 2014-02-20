@@ -11,7 +11,6 @@ import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThe
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.app.views.ClickableListView;
 import org.denevell.droidnatch.posts.list.di.DeletePostServicesMapper;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
@@ -33,8 +32,7 @@ public class LongClickDeletePostActivator extends View
     @SuppressWarnings("unused")
     private static final String TAG = LongClickDeletePostActivator.class.getSimpleName();
     private GenericUiObserver mCallback;
-    @Inject @Named(DeletePostServicesMapper.DELETE_POST_VOLLEY_REQUEST) VolleyRequest<Void, DeletePostResourceReturnData> mDeleteRequest;
-    @Inject @Named(DeletePostServicesMapper.DELETE_POST_SERVICE) ServiceFetcher<DeletePostResourceReturnData> deletePostService;
+    @Inject @Named(DeletePostServicesMapper.DELETE_POST_SERVICE) ServiceFetcher<Void, DeletePostResourceReturnData> deletePostService;
 
     public LongClickDeletePostActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -75,7 +73,7 @@ public class LongClickDeletePostActivator extends View
         if(obj.index!=0 && obj.ob instanceof PostResource && obj.title.equals("Delete post")) {
             PostResource pr = (PostResource) obj.ob;
             String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
-            mDeleteRequest.setUrl(url + pr.getId());
+            deletePostService.getRequest().setUrl(url + pr.getId());
             mCallback.onUiEventActivated();
         }
     }

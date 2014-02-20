@@ -36,12 +36,12 @@ public class AddPostServicesMapper {
     }
 
     @Provides @Singleton
-    public ServiceFetcher<AddPostResourceReturnData> providesService(
+    public ServiceFetcher<AddPostResourceInput, AddPostResourceReturnData> providesService(
             ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<AddPostResourceInput, AddPostResourceReturnData> volleyRequest) {
-        return new BaseService<AddPostResourceReturnData>(
+        return new BaseService<AddPostResourceInput, AddPostResourceReturnData>(
                 volleyRequest,
                 progress, 
                 converter, 

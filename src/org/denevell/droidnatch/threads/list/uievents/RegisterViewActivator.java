@@ -34,8 +34,7 @@ public class RegisterViewActivator extends LinearLayout implements
 	private Button mButton;
 	private EditText mUsername;
 	private EditText mPassword;
-	@Inject RegisterResourceInput mRegisterInput;
-	@Inject ServiceFetcher<RegisterResourceReturnData> mRegisterService;
+	@Inject ServiceFetcher<RegisterResourceInput, RegisterResourceReturnData> mRegisterService;
 
     public RegisterViewActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -91,8 +90,8 @@ public class RegisterViewActivator extends LinearLayout implements
 
     @Override
     public void onClick(View view) {
-        mRegisterInput.setPassword(mPassword.getText().toString());
-        mRegisterInput.setUsername(mUsername.getText().toString());
+        mRegisterService.getRequest().getBody().setPassword(mPassword.getText().toString());
+        mRegisterService.getRequest().getBody().setUsername(mUsername.getText().toString());
         mCallback.onUiEventActivated();
     }
 

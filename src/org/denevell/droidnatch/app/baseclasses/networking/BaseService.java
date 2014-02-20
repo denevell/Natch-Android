@@ -21,18 +21,18 @@ import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class BaseService<T> implements Listener<JSONObject>, ErrorListener, ServiceFetcher<T> {
+public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, ServiceFetcher<I, T> {
 
     private static final String TAG = BaseService.class.getSimpleName();
     protected ProgressIndicator mProgress;
     protected ServiceCallbacks<T> mCallbacks;
     private FailureResultFactory mFailureResultFactory;
-    protected VolleyRequest<?, T> mVolleyRequest;
+    protected VolleyRequest<I, T> mVolleyRequest;
     private ObjectToStringConverter mResponseConverter;
     private Class<T> mClass;
 
     public BaseService(
-            VolleyRequest<?, T> volleyRequest,
+            VolleyRequest<I, T> volleyRequest,
             ProgressIndicator progress, 
             ObjectToStringConverter responseConverter,
             FailureResultFactory failureResultFactory, 
@@ -44,6 +44,11 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
         mClass = classInstance;
         mVolleyRequest.setErrorListener(this);
         mVolleyRequest.setListener(this);
+    }
+    
+    @Override
+    public VolleyRequest<I, T> getRequest() {
+    	return mVolleyRequest;
     }
 
     public void go() {

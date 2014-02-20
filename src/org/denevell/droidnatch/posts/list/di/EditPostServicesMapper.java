@@ -31,12 +31,12 @@ public class EditPostServicesMapper {
     }
 
     @Provides @Singleton
-    public ServiceFetcher<EditPostResourceReturnData> providesService(
+    public ServiceFetcher<EditPostResource, EditPostResourceReturnData> providesService(
             ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<EditPostResource, EditPostResourceReturnData> volleyRequest) {
-        return new BaseService<EditPostResourceReturnData>(
+        return new BaseService<EditPostResource, EditPostResourceReturnData>(
                 volleyRequest,
                 progress, 
                 converter, 

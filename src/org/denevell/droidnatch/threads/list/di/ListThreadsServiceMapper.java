@@ -31,13 +31,13 @@ public class ListThreadsServiceMapper {
     }
     
     @Provides 
-    public ServiceFetcher<ListThreadsResource> provideService(
+    public ServiceFetcher<Void, ListThreadsResource> provideService(
             ObjectToStringConverter responseConverter, 
             FailureResultFactory failureFactory, 
             Context appContext,
             ProgressIndicator progress,
             VolleyRequest<Void, ListThreadsResource> request) {
-        return new BaseService<ListThreadsResource>(
+        return new BaseService<Void, ListThreadsResource>(
                 request,
                 progress,
                 responseConverter,

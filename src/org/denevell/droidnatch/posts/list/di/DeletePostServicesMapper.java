@@ -35,12 +35,12 @@ public class DeletePostServicesMapper {
     }
 
     @Provides @Named(DELETE_POST_SERVICE)
-    public ServiceFetcher<DeletePostResourceReturnData> providesService(
+    public ServiceFetcher<Void, DeletePostResourceReturnData> providesService(
             ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory,
             @Named(DELETE_POST_VOLLEY_REQUEST) VolleyRequest<Void, DeletePostResourceReturnData> volleyRequest) {
-        return new BaseService<DeletePostResourceReturnData>(
+        return new BaseService<Void, DeletePostResourceReturnData>(
                 volleyRequest,
                 progress, 
                 converter, 

@@ -35,7 +35,7 @@ public class AddThreadViewActivator extends LinearLayout implements
         Finishable {
 
     @Inject AddPostResourceInput addPostResourceInput;
-    @Inject ServiceFetcher<AddPostResourceReturnData> addPostService;
+    @Inject ServiceFetcher<AddPostResourceInput, AddPostResourceReturnData> addPostService;
     @Inject ScreenOpener screenOpener;
     private GenericUiObserver mCallback;
     private Button mButton;

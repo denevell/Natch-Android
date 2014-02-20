@@ -27,8 +27,7 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
         Activator<AddPostResourceReturnData>,OnEditorActionListener {
     
     private GenericUiObserver mCallback;
-    @Inject ServiceFetcher<AddPostResourceReturnData> addPostService;
-    @Inject AddPostResourceInput addPostResourceInput;
+    @Inject ServiceFetcher<AddPostResourceInput, AddPostResourceReturnData> addPostService;
 
     public AddPostTextEditActivator(Context context, AttributeSet attrSet) {
         super(context, attrSet);
@@ -65,8 +64,8 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
         if(event!=null && event.getAction()==KeyEvent.ACTION_DOWN) {
             return true; // Natsty hack to ui automator doesn't call this twice
         }
-        addPostResourceInput.setSubject("-");
-        addPostResourceInput.setContent(v.getText().toString());
+        addPostService.getRequest().getBody().setSubject("-");
+        addPostService.getRequest().getBody().setContent(v.getText().toString());
         mCallback.onUiEventActivated();
         return true;
     }

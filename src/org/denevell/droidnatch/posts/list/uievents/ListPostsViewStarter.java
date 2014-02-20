@@ -30,7 +30,7 @@ public class ListPostsViewStarter extends View {
 
     private UiEventThenServiceThenUiEvent<ThreadResource> controller;
     public static class CallControllerListPosts {}
-    @Inject ServiceFetcher<ThreadResource> listPostsService;
+    @Inject ServiceFetcher<Void, ThreadResource> listPostsService;
     @Inject Receiver<ThreadResource> listViewReceivingUiObject;
     @Inject ListPostsPaginationObject mPaginationObject;
 

@@ -28,12 +28,12 @@ public class RegisterServicesMapper {
     }
 
     @Provides @Singleton
-    public ServiceFetcher<RegisterResourceReturnData> providesService(
+    public ServiceFetcher<RegisterResourceInput, RegisterResourceReturnData> providesService(
             ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<RegisterResourceInput, RegisterResourceReturnData> volleyRequest) {
-        return new BaseService<RegisterResourceReturnData>(
+        return new BaseService<RegisterResourceInput, RegisterResourceReturnData>(
                 volleyRequest,
                 progress, 
                 converter, 

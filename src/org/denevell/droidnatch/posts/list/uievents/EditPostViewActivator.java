@@ -10,7 +10,6 @@ import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.di.EditPostServicesMapper;
 import org.denevell.droidnatch.posts.list.entities.EditPostResource;
 import org.denevell.droidnatch.posts.list.entities.EditPostResourceReturnData;
@@ -30,8 +29,7 @@ import dagger.ObjectGraph;
 public class EditPostViewActivator extends LinearLayout implements
         Activator<EditPostResourceReturnData>, View.OnClickListener {
 
-    @Inject VolleyRequest<EditPostResource, EditPostResourceReturnData> mVolleyRequest;
-    @Inject ServiceFetcher<EditPostResourceReturnData> mEditPostService;
+    @Inject ServiceFetcher<EditPostResource, EditPostResourceReturnData> mEditPostService;
     private GenericUiObserver mCallback;
     private Button mButton;
     private TextView mContent;
@@ -101,8 +99,8 @@ public class EditPostViewActivator extends LinearLayout implements
 
     @Override
     public void onClick(View view) {
-        mVolleyRequest.getBody().setContent(mContent.getText().toString());
-        mVolleyRequest.setUrl(mVolleyRequest.getRequest().getUrl() + "/" + mPost.getId());
+        mEditPostService.getRequest().getBody().setContent(mContent.getText().toString());
+        mEditPostService.getRequest().setUrl(mEditPostService.getRequest().getRequest().getUrl() + "/" + mPost.getId());
         mCallback.onUiEventActivated();
     }
 

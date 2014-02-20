@@ -28,12 +28,12 @@ public class LoginServicesMapper {
     }
 
     @Provides @Singleton
-    public ServiceFetcher<LoginResourceReturnData> providesService(
+    public ServiceFetcher<LoginResourceInput, LoginResourceReturnData> providesService(
             ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<LoginResourceInput, LoginResourceReturnData> volleyRequest) {
-        return new BaseService<LoginResourceReturnData>(
+        return new BaseService<LoginResourceInput, LoginResourceReturnData>(
                 volleyRequest,
                 progress, 
                 converter, 

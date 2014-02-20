@@ -30,12 +30,12 @@ public class DeleteThreadServicesMapper {
     }
 
     @Provides @Singleton
-    public ServiceFetcher<DeletePostResourceReturnData> providesService(
+    public ServiceFetcher<Void, DeletePostResourceReturnData> providesService(
             ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<Void, DeletePostResourceReturnData> volleyRequest) {
-        return new BaseService<DeletePostResourceReturnData>(
+        return new BaseService<Void, DeletePostResourceReturnData>(
                 volleyRequest,
                 progress, 
                 converter, 

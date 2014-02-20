@@ -45,8 +45,7 @@ public class LoginViewActivator extends LinearLayout implements
 	private Button mButton;
 	private EditText mUsername;
 	private EditText mPassword;
-	@Inject LoginResourceInput mLoginInput;
-	@Inject ServiceFetcher<LoginResourceReturnData> mLoginService;
+	@Inject ServiceFetcher<LoginResourceInput, LoginResourceReturnData> mLoginService;
 
     public LoginViewActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -110,8 +109,8 @@ public class LoginViewActivator extends LinearLayout implements
 
     @Override
     public void onClick(View view) {
-        mLoginInput.setPassword(mPassword.getText().toString());
-        mLoginInput.setUsername(mUsername.getText().toString());
+        mLoginService.getRequest().getBody().setPassword(mPassword.getText().toString());
+        mLoginService.getRequest().getBody().setUsername(mUsername.getText().toString());
         mCallback.onUiEventActivated();
     }
 

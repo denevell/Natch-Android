@@ -25,7 +25,7 @@ import dagger.ObjectGraph;
 
 public class ListThreadsViewStarter extends View {
 
-    @Inject ServiceFetcher<ListThreadsResource> mListThreadsService;
+    @Inject ServiceFetcher<Void, ListThreadsResource> mListThreadsService;
     @Inject Receiver<ListThreadsResource> mListViewReceivingUiObject;
     private UiEventThenServiceThenUiEvent<ListThreadsResource> controller;
 

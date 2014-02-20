@@ -11,7 +11,6 @@ import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.app.views.ClickableListView;
 import org.denevell.droidnatch.threads.list.di.DeleteThreadServicesMapper;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
@@ -29,9 +28,8 @@ import dagger.ObjectGraph;
 
 public class LongClickDeleteActivator extends View implements Activator<DeletePostResourceReturnData> {
     
-    @Inject VolleyRequest<Void, DeletePostResourceReturnData> mDeleteRequest;
     private GenericUiObserver mCallback;
-    @Inject ServiceFetcher<DeletePostResourceReturnData> deleteThreadService;
+    @Inject ServiceFetcher<Void, DeletePostResourceReturnData> mDeleteThreadService;
 
     public LongClickDeleteActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -48,7 +46,7 @@ public class LongClickDeleteActivator extends View implements Activator<DeletePo
 		Controller deleteThreadController =
             new UiEventThenServiceThenUiEvent<DeletePostResourceReturnData>(
                 this,
-                deleteThreadService,
+                mDeleteThreadService,
                 null,
                 new Receiver<DeletePostResourceReturnData>() {
                     @Override
@@ -73,7 +71,7 @@ public class LongClickDeleteActivator extends View implements Activator<DeletePo
         if(obj.ob instanceof ThreadResource) {
             ThreadResource pr = (ThreadResource) obj.ob;
             String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
-            mDeleteRequest.setUrl(url+pr.getRootPostId());
+            mDeleteThreadService.getRequest().setUrl(url+pr.getRootPostId());
             mCallback.onUiEventActivated();
         }
     }

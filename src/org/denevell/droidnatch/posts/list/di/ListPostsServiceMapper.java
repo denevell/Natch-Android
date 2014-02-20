@@ -33,12 +33,12 @@ public class ListPostsServiceMapper {
     }
     
     @Provides @Singleton
-    public ServiceFetcher<ThreadResource> provideService(
+    public ServiceFetcher<Void, ThreadResource> provideService(
             ObjectToStringConverter responseConverter, 
             FailureResultFactory failureFactory, 
             VolleyRequest<Void, ThreadResource> volleyRequest, 
             ProgressIndicator progress) {
-        return new BaseService<ThreadResource>(
+        return new BaseService<Void, ThreadResource>(
                 volleyRequest,
                 progress, 
                 responseConverter,
