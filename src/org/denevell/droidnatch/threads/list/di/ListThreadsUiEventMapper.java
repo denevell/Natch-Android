@@ -12,11 +12,12 @@ import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
 import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent.AvailableItems;
+import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
+import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.TypeAdapter;
-import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.app.views.ClickableListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.ListThreadsArrayAdapter;
@@ -32,6 +33,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
+import com.android.volley.Request;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -91,7 +95,7 @@ public class ListThreadsUiEventMapper {
 
     @Provides @Singleton @Named(PROVIDES_LIST_THREADS_PAGINATION_BUTTON)
     public Button providesOnPaginationButton(
-    		final VolleyRequest<Void, ListThreadsResource> request,
+    		final ServiceFetcher<Void, ListThreadsResource> request,
     		final ListThreadsPaginationObject pagination) {
         final Button button = new Button(mActivity);
         button.setText("More");
@@ -100,11 +104,24 @@ public class ListThreadsUiEventMapper {
 			public void onClick(View arg0) {
 				pagination.paginate();
 			    String url = Urls.getBasePath() + mActivity.getString(R.string.url_threads) + "" + pagination.start + "/" + pagination.range;
-			    request.setUrl(url);
+			    request.getRequest().setUrl(url);
 			    EventBus.getBus().post(new ListThreadsViewStarter.CallControllerListThreads());
 			}
 		});
         return button;
+	}
+    
+    @Provides @Singleton 
+    public ServiceFetcher<Void, ListThreadsResource> providesService(
+    		ListThreadsPaginationObject pagination) {
+		String url = Urls.getBasePath()+mActivity.getString(R.string.url_threads);
+		ServiceFetcher<Void, ListThreadsResource> listThreadsService
+        	= new ServiceBuilder<Void, ListThreadsResource>()
+        		.url(url)
+        		.method(Request.Method.GET)
+        		.pagination(pagination)
+        		.create(mActivity, ListThreadsResource.class);
+		return listThreadsService;
 	}
 
     @Provides @Singleton 

@@ -9,7 +9,6 @@ import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.threads.list.di.ListThreadsServiceMapper;
 import org.denevell.droidnatch.threads.list.di.ListThreadsUiEventMapper;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 
@@ -25,9 +24,9 @@ import dagger.ObjectGraph;
 
 public class ListThreadsViewStarter extends View {
 
-    @Inject ServiceFetcher<Void, ListThreadsResource> mListThreadsService;
     @Inject Receiver<ListThreadsResource> mListViewReceivingUiObject;
     private UiEventThenServiceThenUiEvent<ListThreadsResource> controller;
+	@Inject ServiceFetcher<Void, ListThreadsResource> mListThreadsService;
 
     public static class CallControllerListThreads {}
 
@@ -40,7 +39,6 @@ public class ListThreadsViewStarter extends View {
         		AppWideMapper.getInstance(),
                 new CommonMapper((Activity) getContext()),
                 new ScreenOpenerMapper((FragmentActivity) getContext()),
-                new ListThreadsServiceMapper(),
                 new ListThreadsUiEventMapper((Activity) getContext())
         ).inject(this);
     }
@@ -50,11 +48,13 @@ public class ListThreadsViewStarter extends View {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         createObjectGraph();
+
         controller = new UiEventThenServiceThenUiEvent<ListThreadsResource>(
                 null,
                 mListThreadsService,
                 null,
                 mListViewReceivingUiObject).setup();
+
         EventBus.getBus().register(this);
     }
 

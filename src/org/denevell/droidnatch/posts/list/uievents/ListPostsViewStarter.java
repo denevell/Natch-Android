@@ -12,7 +12,6 @@ import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.posts.list.di.ListPostsServiceMapper;
 import org.denevell.droidnatch.posts.list.di.ListPostsUiEventMapper;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 
@@ -44,7 +43,6 @@ public class ListPostsViewStarter extends View {
         ObjectGraph.create(
                 new CommonMapper((Activity) getContext()),
                 AppWideMapper.getInstance(),
-                new ListPostsServiceMapper(bundle),
                 new ListPostsUiEventMapper((Activity) getContext(), threadId)
         ).inject(this);
         controller =

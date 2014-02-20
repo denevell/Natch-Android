@@ -29,6 +29,7 @@ public class Application extends android.app.Application {
         if(Urls.getBasePath()==null || Urls.getBasePath().isEmpty()) {
             Urls.setBasePath(getString(R.string.url_baseurl));
         }
+        //Urls.setBasePath("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/");
     }
 
     private void setAuthKeyIfEmpty() {
