@@ -39,7 +39,7 @@ public class DeletePostServicesMapper {
             ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory,
-            @Named(DELETE_POST_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> volleyRequest) {
+            @Named(DELETE_POST_VOLLEY_REQUEST) VolleyRequest<Void, DeletePostResourceReturnData> volleyRequest) {
         return new BaseService<DeletePostResourceReturnData>(
                 volleyRequest,
                 progress, 
@@ -49,12 +49,12 @@ public class DeletePostServicesMapper {
     }
 
     @Provides @Singleton @Named(DELETE_POST_VOLLEY_REQUEST)
-    public VolleyRequest<DeletePostResourceReturnData> providesVolleyRequestDelete(
+    public VolleyRequest<Void, DeletePostResourceReturnData> providesVolleyRequestDelete(
             ObjectToStringConverter reponseConverter,
             Context appContext) {
         String url = Urls.getBasePath() + appContext.getString(R.string.url_del);
-        VolleyRequestImpl<DeletePostResourceReturnData> vollyRequest = 
-                new VolleyRequestImpl<DeletePostResourceReturnData>(null, null, 
+        VolleyRequestImpl<Void, DeletePostResourceReturnData> vollyRequest = 
+                new VolleyRequestImpl<Void, DeletePostResourceReturnData>(null, null, 
                 		Request.Method.DELETE);
         vollyRequest.setUrl(url);
         vollyRequest.addLazyHeader(new LazyHeadersCallback() {

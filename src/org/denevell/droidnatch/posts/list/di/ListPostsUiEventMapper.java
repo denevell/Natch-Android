@@ -16,7 +16,6 @@ import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.app.views.ClickableListView;
 import org.denevell.droidnatch.posts.list.ListPostsArrayAdapter;
 import org.denevell.droidnatch.posts.list.ListPostsContextMenu;
-import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.posts.list.entities.ThreadResourceResourceToArrayList;
 import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
@@ -31,7 +30,7 @@ import android.widget.Button;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {ListPostsFragment.class}, complete = false, library=true)
+@Module(complete = false, library=true)
 public class ListPostsUiEventMapper {
    
     private static final String PROVIDES_LIST_POSTS_PAGINATION_BUTTON = "list_posts_button";
@@ -70,7 +69,7 @@ public class ListPostsUiEventMapper {
 
     @Provides @Singleton @Named(PROVIDES_LIST_POSTS_PAGINATION_BUTTON)
     public Button providesOnPaginationButton(
-    		final VolleyRequest<ThreadResource> request,
+    		final VolleyRequest<Void, ThreadResource> request,
     		final ListPostsPaginationObject pagination) {
         final Button button = new Button(mActivity);
         button.setText("More");

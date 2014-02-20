@@ -36,7 +36,7 @@ public class AddThreadServicesMapper {
             ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
-            VolleyRequest<AddPostResourceReturnData> volleyRequest) {
+            VolleyRequest<AddPostResourceInput, AddPostResourceReturnData> volleyRequest) {
         return new BaseService<AddPostResourceReturnData>(
                 volleyRequest,
                 progress, 
@@ -46,12 +46,12 @@ public class AddThreadServicesMapper {
     }
 
     @Provides @Singleton 
-    public VolleyRequest<AddPostResourceReturnData> providesRequest(
+    public VolleyRequest<AddPostResourceInput, AddPostResourceReturnData> providesRequest(
             ObjectToStringConverter reponseConverter,
             AddPostResourceInput body,
             Context appContext) {
-        VolleyRequestImpl<AddPostResourceReturnData> vollyRequest = 
-                new VolleyRequestImpl<AddPostResourceReturnData>(
+        VolleyRequestImpl<AddPostResourceInput, AddPostResourceReturnData> vollyRequest = 
+                new VolleyRequestImpl<AddPostResourceInput, AddPostResourceReturnData>(
                     reponseConverter, 
                     body,
                     Request.Method.PUT);

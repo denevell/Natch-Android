@@ -27,12 +27,12 @@ public class BaseService<T> implements Listener<JSONObject>, ErrorListener, Serv
     protected ProgressIndicator mProgress;
     protected ServiceCallbacks<T> mCallbacks;
     private FailureResultFactory mFailureResultFactory;
-    protected VolleyRequest<T> mVolleyRequest;
+    protected VolleyRequest<?, T> mVolleyRequest;
     private ObjectToStringConverter mResponseConverter;
     private Class<T> mClass;
 
     public BaseService(
-            VolleyRequest<T> volleyRequest,
+            VolleyRequest<?, T> volleyRequest,
             ProgressIndicator progress, 
             ObjectToStringConverter responseConverter,
             FailureResultFactory failureResultFactory, 

@@ -29,7 +29,7 @@ import dagger.ObjectGraph;
 
 public class LongClickDeleteActivator extends View implements Activator<DeletePostResourceReturnData> {
     
-    @Inject VolleyRequest<DeletePostResourceReturnData> mDeleteRequest;
+    @Inject VolleyRequest<Void, DeletePostResourceReturnData> mDeleteRequest;
     private GenericUiObserver mCallback;
     @Inject ServiceFetcher<DeletePostResourceReturnData> deleteThreadService;
 

@@ -14,8 +14,6 @@ import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
-import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.posts.list.uievents.LongClickDeleteThreadActivator;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;
 
@@ -26,7 +24,7 @@ import com.android.volley.Request;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {ListPostsFragment.class, LongClickDeleteThreadActivator.class}, complete = false, library=true)
+@Module(complete = false, library=true)
 public class DeleteThreadFromPostServicesMapper {
 
     public static final String DELETE_THREAD_FROM_POST_SERVICE = "delete thread from post service";
@@ -40,7 +38,7 @@ public class DeleteThreadFromPostServicesMapper {
             ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory,
-            @Named(DELETE_THREAD_FROM_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> volleyRequest) {
+            @Named(DELETE_THREAD_FROM_VOLLEY_REQUEST) VolleyRequest<Void, DeletePostResourceReturnData> volleyRequest) {
         return new BaseService<DeletePostResourceReturnData>(
                 volleyRequest,
                 progress, 
@@ -50,12 +48,12 @@ public class DeleteThreadFromPostServicesMapper {
     }
 
     @Provides @Singleton @Named(DELETE_THREAD_FROM_VOLLEY_REQUEST)
-    public VolleyRequest<DeletePostResourceReturnData> providesVolleyRequestDelete(
+    public VolleyRequest<Void, DeletePostResourceReturnData> providesVolleyRequestDelete(
             ObjectToStringConverter reponseConverter,
             Context appContext) {
         String url = Urls.getBasePath() + appContext.getString(R.string.url_del);
-        VolleyRequestImpl<DeletePostResourceReturnData> vollyRequest = 
-        		new VolleyRequestImpl<DeletePostResourceReturnData>(null, null, 
+        VolleyRequestImpl<Void, DeletePostResourceReturnData> vollyRequest = 
+        		new VolleyRequestImpl<Void, DeletePostResourceReturnData>(null, null, 
                         Request.Method.DELETE);
         vollyRequest.setUrl(url);
         vollyRequest.addLazyHeader(new LazyHeadersCallback() {

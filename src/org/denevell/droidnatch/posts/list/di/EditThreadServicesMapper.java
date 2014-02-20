@@ -35,7 +35,7 @@ public class EditThreadServicesMapper {
             ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
-            VolleyRequest<EditPostResourceReturnData> volleyRequest) {
+            VolleyRequest<EditPostResource, EditPostResourceReturnData> volleyRequest) {
         return new BaseService<EditPostResourceReturnData>(
                 volleyRequest,
                 progress, 
@@ -51,12 +51,12 @@ public class EditThreadServicesMapper {
     }
     
     @Provides @Singleton 
-    public VolleyRequest<EditPostResourceReturnData> providesRequest(
+    public VolleyRequest<EditPostResource, EditPostResourceReturnData> providesRequest(
             ObjectToStringConverter reponseConverter,
             EditPostResource body,
             Context appContext) {
-        VolleyRequestImpl<EditPostResourceReturnData> volleyRequest =
-                new VolleyRequestImpl<EditPostResourceReturnData>(
+        VolleyRequestImpl<EditPostResource, EditPostResourceReturnData> volleyRequest =
+                new VolleyRequestImpl<EditPostResource, EditPostResourceReturnData>(
                     reponseConverter, 
                     body,
                     Request.Method.POST);

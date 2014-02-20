@@ -32,7 +32,7 @@ public class LoginServicesMapper {
             ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
-            VolleyRequest<LoginResourceReturnData> volleyRequest) {
+            VolleyRequest<LoginResourceInput, LoginResourceReturnData> volleyRequest) {
         return new BaseService<LoginResourceReturnData>(
                 volleyRequest,
                 progress, 
@@ -42,13 +42,13 @@ public class LoginServicesMapper {
     }
 
     @Provides @Singleton
-    public VolleyRequest<LoginResourceReturnData> providesVolleyRequestDelete(
+    public VolleyRequest<LoginResourceInput, LoginResourceReturnData> providesVolleyRequestDelete(
             ObjectToStringConverter reponseConverter,
             LoginResourceInput input,
             Context appContext) {
         String url = Urls.getBasePath() + appContext.getString(R.string.url_login);
-        VolleyRequestImpl<LoginResourceReturnData> vollyRequest = 
-                new VolleyRequestImpl<LoginResourceReturnData>(reponseConverter, input,
+        VolleyRequestImpl<LoginResourceInput, LoginResourceReturnData> vollyRequest = 
+                new VolleyRequestImpl<LoginResourceInput, LoginResourceReturnData>(reponseConverter, input,
                 		Request.Method.POST);
         vollyRequest.setUrl(url);
         return vollyRequest;

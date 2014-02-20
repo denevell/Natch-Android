@@ -14,7 +14,6 @@ import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.natch.android.R;
@@ -27,7 +26,7 @@ import com.android.volley.Request;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {ListPostsFragment.class, AddPostTextEditActivator.class}, complete = false, library=true)
+@Module(complete = false, library=true)
 public class AddPostServicesMapper {
     
     private Bundle mBundle;
@@ -41,7 +40,7 @@ public class AddPostServicesMapper {
             ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
-            VolleyRequest<AddPostResourceReturnData> volleyRequest) {
+            VolleyRequest<AddPostResourceInput, AddPostResourceReturnData> volleyRequest) {
         return new BaseService<AddPostResourceReturnData>(
                 volleyRequest,
                 progress, 
@@ -59,12 +58,12 @@ public class AddPostServicesMapper {
     }
     
     @Provides @Singleton 
-    public VolleyRequest<AddPostResourceReturnData> providesRequest(
+    public VolleyRequest<AddPostResourceInput, AddPostResourceReturnData> providesRequest(
             ObjectToStringConverter reponseConverter,
             AddPostResourceInput body,
             Context appContext) {
-        VolleyRequestImpl<AddPostResourceReturnData> vollyRequest = 
-                new VolleyRequestImpl<AddPostResourceReturnData>(
+        VolleyRequestImpl<AddPostResourceInput, AddPostResourceReturnData> vollyRequest = 
+                new VolleyRequestImpl<AddPostResourceInput, AddPostResourceReturnData>(
                     reponseConverter, 
                     body,
                     Request.Method.PUT);

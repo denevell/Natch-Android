@@ -15,7 +15,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-public class VolleyRequestImpl<T> implements VolleyRequest<T> {
+public class VolleyRequestImpl<I, R> implements VolleyRequest<I, R> {
     
     public static interface LazyHeadersCallback {
     	void run(Map<String, String> headersMap);
@@ -26,17 +26,22 @@ public class VolleyRequestImpl<T> implements VolleyRequest<T> {
     private ErrorListener mErrorListener;
     private Listener<JSONObject> mListener;
     private Map<String, String> headersMap = new HashMap<String, String>();
-    private Object mBody;
+    private I mBody;
 	private int mRequestType;
 	private ArrayList<LazyHeadersCallback> mLazyHeaderCallbacks = new ArrayList<VolleyRequestImpl.LazyHeadersCallback>();
     
     public VolleyRequestImpl(
             ObjectToStringConverter responseConverter, 
-            Object body,
+            I body,
             int requestType) {
         mResponseConverter = responseConverter;
         mBody = body;
         mRequestType = requestType;
+    }
+    
+    @Override
+    public I getBody() {
+    	return mBody;
     }
     
     public ObjectToStringConverter getResponseConverter() {

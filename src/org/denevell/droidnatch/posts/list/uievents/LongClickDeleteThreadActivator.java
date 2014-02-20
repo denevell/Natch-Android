@@ -32,7 +32,7 @@ import dagger.ObjectGraph;
 public class LongClickDeleteThreadActivator extends View implements Activator<DeletePostResourceReturnData> {
 
     private GenericUiObserver mCallback;
-    @Inject @Named(DeleteThreadFromPostServicesMapper.DELETE_THREAD_FROM_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> mDeleteRequest;
+    @Inject @Named(DeleteThreadFromPostServicesMapper.DELETE_THREAD_FROM_VOLLEY_REQUEST) VolleyRequest<Void, DeletePostResourceReturnData> mDeleteRequest;
     @Inject @Named(DeleteThreadFromPostServicesMapper.DELETE_THREAD_FROM_POST_SERVICE) ServiceFetcher<DeletePostResourceReturnData> deleteThreadService;
     @Inject ScreenOpener screenOpener;
 

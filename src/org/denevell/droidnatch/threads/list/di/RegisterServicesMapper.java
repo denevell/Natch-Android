@@ -32,7 +32,7 @@ public class RegisterServicesMapper {
             ProgressIndicator progress,
             ObjectToStringConverter converter, 
             FailureResultFactory failureFactory, 
-            VolleyRequest<RegisterResourceReturnData> volleyRequest) {
+            VolleyRequest<RegisterResourceInput, RegisterResourceReturnData> volleyRequest) {
         return new BaseService<RegisterResourceReturnData>(
                 volleyRequest,
                 progress, 
@@ -42,13 +42,15 @@ public class RegisterServicesMapper {
     }
 
     @Provides @Singleton
-    public VolleyRequest<RegisterResourceReturnData> providesVolleyRequestDelete(
+    public VolleyRequest<RegisterResourceInput, RegisterResourceReturnData> providesVolleyRequestDelete(
             ObjectToStringConverter reponseConverter,
             RegisterResourceInput input,
             Context appContext) {
         String url = Urls.getBasePath() + appContext.getString(R.string.url_register);
-        VolleyRequestImpl<RegisterResourceReturnData> vollyRequest = 
-                new VolleyRequestImpl<RegisterResourceReturnData>(reponseConverter, input,
+        VolleyRequestImpl<RegisterResourceInput, RegisterResourceReturnData> vollyRequest = 
+                new VolleyRequestImpl<RegisterResourceInput, RegisterResourceReturnData>(
+                		reponseConverter, 
+                		input,
                 		Request.Method.PUT);
         vollyRequest.setUrl(url);
         return vollyRequest;

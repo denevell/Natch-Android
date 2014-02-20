@@ -36,7 +36,7 @@ public class ListPostsServiceMapper {
     public ServiceFetcher<ThreadResource> provideService(
             ObjectToStringConverter responseConverter, 
             FailureResultFactory failureFactory, 
-            VolleyRequest<ThreadResource> volleyRequest, 
+            VolleyRequest<Void, ThreadResource> volleyRequest, 
             ProgressIndicator progress) {
         return new BaseService<ThreadResource>(
                 volleyRequest,
@@ -47,14 +47,14 @@ public class ListPostsServiceMapper {
     }    
     
     @Provides @Singleton
-    public VolleyRequest<ThreadResource> providesRequest (
+    public VolleyRequest<Void, ThreadResource> providesRequest (
             Context appContext,
             ListPostsPaginationObject pagination) {
         String url = Urls.getBasePath()
                 + appContext.getString(R.string.url_posts);
         url = url.replace("{thread_id}", (CharSequence) mBundle.getString(ListPostsFragment.BUNDLE_KEY_THREAD_ID));
         url += pagination.start+"/"+pagination.range;
-        VolleyRequestImpl<ThreadResource> v = new VolleyRequestImpl<ThreadResource>(
+        VolleyRequestImpl<Void, ThreadResource> v = new VolleyRequestImpl<Void, ThreadResource>(
         		null, null, Request.Method.GET);
         v.setUrl(url);
         return v;

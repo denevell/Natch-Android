@@ -33,7 +33,7 @@ public class LongClickDeletePostActivator extends View
     @SuppressWarnings("unused")
     private static final String TAG = LongClickDeletePostActivator.class.getSimpleName();
     private GenericUiObserver mCallback;
-    @Inject @Named(DeletePostServicesMapper.DELETE_POST_VOLLEY_REQUEST) VolleyRequest<DeletePostResourceReturnData> mDeleteRequest;
+    @Inject @Named(DeletePostServicesMapper.DELETE_POST_VOLLEY_REQUEST) VolleyRequest<Void, DeletePostResourceReturnData> mDeleteRequest;
     @Inject @Named(DeletePostServicesMapper.DELETE_POST_SERVICE) ServiceFetcher<DeletePostResourceReturnData> deletePostService;
 
     public LongClickDeletePostActivator(Context context, AttributeSet attrs) {

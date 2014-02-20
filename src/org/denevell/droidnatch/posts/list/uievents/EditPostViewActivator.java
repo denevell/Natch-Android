@@ -30,8 +30,7 @@ import dagger.ObjectGraph;
 public class EditPostViewActivator extends LinearLayout implements
         Activator<EditPostResourceReturnData>, View.OnClickListener {
 
-    @Inject EditPostResource mEditPostResourceInput;
-    @Inject VolleyRequest<EditPostResourceReturnData> mVolleyRequest;
+    @Inject VolleyRequest<EditPostResource, EditPostResourceReturnData> mVolleyRequest;
     @Inject ServiceFetcher<EditPostResourceReturnData> mEditPostService;
     private GenericUiObserver mCallback;
     private Button mButton;
@@ -102,7 +101,7 @@ public class EditPostViewActivator extends LinearLayout implements
 
     @Override
     public void onClick(View view) {
-        mEditPostResourceInput.setContent(mContent.getText().toString());
+        mVolleyRequest.getBody().setContent(mContent.getText().toString());
         mVolleyRequest.setUrl(mVolleyRequest.getRequest().getUrl() + "/" + mPost.getId());
         mCallback.onUiEventActivated();
     }

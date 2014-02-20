@@ -19,10 +19,8 @@ import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.app.views.ClickableListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
 import org.denevell.droidnatch.threads.list.ListThreadsArrayAdapter;
 import org.denevell.droidnatch.threads.list.ListThreadsContextMenu;
-import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
@@ -37,7 +35,7 @@ import android.widget.Button;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {ListThreadsFragment.class, ListThreadsViewStarter.class, ListPostsViewStarter.class}, complete=false, library=true)
+@Module(complete=false, library=true)
 public class ListThreadsUiEventMapper {
     
     public static final String PROVIDES_LIST_THREADS_PAGINATION_BUTTON = "List view pagination button";
@@ -93,7 +91,7 @@ public class ListThreadsUiEventMapper {
 
     @Provides @Singleton @Named(PROVIDES_LIST_THREADS_PAGINATION_BUTTON)
     public Button providesOnPaginationButton(
-    		final VolleyRequest<ListThreadsResource> request,
+    		final VolleyRequest<Void, ListThreadsResource> request,
     		final ListThreadsPaginationObject pagination) {
         final Button button = new Button(mActivity);
         button.setText("More");
