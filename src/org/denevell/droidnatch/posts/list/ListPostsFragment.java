@@ -22,7 +22,7 @@ public class ListPostsFragment extends ObservableFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         String threadName = getArguments().getString(BUNDLE_KEY_THREAD_NAME);
         getActivity().setTitle(threadName);
-        View v = inflater.inflate(R.layout.list_posts_fragment, container, false);
+        View v = inflater.inflate(R.layout.posts_lists_fragment, container, false);
         return v;
     }
     

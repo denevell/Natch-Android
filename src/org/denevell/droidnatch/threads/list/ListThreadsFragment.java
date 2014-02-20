@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 public class ListThreadsFragment extends ObservableFragment {
     private static final String TAG = ListThreadsFragment.class.getSimpleName();
-	private ListThreadsOptionsMenu mOptionsMenu;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,19 +31,12 @@ public class ListThreadsFragment extends ObservableFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
-        mOptionsMenu = new ListThreadsOptionsMenu().start();
     }
     
     @Override
-    public void onDestroy() {
-    	super.onDestroy();
-    	mOptionsMenu.stop();
-    }
-
-    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-		mOptionsMenu.create(menu, inflater);
+        new ListThreadsOptionsMenu().create(menu, inflater);
     }
 
 }

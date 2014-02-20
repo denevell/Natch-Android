@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.posts.list;
+package org.denevell.droidnatch.app.views;
 
 import org.denevell.droidnatch.EventBus;
 

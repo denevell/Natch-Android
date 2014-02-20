@@ -1,22 +1,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="?android:attr/buttonBarStyle"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+    android:layout_height="fill_parent" >
 
     <org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter
         android:id="@+id/list_posts_listpostsview_holder"
         android:layout_width="0dp"
         android:layout_height="0dp" />
 
-    <org.denevell.droidnatch.posts.list.uievents.LongClickEditPostActivator
+    <org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator
         android:layout_width="0dp"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        app:dialogue_layout="@layout/edit_post_dialogue_layout"
+        app:option_menu_item="@+id/posts_context_menu_edit_post" />
 
-    <org.denevell.droidnatch.posts.list.uievents.LongClickEditThreadActivator
+    <org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator
         android:layout_width="0dp"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        app:dialogue_layout="@layout/edit_thread_dialogue_layout"
+        app:option_menu_item="@+id/posts_context_menu_edit_thread" />
 
     <org.denevell.droidnatch.posts.list.uievents.LongClickDeleteThreadActivator
         android:layout_width="0dp"
@@ -27,10 +31,11 @@
         android:layout_height="0dp" />
 
     <LinearLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
+
         <requestFocus />
     </LinearLayout>
 
@@ -38,29 +43,27 @@
         android:id="@+id/list_posts_addpost_edittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:imeOptions="actionDone"
+        android:layout_alignParentTop="true"
+        android:contentDescription="add_post_edittext"
         android:ems="10"
-        android:inputType="textCapSentences" 
-        android:contentDescription="add_post_edittext" 
-        />    
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences" />
 
     <org.denevell.droidnatch.app.views.ClickableListView
         android:id="@+id/list_posts_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/list_posts_addpost_edittext"
-        android:contentDescription="list_posts_listview" 
-        />
-    
-   <include
-        android:contentDescription="list_posts_loading_view"
+        android:contentDescription="list_posts_listview" />
+
+    <include
         android:id="@+id/list_posts_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/list_posts_loading_page">
-    </include>    
+        layout="@layout/list_posts_loading_page"
+        android:contentDescription="list_posts_loading_view" >
+    </include>
 
 </RelativeLayout>

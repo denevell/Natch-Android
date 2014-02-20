@@ -1,9 +1,9 @@
 package org.denevell.droidnatch.app.views;
 
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
+import org.denevell.droidnatch.app.interfaces.CanSetEntity;
 import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.views.DialogueFragmentWithView.InitialiseView;
-import org.denevell.droidnatch.posts.list.ViewThatListensOnEventBus;
 import org.denevell.natch.android.R;
 
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.content.res.TypedArray;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.squareup.otto.Subscribe;
@@ -18,15 +19,21 @@ import com.squareup.otto.Subscribe;
 /**
  * Required the ObservableFragment is active on our fragment so it sends 
  * out ObservableFragment.OptionMenuItemHolder event.
+ * 
+ * Also listens for LongPressListViewEvent from the ClickableListView.
+ * 
+ * The layout which is passed in must extend CanSetEntity and Finishable if you
+ * want the LongPressListViewEvent to pass in it's row item and if you want the
+ * View to tell the dialogue when to dismiss itself (which you do).
  */
-public class DialoguePopupOnOptionMenuActivator extends ViewThatListensOnEventBus {
+public class DialoguePopupOnMenuActivator extends ViewThatListensOnEventBus {
 	@SuppressWarnings("unused")
-	private static final String TAG = DialoguePopupOnOptionMenuActivator.class.getSimpleName();
+	private static final String TAG = DialoguePopupOnMenuActivator.class.getSimpleName();
 	private FragmentActivity mActivity;
 	private int mLayout;
 	private int mOptionId;
 
-	public DialoguePopupOnOptionMenuActivator(Context context, AttributeSet attrs) {
+	public DialoguePopupOnMenuActivator(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DialogueOpener, 0, 0);
 		try {
@@ -42,12 +49,22 @@ public class DialoguePopupOnOptionMenuActivator extends ViewThatListensOnEventBu
 	}
 
 	@Subscribe
+	public void onListViewLongClick(ClickableListView.LongPressListViewEvent event) {
+		createDialogue(event.menuItem, event.ob);
+	}
+
+	@Subscribe
 	public void onOptionMenu(ObservableFragment.OptionMenuItemHolder menu) {
-		if (menu.item.getItemId() != mOptionId) return;
+		createDialogue(menu.item, null);
+	}
+
+	public void createDialogue(final MenuItem menu, final Object entity) {
+		if (menu.getItemId() != mOptionId) return;
 		InitialiseView viewInit = new InitialiseView() {
 			@Override
 			public void intialise(View v, final DialogFragment df) {
 				dismissDialogueOnViewFinished(v, df);
+				setEntityIfAvailable(entity, v);
 			}
 		};
 		final DialogueFragmentWithView df = DialogueFragmentWithView
@@ -64,6 +81,13 @@ public class DialoguePopupOnOptionMenuActivator extends ViewThatListensOnEventBu
             		df.dismiss();
                 }
             });
+		}
+	}
+
+	private void setEntityIfAvailable(final Object entity, View v) {
+		if(v instanceof CanSetEntity && entity != null) {
+			CanSetEntity cse = (CanSetEntity) v;
+			cse.setEntity(entity);
 		}
 	}
 

@@ -10,7 +10,9 @@ import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThe
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.Activator;
+import org.denevell.droidnatch.app.interfaces.CanSetEntity;
 import org.denevell.droidnatch.app.interfaces.Controller;
+import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.posts.list.entities.EditPostResource;
@@ -33,7 +35,9 @@ import dagger.ObjectGraph;
 
 public class EditThreadViewActivator extends LinearLayout implements
         Activator<EditPostResourceReturnData>, 
-        View.OnClickListener {
+        View.OnClickListener,
+        Finishable,
+        CanSetEntity {
 
     private ServiceFetcher<EditPostResource, EditPostResourceReturnData> mEditPostService;
     private GenericUiObserver mCallback;
@@ -114,7 +118,8 @@ public class EditThreadViewActivator extends LinearLayout implements
         }
     }
 
-    public void setSuccessCallback(Runnable runnable) {
+    @Override
+    public void setFinishedCallback(Runnable runnable) {
         mSuccessCallback = runnable;
     }
 
@@ -133,8 +138,10 @@ public class EditThreadViewActivator extends LinearLayout implements
         mCallback.onUiEventActivated();
     }
 
-    public void setPost(PostResource post) {
-        mPost = post;
+    @Override
+    public void setEntity(Object post) {
+    	PostResource p = (PostResource) post;
+        mPost = p;
     }
     
 }

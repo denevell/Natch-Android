@@ -17,4 +17,9 @@
     <string name="page_title_posts">Posts</string>
     <string name="page_title_threads">Threads</string>
 
+    <item type="id" name="posts_context_menu_delete_thread">posts_context_menu_delete_thread</item>
+    <item type="id" name="posts_context_menu_delete_post">posts_context_menu_delete_post</item>
+
+    <item type="id" name="posts_context_menu_edit_thread">posts_context_menu_edit_thread</item>
+    <item type="id" name="posts_context_menu_edit_post">posts_context_menu_edit_post</item>
 </resources>
