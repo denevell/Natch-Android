@@ -1,18 +1,19 @@
 package org.denevell.droidnatch.threads.list.uievents;
 
-import javax.inject.Inject;
+import java.util.Map;
 
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ClickableListView;
-import org.denevell.droidnatch.threads.list.di.DeleteThreadServicesMapper;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
@@ -22,6 +23,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.android.volley.Request;
 import com.squareup.otto.Subscribe;
 
 import dagger.ObjectGraph;
@@ -29,24 +31,39 @@ import dagger.ObjectGraph;
 public class LongClickDeleteActivator extends View implements Activator<DeletePostResourceReturnData> {
     
     private GenericUiObserver mCallback;
-    @Inject ServiceFetcher<Void, DeletePostResourceReturnData> mDeleteThreadService;
+	private ServiceFetcher<Void, DeletePostResourceReturnData> mService;
 
     public LongClickDeleteActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
         ObjectGraph.create(
-                new CommonMapper((Activity) context),
-                new DeleteThreadServicesMapper()
+                new CommonMapper((Activity) context)
         ).inject(this);
     }
-
+    
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        
+        Activity act = (Activity) getContext();
+        
+        String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
+		mService 
+        	= new ServiceBuilder<Void, DeletePostResourceReturnData>()
+        		.url(url)
+        		.method(Request.Method.DELETE)
+        		.addLazyHeader(new LazyHeadersCallback() {
+					@Override
+					public void run(Map<String, String> headersMap) {
+						headersMap.put("AuthKey", Urls.getAuthKey());
+					}
+				 })
+        		.create(act, DeletePostResourceReturnData.class);
+        
         @SuppressWarnings("unchecked")
 		Controller deleteThreadController =
             new UiEventThenServiceThenUiEvent<DeletePostResourceReturnData>(
                 this,
-                mDeleteThreadService,
+                mService,
                 null,
                 new Receiver<DeletePostResourceReturnData>() {
                     @Override
@@ -71,7 +88,7 @@ public class LongClickDeleteActivator extends View implements Activator<DeletePo
         if(obj.ob instanceof ThreadResource) {
             ThreadResource pr = (ThreadResource) obj.ob;
             String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
-            mDeleteThreadService.getRequest().setUrl(url+pr.getRootPostId());
+            mService.getRequest().setUrl(url+pr.getRootPostId());
             mCallback.onUiEventActivated();
         }
     }

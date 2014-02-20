@@ -32,7 +32,7 @@ public class _12_PostsPagination extends NatchAndroidInstrumentationWithLogin {
         getActivity();
     }
 
-	public void test_1_AddPostToThread() throws Exception {
+	public void test() throws Exception {
         new AddThreadPO().addThread("New thread", "New thread");
 
         onView(withId(R.id.list_posts_addpost_edittext))
