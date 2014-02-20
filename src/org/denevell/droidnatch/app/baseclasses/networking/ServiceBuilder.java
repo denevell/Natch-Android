@@ -11,8 +11,6 @@ import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
-import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 
 import android.app.Activity;
 

@@ -1,16 +1,18 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
-import javax.inject.Inject;
+import java.util.Map;
 
 import org.denevell.droidnatch.EventBus;
+import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.posts.list.di.EditThreadServicesMapper;
 import org.denevell.droidnatch.posts.list.entities.EditPostResource;
 import org.denevell.droidnatch.posts.list.entities.EditPostResourceReturnData;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
@@ -24,13 +26,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.android.volley.Request;
+
 import dagger.ObjectGraph;
 
 public class EditThreadViewActivator extends LinearLayout implements
         Activator<EditPostResourceReturnData>, 
         View.OnClickListener {
 
-    @Inject ServiceFetcher<EditPostResource, EditPostResourceReturnData> mEditPostService;
+    private ServiceFetcher<EditPostResource, EditPostResourceReturnData> mEditPostService;
     private GenericUiObserver mCallback;
     private Button mButton;
     private TextView mContent;
@@ -48,8 +53,7 @@ public class EditThreadViewActivator extends LinearLayout implements
 
     private void inject() {
         ObjectGraph.create(
-                new CommonMapper((Activity) getContext()),
-                new EditThreadServicesMapper()
+                new CommonMapper((Activity) getContext())
         ).inject(this);
     }
 
@@ -63,7 +67,22 @@ public class EditThreadViewActivator extends LinearLayout implements
         	mSubject.setText(mPost.getSubject());
         }
         mButton.setOnClickListener(this);
+
         inject();
+        Activity act = (Activity) getContext();
+
+		String url = Urls.getBasePath() + getContext().getString(R.string.url_edit_thread);
+		mEditPostService = new ServiceBuilder<EditPostResource, EditPostResourceReturnData>()
+       		.addLazyHeader(new LazyHeadersCallback() {
+				@Override public void run(Map<String, String> headersMap) {
+					headersMap.put("AuthKey", Urls.getAuthKey());
+				}
+			})			
+			.url(url)
+			.entity(new EditPostResource())
+			.method(Request.Method.POST)
+        	.create(act, EditPostResourceReturnData.class); 
+        
         @SuppressWarnings("unchecked")
 		Controller addThreadController =
                 new UiEventThenServiceThenUiEvent<EditPostResourceReturnData>(
@@ -102,7 +121,7 @@ public class EditThreadViewActivator extends LinearLayout implements
     @Override
     public void fail(FailureResult f) {
         if(f!=null && f.getErrorMessage()!=null) {
-            mContent.setError(f.getErrorMessage());
+            mSubject.setError(f.getErrorMessage());
         }
     }
 

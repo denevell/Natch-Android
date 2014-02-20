@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.posts.list.di;
+package org.denevell.droidnatch.posts.list;
 
 import java.util.List;
 
@@ -6,7 +6,6 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
-import org.denevell.droidnatch.AppWideMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
@@ -16,8 +15,6 @@ import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ClickableListView;
-import org.denevell.droidnatch.posts.list.ListPostsArrayAdapter;
-import org.denevell.droidnatch.posts.list.ListPostsContextMenu;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.posts.list.entities.ThreadResourceResourceToArrayList;
 import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
@@ -93,7 +90,7 @@ public class ListPostsUiEventMapper {
     
     @Provides @Singleton 
     public ServiceFetcher<Void, ThreadResource> providesService(
-    		ListThreadsPaginationObject pagination) {
+    		ListPostsPaginationObject pagination) {
         String url = Urls.getBasePath() + mActivity.getString(R.string.url_posts);
         url = url.replace("{thread_id}", mTheadId);
 		ServiceFetcher<Void, ThreadResource> service
