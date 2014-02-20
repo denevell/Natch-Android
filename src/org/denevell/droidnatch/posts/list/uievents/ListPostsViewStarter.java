@@ -6,7 +6,6 @@ import org.denevell.droidnatch.AppWideMapper;
 import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
-import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.Receiver;
@@ -71,10 +70,5 @@ public class ListPostsViewStarter extends View {
         if(controller!=null) {
             controller.onUiEventActivated();
         }
-    }
-
-    @Subscribe
-    public void resetPaginationObject(ObservableFragment.FragmentStopped event) {
-    	mPaginationObject.range = mPaginationObject.defaultRange;
     }
 }

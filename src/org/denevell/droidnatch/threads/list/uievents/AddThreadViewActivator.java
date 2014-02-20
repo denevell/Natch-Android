@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.denevell.droidnatch.AppWideMapper;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
@@ -41,7 +42,7 @@ public class AddThreadViewActivator extends LinearLayout implements
         Finishable {
 
     private ServiceFetcher<AddPostResourceInput, AddPostResourceReturnData> mAddPostService;
-    @Inject ScreenOpener screenOpener;
+    @Inject ScreenOpener mScreenOpener;
     private GenericUiObserver mCallback;
     private Button mButton;
     private TextView mSubject;
@@ -61,6 +62,7 @@ public class AddThreadViewActivator extends LinearLayout implements
     private void inject() {
         ObjectGraph.create(
                 new ScreenOpenerMapper((FragmentActivity) getContext()),
+                AppWideMapper.getInstance(),
                 new CommonMapper((Activity) getContext())
         ).inject(this);
     }
@@ -91,7 +93,7 @@ public class AddThreadViewActivator extends LinearLayout implements
                         this,
                         mAddPostService,
                         null,
-                        new OpenNewThreadReceiver(screenOpener));
+                        new OpenNewThreadReceiver(mScreenOpener));
         addThreadController.setup();
     }
     

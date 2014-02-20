@@ -2,6 +2,7 @@ package org.denevell.droidnatch.threads.list.uievents;
 
 import java.util.HashMap;
 
+import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;

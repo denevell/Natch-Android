@@ -8,6 +8,7 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
+import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.natch.android.R;
 
 import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
@@ -47,6 +48,13 @@ public class _12_PostsPagination extends NatchAndroidInstrumentationWithLogin {
 
         onView(withId(R.id.list_posts_listview))
         	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(6)));
+        
+        TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
+
+        onView(withId(R.id.list_posts_listview))
+        	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(6)));
+
+        TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
     }
 
 }

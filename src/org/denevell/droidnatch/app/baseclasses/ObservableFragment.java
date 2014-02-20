@@ -25,12 +25,6 @@ public class ObservableFragment extends Fragment {
 			super(item);
 		}
     }
-    public class FragmentStopped {
-		public Fragment fragment;
-		public FragmentStopped(Fragment observableFragment) {
-			fragment = observableFragment;
-		}
-    }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -44,12 +38,5 @@ public class ObservableFragment extends Fragment {
         EventBus.getBus().post(new OptionMenuItemHolder(item));
         return super.onOptionsItemSelected(item);
     }
-    
-    @Override
-    public void onDestroyView() {
-        EventBus.getBus().post(new FragmentStopped(this));
-    	super.onDestroyView();
-    }
-    
     
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.AppWideMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
@@ -137,7 +138,9 @@ public class ListThreadsUiEventMapper {
     @Provides @Singleton 
     public OnPress<ThreadResource> providesOnListClickAction(
             final ClickableListView<ThreadResource> onPressObserver,
-            final ScreenOpener screenOpener) {
+            final ScreenOpener screenOpener,
+            final ListPostsPaginationObject pagination
+    		) {
         OnPress<ThreadResource> onPress = new OnPress<ThreadResource>() {
                     @Override
                     public void onPress(ThreadResource obj) {
@@ -145,6 +148,7 @@ public class ListThreadsUiEventMapper {
                         HashMap<String, String> hm = new HashMap<String, String>();
                         hm.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, obj.getId());
                         hm.put(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, obj.getSubject());
+                        pagination.range = pagination.defaultRange;
                         screenOpener.openScreen(ListPostsFragment.class, hm);
                     }
                 };

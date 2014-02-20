@@ -2,7 +2,6 @@ package org.denevell.droidnatch.posts.list;
 
 import java.util.List;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
@@ -35,7 +34,6 @@ import dagger.Provides;
 @Module(complete = false, library=true)
 public class ListPostsUiEventMapper {
    
-    private static final String PROVIDES_LIST_POSTS_PAGINATION_BUTTON = "list_posts_button";
 	private Activity mActivity;
 	private String mTheadId;
 
@@ -47,11 +45,15 @@ public class ListPostsUiEventMapper {
     @Provides @Singleton
     public Receiver<ThreadResource> providesReceivingUiObject (
             Context appContext, 
-            ClickableListView<PostResource> listView,
-            @Named(PROVIDES_LIST_POSTS_PAGINATION_BUTTON) Button moreButton) {
+            ServiceFetcher<Void, ThreadResource> request, 
+            ListPostsPaginationObject pagination) {
         //View loading = (View) mActivity.findViewById(R.id.list_posts_loading);
+
         ListPostsArrayAdapter arrayAdapter = new ListPostsArrayAdapter(appContext, R.layout.list_posts_row);
-        ListViewUiEvent<PostResource, List<PostResource>, ThreadResource> displayer =
+        Button paginationButton = providesOnPaginationButton(request, pagination);
+        ClickableListView<PostResource> listView = provideListView(); 
+
+		ListViewUiEvent<PostResource, List<PostResource>, ThreadResource> displayer =
                 new ListViewUiEvent<PostResource, List<PostResource>, ThreadResource>(
                         listView,
                         arrayAdapter, 
@@ -64,12 +66,11 @@ public class ListPostsUiEventMapper {
 								return ob.getNumPosts();
 							}
 						},
-                        moreButton);
+                        paginationButton);
         return displayer;
     } 
 
-    @Provides @Singleton @Named(PROVIDES_LIST_POSTS_PAGINATION_BUTTON)
-    public Button providesOnPaginationButton(
+    private Button providesOnPaginationButton(
     		final ServiceFetcher<Void, ThreadResource> request,
     		final ListPostsPaginationObject pagination) {
         final Button button = new Button(mActivity);
@@ -87,6 +88,16 @@ public class ListPostsUiEventMapper {
 		});
         return button;
 	}
+
+	@SuppressWarnings("unchecked")
+    private ClickableListView<PostResource> provideListView() {
+        @SuppressWarnings("rawtypes")
+		ClickableListView lv = (ClickableListView) mActivity.findViewById(R.id.list_posts_listview);
+        lv.setKeyboadHider(new HideKeyboard());
+        lv.setOnCreateContextMenuListener(new ListPostsContextMenu());
+        return lv;
+    } 
+
     
     @Provides @Singleton 
     public ServiceFetcher<Void, ThreadResource> providesService(
@@ -101,15 +112,5 @@ public class ListPostsUiEventMapper {
         		.create(mActivity, ThreadResource.class);
 		return service;
 	}
-
-    @SuppressWarnings("unchecked")
-	@Provides @Singleton
-    public ClickableListView<PostResource> provideListView() {
-        @SuppressWarnings("rawtypes")
-		ClickableListView lv = (ClickableListView) mActivity.findViewById(R.id.list_posts_listview);
-        lv.setKeyboadHider(new HideKeyboard());
-        lv.setOnCreateContextMenuListener(new ListPostsContextMenu());
-        return lv;
-    } 
 
 }
