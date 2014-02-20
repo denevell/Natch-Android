@@ -18,14 +18,18 @@ import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 public class LoginPO {
 
 	public LoginPO loginWithDefaultCredential() {
+		return loginWithCredential("aaron", "aaron");
+	}
+
+	public LoginPO loginWithCredential(String username, String password) {
         onView(withText("Login")).perform(click());
         onView(withId(R.id.login_username_edittext))
         	.perform(clearText(),
-        			typeText("aaron"), 
+        			typeText(username), 
         			ViewActions.pressImeActionButton());
         onView(withId(R.id.login_password_edittext))
         	.perform(clearText(),
-        			typeText("aaron"), 
+        			typeText(password), 
         			ViewActions.pressImeActionButton());
         closeSoftKeyboard();
         try {
@@ -37,8 +41,8 @@ public class LoginPO {
         return this;
 	}
 
-	public void shouldseeUsername() {
-    	onView(ViewMatchers.withText("aaron")).check(matches(isDisplayed()));
+	public void shouldseeUsername(String username) {
+    	onView(ViewMatchers.withText(username)).check(matches(isDisplayed()));
 	}
 
 }

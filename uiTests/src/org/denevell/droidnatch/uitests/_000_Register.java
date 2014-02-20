@@ -3,6 +3,7 @@ package org.denevell.droidnatch.uitests;
 import java.util.Date;
 
 import org.denevell.droidnatch.MainPageActivity;
+import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentation;
 
@@ -22,6 +23,8 @@ public class _000_Register extends NatchAndroidInstrumentation {
 		new RegisterPO()
     		.register(getInstrumentation(), username, username)
     		.registerSuccess();
+		new LoginPO()
+			.shouldseeUsername(username);
     }
     
     public void testFail() throws Exception {
