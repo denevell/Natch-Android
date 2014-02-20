@@ -10,6 +10,7 @@ import org.denevell.droidnatch.app.interfaces.OnPressObserver;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -24,13 +25,11 @@ public class ClickableListView<T> extends ListView implements
     private static final String TAG = ClickableListView.class.getSimpleName();
     public static class LongPressListViewEvent {
         public final Object ob;
-        public final long id;
-        public final String title;
         public final int index;
-        public LongPressListViewEvent(Object ob, long id,String title, int index) {
+		public final MenuItem menuItem;
+        public LongPressListViewEvent(Object ob, MenuItem menuItem, int index) {
             this.ob = ob;
-            this.id = id;
-            this.title = title;
+            this.menuItem = menuItem;
             this.index = index;
         }
     }
@@ -72,7 +71,7 @@ public class ClickableListView<T> extends ListView implements
             int index = info.position;
             @SuppressWarnings("unchecked")
             T tr = (T) getAdapter().getItem(index);
-            EventBus.getBus().post(new LongPressListViewEvent(tr, item.item.getItemId(), item.item.getTitle().toString(), index));
+            EventBus.getBus().post(new LongPressListViewEvent(tr, item.item, index));
         } catch (Exception e) {
             Log.e(TAG, "Couldn't process oncontextitemselected event.", e);
         }

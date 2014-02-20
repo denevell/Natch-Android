@@ -86,7 +86,8 @@ public class LongClickDeletePostActivator extends View
 
     @Subscribe
     public void onLongPress(ClickableListView.LongPressListViewEvent obj) {
-        if(obj.index!=0 && obj.ob instanceof PostResource && obj.title.equals("Delete post")) {
+        if(obj.ob instanceof PostResource 
+        		&& obj.menuItem.getTitle().toString().equals("Delete post")) {
             PostResource pr = (PostResource) obj.ob;
             String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
             mService.getRequest().setUrl(url + pr.getId());

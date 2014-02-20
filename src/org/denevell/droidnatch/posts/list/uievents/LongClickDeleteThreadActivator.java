@@ -82,7 +82,8 @@ public class LongClickDeleteThreadActivator extends View implements Activator<De
 
     @Subscribe
     public void onLongPress(ClickableListView.LongPressListViewEvent obj) {
-        if(obj.ob instanceof PostResource && obj.title.equals("Delete thread")) {
+        if(obj.ob instanceof PostResource 
+        		&& obj.menuItem.getTitle().toString().equals("Delete thread")) {
             PostResource tr = (PostResource) obj.ob;
             if(obj.index==0) {
                 String url = Urls.getBasePath() + getContext().getString(R.string.url_del);

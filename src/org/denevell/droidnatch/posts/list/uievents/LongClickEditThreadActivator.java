@@ -30,7 +30,8 @@ public class LongClickEditThreadActivator extends ViewThatListensOnEventBus {
 
 	@Subscribe
 	public void onLongPress(final ClickableListView.LongPressListViewEvent obj) {
-		if (obj.index == 0 && obj.ob instanceof PostResource && obj.title.equals("Edit thread")) {
+		if (obj.ob instanceof PostResource 
+				&& obj.menuItem.getTitle().toString().equals("Edit thread")) {
 
 			InitialiseView initView = new InitialiseView() {
 				@Override

@@ -40,7 +40,8 @@ public class LongClickEditPostActivator extends View {
 
     @Subscribe
     public void onLongPress(final ClickableListView.LongPressListViewEvent obj) {
-        if(obj.index!=0 && obj.ob instanceof PostResource && obj.title.equals("Edit post")) {
+        if(obj.ob instanceof PostResource 
+        		&& obj.menuItem.getTitle().toString().equals("Edit post")) {
 
 			InitialiseView initView = new InitialiseView() {
 				@Override
