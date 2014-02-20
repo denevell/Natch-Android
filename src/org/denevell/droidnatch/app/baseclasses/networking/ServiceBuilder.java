@@ -11,6 +11,8 @@ import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
+import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 
 import android.app.Activity;
 
@@ -24,8 +26,8 @@ public class ServiceBuilder<I, R> {
 	private int mMethod; // Request.Method.GET for example
 	private ObjectToStringConverter mResponseConverter = new JsonConverter();
 	private FailureResultFactory mFailureFactory = new FailureFactory();
-
 	private ArrayList<LazyHeadersCallback> mLazyHeaders = new ArrayList<VolleyRequestImpl.LazyHeadersCallback>();
+	private I mEntity; // That we send up in the request
 
 	public ServiceBuilder<I, R> pagination(PaginationObject p) {
 		mPagination = p;
@@ -47,6 +49,11 @@ public class ServiceBuilder<I, R> {
 		return this;
 	}
 
+	public ServiceBuilder<I, R> entity(I entity) {
+		mEntity = entity;
+		return this;
+	}
+
 	public ServiceFetcher<I, R> create(Activity act, Class<R> classInstance) {
 		ProgressIndicator progressIndicator = new ProgressBarIndicator(act);
 
@@ -54,8 +61,10 @@ public class ServiceBuilder<I, R> {
 			mUrl += "" + mPagination.start + "/" + mPagination.range;
 		}
 
-		VolleyRequestImpl<I, R> request = new VolleyRequestImpl<I, R>(null,
-				null, mMethod);
+		VolleyRequestImpl<I, R> request = new VolleyRequestImpl<I, R>(
+				mResponseConverter,
+				mEntity, 
+				mMethod);
 		request.setUrl(mUrl);
 		for (LazyHeadersCallback callback: mLazyHeaders) {
 			request.addLazyHeader(callback);

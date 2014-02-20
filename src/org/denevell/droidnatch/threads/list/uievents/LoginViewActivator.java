@@ -1,17 +1,15 @@
 package org.denevell.droidnatch.threads.list.uievents;
 
-import javax.inject.Inject;
-
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.threads.list.di.LoginServicesMapper;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 import org.denevell.natch.android.R;
@@ -25,6 +23,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import com.android.volley.Request;
+
 import dagger.ObjectGraph;
 
 public class LoginViewActivator extends LinearLayout implements
@@ -45,7 +46,7 @@ public class LoginViewActivator extends LinearLayout implements
 	private Button mButton;
 	private EditText mUsername;
 	private EditText mPassword;
-	@Inject ServiceFetcher<LoginResourceInput, LoginResourceReturnData> mLoginService;
+	private ServiceFetcher<LoginResourceInput, LoginResourceReturnData> mLoginService;
 
     public LoginViewActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -54,8 +55,7 @@ public class LoginViewActivator extends LinearLayout implements
 
     private void inject() {
         ObjectGraph.create(
-                new CommonMapper((Activity) getContext()),
-                new LoginServicesMapper()
+                new CommonMapper((Activity) getContext())
         ).inject(this);
     }
 
@@ -64,10 +64,19 @@ public class LoginViewActivator extends LinearLayout implements
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         inject();
+		Activity act = (Activity) getContext();
         mButton  = (Button) findViewById(R.id.login_button);
         mButton.setOnClickListener(this);
         mUsername = (EditText) findViewById(R.id.login_username_edittext);
         mPassword = (EditText) findViewById(R.id.login_password_edittext);
+        
+        String url = Urls.getBasePath()+getContext().getString(R.string.url_login);
+		mLoginService = new ServiceBuilder<LoginResourceInput, LoginResourceReturnData>()
+        		.url(url)
+        		.method(Request.Method.POST)
+        		.entity(new LoginResourceInput())
+        		.create(act, LoginResourceReturnData.class);
+        
         Receiver<LoginResourceReturnData> things = null;
 		new UiEventThenServiceThenUiEvent<LoginResourceReturnData>(
                 this,

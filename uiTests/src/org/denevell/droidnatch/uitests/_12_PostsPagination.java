@@ -1,7 +1,6 @@
 package org.denevell.droidnatch.uitests;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
-import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
@@ -9,8 +8,6 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
-import org.denevell.droidnatch.uitests.utils.TestUtils;
-import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
 
 import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
@@ -26,10 +23,6 @@ public class _12_PostsPagination extends NatchAndroidInstrumentationWithLogin {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
-        registerIdlingResources(volleyResources);
-        TestUtils.deleteDb();
-        getActivity();
     }
 
 	public void test() throws Exception {

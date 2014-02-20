@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list.di;
+package org.denevell.droidnatch.threads.list;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,8 +20,6 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 import org.denevell.droidnatch.app.views.ClickableListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.threads.list.ListThreadsArrayAdapter;
-import org.denevell.droidnatch.threads.list.ListThreadsContextMenu;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;

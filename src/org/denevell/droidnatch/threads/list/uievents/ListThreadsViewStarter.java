@@ -9,7 +9,7 @@ import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.threads.list.di.ListThreadsUiEventMapper;
+import org.denevell.droidnatch.threads.list.ListThreadsUiEventMapper;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 
 import android.app.Activity;

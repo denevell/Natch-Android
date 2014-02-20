@@ -1,15 +1,14 @@
 package org.denevell.droidnatch.threads.list.uievents;
 
-import javax.inject.Inject;
-
+import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.threads.list.di.RegisterServicesMapper;
 import org.denevell.droidnatch.threads.list.entities.RegisterResourceInput;
 import org.denevell.droidnatch.threads.list.entities.RegisterResourceReturnData;
 import org.denevell.natch.android.R;
@@ -22,6 +21,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import com.android.volley.Request;
+
 import dagger.ObjectGraph;
 
 public class RegisterViewActivator extends LinearLayout implements
@@ -34,7 +36,7 @@ public class RegisterViewActivator extends LinearLayout implements
 	private Button mButton;
 	private EditText mUsername;
 	private EditText mPassword;
-	@Inject ServiceFetcher<RegisterResourceInput, RegisterResourceReturnData> mRegisterService;
+	private ServiceFetcher<RegisterResourceInput, RegisterResourceReturnData> mRegisterService;
 
     public RegisterViewActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -43,8 +45,7 @@ public class RegisterViewActivator extends LinearLayout implements
 
     private void inject() {
         ObjectGraph.create(
-                new CommonMapper((Activity) getContext()),
-                new RegisterServicesMapper()
+                new CommonMapper((Activity) getContext())
         ).inject(this);
     }
 
@@ -53,10 +54,19 @@ public class RegisterViewActivator extends LinearLayout implements
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         inject();
+        Activity act = (Activity) getContext();
         mButton  = (Button) findViewById(R.id.register_button);
         mButton.setOnClickListener(this);
         mUsername = (EditText) findViewById(R.id.register_username_edittext);
         mPassword = (EditText) findViewById(R.id.register_password_edittext);
+        
+        String url = Urls.getBasePath()+getContext().getString(R.string.url_register);
+		mRegisterService = new ServiceBuilder<RegisterResourceInput, RegisterResourceReturnData>()
+        		.url(url)
+        		.method(Request.Method.PUT)
+        		.entity(new RegisterResourceInput())
+        		.create(act, RegisterResourceReturnData.class);
+        
         Receiver<RegisterResourceReturnData> things = null;
 		new UiEventThenServiceThenUiEvent<RegisterResourceReturnData>(
                 this,
@@ -79,7 +89,6 @@ public class RegisterViewActivator extends LinearLayout implements
 	public void setFinishedCallback(Runnable runnable) {
         mSuccessCallback = runnable;
 	}
-
 
     @Override
     public void fail(FailureResult f) {
