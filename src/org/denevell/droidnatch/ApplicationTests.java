@@ -12,7 +12,7 @@ import org.robolectric.annotation.Config;
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest="../Natch-Android/AndroidManifest.xml")
 public class ApplicationTests {
-
+	
 	@Test
 	public void baseUrlNotFromStringsXml() throws Exception {
 		// Arrange

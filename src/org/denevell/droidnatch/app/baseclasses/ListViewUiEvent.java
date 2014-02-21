@@ -79,10 +79,12 @@ public class ListViewUiEvent<T, U extends List<T>, S> implements
         U converted = mTypeAdapter.convert(result);
         mListAdapter.addAll(converted);
         int availableForList = totalAvailableForList(result);
-        if(mList.getFooterViewsCount()==0 && availableForList>converted.size() && mPaginationButton!=null) {
+        if( converted!=null &&
+        	mList.getFooterViewsCount()==0 && availableForList>converted.size() && mPaginationButton!=null) {
 			mList.addFooterView(mPaginationButton);
         }
-        if(mList.getFooterViewsCount()!=0 && availableForList<=converted.size() && mPaginationButton!=null) { 
+        if( converted!=null &&
+        	mList.getFooterViewsCount()!=0 && availableForList<=converted.size() && mPaginationButton!=null) { 
 			mList.removeFooterView(mPaginationButton);
         }
         mList.setAdapter(mListAdapter);

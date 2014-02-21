@@ -33,7 +33,14 @@ public class ListViewResultDisplayerTests  {
 
     @Before
     public void setup() {
-        displayer = new ListViewUiEvent<Object, List<Object>, Object>(list, adapter, loadingView, context, typeAdapter );
+        displayer = new ListViewUiEvent<Object, List<Object>, Object>(
+        		list, 
+        		adapter, 
+        		loadingView, 
+        		context, 
+        		typeAdapter,
+        		null,
+        		null);
     }
     
     @Test

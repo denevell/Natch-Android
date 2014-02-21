@@ -7,8 +7,8 @@ import static org.mockito.Mockito.when;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
-import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
+import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.VolleyRequest;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
@@ -24,13 +24,13 @@ import com.android.volley.VolleyError;
 @SuppressWarnings({"unchecked"})
 @RunWith(RobolectricTestRunner.class)
 public class BaseServiceTests {
-    
+	
     private ServiceCallbacks<Object> callbacks = mock(ServiceCallbacks.class);
     private FailureResultFactory failureResultFactory = mock(FailureResultFactory.class);
     private ProgressIndicator progress = mock(ProgressIndicator.class);
     private ObjectToStringConverter responseConverter = mock(ObjectToStringConverter.class);
-    private VolleyRequest<Object> volleyRequest = mock(VolleyRequest.class);
-    private BaseService<Object> service = new BaseService<Object>(
+    private VolleyRequest<Void, Object> volleyRequest = mock(VolleyRequest.class);
+    private BaseService<Void, Object> service = new BaseService<Void, Object>(
             volleyRequest, 
             progress, 
             responseConverter, 

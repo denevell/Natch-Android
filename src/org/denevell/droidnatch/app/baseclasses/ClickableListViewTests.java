@@ -4,8 +4,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.denevell.droidnatch.app.baseclasses.ObservableFragment.MenuItemHolder;
+import org.denevell.droidnatch.app.baseclasses.ObservableFragment.ContextMenuItemHolder;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
+import org.denevell.droidnatch.app.views.ClickableListView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,7 +73,7 @@ public class ClickableListViewTests {
 
         // Act 
 
-        clickableListView.onContextItemSelected(new MenuItemHolder(item));
+        clickableListView.onContextItemSelected(new ContextMenuItemHolder(item));
 
         // Assert
         verify(adapter).getItem(3);
@@ -85,7 +86,7 @@ public class ClickableListViewTests {
         Context context = mock(Context.class);
 		AdapterView<?> av = mock(AdapterView.class);
 		when(av.getContext()).thenReturn(context);
-		clickableListView.setKeyboadHider(hideKeyboard);
+		clickableListView.setKeyboardHider(hideKeyboard);
 		View v = mock(View.class);
 
     	// Act 
@@ -101,7 +102,7 @@ public class ClickableListViewTests {
         Context context = mock(Context.class);
 		AdapterView<?> av = mock(AdapterView.class);
 		when(av.getContext()).thenReturn(context);
-		clickableListView.setKeyboadHider(null);
+		clickableListView.setKeyboardHider(null);
 		View v = mock(View.class);
 
 
