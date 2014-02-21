@@ -7,6 +7,7 @@ import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 
 import android.content.Context;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,9 @@ public class ListViewUiEvent<T, U extends List<T>, S> implements
     @Override
     public void success(S result) {
         Log.v(TAG, "Displaying results");
+        
+        Parcelable oldState = mList.onSaveInstanceState();
+        
         mListAdapter.clear();
         U converted = mTypeAdapter.convert(result);
         mListAdapter.addAll(converted);
@@ -82,6 +86,10 @@ public class ListViewUiEvent<T, U extends List<T>, S> implements
 			mList.removeFooterView(mPaginationButton);
         }
         mList.setAdapter(mListAdapter);
+        
+        if(oldState!=null) {
+        	mList.onRestoreInstanceState(oldState);
+        }
     }
     
     private int totalAvailableForList(S object) {
