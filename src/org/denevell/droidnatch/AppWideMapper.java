@@ -10,9 +10,9 @@ public class AppWideMapper {
 	
     public static class PaginationObject {
         public int start = 0;
-        public int range = 5;
-        public int defaultRange = 5;
-        public int paginationMaximum = 5;
+        public int range = 10;
+        public int defaultRange = 10;
+        public int paginationMaximum = 10;
 		public void paginate() {
 			range=range+paginationMaximum;
 		}

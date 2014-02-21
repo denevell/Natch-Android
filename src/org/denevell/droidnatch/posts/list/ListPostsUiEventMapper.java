@@ -22,8 +22,6 @@ import org.denevell.natch.android.R;
 
 import android.app.Activity;
 import android.content.Context;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.android.volley.Request;
@@ -49,9 +47,11 @@ public class ListPostsUiEventMapper {
             ListPostsPaginationObject pagination) {
         //View loading = (View) mActivity.findViewById(R.id.list_posts_loading);
 
+        final Button button = new Button(mActivity);
+        button.setText("...Loading...");
+
         ListPostsArrayAdapter arrayAdapter = new ListPostsArrayAdapter(appContext, R.layout.list_posts_row);
-        Button paginationButton = providesOnPaginationButton(request, pagination);
-        ClickableListView<PostResource> listView = provideListView(); 
+        ClickableListView<PostResource> listView = provideListView(request, pagination); 
 
 		ListViewUiEvent<PostResource, List<PostResource>, ThreadResource> displayer =
                 new ListViewUiEvent<PostResource, List<PostResource>, ThreadResource>(
@@ -66,18 +66,22 @@ public class ListPostsUiEventMapper {
 								return ob.getNumPosts();
 							}
 						},
-                        paginationButton);
+						button);
         return displayer;
     } 
 
-    private Button providesOnPaginationButton(
+
+	@SuppressWarnings("unchecked")
+    private ClickableListView<PostResource> provideListView(
     		final ServiceFetcher<Void, ThreadResource> request,
-    		final ListPostsPaginationObject pagination) {
-        final Button button = new Button(mActivity);
-        button.setText("More");
-        button.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
+    		final ListPostsPaginationObject pagination
+    		) {
+        @SuppressWarnings("rawtypes")
+		ClickableListView lv = (ClickableListView) mActivity.findViewById(R.id.list_posts_listview);
+        lv.setKeyboardHider(new HideKeyboard());
+        lv.setOnCreateContextMenuListener(new ListPostsContextMenu());
+        lv.addOnPaginationFooterVisiableCallback(new Runnable() {
+			@Override public void run() {
 				pagination.paginate();
 			    String url = Urls.getBasePath()+mActivity.getString(R.string.url_posts);
                 url = url.replace("{thread_id}", mTheadId);
@@ -86,15 +90,6 @@ public class ListPostsUiEventMapper {
 			    EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts());
 			}
 		});
-        return button;
-	}
-
-	@SuppressWarnings("unchecked")
-    private ClickableListView<PostResource> provideListView() {
-        @SuppressWarnings("rawtypes")
-		ClickableListView lv = (ClickableListView) mActivity.findViewById(R.id.list_posts_listview);
-        lv.setKeyboadHider(new HideKeyboard());
-        lv.setOnCreateContextMenuListener(new ListPostsContextMenu());
         return lv;
     } 
 

@@ -1,17 +1,12 @@
 package org.denevell.droidnatch.uitests;
 
-import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
-import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
-
+import org.denevell.droidnatch.AppWideMapper;
+import org.denevell.droidnatch.AppWideMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
-import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
-
-import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
-import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 
 public class _11_ThreadsPagination extends NatchAndroidInstrumentationWithLogin {
 
@@ -21,11 +16,11 @@ public class _11_ThreadsPagination extends NatchAndroidInstrumentationWithLogin 
 
     @Override
     protected void setUp() throws Exception {
+    	ListThreadsPaginationObject instance = AppWideMapper.getInstance().threadsPaginationObject();
+		instance.defaultRange=1;
+        instance.paginationMaximum=1;
+        instance.range=1;
         super.setUp();
-        VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
-        registerIdlingResources(volleyResources);
-        TestUtils.deleteDb();
-        getActivity();
     }
 
     public void test() throws Exception {
@@ -34,17 +29,14 @@ public class _11_ThreadsPagination extends NatchAndroidInstrumentationWithLogin 
         new ListThreadsPO().checkHasNumberOfThreads(1);
 
         new AddThreadPO().addThreadAndPressBack("Two", "One");
-        new AddThreadPO().addThreadAndPressBack("Three", "One");
-        new AddThreadPO().addThreadAndPressBack("Four", "One");
-        new AddThreadPO().addThreadAndPressBack("Five", "One");
-        new AddThreadPO().addThreadAndPressBack("Six", "One");
 
-        new ListThreadsPO().checkHasNumberOfThreads(5);
+        new ListThreadsPO().checkHasNumberOfThreads(2);
+        
+        TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
 
-        onView(ViewMatchers.withText("More"))
-        	.perform(ViewActions.click());
+        new ListThreadsPO().checkHasNumberOfThreads(2);
 
-        new ListThreadsPO().checkHasNumberOfThreads(6);
+        TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
     }
 
 

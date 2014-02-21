@@ -5,15 +5,14 @@ import static com.google.android.apps.common.testing.ui.espresso.action.ViewActi
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 
+import org.denevell.droidnatch.AppWideMapper;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.natch.android.R;
 
-import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
-import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 
 public class _12_PostsPagination extends NatchAndroidInstrumentationWithLogin {
 
@@ -23,36 +22,32 @@ public class _12_PostsPagination extends NatchAndroidInstrumentationWithLogin {
 
     @Override
     protected void setUp() throws Exception {
+        AppWideMapper instance = AppWideMapper.getInstance();
+		instance.postsPaginationObject().defaultRange=1;
+        instance.postsPaginationObject().paginationMaximum=1;
+        instance.postsPaginationObject().range=1;
         super.setUp();
     }
 
 	public void test() throws Exception {
         new AddThreadPO().addThread("New thread", "New thread");
+        
+
+        onView(withId(R.id.list_posts_listview))
+        	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(1)));
 
         onView(withId(R.id.list_posts_addpost_edittext))
                 .perform(typeText("One"), pressImeActionButton());
-        onView(withId(R.id.list_posts_addpost_edittext))
-                .perform(typeText("Two"), pressImeActionButton());
-        onView(withId(R.id.list_posts_addpost_edittext))
-                .perform(typeText("Three"), pressImeActionButton());
-        onView(withId(R.id.list_posts_addpost_edittext))
-                .perform(typeText("Four"), pressImeActionButton());
-        onView(withId(R.id.list_posts_addpost_edittext))
-                .perform(typeText("Five"), pressImeActionButton());
-
-        onView(withId(R.id.list_posts_listview))
-        	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(5)));
-
-        onView(ViewMatchers.withText("More"))
-        	.perform(ViewActions.click());
-
-        onView(withId(R.id.list_posts_listview))
-        	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(6)));
         
+        // Should now trigger the pagination to show more
+
+        onView(withId(R.id.list_posts_listview))
+        	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(2)));
+
         TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
 
         onView(withId(R.id.list_posts_listview))
-        	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(6)));
+        	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(2)));
 
         TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
     }

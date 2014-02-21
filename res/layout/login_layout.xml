@@ -31,7 +31,6 @@
                 android:hint="Username"
                 android:imeOptions="actionNext|flagNavigateNext"
                 android:inputType="text"
-                android:text="aaron"
                 android:nextFocusForward="@+id/login_password_edittext"
                 android:singleLine="true"
                 tools:ignore="HardcodedText" />
@@ -40,7 +39,6 @@
                 android:id="@+id/login_password_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="aaron"
                 android:hint="Password"
                 android:imeOptions="actionDone"
                 android:inputType="text|textPassword"

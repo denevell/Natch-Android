@@ -12,15 +12,19 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 
 import com.squareup.otto.Subscribe;
 
 public class ClickableListView<T> extends ListView implements
                OnPressObserver<T>,
-               OnItemClickListener {
+               OnItemClickListener,
+               OnScrollListener {
 
     private static final String TAG = ClickableListView.class.getSimpleName();
     public static class LongPressListViewEvent {
@@ -36,13 +40,15 @@ public class ClickableListView<T> extends ListView implements
 
     private HideKeyboard mHideKeyboard;
     private ArrayList<OnPress<T>> mPressListeners = new ArrayList<OnPressObserver.OnPress<T>>();
+	private ArrayList<Runnable> mPaginationFooterCallbacks = new ArrayList<Runnable>();
 
     public ClickableListView(Context context, AttributeSet attrSet) {
         super(context, attrSet);
         setOnItemClickListener(this);
+        setOnScrollListener(this);
     }
 
-    public void setKeyboadHider(HideKeyboard kbh) {
+    public void setKeyboardHider(HideKeyboard kbh) {
         mHideKeyboard = kbh;
     }
 
@@ -91,5 +97,30 @@ public class ClickableListView<T> extends ListView implements
             Log.e(TAG, "Couldn't process onitemclick event.", e);
         }
     }
+
+	@Override public void onScrollStateChanged(AbsListView view, int scrollState) {}
+
+	@Override
+	public void onScroll(AbsListView view, 
+			int firstVisibleItem,
+			int visibleItemCount, 
+			int totalItemCount) {
+		int position = firstVisibleItem+(visibleItemCount);
+		if (totalItemCount > 0 && position == totalItemCount) {
+			if (view.getAdapter()!=null && view.getAdapter() instanceof HeaderViewListAdapter) {
+				//HeaderViewListAdapter adapter = (HeaderViewListAdapter) view.getAdapter();
+				//Toast.makeText(getContext(), "Can see footer!", Toast.LENGTH_LONG).show();
+				if(mPaginationFooterCallbacks!=null) {
+					for (Runnable r: mPaginationFooterCallbacks) {
+						r.run();
+					}
+				}
+			}
+		}
+	}
+
+	public void addOnPaginationFooterVisiableCallback(Runnable runnable) {
+		mPaginationFooterCallbacks.add(runnable);
+	}
 
 }
