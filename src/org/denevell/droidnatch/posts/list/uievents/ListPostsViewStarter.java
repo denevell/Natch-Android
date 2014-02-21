@@ -48,9 +48,7 @@ public class ListPostsViewStarter extends View {
         ).inject(this);
         controller =
                 new UiEventThenServiceThenUiEvent<ThreadResource>(
-                        null,
                         listPostsService,
-                        null,
                         listViewReceivingUiObject);
         controller.setup();
     }

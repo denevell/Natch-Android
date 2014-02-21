@@ -53,9 +53,7 @@ public class ListThreadsViewStarter extends View {
         createObjectGraph();
 
         controller = new UiEventThenServiceThenUiEvent<ListThreadsResource>(
-                null,
                 mListThreadsService,
-                null,
                 mListViewReceivingUiObject).setup();
 
         EventBus.getBus().register(this);

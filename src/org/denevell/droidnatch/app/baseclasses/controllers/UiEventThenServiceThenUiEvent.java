@@ -32,6 +32,36 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
         mNextUiEvents = uiEventForAfterService;
     }
 
+    /** 
+     * This constructor starts the service from the get-go.
+     * @param service
+     * @param loadingView
+     * @param uiEventForAfterService
+     */
+    public UiEventThenServiceThenUiEvent(
+            ServiceFetcher service,
+            ProgressIndicator loadingView,
+            Receiver<T> ...uiEventForAfterService) {
+        mLoadingView = loadingView;
+        mService = service;
+        mNextUiEvents = uiEventForAfterService;
+    }
+
+    /** 
+     * This constructor starts the service from the get-go.
+     * And doesn't bother with any loading indicators, they could be
+     * embedded in the ServiceFetcher object, for example!
+     * @param service
+     * @param loadingView
+     * @param uiEventForAfterService
+     */
+    public UiEventThenServiceThenUiEvent(
+            ServiceFetcher service,
+            Receiver<T> ...uiEventForAfterService) {
+        mService = service;
+        mNextUiEvents = uiEventForAfterService;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public UiEventThenServiceThenUiEvent setup() {
