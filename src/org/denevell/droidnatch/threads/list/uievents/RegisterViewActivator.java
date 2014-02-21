@@ -12,7 +12,7 @@ import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.threads.list.ListThreadsUiEventMapper;
+import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.RegisterResourceInput;
@@ -58,7 +58,7 @@ public class RegisterViewActivator extends LinearLayout implements
 		ObjectGraph.create(
                 new CommonMapper(activity),
                 AppWideMapper.getInstance(),
-				new ListThreadsUiEventMapper(activity)
+				new ListThreadsMapper(activity)
         ).inject(this);
     }
 

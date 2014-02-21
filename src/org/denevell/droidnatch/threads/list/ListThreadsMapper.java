@@ -10,17 +10,15 @@ import org.denevell.droidnatch.AppWideMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
-import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent;
-import org.denevell.droidnatch.app.baseclasses.ListViewUiEvent.AvailableItems;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
-import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 import org.denevell.droidnatch.app.views.ClickableListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
+import org.denevell.droidnatch.threads.list.entities.ListThreadsResourceTotalAvailable;
+import org.denevell.droidnatch.threads.list.entities.ListThreadsToList;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
@@ -38,76 +36,55 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module(complete=false, library=true)
-public class ListThreadsUiEventMapper {
+public class ListThreadsMapper {
     
 	public static final String PROVIDES_LIST_THREADS_LIST_CLICK = "list_threads_list_click";
-    private static final String TAG = ListThreadsUiEventMapper.class.getSimpleName();
+    private static final String TAG = ListThreadsMapper.class.getSimpleName();
     private Activity mActivity;
 
-    public ListThreadsUiEventMapper(Activity activity) {
+    public ListThreadsMapper(Activity activity) {
         mActivity = activity;
     }
 
-    @Provides @Singleton
-    public Receiver<ListThreadsResource> providesReceivingUiObject(
-            Context appContext, 
-            ClickableListView<ThreadResource> listView,
-            // We're taking in the OnPress simply so it's constructed.
-            OnPress<ThreadResource> listClickListener) {
-        //View loadingListView = mActivity.findViewById(R.id.list_threads_loading);
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Provides @Singleton
+    public ClickableListView<ThreadResource, ListThreadsResource, ThreadResource, List<ThreadResource>> providesListView(
+    		final ServiceFetcher<Void, ListThreadsResource> listService,
+    		final ListThreadsPaginationObject pagination,
+    		OnPress<ThreadResource> onPressListener,
+    		Context appContext
+    		) {
+        ClickableListView listView = (ClickableListView) mActivity.findViewById(R.id.list_threads_listview);
+
         Button button = new Button(mActivity);
         button.setText("...Loading...");
 
         ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(appContext, R.layout.list_threads_row);
 
-        ListViewUiEvent<ThreadResource, List<ThreadResource>, ListThreadsResource> displayer =
-                new ListViewUiEvent<ThreadResource, List<ThreadResource>, ListThreadsResource>(
-                        listView,
-                        listAdapter, 
-                        null,
-                        appContext,
-                        new TypeAdapter<ListThreadsResource, List<ThreadResource>>() {
-                            @Override
-                            public List<ThreadResource> convert(ListThreadsResource ob) {
-                                return ob.getThreads();
-                            }
-                        },
-                        new AvailableItems<ListThreadsResource>() {
-							@Override
-							public int getTotalAvailableForList(ListThreadsResource ob) {
-								if(ob==null) return 0;
-								else return (int) ob.getNumOfThreads();
-							}
-						},
-						button);
-        return displayer;
-    }
+        listView
+			.setListAdapter(listAdapter)
+        	.setTypeAdapter(new ListThreadsToList())
+			.setPaginationView(button)
+			.addOnPaginationFooterVisibleCallback(new Runnable() {
+				@Override public void run() {
+					pagination.paginate();
+					String url = Urls.getBasePath()
+							+ mActivity.getString(R.string.url_threads) + ""
+							+ pagination.start + "/" + pagination.range;
+					listService.getRequest().setUrl(url);
+					EventBus.getBus().post(new ListThreadsViewStarter.CallControllerListThreads());
+				}})
+			.setAvailableItems(new ListThreadsResourceTotalAvailable())
+        	.setKeyboardHider(new HideKeyboard());
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-	@Provides @Singleton
-    public ClickableListView<ThreadResource> providesListView(
-    		final ServiceFetcher<Void, ListThreadsResource> listService,
-    		final ListThreadsPaginationObject pagination
-    		) {
-        ClickableListView listView = (ClickableListView) mActivity.findViewById(R.id.list_threads_listview);
-        listView.setKeyboardHider(new HideKeyboard());
         listView.setOnCreateContextMenuListener(new ListThreadsContextMenu());
-		listView.addOnPaginationFooterVisiableCallback(new Runnable() {
-			@Override public void run() {
-				pagination.paginate();
-				String url = Urls.getBasePath()
-						+ mActivity.getString(R.string.url_threads) + ""
-						+ pagination.start + "/" + pagination.range;
-				listService.getRequest().setUrl(url);
-				EventBus.getBus().post(new ListThreadsViewStarter.CallControllerListThreads());
-			}
-		});
+        listView.addOnPressListener(onPressListener);
+
         return listView;
     }
 
     @Provides @Singleton 
     public OnPress<ThreadResource> providesOnListClickAction(
-            final ClickableListView<ThreadResource> onPressObserver,
             final ScreenOpener screenOpener,
             final ListPostsPaginationObject pagination
     		) {
@@ -122,7 +99,6 @@ public class ListThreadsUiEventMapper {
                         screenOpener.openScreen(ListPostsFragment.class, hm);
                     }
                 };
-        onPressObserver.addOnPressListener(onPress);
         return onPress;
     }
     

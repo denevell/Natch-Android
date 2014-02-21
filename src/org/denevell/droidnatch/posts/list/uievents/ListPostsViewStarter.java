@@ -1,5 +1,7 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.denevell.droidnatch.AppWideMapper;
@@ -7,11 +9,11 @@ import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
-import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
-import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.app.views.ClickableListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.posts.list.ListPostsUiEventMapper;
+import org.denevell.droidnatch.posts.list.ListPostsMapper;
+import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 
 import android.app.Activity;
@@ -29,7 +31,7 @@ public class ListPostsViewStarter extends View {
     private UiEventThenServiceThenUiEvent<ThreadResource> controller;
     public static class CallControllerListPosts {}
     @Inject ServiceFetcher<Void, ThreadResource> listPostsService;
-    @Inject Receiver<ThreadResource> listViewReceivingUiObject;
+    @Inject ClickableListView<PostResource, ThreadResource, PostResource, List<PostResource>> listViewReceivingUiObject;
     @Inject ListPostsPaginationObject mPaginationObject;
 
     public ListPostsViewStarter(Context context, AttributeSet attrs) {
@@ -42,13 +44,13 @@ public class ListPostsViewStarter extends View {
         ObjectGraph.create(
                 new CommonMapper((Activity) getContext()),
                 AppWideMapper.getInstance(),
-                new ListPostsUiEventMapper((Activity) getContext(), threadId)
+                new ListPostsMapper((Activity) getContext(), threadId)
         ).inject(this);
         controller =
                 new UiEventThenServiceThenUiEvent<ThreadResource>(
                         null,
                         listPostsService,
-                        (ProgressIndicator) listViewReceivingUiObject,
+                        null,
                         listViewReceivingUiObject);
         controller.setup();
     }

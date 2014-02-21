@@ -1,5 +1,7 @@
 package org.denevell.droidnatch.threads.list.uievents;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.denevell.droidnatch.AppWideMapper;
@@ -7,10 +9,11 @@ import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
-import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.threads.list.ListThreadsUiEventMapper;
+import org.denevell.droidnatch.app.views.ClickableListView;
+import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
+import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,7 +27,7 @@ import dagger.ObjectGraph;
 
 public class ListThreadsViewStarter extends View {
 
-    @Inject Receiver<ListThreadsResource> mListViewReceivingUiObject;
+    @Inject ClickableListView<ThreadResource, ListThreadsResource, ThreadResource, List<ThreadResource>> mListViewReceivingUiObject;
     private UiEventThenServiceThenUiEvent<ListThreadsResource> controller;
 	@Inject ServiceFetcher<Void, ListThreadsResource> mListThreadsService;
 
@@ -39,7 +42,7 @@ public class ListThreadsViewStarter extends View {
         		AppWideMapper.getInstance(),
                 new CommonMapper((Activity) getContext()),
                 new ScreenOpenerMapper((FragmentActivity) getContext()),
-                new ListThreadsUiEventMapper((Activity) getContext())
+                new ListThreadsMapper((Activity) getContext())
         ).inject(this);
     }
 
