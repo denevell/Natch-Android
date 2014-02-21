@@ -24,11 +24,15 @@ public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
         RelativeLayout rl = (RelativeLayout) convertView;
         TextView threadTitle = (TextView) rl.findViewById(R.id.list_thread_row_title_textview);
         TextView threadAuthor = (TextView) rl.findViewById(R.id.list_thread_row_author_textview);
+        TextView dateText = (TextView) rl.findViewById(R.id.list_thread_row_date_textview);
         threadTitle.setContentDescription("list_threads_row"+String.valueOf(position));
         threadAuthor.setContentDescription("list_threads_row_author"+String.valueOf(position));
+        dateText.setContentDescription("list_threads_row_date"+String.valueOf(position));
+
         ThreadResource o = getItem(position);
         threadTitle.setText(o.getSubject());
         threadAuthor.setText(o.getAuthor());
+        dateText.setText(o.getLastModifiedDate()+"\n"+o.getLastModifiedTime());
         return convertView;
     }
     

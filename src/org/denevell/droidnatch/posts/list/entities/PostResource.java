@@ -1,9 +1,11 @@
 package org.denevell.droidnatch.posts.list.entities;
 
-import android.annotation.SuppressLint;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+
+import android.annotation.SuppressLint;
 
 @SuppressLint("SimpleDateFormat")
 public class PostResource {
@@ -102,16 +104,23 @@ public class PostResource {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(modification);
         int dom = c.get(Calendar.DAY_OF_MONTH);
-        String month = new SimpleDateFormat("MMM").format(c.getTime());
-        int year = c.get(Calendar.YEAR);
-        String dateString = dom + " " + month + " " + year;		
+        String month = new SimpleDateFormat("MM", Locale.UK).format(c.getTime());
+        String year = new SimpleDateFormat("yy", Locale.UK).format(c.getTime());
+        String dateString = dom + "/" + month + "/" + year;		
         return dateString;
-	}
+	}	
+
+	public String getLastModifiedTime() {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(modification);
+        String dateString = new SimpleDateFormat("k:mm:ss", Locale.UK).format(c.getTime());
+        return dateString;
+	}	
 	
 	public String getLastModifiedDateWithTime() {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(modification);
-        String dateString = new SimpleDateFormat("d MMM yyyy, K:mm:ss a").format(c.getTime());
+        String dateString = new SimpleDateFormat("d MMM yyyy, K:mm:ss a", Locale.UK).format(c.getTime());
         return dateString;
 	}
 

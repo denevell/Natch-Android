@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/list_thread_row_author_textview"
+        android:layout_toLeftOf="@+id/list_thread_row_author_date_linearlayout"
         android:contentDescription="list_threads_row"
         android:ellipsize="end"
         android:paddingBottom="10dp"
@@ -20,18 +20,31 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/list_thread_row_author_textview"
+    <LinearLayout
+        android:id="@+id/list_thread_row_author_date_linearlayout"
+        android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:contentDescription="list_threads_row_author"
-        android:paddingBottom="10dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="10dp"
-        android:text="author"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:ignore="HardcodedText" />
+        android:padding="5dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/list_thread_row_author_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="list_threads_row_author"
+            android:text="author"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/list_thread_row_date_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="list_threads_row_date"
+            android:text="date"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
 
 </RelativeLayout>

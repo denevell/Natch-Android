@@ -35,14 +35,13 @@ The Android client to the Natch REST project.
 * I should see a retry option
 * I shouldn't add the thread on empty editext
 * I should see empty screen on no threads
-* I should be able to specify / change the default number of threads / posts to see on pagination.
 * I should keep the found threads on rotate / onResume / app close
-* I should be able to keep the position of the refreshed list
 
 --
 
 ## Dev complete
 
+* I should be able to keep the position of the refreshed list
 * Should close the keyboard on clicking a list item
 * Shouldn't be able to click the edit text during the loading screens
 
@@ -91,3 +90,5 @@ The Android client to the Natch REST project.
 13: I should see whether I am logged in or not, showing who I am logged in as.
 14: I should see the author of the thread on the threads page
 15: I should see the author of a post in a thread page
+*: I should be able to see dates on posts
+*: I should be able to see dates on threads

@@ -31,7 +31,16 @@ public class ListPostsArrayAdapter extends
         PostResource o = getItem(position);
         threadTitle.setText(o.getContent());
         threadAuthor.setText(o.getUsername());
+
+        TextView dateText = (TextView) rl.findViewById(R.id.list_posts_row_date_textview);
+        dateText.setContentDescription("list_posts_row_date"+String.valueOf(position));
+
+        dateText.setText(o.getLastModifiedDate()+"\n"+o.getLastModifiedTime());
+
         return convertView;
+        
+        
+        
     }    
     
 }
