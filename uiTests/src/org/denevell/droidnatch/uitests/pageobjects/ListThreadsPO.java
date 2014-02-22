@@ -2,6 +2,7 @@ package org.denevell.droidnatch.uitests.pageobjects;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
@@ -45,6 +46,12 @@ public class ListThreadsPO {
 	@SuppressWarnings("unchecked")
 	public ListThreadsPO bringUpEditDeleteOptions(int row) {
 		onData(allOf(is(instanceOf(ThreadResource.class)))).atPosition(row).perform(longClick());
+		return this;
+	}
+
+	@SuppressWarnings("unchecked")
+	public ListThreadsPO pressItem(int row) {
+		onData(allOf(is(instanceOf(ThreadResource.class)))).atPosition(row).perform(click());
 		return this;
 	}
 	

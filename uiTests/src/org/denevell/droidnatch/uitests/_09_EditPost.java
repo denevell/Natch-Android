@@ -1,24 +1,24 @@
 package org.denevell.droidnatch.uitests;
 
-import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.clearText;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.closeSoftKeyboard;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
+import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.doesNotExist;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
+
+import java.util.Date;
 
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
+import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
+import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
@@ -39,16 +39,13 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
         getActivity();
     }
 
-    @SuppressWarnings("unchecked")
-	public void test_1_EditPost() throws Exception {
+	public void test() throws Exception {
         new AddThreadPO().addThread("New thread", "New thread");
 
         onView(withId(R.id.list_posts_addpost_edittext))
                 .perform(typeText("New post in thread"), pressImeActionButton());
 
-        onData(allOf(is(instanceOf(PostResource.class))))
-                .atPosition(1)
-                .perform(longClick());
+        new ListPostsPO().bringUpEditDeleteOptions(1);
 
         onView(withText("Edit post"))
                 .perform(click());
@@ -61,6 +58,23 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
         onView(withText("Edit")).perform(click());
 
         new ListPostsPO().postHasContent(1, "Edited");
+    }
+
+	public void testCannotDeleteOthersPost() throws Exception {
+        new AddThreadPO().addThread("New thread to edit", "New thread to edit");
+        
+        new ListPostsPO().addPost("New post");
+        
+        pressBack();
+
+		String username = "new"+new Date().getTime();
+		new RegisterPO().register(getInstrumentation(), username, username); // Logs us in too
+		
+		new ListThreadsPO().pressItem(0);
+
+        new ListPostsPO().bringUpEditDeleteOptions(1);
+
+        onView(withText("Edit post")).check(doesNotExist());
     }
 
 }
