@@ -9,6 +9,13 @@ The Android client to the Natch REST project.
 
 ## Ice-box
 
+### New threads service
+* Alarm manager instead of constant service
+* Test for I should see a notification when a new thread arrives?
+* Link into thread page.
+* Say when more than just one thread is new.
+* Keep references to all the threads we currently know about
+
 ### Edit thread 
 
 * I should see an error on edit thread if there
@@ -30,6 +37,7 @@ The Android client to the Natch REST project.
 * I shouldn't add the thread on empty editext
 * I should see empty screen on no threads
 * I should keep the found threads on rotate / onResume / app close
+* I should be able to see new threads visually
 
 --
 

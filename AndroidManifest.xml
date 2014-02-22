@@ -13,6 +13,7 @@
     <instrumentation android:name="com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
 	  android:targetPackage="org.denevell.natch.android"/>
     
+    
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
@@ -20,6 +21,11 @@
         android:name="org.denevell.droidnatch.Application"
         >
         <uses-library android:name="android.test.runner" />
+
+	    <service android:name="org.denevell.droidnatch.app.service.NewThreadPollingService" 
+	        android:exported="true"
+	        android:permission="I_WANT_A_PONY"/>
+	    
         <activity
             android:name="org.denevell.droidnatch.MainPageActivity"
             android:label="@string/app_name" >

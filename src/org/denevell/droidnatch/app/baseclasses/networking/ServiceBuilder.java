@@ -9,7 +9,6 @@ import org.denevell.droidnatch.app.baseclasses.ProgressBarIndicator;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
-import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 
 import android.app.Activity;
@@ -53,7 +52,10 @@ public class ServiceBuilder<I, R> {
 	}
 
 	public ServiceFetcher<I, R> create(Activity act, Class<R> classInstance) {
-		ProgressIndicator progressIndicator = new ProgressBarIndicator(act);
+		ProgressBarIndicator progressIndicator = null;
+		if(act!=null) {
+			progressIndicator = new ProgressBarIndicator(act);
+		}
 
 		if(mPagination!=null) {
 			mUrl += "" + mPagination.start + "/" + mPagination.range;
