@@ -5,7 +5,6 @@ The Android client to the Natch REST project.
 * Tech: Use a lower resource hungry emulator in the docker container.
 * I should be able to logout
 * I should only be able to add thread if I'm logged in
-* I shouldn't be able to edit thread if not mine
 
 ## Ice-box
 
@@ -81,10 +80,12 @@ The Android client to the Natch REST project.
 5a.  I shouldn't be able to delete a thread I someone else has created 
 6.   I should load the posts in a thread after it's clicked on, and add a post
 7.   I should delete a thread from within the thread page
+7a.  I shouldn't be able to delete a thread I someone else has created 
 8.   I should delete post from a thread, and then see the existing thread, one post less.
 9.   I should be able to edit my post
 9a.  I shouldn't be able to edit a post that's not mine
 10:  I should be able to edit my thread title and content
+10a: I shouldn't be able to edit a thread that's not mine
 11:  I should be able to press more to see more threads
 12:  I should be able to press more to see more posts 
 13:  I should see whether I am logged in or not, showing who I am logged in as.

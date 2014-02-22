@@ -2,9 +2,11 @@ package org.denevell.droidnatch.uitests;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
+import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.doesNotExist;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
@@ -18,6 +20,9 @@ import java.util.Date;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
+import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
+import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
+import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
@@ -53,5 +58,22 @@ public class _07_DeleteThreadFromThreadPage extends NatchAndroidInstrumentationW
         onView(withId(R.id.list_threads_listview))
                 .check(matches(listViewHasElements(0)));
     }
+    
+	public void testCannotDeleteOthersThread() throws Exception {
+        new AddThreadPO().addThread("New thread to edit", "New thread to edit");
+        
+        new ListPostsPO().addPost("New post");
+        
+        pressBack();
+
+		String username = "new"+new Date().getTime();
+		new RegisterPO().register(getInstrumentation(), username, username); // Logs us in too
+		
+		new ListThreadsPO().pressItem(0);
+
+        new ListPostsPO().bringUpEditDeleteOptions(0);
+
+        onView(withText("Delete thread")).check(doesNotExist());
+    }    
 
 }

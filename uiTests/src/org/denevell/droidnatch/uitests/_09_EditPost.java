@@ -60,7 +60,7 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
         new ListPostsPO().postHasContent(1, "Edited");
     }
 
-	public void testCannotDeleteOthersPost() throws Exception {
+	public void testCannotEditOthersPost() throws Exception {
         new AddThreadPO().addThread("New thread to edit", "New thread to edit");
         
         new ListPostsPO().addPost("New post");

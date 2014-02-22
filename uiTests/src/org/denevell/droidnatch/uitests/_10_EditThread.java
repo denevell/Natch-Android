@@ -9,6 +9,7 @@ import static com.google.android.apps.common.testing.ui.espresso.action.ViewActi
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.closeSoftKeyboard;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
+import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.doesNotExist;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
@@ -17,10 +18,14 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 
+import java.util.Date;
+
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
+import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
+import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
@@ -83,5 +88,21 @@ public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
         onView(withContentDescription("list_threads_row0")).check(matches(withText("Edited title")));
     }
 
+	public void testCannotEditOthersThread() throws Exception {
+        new AddThreadPO().addThread("New thread to edit", "New thread to edit");
+        
+        new ListPostsPO().addPost("New post");
+        
+        pressBack();
+
+		String username = "new"+new Date().getTime();
+		new RegisterPO().register(getInstrumentation(), username, username); // Logs us in too
+		
+		new ListThreadsPO().pressItem(0);
+
+        new ListPostsPO().bringUpEditDeleteOptions(0);
+
+        onView(withText("Edit thread")).check(doesNotExist());
+    }
 
 }
