@@ -4,9 +4,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment.ContextMenuItemHolder;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
-import org.denevell.droidnatch.app.views.ClickableListView;
+import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +28,7 @@ import android.widget.ListAdapter;
 @SuppressWarnings("unchecked")
 public class ClickableListViewTests {
 
-    private ClickableListView<Object> clickableListView;
+    private ReceivingClickingAutopaginatingListView<Object, Object, List<Object>> clickableListView;
     private ListAdapter adapter;
 	private HideKeyboard hideKeyboard = mock(HideKeyboard.class);
 
@@ -34,7 +36,7 @@ public class ClickableListViewTests {
 	@Before
     public void setUp() throws Exception {
         AttributeSet attrs = mock(AttributeSet.class);
-		clickableListView = Mockito.spy(new ClickableListView(
+		clickableListView = Mockito.spy(new ReceivingClickingAutopaginatingListView(
                 Robolectric.application, 
                 attrs));
         adapter = mock(ListAdapter.class);

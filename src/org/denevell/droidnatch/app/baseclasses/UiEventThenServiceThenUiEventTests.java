@@ -1,9 +1,8 @@
-package org.denevell.droidnatch.app.baseclasses.controllers;
+package org.denevell.droidnatch.app.baseclasses;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.Receiver;
