@@ -22,7 +22,7 @@ public class LoginPO {
 	}
 
 	public LoginPO loginWithCredential(String username, String password) {
-        onView(withText("Login")).perform(click());
+        onView(withId(R.id.threads_option_menu_login)).perform(click());
         onView(withId(R.id.login_username_edittext))
         	.perform(clearText(),
         			typeText(username), 

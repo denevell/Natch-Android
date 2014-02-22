@@ -1,23 +1,17 @@
 package org.denevell.droidnatch.uitests;
 
-import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
-import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
-import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
+import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.doesNotExist;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
+
+import java.util.Date;
 
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
+import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
-import org.denevell.droidnatch.uitests.utils.TestUtils;
-import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 
 public class _05_DeleteThread extends NatchAndroidInstrumentationWithLogin {
 
@@ -28,31 +22,32 @@ public class _05_DeleteThread extends NatchAndroidInstrumentationWithLogin {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
-        registerIdlingResources(volleyResources);
-        TestUtils.deleteDb();
-        getActivity();
-
     }
 
-    @SuppressWarnings("unchecked")
-	public void test() throws Exception {
-        new AddThreadPO().addThread("New thread to delete", "New thread to delete");
-
-        pressBack();
+	public void testCanDelete() throws Exception {
+        new AddThreadPO().addThreadAndPressBack("New thread to delete", "New thread to delete");
 
         new ListThreadsPO().threadHasContent(0, "New thread to delete");
 
-        onData(allOf(is(instanceOf(ThreadResource.class))))
-                .atPosition(0)
-                .perform(longClick());
+        new ListThreadsPO().bringUpEditDeleteOptions(0);
 
-        onView(withText("Delete thread"))
-                .perform(click());
+        onView(withText("Delete thread")).perform(click());
 
         new ListThreadsPO().checkNoThreads();
     }
 
+	public void testCannotDeleteOthersPost() throws Exception {
+        new AddThreadPO().addThreadAndPressBack("New thread to delete", "New thread to delete");
 
+        new ListThreadsPO().threadHasContent(0, "New thread to delete");
+
+        long timeString = new Date().getTime();
+		String username = "new"+timeString;
+		new RegisterPO().register(getInstrumentation(), username, username); // Logs us in too
+
+        new ListThreadsPO().bringUpEditDeleteOptions(0);
+
+        onView(withText("Delete thread")).check(doesNotExist());
+    }
 
 }

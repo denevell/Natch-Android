@@ -1,11 +1,17 @@
 package org.denevell.droidnatch.uitests.pageobjects;
 
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
 
+import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.uitests.CustomMatchers;
 import org.denevell.natch.android.R;
 
@@ -30,9 +36,17 @@ public class ListThreadsPO {
         return this;
 	}
 
-	public void threadHasContent(int i, String string) {
+	public ListThreadsPO threadHasContent(int i, String string) {
         onView(withContentDescription("list_threads_row"+i))
         	.check(matches(withText(string)));
+        return this;
 	}
+
+	@SuppressWarnings("unchecked")
+	public ListThreadsPO bringUpEditDeleteOptions(int row) {
+		onData(allOf(is(instanceOf(ThreadResource.class)))).atPosition(row).perform(longClick());
+		return this;
+	}
+	
 
 }
