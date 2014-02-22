@@ -40,6 +40,8 @@ public class ListPostsContextMenu implements OnCreateContextMenuListener {
 				}
 			} else if(Urls.getUsername()==null || Urls.getUsername().isEmpty()){
 				menu.add(Menu.NONE, 0, 0, "Please logon");
+			} else {
+				menu.add(Menu.NONE, 0, 0, "Not yours to edit");
 			}
 		} catch (Exception e) {
 			Log.d(TAG, "Problem setting context menu", e);

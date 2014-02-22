@@ -34,6 +34,8 @@ public class ListThreadsContextMenu implements OnCreateContextMenuListener {
 				menu.add(Menu.NONE, R.id.posts_context_menu_delete_thread, 0, "Delete thread");
 			} else if(Urls.getUsername()==null || Urls.getUsername().isEmpty()){
 				menu.add(Menu.NONE, 0, 0, "Please login");
+			} else {
+				menu.add(Menu.NONE, 0, 0, "Not yours to edit");
 			}
 		} catch (Exception e) {
 			Log.e(TAG, "Couldn't set the context menus... Panic...", e);
