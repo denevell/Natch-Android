@@ -1,11 +1,9 @@
 package org.denevell.droidnatch;
 
-import android.util.Log;
+import org.denevell.natch.android.R;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-
-import org.denevell.natch.android.R;
 
 public class Application extends android.app.Application {
 
@@ -42,10 +40,6 @@ public class Application extends android.app.Application {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(appInstance);
         }
-        Log.d("TEST", "entering getRequestQueue");
-        Log.d("TEST", "Application instance: " + appInstance);
-        Log.d("TEST", "requestQueue instance: " + requestQueue);
-
         return requestQueue;
     }
 }

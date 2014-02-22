@@ -32,6 +32,7 @@ public class FragmentScreenOpener implements ScreenOpener {
             Log.v(TAG, "Opening: " + screenClass.getSimpleName());
             mActivity.getSupportFragmentManager()
             .beginTransaction()
+            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)      
             .addToBackStack(newInstance.getClass().getSimpleName())
             .replace(R.id.fragment_holder, newInstance) 
             .commitAllowingStateLoss();            
