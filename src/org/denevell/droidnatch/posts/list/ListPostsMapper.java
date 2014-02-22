@@ -10,7 +10,7 @@ import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.views.ClickableListView;
+import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.posts.list.entities.ThreadResourceResourceToArrayList;
 import org.denevell.droidnatch.posts.list.entities.ThreadResourceTotalAvailable;
@@ -39,10 +39,10 @@ public class ListPostsMapper {
     
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Provides @Singleton
-    public ClickableListView<PostResource, ThreadResource, PostResource, List<PostResource>> provideListView(
+    public ReceivingClickingAutopaginatingListView<PostResource, ThreadResource, PostResource, List<PostResource>> provideListView(
     		final ServiceFetcher<Void, ThreadResource> request,
     		final ListPostsPaginationObject pagination) {
-		ClickableListView listview = (ClickableListView) mActivity.findViewById(R.id.list_posts_listview);
+		ReceivingClickingAutopaginatingListView listview = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.list_posts_listview);
 
         final Button button = new Button(mActivity);
         button.setText("...Loading...");

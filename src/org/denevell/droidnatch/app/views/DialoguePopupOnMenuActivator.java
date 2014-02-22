@@ -49,7 +49,7 @@ public class DialoguePopupOnMenuActivator extends ViewThatListensOnEventBus {
 	}
 
 	@Subscribe
-	public void onListViewLongClick(ClickableListView.LongPressListViewEvent event) {
+	public void onListViewLongClick(ReceivingClickingAutopaginatingListView.LongPressListViewEvent event) {
 		createDialogue(event.menuItem, event.ob);
 	}
 

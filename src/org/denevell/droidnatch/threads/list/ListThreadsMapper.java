@@ -14,7 +14,7 @@ import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.views.ClickableListView;
+import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResourceTotalAvailable;
@@ -48,13 +48,13 @@ public class ListThreadsMapper {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	@Provides @Singleton
-    public ClickableListView<ThreadResource, ListThreadsResource, ThreadResource, List<ThreadResource>> providesListView(
+    public ReceivingClickingAutopaginatingListView<ThreadResource, ListThreadsResource, ThreadResource, List<ThreadResource>> providesListView(
     		final ServiceFetcher<Void, ListThreadsResource> listService,
     		final ListThreadsPaginationObject pagination,
     		OnPress<ThreadResource> onPressListener,
     		Context appContext
     		) {
-        ClickableListView listView = (ClickableListView) mActivity.findViewById(R.id.list_threads_listview);
+        ReceivingClickingAutopaginatingListView listView = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.list_threads_listview);
 
         Button button = new Button(mActivity);
         button.setText("...Loading...");
@@ -83,24 +83,24 @@ public class ListThreadsMapper {
         return listView;
     }
 
-    @Provides @Singleton 
-    public OnPress<ThreadResource> providesOnListClickAction(
-            final ScreenOpener screenOpener,
-            final ListPostsPaginationObject pagination
-    		) {
-        OnPress<ThreadResource> onPress = new OnPress<ThreadResource>() {
-                    @Override
-                    public void onPress(ThreadResource obj) {
-                        Log.v(TAG, "Opening new list posts fragment");
-                        HashMap<String, String> hm = new HashMap<String, String>();
-                        hm.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, obj.getId());
-                        hm.put(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, obj.getSubject());
-                        pagination.range = pagination.defaultRange;
-                        screenOpener.openScreen(ListPostsFragment.class, hm);
-                    }
-                };
-        return onPress;
-    }
+	@Provides
+	@Singleton
+	public OnPress<ThreadResource> providesOnListClickAction(
+			final ScreenOpener screenOpener,
+			final ListPostsPaginationObject pagination) {
+		OnPress<ThreadResource> onPress = new OnPress<ThreadResource>() {
+			@Override
+			public void onPress(ThreadResource obj) {
+				Log.v(TAG, "Opening new list posts fragment");
+				HashMap<String, String> hm = new HashMap<String, String>();
+				hm.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, obj.getId());
+				hm.put(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, obj.getSubject());
+				pagination.range = pagination.defaultRange;
+				screenOpener.openScreen(ListPostsFragment.class, hm);
+			}
+		};
+		return onPress;
+	}
     
     @Provides @Singleton 
     public ServiceFetcher<Void, ListThreadsResource> provideListThreadsService(

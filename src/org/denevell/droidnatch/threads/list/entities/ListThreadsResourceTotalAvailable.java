@@ -1,6 +1,6 @@
 package org.denevell.droidnatch.threads.list.entities;
 
-import org.denevell.droidnatch.app.views.ClickableListView.AvailableItems;
+import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView.AvailableItems;
 
 public class ListThreadsResourceTotalAvailable implements AvailableItems<ListThreadsResource> {
 	@Override

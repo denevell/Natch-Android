@@ -1,6 +1,6 @@
 package org.denevell.droidnatch.posts.list.entities;
 
-import org.denevell.droidnatch.app.views.ClickableListView.AvailableItems;
+import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView.AvailableItems;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 
 public class ThreadResourceTotalAvailable implements AvailableItems<ThreadResource> {

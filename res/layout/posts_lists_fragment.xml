@@ -51,7 +51,7 @@
         android:imeOptions="actionDone"
         android:inputType="textCapSentences" />
 
-    <org.denevell.droidnatch.app.views.ClickableListView
+    <org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView
         android:id="@+id/list_posts_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

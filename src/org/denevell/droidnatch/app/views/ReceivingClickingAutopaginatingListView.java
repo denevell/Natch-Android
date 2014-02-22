@@ -29,7 +29,7 @@ import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
-public class ClickableListView
+public class ReceivingClickingAutopaginatingListView
 		<ItemPressed, 
 		ReceivingObjects, 
 		AdapterItem, 
@@ -42,7 +42,7 @@ public class ClickableListView
         OnScrollListener,
         Receiver<ReceivingObjects>{
 
-    private static final String TAG = ClickableListView.class.getSimpleName();
+    private static final String TAG = ReceivingClickingAutopaginatingListView.class.getSimpleName();
     public static class LongPressListViewEvent {
         public final Object ob;
         public final int index;
@@ -66,7 +66,7 @@ public class ClickableListView
     private ArrayAdapter<AdapterItem> mListAdapter;
     private AvailableItems<ReceivingObjects> mAvailableItems;
 
-    public ClickableListView(Context context, AttributeSet attrSet) {
+    public ReceivingClickingAutopaginatingListView(Context context, AttributeSet attrSet) {
         super(context, attrSet);
         setOnItemClickListener(this);
         setOnScrollListener(this);
@@ -90,37 +90,37 @@ public class ClickableListView
     }
 
 	@SuppressWarnings("rawtypes")
-    public ClickableListView setKeyboardHider(HideKeyboard kbh) {
+    public ReceivingClickingAutopaginatingListView setKeyboardHider(HideKeyboard kbh) {
         mHideKeyboard = kbh;
         return this;
     }
 	
 	@SuppressWarnings("rawtypes")
-	public ClickableListView setAvailableItems(AvailableItems<ReceivingObjects> mAvailableItems) {
+	public ReceivingClickingAutopaginatingListView setAvailableItems(AvailableItems<ReceivingObjects> mAvailableItems) {
 		this.mAvailableItems = mAvailableItems;
 		return this;
 	}
 
 	@SuppressWarnings("rawtypes")
-	public ClickableListView setListAdapter(ArrayAdapter<AdapterItem> listAdapter) {
+	public ReceivingClickingAutopaginatingListView setListAdapter(ArrayAdapter<AdapterItem> listAdapter) {
 		mListAdapter = listAdapter;
 		return this;
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public ClickableListView setTypeAdapter(TypeAdapter<ReceivingObjects, AdapterItems> adapter) {
+	public ReceivingClickingAutopaginatingListView setTypeAdapter(TypeAdapter<ReceivingObjects, AdapterItems> adapter) {
 		this.mTypeAdapter = adapter;
 		return this;
 	}
 
 	@SuppressWarnings("rawtypes")
-	public ClickableListView setPaginationView(View view) {
+	public ReceivingClickingAutopaginatingListView setPaginationView(View view) {
 		mPaginationView = view;
 		return this;
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public ClickableListView addOnPaginationFooterVisibleCallback(Runnable runnable) {
+	public ReceivingClickingAutopaginatingListView addOnPaginationFooterVisibleCallback(Runnable runnable) {
 		mPaginationFooterCallbacks.add(runnable);
 		return this;
 	}
@@ -186,6 +186,11 @@ public class ClickableListView
 
 	@Override public void onScrollStateChanged(AbsListView view, int scrollState) {}
 
+	/**
+	 * If we see the footer,
+	 * And it's totally in focus, 
+	 * Then call the callbacks.
+	 */
 	@Override
 	public void onScroll(AbsListView view, 
 			int firstVisibleItem,
@@ -194,9 +199,12 @@ public class ClickableListView
 		int position = firstVisibleItem+(visibleItemCount);
 		if (totalItemCount > 0 && position == totalItemCount) {
 			if (view.getAdapter()!=null && view.getAdapter() instanceof HeaderViewListAdapter) {
-				if(mPaginationFooterCallbacks!=null) {
-					for (Runnable r: mPaginationFooterCallbacks) {
-						r.run();
+				View v = view.getAdapter().getView(position-1, null, view);
+				if(v != null && view.getHeight()>=v.getBottom()) {
+					if(mPaginationFooterCallbacks!=null) {
+						for (Runnable r: mPaginationFooterCallbacks) {
+							r.run();
+						}
 					}
 				}
 			}

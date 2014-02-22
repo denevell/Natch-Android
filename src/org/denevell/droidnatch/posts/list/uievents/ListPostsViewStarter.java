@@ -10,7 +10,7 @@ import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.views.ClickableListView;
+import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.posts.list.ListPostsMapper;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
@@ -31,7 +31,7 @@ public class ListPostsViewStarter extends View {
     private UiEventThenServiceThenUiEvent<ThreadResource> controller;
     public static class CallControllerListPosts {}
     @Inject ServiceFetcher<Void, ThreadResource> listPostsService;
-    @Inject ClickableListView<PostResource, ThreadResource, PostResource, List<PostResource>> listViewReceivingUiObject;
+    @Inject ReceivingClickingAutopaginatingListView<PostResource, ThreadResource, PostResource, List<PostResource>> listViewReceivingUiObject;
     @Inject ListPostsPaginationObject mPaginationObject;
 
     public ListPostsViewStarter(Context context, AttributeSet attrs) {

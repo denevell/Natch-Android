@@ -12,7 +12,7 @@ import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.Lazy
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.views.ClickableListView;
+import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.natch.android.R;
@@ -85,7 +85,7 @@ public class LongClickDeletePostActivator extends View
     }
 
     @Subscribe
-    public void onLongPress(ClickableListView.LongPressListViewEvent obj) {
+    public void onLongPress(ReceivingClickingAutopaginatingListView.LongPressListViewEvent obj) {
         if(obj.ob instanceof PostResource 
         		&& obj.menuItem.getTitle().toString().equals("Delete post")) {
             PostResource pr = (PostResource) obj.ob;

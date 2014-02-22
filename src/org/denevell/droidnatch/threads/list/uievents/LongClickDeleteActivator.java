@@ -13,7 +13,7 @@ import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.views.ClickableListView;
+import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
@@ -84,7 +84,7 @@ public class LongClickDeleteActivator extends View implements Activator<DeletePo
     }
 
     @Subscribe
-    public void onLongPress(ClickableListView.LongPressListViewEvent obj) {
+    public void onLongPress(ReceivingClickingAutopaginatingListView.LongPressListViewEvent obj) {
         if(obj.ob instanceof ThreadResource) {
             ThreadResource pr = (ThreadResource) obj.ob;
             String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
