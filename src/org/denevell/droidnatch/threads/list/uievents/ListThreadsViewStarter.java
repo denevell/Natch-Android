@@ -8,7 +8,7 @@ import org.denevell.droidnatch.AppWideMapper;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
-import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.threads.list.ListThreadsMapper;

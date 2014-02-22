@@ -6,7 +6,7 @@ import org.denevell.droidnatch.AppWideMapper;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
-import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.Receiver;

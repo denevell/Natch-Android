@@ -10,7 +10,7 @@ import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
-import org.denevell.droidnatch.app.baseclasses.controllers.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.Activator;

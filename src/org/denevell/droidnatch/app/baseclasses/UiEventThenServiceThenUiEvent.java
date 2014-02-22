@@ -1,8 +1,7 @@
-package org.denevell.droidnatch.app.baseclasses.controllers;
+package org.denevell.droidnatch.app.baseclasses;
 
 import android.util.Log;
 
-import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
