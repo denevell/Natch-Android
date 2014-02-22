@@ -48,7 +48,7 @@ public class ListThreadsMapper {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	@Provides @Singleton
-    public ReceivingClickingAutopaginatingListView<ThreadResource, ListThreadsResource, ThreadResource, List<ThreadResource>> providesListView(
+    public ReceivingClickingAutopaginatingListView<ListThreadsResource, ThreadResource, List<ThreadResource>> providesListView(
     		final ServiceFetcher<Void, ListThreadsResource> listService,
     		final ListThreadsPaginationObject pagination,
     		OnPress<ThreadResource> onPressListener,

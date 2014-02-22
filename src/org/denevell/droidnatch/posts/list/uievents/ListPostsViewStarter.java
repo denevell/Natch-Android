@@ -31,7 +31,7 @@ public class ListPostsViewStarter extends View {
     private UiEventThenServiceThenUiEvent<ThreadResource> controller;
     public static class CallControllerListPosts {}
     @Inject ServiceFetcher<Void, ThreadResource> listPostsService;
-    @Inject ReceivingClickingAutopaginatingListView<PostResource, ThreadResource, PostResource, List<PostResource>> listViewReceivingUiObject;
+    @Inject ReceivingClickingAutopaginatingListView<ThreadResource, PostResource, List<PostResource>> listViewReceivingUiObject;
     @Inject ListPostsPaginationObject mPaginationObject;
 
     public ListPostsViewStarter(Context context, AttributeSet attrs) {

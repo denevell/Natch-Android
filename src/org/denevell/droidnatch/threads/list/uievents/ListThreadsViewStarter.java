@@ -27,7 +27,7 @@ import dagger.ObjectGraph;
 
 public class ListThreadsViewStarter extends View {
 
-    @Inject ReceivingClickingAutopaginatingListView<ThreadResource, ListThreadsResource, ThreadResource, List<ThreadResource>> mListViewReceivingUiObject;
+    @Inject ReceivingClickingAutopaginatingListView<ListThreadsResource, ThreadResource, List<ThreadResource>> mListViewReceivingUiObject;
     private UiEventThenServiceThenUiEvent<ListThreadsResource> controller;
 	@Inject ServiceFetcher<Void, ListThreadsResource> mListThreadsService;
 

@@ -39,7 +39,7 @@ public class ListPostsMapper {
     
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Provides @Singleton
-    public ReceivingClickingAutopaginatingListView<PostResource, ThreadResource, PostResource, List<PostResource>> provideListView(
+    public ReceivingClickingAutopaginatingListView<ThreadResource, PostResource, List<PostResource>> provideListView(
     		final ServiceFetcher<Void, ThreadResource> request,
     		final ListPostsPaginationObject pagination) {
 		ReceivingClickingAutopaginatingListView listview = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.list_posts_listview);

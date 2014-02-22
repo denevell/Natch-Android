@@ -30,14 +30,13 @@ import android.widget.Toast;
 import com.squareup.otto.Subscribe;
 
 public class ReceivingClickingAutopaginatingListView
-		<ItemPressed, 
-		ReceivingObjects, 
+		<ReceivingObjects, 
 		AdapterItem, 
 		AdapterItems extends List<AdapterItem>> 
 	extends 
 		ListView 
 	implements
-    	OnPressObserver<ItemPressed>,
+    	OnPressObserver<AdapterItem>,
         OnItemClickListener,
         OnScrollListener,
         Receiver<ReceivingObjects>{
@@ -58,7 +57,7 @@ public class ReceivingClickingAutopaginatingListView
 	}
 
     private HideKeyboard mHideKeyboard;
-    private ArrayList<OnPress<ItemPressed>> mPressListeners = new ArrayList<OnPressObserver.OnPress<ItemPressed>>();
+    private ArrayList<OnPress<AdapterItem>> mPressListeners = new ArrayList<OnPressObserver.OnPress<AdapterItem>>();
 	private ArrayList<Runnable> mPaginationFooterCallbacks = new ArrayList<Runnable>();
 	private View mPaginationView;
 	private int mTotalAvailableForList;
@@ -85,7 +84,7 @@ public class ReceivingClickingAutopaginatingListView
     }
 
     @Override
-    public void addOnPressListener(OnPress<ItemPressed> callback) {
+    public void addOnPressListener(OnPress<AdapterItem> callback) {
         mPressListeners.add(callback);
     }
 
@@ -160,7 +159,7 @@ public class ReceivingClickingAutopaginatingListView
             AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.item.getMenuInfo();
             int index = info.position;
             @SuppressWarnings("unchecked")
-            ItemPressed tr = (ItemPressed) getAdapter().getItem(index);
+            AdapterItem tr = (AdapterItem) getAdapter().getItem(index);
             EventBus.getBus().post(new LongPressListViewEvent(tr, item.item, index));
         } catch (Exception e) {
             Log.e(TAG, "Couldn't process oncontextitemselected event.", e);
@@ -173,8 +172,8 @@ public class ReceivingClickingAutopaginatingListView
             if(mHideKeyboard!=null && parent!=null) mHideKeyboard.hideKeyboard(parent.getContext(), view);
             Log.v(TAG, "Press issued");
             @SuppressWarnings("unchecked")
-            ItemPressed tr = (ItemPressed) getAdapter().getItem(position);
-            for (OnPress<ItemPressed> listener: mPressListeners) {
+            AdapterItem tr = (AdapterItem) getAdapter().getItem(position);
+            for (OnPress<AdapterItem> listener: mPressListeners) {
                 listener.onPress(tr);
             }
         } catch (Exception e) {
