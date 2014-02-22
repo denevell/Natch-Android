@@ -60,7 +60,7 @@
                     android:imeOptions="actionDone"
                     android:hint="Content"
                     />
-                <Button
+                <org.denevell.droidnatch.app.views.ButtonHideKeyboard
                     android:id="@+id/add_thread_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
