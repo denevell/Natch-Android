@@ -85,7 +85,7 @@ public class LongClickDeleteActivator extends View implements Activator<DeletePo
 
     @Subscribe
     public void onLongPress(ReceivingClickingAutopaginatingListView.LongPressListViewEvent obj) {
-        if(obj.ob instanceof ThreadResource) {
+        if(obj.ob instanceof ThreadResource && obj.menuItem.getItemId()==R.id.posts_context_menu_delete_thread) {
             ThreadResource pr = (ThreadResource) obj.ob;
             String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
             mService.getRequest().setUrl(url+pr.getRootPostId());

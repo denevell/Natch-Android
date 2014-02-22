@@ -66,7 +66,7 @@ public class ListPostsMapper {
 			})
         	.setPaginationView(button)
 			.setKeyboardHider(new HideKeyboard());
-        listview.setOnCreateContextMenuListener(new ListPostsContextMenu());
+        listview.setOnCreateContextMenuListener(new ListPostsContextMenu(arrayAdapter));
 
         return listview;
     } 

@@ -77,7 +77,7 @@ public class ListThreadsMapper {
 			.setAvailableItems(new ListThreadsResourceTotalAvailable())
         	.setKeyboardHider(new HideKeyboard());
 
-        listView.setOnCreateContextMenuListener(new ListThreadsContextMenu());
+        listView.setOnCreateContextMenuListener(new ListThreadsContextMenu(listAdapter));
         listView.addOnPressListener(onPressListener);
 
         return listView;
