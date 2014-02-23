@@ -47,8 +47,7 @@ public class NewThreadPollingHandler extends Handler {
 				@Override
 				public void onServiceSuccess(ListThreadsResource r) {
 					ThreadResource threadResource = r.getThreads().get(0);
-					String latestThreadId = LatestThreadSaver.latestThreadId;
-					showNotificationIfNewThread(threadResource, latestThreadId);
+					showNotificationIfNewThread(threadResource);
 				}
 				@Override public void onServiceFail(FailureResult r) {}
 			});
@@ -63,13 +62,11 @@ public class NewThreadPollingHandler extends Handler {
 			.method(Request.Method.GET)
 			.create(null, ListThreadsResource.class);
 	}
-
-	private void showNotificationIfNewThread(ThreadResource threadsFromServer, String latestThreadIdInApp) {
-		String latestId = threadsFromServer.getId();
-		Log.i(TAG, "Latest post from app: " + latestThreadIdInApp);
+	private void showNotificationIfNewThread(ThreadResource threadFromServer) {
+		String latestId = threadFromServer.getId();
 		Log.i(TAG, "Latest from service: " + latestId);
-		if (latestThreadIdInApp != null && !latestThreadIdInApp.equals(latestId)) {
-			
+		if (latestId!= null && LatestThreadSaver.isThisIdNew(latestId)) {
+			LatestThreadSaver.seenThreads.put(latestId, true);
 			Intent i = new Intent(mAppContext, MainPageActivity.class);
 			PendingIntent pi = PendingIntent.getActivity(mAppContext, 0, i, 0);	
 			
@@ -77,9 +74,11 @@ public class NewThreadPollingHandler extends Handler {
 			Notification notification = new Notification.Builder(
 					mAppContext)
 					.setSmallIcon(android.R.drawable.stat_notify_chat)
-					.setContentTitle("New / updated thread")
+					.setContentTitle("New thread")
+					.setTicker("New thread: " + threadFromServer.getSubject())
 					.setContentIntent(pi)
-					.setContentText(threadsFromServer.getSubject())
+					.setAutoCancel(true)
+					.setContentText(threadFromServer.getSubject())
 					.getNotification();
 			NotificationManager mgr = (NotificationManager) mAppContext.getSystemService(Context.NOTIFICATION_SERVICE);
 			mgr.notify(0, notification);

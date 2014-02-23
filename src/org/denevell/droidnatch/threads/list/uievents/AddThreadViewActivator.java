@@ -113,8 +113,12 @@ public class AddThreadViewActivator extends LinearLayout implements
         mTags.setError(null);
         if(mSuccessCallback!=null) mSuccessCallback.run();
         // TODO: Refactor this away
-        String id = result.getThread().getId();
-		LatestThreadSaver.latestThreadId = id;
+        try {
+        	String id = result.getThread().getId();
+        	LatestThreadSaver.seenThreads.put(id, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 
     @Override

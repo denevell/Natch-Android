@@ -55,7 +55,7 @@ public class ListThreadsViewStarter extends View {
         controller = new UiEventThenServiceThenUiEvent<ListThreadsResource>(
                 mListThreadsService,
                 mListViewReceivingUiObject,
-                new StoreReferenceToLatestPostReceiver(mListThreadsService.getRequest()))
+                new StoreReferenceToLatestPostReceiver())
                 	.setup();
 
         EventBus.getBus().register(this);
