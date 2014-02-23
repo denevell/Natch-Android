@@ -1,6 +1,9 @@
 package org.denevell.droidnatch;
 
+import org.denevell.droidnatch.app.service.NewThreadPollingService;
 import org.denevell.natch.android.R;
+
+import android.content.Intent;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -16,6 +19,9 @@ public class Application extends android.app.Application {
         appInstance = this;
         setBasePathIfEmpty();
         setAuthKeyIfEmpty();
+
+    	Intent serviceIntent = new Intent(this, NewThreadPollingService.class);
+		startService(serviceIntent);
     }
 
     /**

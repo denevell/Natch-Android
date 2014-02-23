@@ -6,7 +6,6 @@ The Android client to the Natch REST project.
 * I should be able to logout
 * I should only be able to add thread if I'm logged in
 * UI TEST: I should see an error if add thread / post failed
-* Work how to do long running services that doesn't affect Espresso's Volley detection
 
 ## Ice-box
 

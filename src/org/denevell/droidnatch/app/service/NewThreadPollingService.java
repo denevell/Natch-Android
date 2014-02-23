@@ -23,7 +23,7 @@ public class NewThreadPollingService extends Service {
 		mServiceHandler = new NewThreadPollingHandler(serviceLooper, getApplicationContext());
 
 		Notification notification = createLongRunningServiceNotification();
-		startForeground(17, notification);
+		startForeground(17, notification); // Because it can't be zero...
 	}
 
 	@Override
