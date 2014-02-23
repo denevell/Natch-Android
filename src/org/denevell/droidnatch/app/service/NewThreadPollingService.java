@@ -43,8 +43,8 @@ public class NewThreadPollingService extends Service {
 		@SuppressWarnings("deprecation")
 		Notification notification = new Notification.Builder(getApplicationContext())
 			.setSmallIcon(android.R.drawable.stat_notify_chat)
-			.setContentText("Forum, innit")
-			.setContentTitle("I'll just wait for new threads.")
+			.setContentText("I'll just wait for new threads.")
+			.setContentTitle("Forum, innit")
 			.getNotification();
 		notification.flags |= Notification.FLAG_NO_CLEAR;
 		return notification;

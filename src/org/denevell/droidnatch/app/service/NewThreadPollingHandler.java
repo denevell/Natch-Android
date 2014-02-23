@@ -70,7 +70,7 @@ public class NewThreadPollingHandler extends Handler {
 			Notification notification = new Notification.Builder(
 					mAppContext)
 					.setSmallIcon(android.R.drawable.stat_notify_chat)
-					.setContentTitle("New thread")
+					.setContentTitle("New / updated thread")
 					.setContentText(threadsFromServer.getSubject())
 					.getNotification();
 			NotificationManager mgr = (NotificationManager) mAppContext.getSystemService(Context.NOTIFICATION_SERVICE);

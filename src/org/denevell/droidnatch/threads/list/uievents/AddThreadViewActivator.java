@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.denevell.droidnatch.AppWideMapper;
+import org.denevell.droidnatch.LatestThreadSaver;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
@@ -111,6 +112,9 @@ public class AddThreadViewActivator extends LinearLayout implements
         mTags.setText("");
         mTags.setError(null);
         if(mSuccessCallback!=null) mSuccessCallback.run();
+        // TODO: Refactor this away
+        String id = result.getThread().getId();
+		LatestThreadSaver.latestThreadId = id;
     }
 
     @Override
