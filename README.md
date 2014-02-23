@@ -11,7 +11,7 @@ The Android client to the Natch REST project.
 
 ### New threads service
 * Alarm manager instead of constant service
-* Test for I should see a notification when a new thread arrives?
+* Test for I should see a notification when a new thread arrives, and go to threads page?
 * Link into thread page.
 * Say when more than just one thread is new.
 * Keep references to all the threads we currently know about

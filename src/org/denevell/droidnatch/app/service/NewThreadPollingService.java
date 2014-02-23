@@ -1,6 +1,9 @@
 package org.denevell.droidnatch.app.service;
 
+import org.denevell.droidnatch.MainPageActivity;
+
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.HandlerThread;
@@ -40,10 +43,14 @@ public class NewThreadPollingService extends Service {
 	}
 
 	private Notification createLongRunningServiceNotification() {
+		Intent i = new Intent(getApplicationContext(), MainPageActivity.class);
+		PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, i, 0);	
+
 		@SuppressWarnings("deprecation")
 		Notification notification = new Notification.Builder(getApplicationContext())
 			.setSmallIcon(android.R.drawable.stat_notify_chat)
 			.setContentText("I'll just wait for new threads.")
+			.setContentIntent(pi)
 			.setContentTitle("Forum, innit")
 			.getNotification();
 		notification.flags |= Notification.FLAG_NO_CLEAR;
