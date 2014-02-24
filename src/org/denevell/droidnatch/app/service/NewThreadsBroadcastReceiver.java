@@ -1,7 +1,7 @@
 package org.denevell.droidnatch.app.service;
 
-import org.denevell.droidnatch.SeenThreadsSaver;
 import org.denevell.droidnatch.MainPageActivity;
+import org.denevell.droidnatch.SeenThreadsSaver;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
@@ -31,8 +31,10 @@ public class NewThreadsBroadcastReceiver extends BroadcastReceiver {
 		mServiceFetcher.setServiceCallbacks(new ServiceCallbacks<ListThreadsResource>() {
 					@Override
 					public void onServiceSuccess(ListThreadsResource r) {
-						ThreadResource threadResource = r.getThreads().get(0);
-						showNotificationIfNewThread(context, threadResource);
+						if(r!=null && r.getThreads()!=null && r.getThreads().size()>0) {
+							ThreadResource threadResource = r.getThreads().get(0);
+                            showNotificationIfNewThread(context, threadResource);
+						}
 					}
 
 					@Override
