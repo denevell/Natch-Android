@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.denevell.droidnatch.AppWideMapper;
-import org.denevell.droidnatch.LatestThreadSaver;
+import org.denevell.droidnatch.SeenThreadsSaver;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
@@ -115,7 +115,7 @@ public class AddThreadViewActivator extends LinearLayout implements
         // TODO: Refactor this away
         try {
         	String id = result.getThread().getId();
-        	LatestThreadSaver.seenThreads.put(id, true);
+        	SeenThreadsSaver.addThreadId(getContext().getApplicationContext(), id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

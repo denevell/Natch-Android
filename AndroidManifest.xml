@@ -22,6 +22,10 @@
         >
         <uses-library android:name="android.test.runner" />
 
+		<receiver 
+		    android:name="org.denevell.droidnatch.app.service.NewThreadsBroadcastReceiver" 
+		    />
+
 	    <service android:name="org.denevell.droidnatch.app.service.NewThreadPollingService" 
 	        android:exported="true"
 	        android:permission="I_WANT_A_PONY"/>

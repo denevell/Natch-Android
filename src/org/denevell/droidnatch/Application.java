@@ -1,8 +1,11 @@
 package org.denevell.droidnatch;
 
-import org.denevell.droidnatch.app.service.NewThreadPollingService;
+import org.denevell.droidnatch.app.service.NewThreadsBroadcastReceiver;
 import org.denevell.natch.android.R;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 
 import com.android.volley.RequestQueue;
@@ -20,8 +23,14 @@ public class Application extends android.app.Application {
         setBasePathIfEmpty();
         setAuthKeyIfEmpty();
 
-    	Intent serviceIntent = new Intent(this, NewThreadPollingService.class);
-		startService(serviceIntent);
+        //Commented out since I /think/ we'll be using an alarm manager from now on.
+    	//Intent serviceIntent = new Intent(this, NewThreadPollingService.class);
+		//startService(serviceIntent);
+		
+	    AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+	    Intent i = new Intent(getApplicationContext(), NewThreadsBroadcastReceiver.class);
+	    PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+	    am.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), 30000, pi);
     }
 
     /**

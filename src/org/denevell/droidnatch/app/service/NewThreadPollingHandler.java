@@ -1,6 +1,6 @@
 package org.denevell.droidnatch.app.service;
 
-import org.denevell.droidnatch.LatestThreadSaver;
+import org.denevell.droidnatch.SeenThreadsSaver;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
@@ -65,8 +65,8 @@ public class NewThreadPollingHandler extends Handler {
 	private void showNotificationIfNewThread(ThreadResource threadFromServer) {
 		String latestId = threadFromServer.getId();
 		Log.i(TAG, "Latest from service: " + latestId);
-		if (latestId!= null && LatestThreadSaver.isThisIdNew(latestId)) {
-			LatestThreadSaver.seenThreads.put(latestId, true);
+		if (latestId!= null && SeenThreadsSaver.isThisIdNew(mAppContext, latestId)) {
+			SeenThreadsSaver.addThreadId(mAppContext, latestId);
 			Intent i = new Intent(mAppContext, MainPageActivity.class);
 			PendingIntent pi = PendingIntent.getActivity(mAppContext, 0, i, 0);	
 			
