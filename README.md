@@ -6,15 +6,14 @@ The Android client to the Natch REST project.
 * I should be able to logout
 * I should only be able to add thread if I'm logged in
 * UI TEST: I should see an error if add thread / post failed
+* Get rid of service code in project, write up on blog.
 
 ## Ice-box
 
 ### New threads service
-* Alarm manager instead of constant service
 * Test for I should see a notification when a new thread arrives, and go to threads page?
 * Link into thread page.
 * Say when more than just one thread is new.
-* Keep references to all the threads we currently know about
 
 ### Edit thread 
 
