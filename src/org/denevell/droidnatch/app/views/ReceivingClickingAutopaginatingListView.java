@@ -65,7 +65,10 @@ public class ReceivingClickingAutopaginatingListView
     private TypeAdapter<ReceivingObjects,AdapterItems> mTypeAdapter;
     private ArrayAdapter<AdapterItem> mListAdapter;
     private AvailableItems<ReceivingObjects> mAvailableItems;
-	private Parcelable oldRestored; // Used since it will have the listviews' old state before it become blank via loading. A bit dodgy...
+    /**
+     * Used so we can set a new adapter, and keep the old listview state.
+     */
+	private Parcelable mSavedListViewState; 
 
     public ReceivingClickingAutopaginatingListView(Context context, AttributeSet attrSet) {
         super(context, attrSet);
@@ -131,8 +134,8 @@ public class ReceivingClickingAutopaginatingListView
         setPaginationFooterIfNeeded(adapter);
 
     	super.setAdapter(adapter);
-    	if(oldRestored!=null) {
-    		super.onRestoreInstanceState(oldRestored);
+    	if(mSavedListViewState!=null) {
+    		super.onRestoreInstanceState(mSavedListViewState);
     	}
     }
     
@@ -181,22 +184,32 @@ public class ReceivingClickingAutopaginatingListView
         }
     }
     
-    // Scroll view stuff
+    // Save the old list view state.
     
+    /**
+     * Save the old listview state so we can set it 
+     * on resetting the adapter.
+     */
     @Override
     public Parcelable onSaveInstanceState() {
     	Bundle b = new Bundle();
-    	b.putParcelable("oldstate", oldRestored);
+    	b.putParcelable("oldstate", mSavedListViewState);
     	b.putParcelable("state", super.onSaveInstanceState());
     	return b;
     }
     
+    /**
+     * Get the old listview state out first, since we'll be
+     * using this again when we reset the adapter
+     */
     @Override
     public void onRestoreInstanceState(Parcelable state) {
     	Bundle bundle = (Bundle)state;
-		oldRestored = bundle.getParcelable("oldstate");
+		mSavedListViewState = bundle.getParcelable("oldstate");
     	super.onRestoreInstanceState(bundle.getParcelable("state"));
     }
+    
+    // Scroll view stuff
 
 	@Override public void onScrollStateChanged(AbsListView view, int scrollState) {}
 
@@ -211,7 +224,7 @@ public class ReceivingClickingAutopaginatingListView
 			int visibleItemCount, 
 			int totalItemCount) {
 		if(firstVisibleItem!=0) {
-			oldRestored = super.onSaveInstanceState();
+			mSavedListViewState = super.onSaveInstanceState();
 		}
 		int position = firstVisibleItem+(visibleItemCount);
 		if (totalItemCount > 0 && position == totalItemCount) {
