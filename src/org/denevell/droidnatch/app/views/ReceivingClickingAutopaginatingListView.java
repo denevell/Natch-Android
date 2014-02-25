@@ -12,6 +12,7 @@ import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -64,6 +65,7 @@ public class ReceivingClickingAutopaginatingListView
     private TypeAdapter<ReceivingObjects,AdapterItems> mTypeAdapter;
     private ArrayAdapter<AdapterItem> mListAdapter;
     private AvailableItems<ReceivingObjects> mAvailableItems;
+	private Parcelable oldRestored; // Used since it will have the listviews' old state before it become blank via loading. A bit dodgy...
 
     public ReceivingClickingAutopaginatingListView(Context context, AttributeSet attrSet) {
         super(context, attrSet);
@@ -126,16 +128,14 @@ public class ReceivingClickingAutopaginatingListView
 
     @Override
     public void setAdapter(ListAdapter adapter) {
-    	Parcelable oldState = onSaveInstanceState();
-
         setPaginationFooterIfNeeded(adapter);
 
     	super.setAdapter(adapter);
-    	if(oldState!=null) {
-    		onRestoreInstanceState(oldState);
+    	if(oldRestored!=null) {
+    		super.onRestoreInstanceState(oldRestored);
     	}
     }
-
+    
 	private void setPaginationFooterIfNeeded(ListAdapter adapter) {
 		int adapterCount = adapter.getCount();
 		if( getFooterViewsCount()==0 && 
@@ -149,7 +149,7 @@ public class ReceivingClickingAutopaginatingListView
 			removeFooterView(mPaginationView);
         }
 	}
-
+	
     // On selection stuff
 
     @Subscribe
@@ -182,6 +182,21 @@ public class ReceivingClickingAutopaginatingListView
     }
     
     // Scroll view stuff
+    
+    @Override
+    public Parcelable onSaveInstanceState() {
+    	Bundle b = new Bundle();
+    	b.putParcelable("oldstate", oldRestored);
+    	b.putParcelable("state", super.onSaveInstanceState());
+    	return b;
+    }
+    
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+    	Bundle bundle = (Bundle)state;
+		oldRestored = bundle.getParcelable("oldstate");
+    	super.onRestoreInstanceState(bundle.getParcelable("state"));
+    }
 
 	@Override public void onScrollStateChanged(AbsListView view, int scrollState) {}
 
@@ -195,6 +210,9 @@ public class ReceivingClickingAutopaginatingListView
 			int firstVisibleItem,
 			int visibleItemCount, 
 			int totalItemCount) {
+		if(firstVisibleItem!=0) {
+			oldRestored = super.onSaveInstanceState();
+		}
 		int position = firstVisibleItem+(visibleItemCount);
 		if (totalItemCount > 0 && position == totalItemCount) {
 			if (view.getAdapter()!=null && view.getAdapter() instanceof HeaderViewListAdapter) {

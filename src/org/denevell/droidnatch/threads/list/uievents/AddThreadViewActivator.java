@@ -71,7 +71,13 @@ public class AddThreadViewActivator extends LinearLayout implements
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        mButton.setOnClickListener(this);
+        if(Urls.getUsername()==null || Urls.getUsername().isEmpty()) { 
+        	mButton.setText("Please login or register");
+        	mButton.setEnabled(false);
+        } else {
+        	mButton.setEnabled(true);
+        	mButton.setOnClickListener(this);
+        }
         inject();
         
         Activity act = (Activity) getContext();

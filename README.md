@@ -6,6 +6,8 @@ The Android client to the Natch REST project.
 * I should be able to logout
 * I should only be able to add thread if I'm logged in
 * UI TEST: I should see an error if add thread / post failed
+* UI TEST: Add thread button disabled if not logged in
+* UI TEST: Listview saved on rotation.
 * Get rid of service code in project, write up on blog.
 
 ## Ice-box
