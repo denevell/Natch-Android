@@ -55,6 +55,9 @@ The Android client to the Natch REST project.
 * Unregister for push notifications
 * Only see notification for summaries
 * Register option disappears on login.
+* Check for Google play services
+* Code for registering with gcm if package name changes
+* Settings screen for gcm stuff
 
 --
 
