@@ -1,19 +1,20 @@
 package org.denevell.droidnatch;
 
-import org.denevell.droidnatch.app.service.NewThreadsBroadcastReceiver;
+import java.io.IOException;
+
 import org.denevell.natch.android.R;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 public class Application extends android.app.Application {
 
-    private static RequestQueue requestQueue;
+    protected static final String TAG = "NatchApplication";
+	private static RequestQueue requestQueue;
     private static Application appInstance;
 
     @Override
@@ -27,10 +28,28 @@ public class Application extends android.app.Application {
     	//Intent serviceIntent = new Intent(this, NewThreadPollingService.class);
 		//startService(serviceIntent);
 		
-	    AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-	    Intent i = new Intent(getApplicationContext(), NewThreadsBroadcastReceiver.class);
-	    PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
-	    am.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), 30000, pi);
+        //Commented out until the alarm manager is toggled by a setting
+	    //AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+	    //Intent i = new Intent(getApplicationContext(), NewThreadsBroadcastReceiver.class);
+	    //PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+	    //am.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), 30000, pi);
+        registerInBackground();
+    }
+
+    private void registerInBackground() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                	GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(Application.this);
+                    String regid = gcm.register(getString(R.string.gcm_project));
+                    Log.i(TAG, regid);
+                } catch (IOException ex) {
+                	ex.printStackTrace();
+                }
+                return null;
+            }
+        }.execute(null, null, null);
     }
 
     /**

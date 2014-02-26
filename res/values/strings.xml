@@ -23,4 +23,5 @@
 
     <item type="id" name="posts_context_menu_edit_thread">posts_context_menu_edit_thread</item>
     <item type="id" name="posts_context_menu_edit_post">posts_context_menu_edit_post</item>
+    <string name="gcm_project">348075870621</string>
 </resources>
