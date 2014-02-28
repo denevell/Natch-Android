@@ -24,10 +24,6 @@ public class Application extends android.app.Application {
         setBasePathIfEmpty();
         setAuthKeyIfEmpty();
 
-        //Commented out since I /think/ we'll be using an alarm manager from now on.
-    	//Intent serviceIntent = new Intent(this, NewThreadPollingService.class);
-		//startService(serviceIntent);
-		
         //Commented out until the alarm manager is toggled by a setting
 	    //AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 	    //Intent i = new Intent(getApplicationContext(), NewThreadsBroadcastReceiver.class);
