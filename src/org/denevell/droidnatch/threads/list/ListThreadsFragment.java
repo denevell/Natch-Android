@@ -27,7 +27,7 @@ public class ListThreadsFragment extends ObservableFragment {
             return null;
         }
     }
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);

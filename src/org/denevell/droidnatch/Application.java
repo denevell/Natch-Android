@@ -2,11 +2,18 @@ package org.denevell.droidnatch;
 
 import java.io.IOException;
 
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
+import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
+import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
+import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.threads.list.entities.PushInput;
+import org.denevell.droidnatch.threads.list.entities.SuccessOrError;
 import org.denevell.natch.android.R;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -29,24 +36,42 @@ public class Application extends android.app.Application {
 	    //Intent i = new Intent(getApplicationContext(), NewThreadsBroadcastReceiver.class);
 	    //PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
 	    //am.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), 30000, pi);
-        registerInBackground();
+        registerForPushInBackground();
     }
 
-    private void registerInBackground() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                	GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(Application.this);
-                    String regid = gcm.register(getString(R.string.gcm_project));
-                    Log.i(TAG, regid);
-                } catch (IOException ex) {
-                	ex.printStackTrace();
-                }
-                return null;
-            }
-        }.execute(null, null, null);
-    }
+	private void registerForPushInBackground() {
+		new AsyncTask<Void, Void, Void>() {
+			@Override
+			protected Void doInBackground(Void... params) {
+				try {
+					GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(Application.this);
+					String regId = gcm.register(getString(R.string.gcm_project));
+					Log.i(TAG, regId);
+					PushInput pushResource = new PushInput();
+					pushResource.setId(regId);
+					ServiceFetcher<PushInput, SuccessOrError> service = new ServiceBuilder<PushInput, SuccessOrError>()
+							.entity(pushResource)
+							.method(Request.Method.PUT)
+							.url(Urls.getBasePath() + getString(R.string.url_push_add))
+							.create(null, null);
+					service.setServiceCallbacks(new ServiceCallbacks<SuccessOrError>() {
+						@Override
+						public void onServiceSuccess(SuccessOrError r) {
+							Log.i(TAG, "Adding a push id was successful.");
+						}
+						@Override
+						public void onServiceFail(FailureResult r) {
+							Log.e(TAG, "Adding a push id seemed to have failed.");
+						}
+					});
+					service.go();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+				return null;
+			}
+		}.execute(null, null, null);
+	}
 
     /**
      * Set the base path of the services if they're not empty.

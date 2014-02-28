@@ -45,7 +45,8 @@ public class NewThreadsPushBroadcastReceiver extends BroadcastReceiver {
 		if (latestId!= null && SeenThreadsSaver.isThisIdNew(context, latestId)) {
 			SeenThreadsSaver.addThreadId(context, latestId);
 			Intent i = new Intent(context, MainPageActivity.class);
-			PendingIntent pi = PendingIntent.getActivity(context, 0, i, 0);	
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			PendingIntent pi = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);	
 			
 			@SuppressWarnings("deprecation")
 			Notification notification = new Notification.Builder(
