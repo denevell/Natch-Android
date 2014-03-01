@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    
+     <PreferenceCategory
+            android:title="Push notifications">
+
+        <CheckBoxPreference
+                android:key="@string/settings_push_notifs_off"
+                android:title="Turn off for new threads"
+                />
+
+    </PreferenceCategory>   
+    
+</PreferenceScreen>

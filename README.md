@@ -2,14 +2,19 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* Tech: Use a lower resource hungry emulator in the docker container.
+* Tech task: Use a lower resource hungry emulator in the docker container.
 * I should be able to logout
-* I should only be able to add thread if I'm logged in
 * Dialogue box crash
+* Get rid of alarm code in project, write up on blog.
+
+## To test
+
 * UI TEST: I should see an error if add thread / post failed
 * UI TEST: Add thread button disabled if not logged in
 * UI TEST: Listview saved on rotation.
-* Get rid of service code in project, write up on blog.
+* UI TEST: Unregister for push notifications
+* UI TEST: Settings screen for gcm stuff
+* UI TEST: I should only be able to add thread if I'm logged in
 
 ## Ice-box
 
@@ -52,12 +57,10 @@ The Android client to the Natch REST project.
 * Goto invidiual thread on notification
 * Server to update threads on one deleted?
 * Keyboard hiding thing
-* Unregister for push notifications
 * Only see notification for summaries
 * Register option disappears on login.
 * Check for Google play services
 * Code for registering with gcm if package name changes
-* Settings screen for gcm stuff
 
 --
 

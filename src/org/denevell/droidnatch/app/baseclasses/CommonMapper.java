@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
+import org.denevell.droidnatch.app.views.LaunchActivityFromOptionMenuActivator;
 import org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator;
 import org.denevell.droidnatch.posts.list.uievents.EditPostViewActivator;
 import org.denevell.droidnatch.posts.list.uievents.EditThreadViewActivator;
@@ -33,6 +34,7 @@ import dagger.Provides;
         PreviousScreenReceiver.class,
         EditPostViewActivator.class,
         EditThreadViewActivator.class,
+        LaunchActivityFromOptionMenuActivator.class,
         LongClickDeletePostActivator.class,
         LongClickDeleteActivator.class,
         ListPostsViewStarter.class,

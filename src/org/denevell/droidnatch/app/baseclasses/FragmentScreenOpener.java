@@ -25,8 +25,10 @@ public class FragmentScreenOpener implements ScreenOpener {
         try {
             Fragment newInstance = (Fragment) screenClass.newInstance();
             Bundle b = new Bundle();
-            for (Entry<String, String> i: passedVars.entrySet()) {
-                b.putString(i.getKey(), i.getValue());
+            if(passedVars!=null) {
+            	for (Entry<String, String> i: passedVars.entrySet()) {
+            		b.putString(i.getKey(), i.getValue());
+            	}
             }
             newInstance.setArguments(b);
             Log.v(TAG, "Opening: " + screenClass.getSimpleName());
@@ -35,7 +37,7 @@ public class FragmentScreenOpener implements ScreenOpener {
             .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)      
             .addToBackStack(newInstance.getClass().getSimpleName())
             .replace(R.id.fragment_holder, newInstance) 
-            .commitAllowingStateLoss();            
+            .commit();            
         } catch (Exception e) {
             Log.e(TAG, "Couldn't open screen: " + screenClass, e);
         }

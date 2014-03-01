@@ -11,6 +11,7 @@ import org.denevell.droidnatch.threads.list.entities.SuccessOrError;
 import org.denevell.natch.android.R;
 
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -37,6 +38,8 @@ public class Application extends android.app.Application {
 	    //PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
 	    //am.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), 30000, pi);
         registerForPushInBackground();
+        boolean prefs = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("push_notifications_off", false);
+        Log.i(TAG, "They're: " + prefs);
     }
 
 	private void registerForPushInBackground() {
@@ -53,7 +56,7 @@ public class Application extends android.app.Application {
 							.entity(pushResource)
 							.method(Request.Method.PUT)
 							.url(Urls.getBasePath() + getString(R.string.url_push_add))
-							.create(null, null);
+							.create(null, SuccessOrError.class);
 					service.setServiceCallbacks(new ServiceCallbacks<SuccessOrError>() {
 						@Override
 						public void onServiceSuccess(SuccessOrError r) {

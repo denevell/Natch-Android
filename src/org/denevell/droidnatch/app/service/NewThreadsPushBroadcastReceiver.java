@@ -3,6 +3,7 @@ package org.denevell.droidnatch.app.service;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.SeenThreadsSaver;
 import org.denevell.droidnatch.threads.list.entities.CutDownThreadResource;
+import org.denevell.natch.android.R;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -12,6 +13,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -24,6 +26,10 @@ public class NewThreadsPushBroadcastReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Log.i(TAG, "Got gcm broadcast.");
+
+        boolean shouldntNotify = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.settings_push_notifs_off), false);
+        if(shouldntNotify) return;
+
 		Bundle extras = intent.getExtras();
 		GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(context);
 		String messageType = gcm.getMessageType(intent);
