@@ -8,7 +8,6 @@ The Android client to the Natch REST project.
 * Get rid of alarm code in project, write up on blog.
 * Goto invidiual thread on notification
 * I should see an error on edit post with blank data 
-* I should see an error on edit thread with blank data
 * I should see an error on delete thread 
 * I should see an error on delete post 
 * I should see an error on list posts
@@ -99,6 +98,7 @@ The Android client to the Natch REST project.
 9a.  I shouldn't be able to edit a post that's not mine
 10:  I should be able to edit my thread title and content
 10a: I shouldn't be able to edit a thread that's not mine
+10b: I should see an error on edit thread with blank data
 11:  I should be able to press more to see more threads
 12:  I should be able to press more to see more posts 
 13:  I should see whether I am logged in or not, showing who I am logged in as.

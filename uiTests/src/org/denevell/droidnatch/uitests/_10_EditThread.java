@@ -23,6 +23,7 @@ import java.util.Date;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
+import org.denevell.droidnatch.uitests.pageobjects.EditThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
@@ -56,21 +57,7 @@ public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
 
         onView(withText("Edit thread")).perform(click());
         
-        onView(withId(R.id.edit_thread_subject_edittext)).perform(
-        		clearText(), 
-        		typeText("Edited title"),
-        		closeSoftKeyboard());
-
-        Thread.sleep(100);
-
-        onView(withId(R.id.edit_thread_content_edittext)).perform(
-        		clearText(), 
-        		typeText("Edited post"),
-        		closeSoftKeyboard());
-        
-        Thread.sleep(100);
-        
-        onView(withText("Edit")).perform(click());
+        new EditThreadPO().edit("Edited title", "Edited post");
 
         new ListPostsPO().postHasContent(0, "Edited post");
         onView(withId(R.id.list_posts_addpost_edittext)).check(matches(CustomMatchers.viewHasActivityTitle("Edited title")));
@@ -104,5 +91,20 @@ public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
 
         onView(withText("Edit thread")).check(doesNotExist());
     }
+
+	@SuppressWarnings("unchecked")
+	public void testShowErrorOnBlanks() throws Exception {
+        new AddThreadPO().addThread("New title thread", "New thread");
+
+        onView(withId(R.id.list_posts_addpost_edittext)).check(matches(CustomMatchers.viewHasActivityTitle("New title thread")));
+
+        onData(allOf(is(instanceOf(PostResource.class)))) .atPosition(0) .perform(longClick());
+
+        onView(withText("Edit thread")).perform(click());
+        
+        new EditThreadPO()
+        	.edit("Edited title", " ")
+        	.showBlankError();
+    }	
 
 }
