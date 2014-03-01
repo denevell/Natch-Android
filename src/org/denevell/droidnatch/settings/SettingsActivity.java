@@ -1,6 +1,6 @@
 package org.denevell.droidnatch.settings;
 
-import org.denevell.droidnatch.utils.AndroidUtils;
+import org.denevell.droidnatch.app.utils.AndroidUtils;
 import org.denevell.natch.android.R;
 
 import android.os.Bundle;

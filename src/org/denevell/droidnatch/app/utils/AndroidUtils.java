@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.utils;
+package org.denevell.droidnatch.app.utils;
 
 import android.app.Activity;
 import android.util.Log;

@@ -7,23 +7,14 @@ The Android client to the Natch REST project.
 * Dialogue box crash
 * Get rid of alarm code in project, write up on blog.
 * Goto invidiual thread on notification
+* I should see an error on add thread
 * I should see an error on edit post 
 * I should see an error on edit thread 
+* I should see an error on add post 
 * I should see an error on delete thread
 * I should see an error on delete post 
-* I should see an error on add thread
-* I should see an error on add post 
 * I should see an error on list posts
 * I should see an error on list threads 
-
-## To test
-
-* UI TEST: Check for Google play services
-* UI TEST: Add thread button disabled if not logged in
-* UI TEST: Listview saved on rotation.
-* UI TEST: Unregister for push notifications
-* UI TEST: Settings screen for gcm stuff
-* UI TEST: I should only be able to add thread if I'm logged in
 
 ## Ice-box
 
@@ -80,6 +71,14 @@ The Android client to the Natch REST project.
 * Task: Start ui testing
 * Task: EditText which automatically hides the keyboard
 * Task: Gradle for the junit tests
+
+## Complete: To test
+
+* Add thread button disabled if not logged in
+* Listview saved on rotation.
+* Unregister for push notifications
+* Settings screen for gcm stuff
+* I should only be able to add thread if I'm logged in
 
 ### Stories (Numbers relate to classes names in the uiTests dir)
 
