@@ -18,6 +18,7 @@ The Android client to the Natch REST project.
 
 ## To test
 
+* UI TEST: Check for Google play services
 * UI TEST: Add thread button disabled if not logged in
 * UI TEST: Listview saved on rotation.
 * UI TEST: Unregister for push notifications
@@ -32,7 +33,6 @@ The Android client to the Natch REST project.
 * I should see empty screen on no threads
 * I should see empty screen on no posts 
 * I should be able to see new threads visually
-* Check for Google play services
 * 403/401 logs you out
 * Register option disappears on login.
 

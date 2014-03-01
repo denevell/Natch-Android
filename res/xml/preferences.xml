@@ -5,12 +5,25 @@
     
      <PreferenceCategory
             android:title="Push notifications">
-
+        
         <CheckBoxPreference
                 android:key="@string/settings_push_notifs_off"
                 android:title="Turn off for new threads"
                 />
 
     </PreferenceCategory>   
+        
+     <PreferenceCategory
+            android:title="App information">
+
+        <EditTextPreference
+				android:title="Google play services"
+				android:selectable="false"
+            	android:key="@string/settings_google_play_services_info"
+        	/>
+
+     </PreferenceCategory>
+        
+
     
 </PreferenceScreen>
