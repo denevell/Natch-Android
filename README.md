@@ -6,10 +6,18 @@ The Android client to the Natch REST project.
 * I should be able to logout
 * Dialogue box crash
 * Get rid of alarm code in project, write up on blog.
+* Goto invidiual thread on notification
+* I should see an error on edit post 
+* I should see an error on edit thread 
+* I should see an error on delete thread
+* I should see an error on delete post 
+* I should see an error on add thread
+* I should see an error on add post 
+* I should see an error on list posts
+* I should see an error on list threads 
 
 ## To test
 
-* UI TEST: I should see an error if add thread / post failed
 * UI TEST: Add thread button disabled if not logged in
 * UI TEST: Listview saved on rotation.
 * UI TEST: Unregister for push notifications
@@ -18,48 +26,26 @@ The Android client to the Natch REST project.
 
 ## Ice-box
 
-### New threads service
-* Test for I should see a notification when a new thread arrives, and go to threads page?
-* Link into thread page.
-* Say when more than just one thread is new.
-
-### Edit thread 
-
-* I should see an error on edit thread if there
-
-### Edit post 
-
-* I should see an error on edit post if there
-
-### Delete thread 
-
-* I should see an error if the service provides one
-* I should see delete thread specific loading screen
-
-### List threads
-
-* I should see a error screen if they fail to load
+* See if I can tests gcm notifications
 * I should be able to refresh the threads
-* I should see a retry option
-* I shouldn't add the thread on empty editext
+* I should be able to refresh the posts 
 * I should see empty screen on no threads
-* I should keep the found threads on rotate / onResume / app close
+* I should see empty screen on no posts 
 * I should be able to see new threads visually
-
-### Other
-
+* Check for Google play services
 * 403/401 logs you out
+* Register option disappears on login.
+
+### Colder Icebox
+
+* Server to update threads on one deleted?
+* Only see notification for summaries
 * Login from any page
 * Sliding add to thread 
 * Sliding add to post
-* Logout
 * Animate add to post
-* Goto invidiual thread on notification
-* Server to update threads on one deleted?
-* Only see notification for summaries
-* Register option disappears on login.
-* Check for Google play services
-* Code for registering with gcm if package name changes
+* I should keep the found threads on rotate / onResume / app close
+* Say when more than just one thread is new.
 
 --
 

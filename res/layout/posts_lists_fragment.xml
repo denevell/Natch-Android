@@ -48,8 +48,10 @@
         android:layout_alignParentTop="true"
         android:contentDescription="add_post_edittext"
         android:ems="10"
+        android:hint="Add post"
         android:imeOptions="actionDone"
-        android:inputType="textCapSentences" />
+        android:inputType="textCapSentences"
+        tools:ignore="HardcodedText" />
 
     <org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView
         android:id="@+id/list_posts_listview"
