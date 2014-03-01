@@ -88,6 +88,7 @@ dependencies {
         unitTestCompile 'org.robolectric:robolectric:2.1.1'
         unitTestCompile 'com.google.android:android:4.0.1.2'
         unitTestCompile 'com.android.support:support-v4:19.0.0'
+        unitTestCompile 'com.google.android.gms:play-services:4.2.42'
 	unitTestCompile 'com.squareup:otto:1.3.4'
 }
 

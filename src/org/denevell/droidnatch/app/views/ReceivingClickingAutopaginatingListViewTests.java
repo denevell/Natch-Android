@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.app.baseclasses;
+package org.denevell.droidnatch.app.views;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -6,9 +6,9 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment.ContextMenuItemHolder;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
-import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +26,7 @@ import android.widget.ListAdapter;
 
 @RunWith(RobolectricTestRunner.class)
 @SuppressWarnings("unchecked")
-public class ClickableListViewTests {
+public class ReceivingClickingAutopaginatingListViewTests {
 
     private ReceivingClickingAutopaginatingListView<Object, Object, List<Object>> clickableListView;
     private ListAdapter adapter;
