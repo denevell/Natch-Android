@@ -56,7 +56,6 @@ The Android client to the Natch REST project.
 * Animate add to post
 * Goto invidiual thread on notification
 * Server to update threads on one deleted?
-* Keyboard hiding thing
 * Only see notification for summaries
 * Register option disappears on login.
 * Check for Google play services
