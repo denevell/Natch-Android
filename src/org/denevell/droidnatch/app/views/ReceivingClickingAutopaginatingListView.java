@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
@@ -245,6 +246,7 @@ public class ReceivingClickingAutopaginatingListView
 	
 	@Override
 	public void success(ReceivingObjects result) {
+        setVisibility(View.VISIBLE);
 		mTotalAvailableForList = getTotalAvailableForList(result);
         AdapterItems converted = mTypeAdapter.convert(result);
         mListAdapter.clear();
@@ -259,6 +261,10 @@ public class ReceivingClickingAutopaginatingListView
             s = fail.getErrorMessage();
         }
         Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
+        TextView child = new TextView(getContext());
+        setVisibility(View.GONE);
+        //child.setText("Hello?");
+		//((ViewGroup)getParent()).addView(child);
 	}
 
     private int getTotalAvailableForList(ReceivingObjects object) {

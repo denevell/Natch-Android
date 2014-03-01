@@ -106,6 +106,14 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
         if(mLoadingView!=null) {
             mLoadingView.stop();
         }
+        if(mNextUiEvents!=null) {
+            for (Receiver<T> event : mNextUiEvents) {
+                if(r!=null && event!=null) {
+                    Log.v(TAG, "Calling next ui event");
+                    event.fail(r);
+                }
+            }
+        }        
     }
 
     @Override
