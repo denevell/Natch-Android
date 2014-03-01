@@ -1,7 +1,6 @@
 package org.denevell.droidnatch.app.baseclasses;
 
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.volley.NetworkResponse;
@@ -13,12 +12,20 @@ public final class NatchJsonFailureFactory implements FailureResultFactory {
     	NetworkResponse nr = error.networkResponse;
     	JSONObject json;
 		try {
-			json = new JSONObject(new String(error.networkResponse.data));
-			String errorString = json.getString("error");
-    		return new FailureResult("", errorString, nr.statusCode);
-		} catch (JSONException e) {
+			if(error.networkResponse.data!=null) {
+				json = new JSONObject(new String(error.networkResponse.data));
+                String errorString = json.getString("error");
+                return new FailureResult("", errorString, nr.statusCode);
+			} else if(error.networkResponse.statusCode==401||error.networkResponse.statusCode==403){
+                return new FailureResult("", "Please (re)login", nr.statusCode);
+			} else {
+				int sc = (nr!=null) ? nr.statusCode : -1;
+				return new FailureResult("", "Unknown error", sc);
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
-    		return new FailureResult("", "Unknown error", nr.statusCode);
+			int sc = (nr!=null) ? nr.statusCode : -1;
+    		return new FailureResult("", "Unknown error", sc);
 		}
     }
 }
