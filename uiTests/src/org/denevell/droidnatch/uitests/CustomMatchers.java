@@ -105,4 +105,27 @@ public class CustomMatchers {
         };
 	}
 
+	public static Matcher<? super View> showsErrorString(final String contains) {
+        return new TypeSafeMatcher<View>() {
+
+			@Override
+            public boolean matchesSafely(View view) {
+                if (!(view instanceof EditText)) {
+                    return false;
+                }
+                EditText v = (EditText) view;
+                String error = v.getError().toString();
+				if(error != null && error.length()>0 && error.contains(contains)) {
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Edit text should have error string");
+            }
+        };
+	}
+
 }

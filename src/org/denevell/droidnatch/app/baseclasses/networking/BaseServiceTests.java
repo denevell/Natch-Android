@@ -48,7 +48,7 @@ public class BaseServiceTests {
         service.setServiceCallbacks(callbacks);
         VolleyError error = new VolleyError();
         FailureResult fail = new FailureResult("", "", -1);
-        when(failureResultFactory.newInstance(-1, error.toString(), "")).thenReturn(fail);
+        when(failureResultFactory.newInstance(error)).thenReturn(fail);
         
         // Act
         service.onErrorResponse(error);
@@ -64,7 +64,7 @@ public class BaseServiceTests {
         NetworkResponse networkResponse = new NetworkResponse(400, null, null, true);
         VolleyError error = new VolleyError(networkResponse);
         FailureResult fail = new FailureResult("", "", -1);
-        when(failureResultFactory.newInstance(400, error.toString(), "")).thenReturn(fail);
+        when(failureResultFactory.newInstance(error)).thenReturn(fail);
         
         // Act
         service.onErrorResponse(error);

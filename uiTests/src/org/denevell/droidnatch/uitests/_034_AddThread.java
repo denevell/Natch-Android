@@ -31,12 +31,18 @@ public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
         getActivity();
     }
 
-    public void test_34_AddThread() throws Exception {
+    public void testAdd() throws Exception {
         String date = new Date().toString();
         new AddThreadPO().addThread("Hiya!"+date, "Content"+date);
         new ListPostsPO().postHasContent(0, "Content"+date);
         pressBack();
         onView(withContentDescription("list_threads_row0")).check(matches(withText("Hiya!"+date)));
+    }
+
+    public void testSeeError() throws Exception {
+        new AddThreadPO()
+        	.addThread("Hiya!", "")
+        	.showError();
     }
 
 

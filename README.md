@@ -7,7 +7,6 @@ The Android client to the Natch REST project.
 * Dialogue box crash
 * Get rid of alarm code in project, write up on blog.
 * Goto invidiual thread on notification
-* I should see an error on add thread
 * I should see an error on edit post 
 * I should see an error on edit thread 
 * I should see an error on add post 
@@ -87,6 +86,7 @@ The Android client to the Natch REST project.
 0.   I should see an error message on login fail
 1.   I should see some threads along with content of first post in the app
 3.   I should be able to add a new thread and first post in thread
+3a.  I should see server error on adding a new thread
 4.   I should refresh the (plus loading) threads after an add
 5.   I should be able to delete a thread I have created 
 5a.  I shouldn't be able to delete a thread I someone else has created 
