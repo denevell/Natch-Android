@@ -2,6 +2,7 @@ package org.denevell.droidnatch.app.service;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.SeenThreadsSaver;
+import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.threads.list.entities.CutDownThreadResource;
 import org.denevell.natch.android.R;
 
@@ -38,7 +39,13 @@ public class NewThreadsPushBroadcastReceiver extends BroadcastReceiver {
 				Log.i(TAG, "Received: " + extras.toString());
 				String threadString =  extras.getString("thread");
 				CutDownThreadResource thread = new Gson().fromJson(threadString, CutDownThreadResource.class);
-				sendNotification(context, thread);
+				String threadAuthor = thread.getAuthor();
+				String appAuthor = Urls.getUsername();
+				if(appAuthor == null || threadAuthor == null || !threadAuthor.equals(appAuthor)) {
+					sendNotification(context, thread);
+				} else {
+					Log.w(TAG, "Not notifying the user about their own thread.");
+				}
 			} else {
 				Log.w(TAG, "Got an odd message type" + messageType);
 			}
