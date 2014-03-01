@@ -7,7 +7,6 @@ The Android client to the Natch REST project.
 * Dialogue box crash
 * Get rid of alarm code in project, write up on blog.
 * Goto invidiual thread on notification
-* I should see an error on edit post with blank data 
 * I should see an error on delete thread 
 * I should see an error on delete post 
 * I should see an error on list posts
@@ -96,6 +95,7 @@ The Android client to the Natch REST project.
 8.   I should delete post from a thread, and then see the existing thread, one post less.
 9.   I should be able to edit my post
 9a.  I shouldn't be able to edit a post that's not mine
+9b.  I should see an error on edit post with blank data 
 10:  I should be able to edit my thread title and content
 10a: I shouldn't be able to edit a thread that's not mine
 10b: I should see an error on edit thread with blank data

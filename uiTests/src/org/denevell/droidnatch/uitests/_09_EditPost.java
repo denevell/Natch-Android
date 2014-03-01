@@ -3,9 +3,7 @@ package org.denevell.droidnatch.uitests;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.clearText;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.closeSoftKeyboard;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.doesNotExist;
@@ -16,6 +14,7 @@ import java.util.Date;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
+import org.denevell.droidnatch.uitests.pageobjects.EditPostPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
@@ -50,12 +49,7 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
         onView(withText("Edit post"))
                 .perform(click());
 
-        onView(withId(R.id.edit_post_edittext))
-        	.perform(clearText(), typeText("Edited"), pressImeActionButton());
-
-        closeSoftKeyboard(); Thread.sleep(100);
-
-        onView(withText("Edit")).perform(click());
+        new EditPostPO().edit("Edited");
 
         new ListPostsPO().postHasContent(1, "Edited");
     }
@@ -75,6 +69,22 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
         new ListPostsPO().bringUpEditDeleteOptions(1);
 
         onView(withText("Edit post")).check(doesNotExist());
+    }
+
+	public void testErrorOnBlanks() throws Exception {
+        new AddThreadPO().addThread("New thread", "New thread");
+
+        onView(withId(R.id.list_posts_addpost_edittext))
+                .perform(typeText("New post in thread"), pressImeActionButton());
+
+        new ListPostsPO().bringUpEditDeleteOptions(1);
+
+        onView(withText("Edit post"))
+                .perform(click());
+
+        new EditPostPO()
+        	.edit(" ")
+        	.showBlankError();
     }
 
 }
