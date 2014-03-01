@@ -2,6 +2,8 @@ package org.denevell.droidnatch.app.interfaces;
 
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 
+import com.android.volley.VolleyError;
+
 public interface FailureResultFactory {
-    FailureResult newInstance(int statusCode, String errorMessage, String errorCode);
+    FailureResult newInstance(VolleyError error);
 }

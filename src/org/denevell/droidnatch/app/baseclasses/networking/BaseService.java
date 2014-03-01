@@ -82,7 +82,8 @@ public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, S
         try {
             Object s = response.get("successful");
             if(s!=null && s instanceof Boolean && ((Boolean)s)==false) {
-                NetworkResponse nr = new NetworkResponse(400,null,null,false);
+            	
+                NetworkResponse nr = new NetworkResponse(400,response.toString().getBytes(),null,false);
                 onErrorResponse(new VolleyError(nr));
                 return;
             }
@@ -105,12 +106,7 @@ public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, S
         if(mProgress!=null) {
             mProgress.stop();
         }        
-        NetworkResponse networkResponse = error.networkResponse;
-        int status = -1;
-        if(networkResponse!=null) {
-            status = networkResponse.statusCode;
-        } 
-        FailureResult f = mFailureResultFactory.newInstance(status, error.toString(), "");
+        FailureResult f = mFailureResultFactory.newInstance(error);
         if(mCallbacks!=null) {
             mCallbacks.onServiceFail(f);
         }

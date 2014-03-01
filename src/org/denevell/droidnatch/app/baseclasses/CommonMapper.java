@@ -72,12 +72,7 @@ public class CommonMapper {
     
     @Provides
     public FailureResultFactory providesFailureFactory() {
-        return new FailureResultFactory() {
-            @Override
-            public FailureResult newInstance(int statusCode, String errorMessage, String errorCode) {
-                return new FailureResult(errorCode, errorMessage, statusCode);
-            }
-        };
+    	return new NatchJsonFailureFactory();
     }
     
 }

@@ -3,8 +3,8 @@ package org.denevell.droidnatch.app.baseclasses.networking;
 import java.util.ArrayList;
 
 import org.denevell.droidnatch.AppWideMapper.PaginationObject;
-import org.denevell.droidnatch.app.baseclasses.FailureFactory;
 import org.denevell.droidnatch.app.baseclasses.JsonConverter;
+import org.denevell.droidnatch.app.baseclasses.NatchJsonFailureFactory;
 import org.denevell.droidnatch.app.baseclasses.ProgressBarIndicator;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
@@ -22,7 +22,7 @@ public class ServiceBuilder<I, R> {
 	private String mUrl;
 	private int mMethod; // Request.Method.GET for example
 	private ObjectToStringConverter mResponseConverter = new JsonConverter();
-	private FailureResultFactory mFailureFactory = new FailureFactory();
+	private FailureResultFactory mFailureFactory = new NatchJsonFailureFactory();
 	private ArrayList<LazyHeadersCallback> mLazyHeaders = new ArrayList<VolleyRequestImpl.LazyHeadersCallback>();
 	private I mEntity; // That we send up in the request
 
