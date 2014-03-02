@@ -1,17 +1,20 @@
 package org.denevell.droidnatch;
 
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
-import android.view.Window;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.denevell.droidnatch.app.interfaces.ContextItemSelected;
-import org.denevell.droidnatch.app.interfaces.ContextItemSelectedObserver;
+import org.denevell.droidnatch.app.baseclasses.FragmentScreenOpener;
+import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.natch.android.R;
 
-public class MainPageActivity extends FragmentActivity implements ContextItemSelectedObserver {
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.Window;
+
+public class MainPageActivity extends FragmentActivity {
 
     private static final String TAG = MainPageActivity.class.getSimpleName();
 
@@ -28,26 +31,43 @@ public class MainPageActivity extends FragmentActivity implements ContextItemSel
     }
     
     @Override
+    protected void onNewIntent(Intent intent) {
+    	super.onNewIntent(intent);
+    	setIntent(intent);
+//        FragmentScreenOpener sopner = new FragmentScreenOpener(this);
+//
+//    	if(intent!=null && intent.getExtras()!=null) {
+//    		Bundle extras = intent.getExtras();
+//    		Map<String, String> map = new HashMap<String, String>();
+//    		String threadId = extras.getString(ListPostsFragment.BUNDLE_KEY_THREAD_ID);
+//    		String threadName = extras.getString(ListPostsFragment.BUNDLE_KEY_THREAD_NAME);
+//    		if(threadId!=null && threadName!=null) {
+//    			map.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, threadId);
+//    			map.put(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, threadName);
+//    			sopner.openScreen(ListPostsFragment.class, map);
+//    		}
+//    	} 
+    }
+    
+    @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
-        try {
-            FragmentManager supportFragmentManager = getSupportFragmentManager();
-            if(supportFragmentManager.getFragments()==null || 
-                    supportFragmentManager.getFragments().size()==0) {
-                Log.v(TAG, "Starting initial fragment");
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment_holder, new ListThreadsFragment())
-                    .commit();
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to parse activity", e);
-            return;
-        }
+        FragmentScreenOpener sopner = new FragmentScreenOpener(this);
+
+        Intent intent = getIntent();
+    	if(intent!=null && intent.getExtras()!=null) {
+    		Bundle extras = intent.getExtras();
+    		Map<String, String> map = new HashMap<String, String>();
+    		String threadId = extras.getString(ListPostsFragment.BUNDLE_KEY_THREAD_ID);
+    		String threadName = extras.getString(ListPostsFragment.BUNDLE_KEY_THREAD_NAME);
+    		if(threadId!=null && threadName!=null) {
+    			map.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, threadId);
+    			map.put(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, threadName);
+    			sopner.openScreen(ListPostsFragment.class, map);
+    			return;
+    		}
+    	}
+    	sopner.openScreen(ListThreadsFragment.class, null);
     }
 
-    @Override
-    public void addContextItemSelectedCallback(ContextItemSelected contextItem) {
-
-    }
 }

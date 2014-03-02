@@ -3,6 +3,7 @@ package org.denevell.droidnatch.app.push;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.SeenThreadsSaver;
 import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.entities.CutDownThreadResource;
 import org.denevell.natch.android.R;
 
@@ -58,7 +59,8 @@ public class NewThreadsPushBroadcastReceiver extends BroadcastReceiver {
 		if (latestId!= null && SeenThreadsSaver.isThisIdNew(context, latestId)) {
 			SeenThreadsSaver.addThreadId(context, latestId);
 			Intent i = new Intent(context, MainPageActivity.class);
-			i.putExtra("go_to_thread", threadFromServer.getId());
+			i.putExtra(ListPostsFragment.BUNDLE_KEY_THREAD_ID, threadFromServer.getId());
+			i.putExtra(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, threadFromServer.getSubject());
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			PendingIntent pi = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);	
 			
