@@ -5,29 +5,29 @@ The Android client to the Natch REST project.
 * Check if registered for gcm notifications
 * I should be able to refresh the threads
 * I should be able to refresh the posts 
-
-## Ice-box
-
 * I should be able to logout
 * Register option disappears on login.
 * 403/401 logs you out
-* I should see an error on delete thread 
-* I should see an error on delete post 
-* Dialogue box crash
 
-### Colder Icebox
+## Next sprint
 
-* Server to update threads on one deleted?
-* Only see notification for summaries
-* Login from any page
+* Better list threads listview
 * Sliding add to thread 
 * Sliding add to post
 * Animate add to post
+
+### Icebox
+
+* Only see notification for summaries
+* Login from any page
+* Dialogue box crash
 * I should keep the found threads on rotate / onResume / app close
-* Say when more than just one thread is new.
 * See if I can tests gcm notifications
+* Save login details
 * I should see error when I attempt to add a post when not logged in
-* I should be able to see new threads visually
+* I should be able to see new threads notification, a la g+ 
+* I should see an error on delete thread 
+* I should see an error on delete post 
 * Tech task: Use a lower resource hungry emulator in the docker container.
 
 --
