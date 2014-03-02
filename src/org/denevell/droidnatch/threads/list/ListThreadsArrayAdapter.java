@@ -19,7 +19,7 @@ public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
     	if(convertView==null) {
-    		convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_threads_row, parent, false);
+    		convertView = LayoutInflater.from(getContext()).inflate(R.layout.threads_list_row, parent, false);
     	}
         RelativeLayout rl = (RelativeLayout) convertView;
         TextView threadTitle = (TextView) rl.findViewById(R.id.list_thread_row_title_textview);

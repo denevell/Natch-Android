@@ -54,17 +54,18 @@ public class ListThreadsMapper {
     		OnPress<ThreadResource> onPressListener,
     		Context appContext
     		) {
-        ReceivingClickingAutopaginatingListView listView = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.list_threads_listview);
+        ReceivingClickingAutopaginatingListView listView = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.threads_listview);
 
         Button button = new Button(mActivity);
         button.setText("...Loading...");
 
-        ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(appContext, R.layout.list_threads_row);
+        ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(appContext, R.layout.threads_list_row);
 
-        listView
+		listView
 			.setListAdapter(listAdapter)
         	.setTypeAdapter(new ListThreadsToList())
 			.setPaginationView(button)
+			.setContenxtMenuListener(new ListThreadsContextMenu(listAdapter))
         	.setErrorView(R.layout.list_view_service_error)
 			.addOnPaginationFooterVisibleCallback(new Runnable() {
 				@Override public void run() {
@@ -78,9 +79,7 @@ public class ListThreadsMapper {
 			.setAvailableItems(new ListThreadsResourceTotalAvailable())
         	.setKeyboardHider(new HideKeyboard());
 
-        listView.setOnCreateContextMenuListener(new ListThreadsContextMenu(listAdapter));
         listView.addOnPressListener(onPressListener);
-
         return listView;
     }
 

@@ -2,12 +2,14 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/rl"
         style="?android:attr/buttonBarStyle"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
         <LinearLayout
+            android:id="@+id/one"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:layout_width="wrap_content"
@@ -50,24 +52,24 @@
         <org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter
             android:layout_width="0dp"
             android:layout_height="0dp" />
-
+        
         <org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView
-            android:id="@+id/list_threads_listview"
+            android:id="@+id/threads_listview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:contentDescription="listthreads_listview"
             tools:ignore="HardcodedText" />
 
         <include
-            android:id="@+id/list_threads_loading"
+            android:id="@android:id/empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            layout="@layout/list_threads_loading_page"
-            android:contentDescription="listthreads_loading_view"
-            tools:ignore="HardcodedText" >
-
-        </include>
+            android:layout_alignParentTop="true"
+            android:visibility="gone"
+            layout="@layout/list_view_empty"
+            />
+        
 
     </RelativeLayout>
 

@@ -67,5 +67,4 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
         new ListPostsPO().postHasContent(0, "New thread");
     }
 
-    
 }

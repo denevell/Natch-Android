@@ -47,7 +47,7 @@ public class ListPostsMapper {
         final Button button = new Button(mActivity);
         button.setText("...Loading...");
 
-        ListPostsArrayAdapter arrayAdapter = new ListPostsArrayAdapter(mActivity.getApplicationContext(), R.layout.list_posts_row);
+        ListPostsArrayAdapter arrayAdapter = new ListPostsArrayAdapter(mActivity.getApplicationContext(), R.layout.posts_list_row);
         
 		listview
 			.setListAdapter(arrayAdapter)

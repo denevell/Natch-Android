@@ -61,11 +61,12 @@
         android:contentDescription="list_posts_listview" />
 
     <include
-        android:id="@+id/list_posts_loading"
+        android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/list_posts_loading_page"
-        android:contentDescription="list_posts_loading_view" >
-    </include>
+        android:layout_alignParentTop="true"
+        android:visibility="gone"
+        layout="@layout/list_view_empty"
+        />
 
 </RelativeLayout>

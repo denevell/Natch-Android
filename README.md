@@ -4,8 +4,6 @@ The Android client to the Natch REST project.
 
 * Goto invidiual thread on notification
 * Check if registered for gcm notifications
-* I should see empty screen on no threads
-* I should see empty screen on no posts 
 * Get rid of alarm code in project, write up on blog.
 
 ## Ice-box
@@ -83,6 +81,7 @@ The Android client to the Natch REST project.
 0.   I should see an error message on login fail
 1.   I should see some threads along with content of first post in the app
 1a.  I should see an error on list threads 
+1b.  I should see empty screen on no threads
 3.   I should be able to add a new thread and first post in thread
 3a.  I should see server error on adding a new thread with blank input
 4.   I should refresh the (plus loading) threads after an add

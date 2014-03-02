@@ -70,10 +70,16 @@ public class ReceivingClickingAutopaginatingListView
      * Used so we can set a new adapter, and keep the old listview state.
      */
 	private Parcelable mSavedListViewState;
-	private View mErrorView; 
+	private View mErrorView;
 
     public ReceivingClickingAutopaginatingListView(Context context, AttributeSet attrSet) {
         super(context, attrSet);
+        setOnItemClickListener(this);
+        setOnScrollListener(this);
+    }
+
+    public ReceivingClickingAutopaginatingListView(Context context, AttributeSet attrSet, int style) {
+        super(context, attrSet, style);
         setOnItemClickListener(this);
         setOnScrollListener(this);
     }
@@ -82,7 +88,17 @@ public class ReceivingClickingAutopaginatingListView
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         EventBus.getBus().register(this);
+        findAndSetEmptyView();
     }
+
+	private void findAndSetEmptyView() {
+		if(getParent() instanceof ViewGroup) {
+			View findViewById = ((ViewGroup) getParent()).findViewById(android.R.id.empty);
+			if (findViewById != null) {
+				setEmptyView(findViewById);
+			}
+        }
+	}
 
     @Override
     protected void onDetachedFromWindow() {
@@ -140,6 +156,12 @@ public class ReceivingClickingAutopaginatingListView
 	@SuppressWarnings("rawtypes")
 	public ReceivingClickingAutopaginatingListView setErrorView(int layoutId) {
 		mErrorView = LayoutInflater.from(getContext()).inflate(layoutId, this, false);
+		return this;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public ReceivingClickingAutopaginatingListView setContenxtMenuListener(OnCreateContextMenuListener contextMenu) {
+		setOnCreateContextMenuListener(contextMenu);
 		return this;
 	}
 

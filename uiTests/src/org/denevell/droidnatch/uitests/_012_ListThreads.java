@@ -26,8 +26,7 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
     
     public void test() throws Exception {
         new ListThreadsPO().checkNoThreads();
-        new AddThreadPO().addThread("Listing threads", "Listing threads");
-        pressBack();
+        new AddThreadPO().addThreadAndPressBack("Listing threads", "Listing threads");
         new ListThreadsPO().checkHasNumberOfThreads(1);
     }
 
@@ -42,6 +41,12 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
         new AddThreadPO().addThreadAndPressBack("New", "New");
         new ListThreadsPO()
         	.checkHasNumberOfThreads(2);
+    }
+
+    public void testCanSeeEmpty() throws Exception {
+        new ListThreadsPO().seeEmptyView();
+        new AddThreadPO().addThreadAndPressBack("Listing threads", "Listing threads");
+        new ListThreadsPO().dontSeeEmptyView();
     }
 
 }

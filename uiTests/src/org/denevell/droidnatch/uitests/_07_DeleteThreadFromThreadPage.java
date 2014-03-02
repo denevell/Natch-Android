@@ -55,7 +55,7 @@ public class _07_DeleteThreadFromThreadPage extends NatchAndroidInstrumentationW
         onView(withText("Delete thread"))
                 .perform(click());
 
-        onView(withId(R.id.list_threads_listview))
+        onView(withId(R.id.threads_listview))
                 .check(matches(listViewHasElements(0)));
     }
     

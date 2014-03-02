@@ -6,6 +6,7 @@ import static com.google.android.apps.common.testing.ui.espresso.action.ViewActi
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
@@ -16,6 +17,7 @@ import static org.hamcrest.CoreMatchers.is;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.uitests.CustomMatchers;
 import org.denevell.natch.android.R;
+import org.hamcrest.CoreMatchers;
 
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
 
@@ -23,12 +25,12 @@ public class ListThreadsPO {
 
 	public ListThreadsPO checkNoThreads() {
     	onView(withText("Login")); // So we wait...
-        onView(withId(R.id.list_threads_listview)).check(ViewAssertions.matches(CustomMatchers.listViewHasElements(0)));
+        onView(withId(R.id.threads_listview)).check(ViewAssertions.matches(CustomMatchers.listViewHasElements(0)));
         return this;
 	}
 
 	public void checkHasNumberOfThreads(int numThreads) {
-        onView(withId(R.id.list_threads_listview))
+        onView(withId(R.id.threads_listview))
         	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(numThreads)));
 	}
 
@@ -62,6 +64,14 @@ public class ListThreadsPO {
 				click(),
 				pressBack());
 		return this;
+	}
+
+	public void seeEmptyView() {
+        onView(withId(android.R.id.empty)).check(ViewAssertions.matches(isDisplayed()));
+	}
+
+	public void dontSeeEmptyView() {
+        onView(withId(android.R.id.empty)).check(matches(CoreMatchers.not(isDisplayed())));
 	}
 	
 
