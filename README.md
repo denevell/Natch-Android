@@ -4,7 +4,6 @@ The Android client to the Natch REST project.
 
 * Goto invidiual thread on notification
 * Check if registered for gcm notifications
-* Get rid of alarm code in project, write up on blog.
 
 ## Ice-box
 

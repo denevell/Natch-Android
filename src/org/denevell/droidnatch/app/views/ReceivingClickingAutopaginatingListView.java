@@ -88,7 +88,6 @@ public class ReceivingClickingAutopaginatingListView
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         EventBus.getBus().register(this);
-        findAndSetEmptyView();
     }
 
 	private void findAndSetEmptyView() {
@@ -170,6 +169,7 @@ public class ReceivingClickingAutopaginatingListView
         setPaginationFooterIfNeeded(adapter);
 
     	super.setAdapter(adapter);
+        findAndSetEmptyView();
     	if(mSavedListViewState!=null) {
     		super.onRestoreInstanceState(mSavedListViewState);
     	}
@@ -299,6 +299,9 @@ public class ReceivingClickingAutopaginatingListView
             Log.w(TAG, "Error receiving list elements: " + s);
         }
         setVisibility(View.GONE);
+        if(getEmptyView()!=null) {
+        	getEmptyView().setVisibility(View.GONE);
+        }
         if(mErrorView!=null) {
         	((ViewGroup)getParent()).addView(mErrorView);
         }
