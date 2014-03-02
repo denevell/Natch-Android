@@ -13,8 +13,6 @@ import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.natch.android.R;
 
-import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
-
 public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
 
     public _012_ListThreads() throws Exception {
@@ -41,9 +39,9 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
         pressBack();
         onView(withId(R.id.list_view_service_error_textview)).check(matches(isDisplayed()));
         Urls.setBasePath(oldPath);
+        new AddThreadPO().addThreadAndPressBack("New", "New");
         new ListThreadsPO()
-        	.pressItemThenBack(0)
-        	.checkHasNumberOfThreads(1);
+        	.checkHasNumberOfThreads(2);
     }
 
 }
