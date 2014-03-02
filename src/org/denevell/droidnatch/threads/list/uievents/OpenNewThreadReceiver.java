@@ -26,7 +26,7 @@ public class OpenNewThreadReceiver implements
         HashMap<String, String> hm = new HashMap<String, String>();
         hm.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, obj.getThread().getId());
         hm.put(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, obj.getThread().getSubject());
-        mScreenOpener.openScreen(ListPostsFragment.class, hm);
+        mScreenOpener.openScreen(ListPostsFragment.class, hm, true);
     }
 
     @Override

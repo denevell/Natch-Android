@@ -11,6 +11,7 @@ import org.denevell.natch.android.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Window;
 
@@ -34,19 +35,6 @@ public class MainPageActivity extends FragmentActivity {
     protected void onNewIntent(Intent intent) {
     	super.onNewIntent(intent);
     	setIntent(intent);
-//        FragmentScreenOpener sopner = new FragmentScreenOpener(this);
-//
-//    	if(intent!=null && intent.getExtras()!=null) {
-//    		Bundle extras = intent.getExtras();
-//    		Map<String, String> map = new HashMap<String, String>();
-//    		String threadId = extras.getString(ListPostsFragment.BUNDLE_KEY_THREAD_ID);
-//    		String threadName = extras.getString(ListPostsFragment.BUNDLE_KEY_THREAD_NAME);
-//    		if(threadId!=null && threadName!=null) {
-//    			map.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, threadId);
-//    			map.put(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, threadName);
-//    			sopner.openScreen(ListPostsFragment.class, map);
-//    		}
-//    	} 
     }
     
     @Override
@@ -63,11 +51,29 @@ public class MainPageActivity extends FragmentActivity {
     		if(threadId!=null && threadName!=null) {
     			map.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, threadId);
     			map.put(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, threadName);
-    			sopner.openScreen(ListPostsFragment.class, map);
+    			if(isFragmentManagerEmpty()) {
+    				gotoMainFragment(sopner);
+    			} 
+				sopner.openScreen(ListPostsFragment.class, map, true);
     			return;
     		}
     	}
-    	sopner.openScreen(ListThreadsFragment.class, null);
+    	if(isFragmentManagerEmpty()) {
+    		gotoMainFragment(sopner);
+    	}
+    }
+
+	private void gotoMainFragment(FragmentScreenOpener sopner) {
+		sopner.openScreen(ListThreadsFragment.class, null, false);
+	}
+
+    private boolean isFragmentManagerEmpty() {
+    	FragmentManager supportFragmentManager = getSupportFragmentManager();
+    	if(supportFragmentManager.getFragments()==null || supportFragmentManager.getFragments().size()==0) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 
 }

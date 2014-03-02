@@ -96,7 +96,7 @@ public class ListThreadsMapper {
 				hm.put(ListPostsFragment.BUNDLE_KEY_THREAD_ID, obj.getId());
 				hm.put(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, obj.getSubject());
 				pagination.range = pagination.defaultRange;
-				screenOpener.openScreen(ListPostsFragment.class, hm);
+				screenOpener.openScreen(ListPostsFragment.class, hm, true);
 			}
 		};
 		return onPress;

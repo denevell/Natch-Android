@@ -9,6 +9,7 @@ import org.denevell.natch.android.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 public class FragmentScreenOpener implements ScreenOpener {
@@ -21,7 +22,9 @@ public class FragmentScreenOpener implements ScreenOpener {
     }
 
     @Override
-    public void openScreen(Class<?> screenClass, Map<String, String> passedVars) {
+    public void openScreen(Class<?> screenClass, 
+    		Map<String, String> passedVars, 
+    		boolean backStack) {
         try {
             Fragment newInstance = (Fragment) screenClass.newInstance();
             Bundle b = new Bundle();
@@ -32,12 +35,14 @@ public class FragmentScreenOpener implements ScreenOpener {
             }
             newInstance.setArguments(b);
             Log.v(TAG, "Opening: " + screenClass.getSimpleName());
-            mActivity.getSupportFragmentManager()
+            FragmentTransaction f = mActivity.getSupportFragmentManager()
             .beginTransaction()
             .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)      
-            .addToBackStack(newInstance.getClass().getSimpleName())
-            .replace(R.id.fragment_holder, newInstance) 
-            .commit();            
+            .replace(R.id.fragment_holder, newInstance);
+            if(backStack) {
+            	f.addToBackStack(newInstance.getClass().getSimpleName());
+            }
+            f.commit();            
         } catch (Exception e) {
             Log.e(TAG, "Couldn't open screen: " + screenClass, e);
         }

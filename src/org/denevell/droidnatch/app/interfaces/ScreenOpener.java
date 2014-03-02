@@ -4,7 +4,8 @@ import java.util.Map;
 
 public interface ScreenOpener {
     
-    void openScreen(Class<?> screenClass, Map<String, String> passedVars);
+    void openScreen(Class<?> screenClass, Map<String, String> passedVars, 
+    		boolean backstack);
 
     void gotoPreviousScreen();
 
