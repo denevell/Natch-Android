@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.app.service;
+package org.denevell.droidnatch.app.push;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.SeenThreadsSaver;

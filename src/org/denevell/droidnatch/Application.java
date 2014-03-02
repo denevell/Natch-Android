@@ -32,11 +32,6 @@ public class Application extends android.app.Application {
         setBasePathIfEmpty();
         setAuthKeyIfEmpty();
 
-        //Commented out until the alarm manager is toggled by a setting
-	    //AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-	    //Intent i = new Intent(getApplicationContext(), NewThreadsBroadcastReceiver.class);
-	    //PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
-	    //am.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), 30000, pi);
         registerForPushInBackground();
         boolean prefs = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("push_notifications_off", false);
         Log.i(TAG, "They're: " + prefs);
