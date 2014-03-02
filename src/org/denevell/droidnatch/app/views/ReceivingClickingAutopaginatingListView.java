@@ -16,8 +16,10 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
@@ -26,8 +28,6 @@ import android.widget.ArrayAdapter;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
@@ -69,7 +69,8 @@ public class ReceivingClickingAutopaginatingListView
     /**
      * Used so we can set a new adapter, and keep the old listview state.
      */
-	private Parcelable mSavedListViewState; 
+	private Parcelable mSavedListViewState;
+	private View mErrorView; 
 
     public ReceivingClickingAutopaginatingListView(Context context, AttributeSet attrSet) {
         super(context, attrSet);
@@ -127,6 +128,18 @@ public class ReceivingClickingAutopaginatingListView
 	@SuppressWarnings("rawtypes")
 	public ReceivingClickingAutopaginatingListView addOnPaginationFooterVisibleCallback(Runnable runnable) {
 		mPaginationFooterCallbacks.add(runnable);
+		return this;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public ReceivingClickingAutopaginatingListView setErrorView(View v) {
+		mErrorView = v;
+		return this;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public ReceivingClickingAutopaginatingListView setErrorView(int layoutId) {
+		mErrorView = LayoutInflater.from(getContext()).inflate(layoutId, this, false);
 		return this;
 	}
 
@@ -247,6 +260,9 @@ public class ReceivingClickingAutopaginatingListView
 	@Override
 	public void success(ReceivingObjects result) {
         setVisibility(View.VISIBLE);
+        if(mErrorView!=null) {
+        	((ViewGroup)getParent()).removeView(mErrorView);
+        }
 		mTotalAvailableForList = getTotalAvailableForList(result);
         AdapterItems converted = mTypeAdapter.convert(result);
         mListAdapter.clear();
@@ -256,15 +272,14 @@ public class ReceivingClickingAutopaginatingListView
 
 	@Override
 	public void fail(FailureResult fail) {
-        String s = "Unknown error";
         if(fail!=null && fail.getErrorMessage()!=null) {
-            s = fail.getErrorMessage();
+            String s = fail.getErrorMessage();
+            Log.w(TAG, "Error receiving list elements: " + s);
         }
-        Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
-        TextView child = new TextView(getContext());
         setVisibility(View.GONE);
-        //child.setText("Hello?");
-		//((ViewGroup)getParent()).addView(child);
+        if(mErrorView!=null) {
+        	((ViewGroup)getParent()).addView(mErrorView);
+        }
 	}
 
     private int getTotalAvailableForList(ReceivingObjects object) {

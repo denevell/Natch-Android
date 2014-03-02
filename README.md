@@ -9,8 +9,6 @@ The Android client to the Natch REST project.
 * Goto invidiual thread on notification
 * I should see an error on delete thread 
 * I should see an error on delete post 
-* I should see an error on list posts
-* I should see an error on list threads 
 
 ## Ice-box
 
@@ -83,6 +81,7 @@ The Android client to the Natch REST project.
 0.   I should be able to login and change the auth key for the calls.
 0.   I should see an error message on login fail
 1.   I should see some threads along with content of first post in the app
+1a.  I should see an error on list threads 
 3.   I should be able to add a new thread and first post in thread
 3a.  I should see server error on adding a new thread with blank input
 4.   I should refresh the (plus loading) threads after an add
@@ -90,6 +89,7 @@ The Android client to the Natch REST project.
 5a.  I shouldn't be able to delete a thread I someone else has created 
 6.   I should load the posts in a thread after it's clicked on, and add a post
 6a.  I should see an error on add post with blank data
+6b.  I should see an error on list posts
 7.   I should delete a thread from within the thread page
 7a.  I shouldn't be able to delete a thread I someone else has created 
 8.   I should delete post from a thread, and then see the existing thread, one post less.

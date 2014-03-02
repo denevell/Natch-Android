@@ -12,12 +12,12 @@ public final class NatchJsonFailureFactory implements FailureResultFactory {
     	NetworkResponse nr = error.networkResponse;
     	JSONObject json;
 		try {
-			if(nr!=null && nr.data!=null) {
+			if(nr!= null && (nr.statusCode==401|| nr.statusCode==403)){
+                return new FailureResult("", "Please (re)login", nr.statusCode);
+			} else if(nr!=null && nr.data!=null) {
 				json = new JSONObject(new String(error.networkResponse.data));
                 String errorString = json.getString("error");
                 return new FailureResult("", errorString, nr.statusCode);
-			} else if(nr!= null && (nr.statusCode==401|| nr.statusCode==403)){
-                return new FailureResult("", "Please (re)login", nr.statusCode);
 			} else {
 				int sc = (nr!=null) ? nr.statusCode : -1;
 				return new FailureResult("", "Unknown error", sc);

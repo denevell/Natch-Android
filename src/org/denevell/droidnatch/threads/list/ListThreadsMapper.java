@@ -65,6 +65,7 @@ public class ListThreadsMapper {
 			.setListAdapter(listAdapter)
         	.setTypeAdapter(new ListThreadsToList())
 			.setPaginationView(button)
+        	.setErrorView(R.layout.list_view_service_error)
 			.addOnPaginationFooterVisibleCallback(new Runnable() {
 				@Override public void run() {
 					pagination.paginate();
