@@ -23,6 +23,7 @@ import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.EditThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
+import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
@@ -80,6 +81,7 @@ public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
         pressBack();
 
 		String username = "new"+new Date().getTime();
+		new LoginPO().logout(getInstrumentation(), "aaron");
 		new RegisterPO().register(getInstrumentation(), username, username); // Logs us in too
 		
 		new ListThreadsPO().pressItem(0);

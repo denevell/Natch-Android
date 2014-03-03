@@ -22,6 +22,7 @@ import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
+import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
@@ -66,6 +67,7 @@ public class _07_DeleteThreadFromThreadPage extends NatchAndroidInstrumentationW
         
         pressBack();
 
+        new LoginPO().logout(getInstrumentation(), "aaron");
 		String username = "new"+new Date().getTime();
 		new RegisterPO().register(getInstrumentation(), username, username); // Logs us in too
 		

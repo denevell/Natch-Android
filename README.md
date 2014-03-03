@@ -2,10 +2,7 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* 403/401 logs you out
-
-## Next sprint
-
+* UI TEST: I should see error when I attempt to add a post when not logged in
 * Better list threads listview
 * Sliding add to thread 
 * Sliding add to post
@@ -13,18 +10,21 @@ The Android client to the Natch REST project.
 
 ### Icebox
 
-* Only see notification for summaries
-* Login from any page
-* Dialogue box crash
-* I should keep the found threads on rotate / onResume / app close
 * See if I can tests gcm notifications
-* Save login details
-* I should see error when I attempt to add a post when not logged in
-* I should be able to see new threads notification, a la g+ 
 * I should see an error on delete thread 
 * I should see an error on delete post 
-* Tech task: Use a lower resource hungry emulator in the docker container.
+
+### Colder icebox
+* Pull / push to refresh
+* Save login details
+* I should keep the found threads on rotate / onResume / app close
+* Only see notification for summaries
+* Dialogue box crash
+* Login from any page
+* 403/401 logs you out?
 * Tech task: Unit tests from gradle
+* Tech task: Use a lower resource hungry emulator in the docker container.
+* I should be able to see new threads notification, a la g+ 
 
 --
 
