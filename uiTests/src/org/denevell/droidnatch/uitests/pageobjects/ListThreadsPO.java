@@ -73,6 +73,11 @@ public class ListThreadsPO {
 	public void dontSeeEmptyView() {
         onView(withId(android.R.id.empty)).check(matches(CoreMatchers.not(isDisplayed())));
 	}
+
+	public ListThreadsPO pressRefresh() {
+        onView(withId(R.id.threads_option_menu_refresh)).perform(click());
+		return this;
+	}
 	
 
 }

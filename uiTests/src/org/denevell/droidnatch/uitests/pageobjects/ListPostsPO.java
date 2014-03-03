@@ -14,7 +14,10 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 
 import org.denevell.droidnatch.posts.list.entities.PostResource;
+import org.denevell.droidnatch.uitests.CustomMatchers;
 import org.denevell.natch.android.R;
+
+import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
 
 public class ListPostsPO {
 
@@ -39,6 +42,11 @@ public class ListPostsPO {
 	public ListPostsPO bringUpEditDeleteOptions(int row) {
 		onData(allOf(is(instanceOf(PostResource.class)))).atPosition(row).perform(longClick());
 		return this;
+	}
+
+	public void checkHasNumberOfPosts(int numPosts) {
+        onView(withId(R.id.list_posts_listview))
+        	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(numPosts)));
 	}
 
 }

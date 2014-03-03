@@ -53,8 +53,9 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
     public void testRefreshButton() throws Exception {
         new AddThreadPO().addThreadAndPressBack("Listing threads", "Listing threads");
         TestUtils.addPostViaRest();
-        onView(withId(R.id.threads_option_menu_refresh)).perform(click());
-        new ListThreadsPO().checkHasNumberOfThreads(2);
+        new ListThreadsPO()
+        	.pressRefresh()
+        	.checkHasNumberOfThreads(2);
     }
 
 }

@@ -3,6 +3,7 @@ package org.denevell.droidnatch.uitests;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
@@ -41,6 +42,22 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
 
         new ListPostsPO()
         	.postHasContent(1, "New post in thread");
+    }
+
+	public void testRefreshButton() throws Exception {
+		String threadId = TestUtils.addPostViaRest();
+		
+        new ListThreadsPO()
+        	.pressRefresh()
+        	.pressItem(0);
+
+        new ListPostsPO().checkHasNumberOfPosts(1);
+
+		TestUtils.addPostViaRest(threadId);
+
+        onView(withId(R.id.posts_option_menu_refresh)).perform(click());
+
+        new ListPostsPO().checkHasNumberOfPosts(2);
     }
 	
     public void testSeeError() throws Exception {
