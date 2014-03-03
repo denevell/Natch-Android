@@ -15,6 +15,8 @@ public class ListThreadsOptionsMenu {
 		if(username!=null && username.trim().length()>0) {
         	MenuItem item = menu.findItem(R.id.threads_option_menu_login);
         	item.setTitle(username);
+        	item = menu.findItem(R.id.threads_option_menu_register);
+        	item.setVisible(false);
         }
 	}
 	

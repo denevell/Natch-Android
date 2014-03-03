@@ -2,7 +2,6 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* Register option disappears on login.
 * 403/401 logs you out
 
 ## Next sprint
@@ -73,7 +72,7 @@ The Android client to the Natch REST project.
 
 ### Stories (Numbers relate to classes names in the uiTests dir)
 
-00.  I should be able to register, and be automatically logged in
+00.  I should be able to register, and be automatically logged in, and no longer see the register option
 0.   I should be able to login and change the auth key for the calls.
 0.   I should see an error message on login fail
 1.   I should see some threads along with content of first post in the app

@@ -12,10 +12,12 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
 import org.denevell.natch.android.R;
+import org.hamcrest.CoreMatchers;
 
 import android.app.Instrumentation;
 
 import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
+import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
 import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 
 public class LoginPO {
@@ -51,9 +53,22 @@ public class LoginPO {
     	return this;
 	}
 	
-	public LoginPO logout(String username) {
+	public LoginPO logout(Instrumentation instrumentation, String username) {
+		openActionBarOverflowOrOptionsMenu(instrumentation.getTargetContext());
         onView(withText(username)).perform(click());
         onView(withId(R.id.logout_button)).perform(click());
+		return this;
+	}
+
+	public LoginPO shouldSeeRegisterOption(Instrumentation instr) {
+		openActionBarOverflowOrOptionsMenu(instr.getTargetContext());
+    	onView(ViewMatchers.withText("Register")).check(matches(ViewMatchers.isDisplayed()));
+		return this;
+	}
+
+	public LoginPO shouldntSeeRegisterOption(Instrumentation instr) {
+		openActionBarOverflowOrOptionsMenu(instr.getTargetContext());
+    	onView(ViewMatchers.withText("Register")).check(ViewAssertions.doesNotExist());
 		return this;
 	}
 

@@ -11,7 +11,6 @@ import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentation;
 
 import com.google.android.apps.common.testing.ui.espresso.Espresso;
-import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
 import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 
 public class _16_Logout extends NatchAndroidInstrumentation {
@@ -31,7 +30,7 @@ public class _16_Logout extends NatchAndroidInstrumentation {
     	Espresso.openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText("Login")).check(doesNotExist());
         new LoginPO()
-        	.logout("aaron");
+        	.logout(getInstrumentation(), "aaron");
     	Espresso.openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText("Login")).check(matches(ViewMatchers.isDisplayed()));
     }
