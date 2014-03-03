@@ -259,7 +259,7 @@ public class ReceivingClickingAutopaginatingListView
 			int firstVisibleItem,
 			int visibleItemCount, 
 			int totalItemCount) {
-		if(getAdapter()!=null) {
+		if(getAdapter()!=null && getAdapter().getCount()>0) {
 			mSavedListViewState = super.onSaveInstanceState();
 		}
 		int position = firstVisibleItem+(visibleItemCount);
