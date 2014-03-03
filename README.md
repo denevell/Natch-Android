@@ -2,7 +2,6 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* Check if registered for gcm notifications
 * I should be able to refresh the threads
 * I should be able to refresh the posts 
 * I should be able to logout
@@ -38,6 +37,7 @@ The Android client to the Natch REST project.
 * Should close the keyboard on clicking a list item
 * Shouldn't be able to click the edit text during the loading screens
 * Goto invidiual thread on notification
+* Check if registered for gcm notifications
 
 ## Tasks complete
 

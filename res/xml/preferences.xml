@@ -22,6 +22,12 @@
             	android:key="@string/settings_google_play_services_info"
         	/>
 
+        <EditTextPreference
+				android:title="Status with GCM server"
+				android:selectable="false"
+            	android:key="@string/settings_gcm_registered"
+        	/>
+
      </PreferenceCategory>
         
 
