@@ -2,6 +2,7 @@ package org.denevell.droidnatch.threads.list;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Singleton;
 
@@ -11,6 +12,7 @@ import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
+import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -21,6 +23,7 @@ import org.denevell.droidnatch.threads.list.entities.ListThreadsResourceTotalAva
 import org.denevell.droidnatch.threads.list.entities.ListThreadsToList;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
+import org.denevell.droidnatch.threads.list.entities.LogoutResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
 import org.denevell.natch.android.R;
@@ -112,6 +115,23 @@ public class ListThreadsMapper {
         		.method(Request.Method.GET)
         		.pagination(pagination)
         		.create(mActivity, ListThreadsResource.class);
+		return listThreadsService;
+	}
+
+    @Provides @Singleton 
+    public ServiceFetcher<Void, LogoutResourceReturnData> provideLogoutService() {
+		String url = Urls.getBasePath()+mActivity.getString(R.string.url_logout);
+		ServiceFetcher<Void, LogoutResourceReturnData> listThreadsService
+        	= new ServiceBuilder<Void, LogoutResourceReturnData>()
+        		.url(url)
+        		.addLazyHeader(new LazyHeadersCallback() {
+					@Override
+					public void run(Map<String, String> headersMap) {
+						headersMap.put("AuthKey", Urls.getAuthKey());
+					}
+				})
+        		.method(Request.Method.DELETE)
+        		.create(mActivity, LogoutResourceReturnData.class);
 		return listThreadsService;
 	}
 

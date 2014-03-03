@@ -4,6 +4,7 @@
     <string name="services_session_id" tools:ignore="TypographyDashes">3c1dd2ba-2e1c-480e-b5a9-4d1194b902b2 </string>
     <string name="url_baseurl">http://denevell.org:8912/Natch-REST-ForAutomatedTests/rest/</string>
     <string name="url_threads">threads/</string>
+    <string name="url_logout">user/logout</string>
     <string name="url_threads_latest">threads/0/1</string>
     <string name="url_posts">post/thread/{thread_id}/</string>
     <string name="url_addthread">post/addthread</string>

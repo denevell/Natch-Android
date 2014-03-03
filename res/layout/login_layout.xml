@@ -7,7 +7,7 @@
     android:paddingTop="5dp" >
 
     <ScrollView
-        android:id="@+id/list_threads_add_thread_pane_scrollview"
+        android:id="@+id/threads_list_add_thread_pane_scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -55,5 +55,15 @@
 
         </LinearLayout>
     </ScrollView>
+    
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:visibility="gone"
+        android:gravity="center"
+        android:text="Logout"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>

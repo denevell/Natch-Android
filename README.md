@@ -2,8 +2,6 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* I should be able to refresh the posts 
-* I should be able to logout
 * Register option disappears on login.
 * 403/401 logs you out
 
@@ -90,6 +88,7 @@ The Android client to the Natch REST project.
 6.   I should load the posts in a thread after it's clicked on, and add a post
 6a.  I should see an error on add post with blank data
 6b.  I should see an error on list posts
+6c.  I should be able to refresh the posts 
 7.   I should delete a thread from within the thread page
 7a.  I shouldn't be able to delete a thread I someone else has created 
 8.   I should delete post from a thread, and then see the existing thread, one post less.
@@ -104,5 +103,6 @@ The Android client to the Natch REST project.
 13:  I should see whether I am logged in or not, showing who I am logged in as.
 14:  I should see the author of the thread on the threads page
 15:  I should see the author of a post in a thread page
+16.  I should be able to logout
 *:   I should be able to see dates on posts
 *:   I should be able to see dates on threads

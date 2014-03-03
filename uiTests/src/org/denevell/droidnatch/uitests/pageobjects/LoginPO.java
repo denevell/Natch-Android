@@ -45,9 +45,16 @@ public class LoginPO {
         return this;
 	}
 
-	public void shouldseeUsername(Instrumentation instr, String username) {
+	public LoginPO shouldseeUsername(Instrumentation instr, String username) {
 		openActionBarOverflowOrOptionsMenu(instr.getTargetContext());
     	onView(ViewMatchers.withText(username)).check(matches(isDisplayed()));
+    	return this;
+	}
+	
+	public LoginPO logout(String username) {
+        onView(withText(username)).perform(click());
+        onView(withId(R.id.logout_button)).perform(click());
+		return this;
 	}
 
 }

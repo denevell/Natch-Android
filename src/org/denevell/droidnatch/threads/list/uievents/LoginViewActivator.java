@@ -14,6 +14,7 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
+import org.denevell.droidnatch.threads.list.entities.LogoutResourceReturnData;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
@@ -31,14 +32,15 @@ import dagger.ObjectGraph;
 public class LoginViewActivator extends LinearLayout implements
 		Activator<LoginResourceReturnData>, View.OnClickListener, Finishable {
 
-	public static class RefreshOptionsMenuReceiver implements Receiver<LoginResourceReturnData> {
+	@SuppressWarnings("rawtypes")
+	public static class RefreshOptionsMenuReceiver implements Receiver {
 		@SuppressWarnings("unused")
 		private static final String TAG = RefreshOptionsMenuReceiver.class .getSimpleName();
 		private FragmentActivity mActivity;
 		public RefreshOptionsMenuReceiver(FragmentActivity act) {
 			mActivity = act;
 		}
-		@Override public void success(LoginResourceReturnData obj) {
+		@Override public void success(Object obj) {
 			if (mActivity != null) {
 				mActivity.supportInvalidateOptionsMenu();
 			}
@@ -65,6 +67,7 @@ public class LoginViewActivator extends LinearLayout implements
 	private EditText mUsername;
 	private EditText mPassword;
 	@Inject ServiceFetcher<LoginResourceInput, LoginResourceReturnData> mLoginService;
+	@Inject ServiceFetcher<Void, LogoutResourceReturnData> mLogoutService;
 
 	public LoginViewActivator(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -86,18 +89,48 @@ public class LoginViewActivator extends LinearLayout implements
 	protected void onAttachedToWindow() {
 		super.onAttachedToWindow();
 		inject();
-		FragmentActivity act = (FragmentActivity) getContext();
-		mButton = (Button) findViewById(R.id.login_button);
-		mButton.setOnClickListener(this);
-		mUsername = (EditText) findViewById(R.id.login_username_edittext);
-		mPassword = (EditText) findViewById(R.id.login_password_edittext);
+		final FragmentActivity act = (FragmentActivity) getContext();
+		String username = Urls.getUsername();
+		if(username!=null && username.length()>0) {
+			View v = findViewById(R.id.threads_list_add_thread_pane_scrollview);
+			v.setVisibility(View.GONE);
+			Button logoutButton = (Button) findViewById(R.id.logout_button);
+			logoutButton.setVisibility(View.VISIBLE);
+			Receiver<LogoutResourceReturnData> receivers = null;
+			final UiEventThenServiceThenUiEvent<LogoutResourceReturnData> controller = new UiEventThenServiceThenUiEvent<LogoutResourceReturnData>(
+					new Activator<LogoutResourceReturnData>() {
+						@Override public void setOnSubmitObserver(GenericUiObserver observer) {}
+						@Override public void success(LogoutResourceReturnData result) {
+							logout();
+						}
+						@Override public void fail(FailureResult r) {
+							logout();
+						}
+					},
+					mLogoutService, 
+					null,
+					receivers)
+				.setup();
+			logoutButton.setOnClickListener(new OnClickListener() {
+				@Override public void onClick(View v) {
+					controller.onUiEventActivated();
+				}
+			});
 
-		new UiEventThenServiceThenUiEvent<LoginResourceReturnData>(
-				this,
-				mLoginService, 
-				null, 
-				new RefreshOptionsMenuReceiver(act),
-				new UpdateLoginInfoReceiver(mUsername)).setup();
+		} else {
+			mButton = (Button) findViewById(R.id.login_button);
+			mButton.setOnClickListener(this);
+			mUsername = (EditText) findViewById(R.id.login_username_edittext);
+			mPassword = (EditText) findViewById(R.id.login_password_edittext);
+
+			new UiEventThenServiceThenUiEvent<LoginResourceReturnData>(
+					this,
+					mLoginService, 
+					null,
+					new RefreshOptionsMenuReceiver(act),
+					new UpdateLoginInfoReceiver(mUsername))
+						.setup();
+		}
 	}
 
 	@Override
@@ -125,11 +158,20 @@ public class LoginViewActivator extends LinearLayout implements
 
 	@Override
 	public void onClick(View view) {
-		mLoginService.getRequest().getBody()
-				.setPassword(mPassword.getText().toString());
-		mLoginService.getRequest().getBody()
-				.setUsername(mUsername.getText().toString());
+		mLoginService.getRequest().getBody().setPassword(mPassword.getText().toString());
+		mLoginService.getRequest().getBody().setUsername(mUsername.getText().toString());
 		mCallback.onUiEventActivated();
+	}
+
+	private void logout() {
+		Urls.setAuthKey("");
+		Urls.setUsername("");
+		if(getContext()!=null) {
+			if(getContext() instanceof FragmentActivity) {
+				((FragmentActivity)getContext()).supportInvalidateOptionsMenu();
+			}
+		}
+		success(null);
 	}
 
 }
