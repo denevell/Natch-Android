@@ -8,6 +8,8 @@ import org.denevell.natch.android.R;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,6 +22,7 @@ public class ListPostsFragment extends ObservableFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        setHasOptionsMenu(true);
         String threadName = getArguments().getString(BUNDLE_KEY_THREAD_NAME);
         getActivity().setTitle(threadName);
         View v = inflater.inflate(R.layout.posts_lists_fragment, container, false);
@@ -46,6 +49,12 @@ public class ListPostsFragment extends ObservableFragment {
     	if(getArguments()!=null && getActivity().getTitle()!=null) {
     		getArguments().putString(BUNDLE_KEY_THREAD_NAME, getActivity().getTitle().toString());
     	}
+    }
+    
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    	super.onCreateOptionsMenu(menu, inflater);
+    	new ListPostsOptionsMenu().create(menu, inflater);
     }
     
 }

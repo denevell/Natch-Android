@@ -19,7 +19,7 @@ public class _13_SeeUsernameAfterLogin extends NatchAndroidInstrumentation {
     
     public void test() throws Exception {
     	new LoginPO()
-    	.loginWithDefaultCredential()
+    	.loginWithDefaultCredential(getInstrumentation())
     	.shouldseeUsername("aaron");
     }
 

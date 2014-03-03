@@ -2,6 +2,7 @@ package org.denevell.droidnatch.uitests.pageobjects;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.closeSoftKeyboard;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.clearText;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
@@ -12,17 +13,20 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 
 import org.denevell.natch.android.R;
 
+import android.app.Instrumentation;
+
 import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
 import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 
 public class LoginPO {
 
-	public LoginPO loginWithDefaultCredential() {
-		return loginWithCredential("aaron", "aaron");
+	public LoginPO loginWithDefaultCredential(Instrumentation instr) {
+		return loginWithCredential(instr, "aaron", "aaron");
 	}
 
-	public LoginPO loginWithCredential(String username, String password) {
-        onView(withId(R.id.threads_option_menu_login)).perform(click());
+	public LoginPO loginWithCredential(Instrumentation instr, String username, String password) {
+		openActionBarOverflowOrOptionsMenu(instr.getTargetContext());
+        onView(withText("Login")).perform(click());
         onView(withId(R.id.login_username_edittext))
         	.perform(clearText(),
         			typeText(username), 

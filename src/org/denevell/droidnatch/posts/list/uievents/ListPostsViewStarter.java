@@ -8,6 +8,7 @@ import org.denevell.droidnatch.AppWideMapper;
 import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
+import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
@@ -15,6 +16,7 @@ import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.posts.list.ListPostsMapper;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
+import org.denevell.natch.android.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -71,4 +73,12 @@ public class ListPostsViewStarter extends View {
             controller.onUiEventActivated();
         }
     }
+    
+	@Subscribe
+	public void onOptionMenu(ObservableFragment.OptionMenuItemHolder menu) {
+		if(R.id.posts_option_menu_refresh!= menu.item.getItemId()) return;
+        if(controller!=null)  {
+            controller.onUiEventActivated();
+        }
+	}    
 }

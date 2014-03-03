@@ -2,7 +2,6 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* I should be able to refresh the threads
 * I should be able to refresh the posts 
 * I should be able to logout
 * Register option disappears on login.
@@ -28,6 +27,7 @@ The Android client to the Natch REST project.
 * I should see an error on delete thread 
 * I should see an error on delete post 
 * Tech task: Use a lower resource hungry emulator in the docker container.
+* Tech task: Unit tests from gradle
 
 --
 
@@ -81,6 +81,7 @@ The Android client to the Natch REST project.
 1.   I should see some threads along with content of first post in the app
 1a.  I should see an error on list threads 
 1b.  I should see empty screen on no threads
+1c.  I should be able to use a refresh button
 3.   I should be able to add a new thread and first post in thread
 3a.  I should see server error on adding a new thread with blank input
 4.   I should refresh the (plus loading) threads after an add

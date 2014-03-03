@@ -5,6 +5,13 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.Properties;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.denevell.droidnatch.Urls;
+
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.pm.ActivityInfo;
@@ -46,5 +53,13 @@ public class TestUtils {
         instru.waitForIdleSync();
 	}
         	
+	public static void addPostViaRest() throws Exception {
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPut httpput = new HttpPut("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/post/addthread");
+        httpput.addHeader("Content-Type", "application/json");
+        httpput.setEntity(new StringEntity("{\"subject\":\"...\", \"content\":\"...\"}"));
+        httpput.setHeader("AuthKey", Urls.getAuthKey());
+        HttpResponse resp = httpclient.execute(httpput);
+	}
 
 }

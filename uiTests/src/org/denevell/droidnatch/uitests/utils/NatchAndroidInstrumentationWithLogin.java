@@ -14,6 +14,6 @@ public class NatchAndroidInstrumentationWithLogin extends NatchAndroidInstrument
     protected void setUp() throws Exception {
         Urls.setUsername("");
         super.setUp();
-        new LoginPO().loginWithDefaultCredential();
+        new LoginPO().loginWithDefaultCredential(getInstrumentation());
     }
 }
