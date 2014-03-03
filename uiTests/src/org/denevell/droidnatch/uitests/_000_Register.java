@@ -24,7 +24,7 @@ public class _000_Register extends NatchAndroidInstrumentation {
     		.register(getInstrumentation(), username, username)
     		.registerSuccess();
 		new LoginPO()
-			.shouldseeUsername(username);
+			.shouldseeUsername(getInstrumentation(), username);
     }
     
     public void testFail() throws Exception {

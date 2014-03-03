@@ -45,7 +45,8 @@ public class LoginPO {
         return this;
 	}
 
-	public void shouldseeUsername(String username) {
+	public void shouldseeUsername(Instrumentation instr, String username) {
+		openActionBarOverflowOrOptionsMenu(instr.getTargetContext());
     	onView(ViewMatchers.withText(username)).check(matches(isDisplayed()));
 	}
 
