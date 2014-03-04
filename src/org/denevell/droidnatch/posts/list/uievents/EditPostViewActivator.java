@@ -91,7 +91,7 @@ public class EditPostViewActivator extends LinearLayout implements
                         new Receiver<EditPostResourceReturnData>() {
                             @Override
                             public void success(EditPostResourceReturnData result) {
-                                EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts());
+                                EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts(false));
                             }
                             @Override public void fail(FailureResult r) { }
                         });

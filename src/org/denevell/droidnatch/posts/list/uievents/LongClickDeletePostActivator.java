@@ -70,7 +70,7 @@ public class LongClickDeletePostActivator extends View
                         new Receiver<DeletePostResourceReturnData>() {
                             @Override
                             public void success(DeletePostResourceReturnData result) {
-                                EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts());
+                                EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts(false));
                             }
                             @Override public void fail(FailureResult r) { }
                         });

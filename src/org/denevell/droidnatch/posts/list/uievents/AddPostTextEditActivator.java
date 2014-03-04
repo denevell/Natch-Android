@@ -1,7 +1,11 @@
 package org.denevell.droidnatch.posts.list.uievents;
 
+import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
+import org.denevell.droidnatch.AppWideMapper;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
@@ -13,9 +17,13 @@ import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.EditTextHideKeyboard;
+import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
+import org.denevell.droidnatch.posts.list.ListPostsMapper;
+import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
+import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
@@ -35,24 +43,28 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
     
     private GenericUiObserver mCallback;
     private ServiceFetcher<AddPostResourceInput, AddPostResourceReturnData> addPostService;
-
+    @Inject ReceivingClickingAutopaginatingListView<ThreadResource, PostResource, List<PostResource>> mListView;
+    
     public AddPostTextEditActivator(Context context, AttributeSet attrSet) {
         super(context, attrSet);
         setOnEditorActionListener(this);
     }
 
-    private void inject() {
+    private void inject(Activity activity, String threadId) {
         ObjectGraph.create(
+        		AppWideMapper.getInstance(),
+        		new ListPostsMapper(activity, threadId),
                 new CommonMapper((Activity) getContext())
         ).inject(this);
     }
 
     public void setup(Bundle arguments) {
-        inject();
         Activity act = (Activity) getContext();
+        String threadId = arguments.getString(ListPostsFragment.BUNDLE_KEY_THREAD_ID);
+        inject(act, threadId);
 
         AddPostResourceInput entity = new AddPostResourceInput();
-        entity.setThreadId(arguments.getString(ListPostsFragment.BUNDLE_KEY_THREAD_ID));
+		entity.setThreadId(threadId);
 
         String url = Urls.getBasePath()+getContext().getString(R.string.url_add_post);
 		addPostService = new ServiceBuilder<AddPostResourceInput, AddPostResourceReturnData>()
@@ -73,9 +85,8 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
                         addPostService,
                         null,
                         new Receiver<AddPostResourceReturnData>() {
-                            @Override
-                            public void success(AddPostResourceReturnData result) {
-                                EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts());
+                            @Override public void success(AddPostResourceReturnData result) {
+                                EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts(true));
                             }
                             @Override public void fail(FailureResult r) { }
                         });

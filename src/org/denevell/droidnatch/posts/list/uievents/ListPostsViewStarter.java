@@ -8,8 +8,10 @@ import org.denevell.droidnatch.AppWideMapper;
 import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
+import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
@@ -31,10 +33,15 @@ import dagger.ObjectGraph;
 public class ListPostsViewStarter extends View {
 
     private UiEventThenServiceThenUiEvent<ThreadResource> controller;
-    public static class CallControllerListPosts {}
+    public static class CallControllerListPosts {
+		private boolean scrollToBottom = false;
+		public CallControllerListPosts(boolean scrollToBottom) {
+			this.scrollToBottom = scrollToBottom;
+		}}
     @Inject ServiceFetcher<Void, ThreadResource> listPostsService;
     @Inject ReceivingClickingAutopaginatingListView<ThreadResource, PostResource, List<PostResource>> listViewReceivingUiObject;
     @Inject ListPostsPaginationObject mPaginationObject;
+	private boolean mScrollToBottom;
 
     public ListPostsViewStarter(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -51,7 +58,16 @@ public class ListPostsViewStarter extends View {
         controller =
                 new UiEventThenServiceThenUiEvent<ThreadResource>(
                         listPostsService,
-                        listViewReceivingUiObject);
+                        listViewReceivingUiObject, 
+                        new Receiver<ThreadResource>() {
+							@Override public void success(ThreadResource result) {
+                                if(mScrollToBottom && listViewReceivingUiObject!=null) {
+                                    int count = listViewReceivingUiObject.getCount();
+                                    if(count>0) listViewReceivingUiObject.smoothScrollToPosition(count);
+                                }
+							}
+							@Override public void fail(FailureResult r) {}
+						});
         controller.setup();
     }
 
@@ -69,6 +85,7 @@ public class ListPostsViewStarter extends View {
 
     @Subscribe
     public void listItYeah(CallControllerListPosts events) {
+    	mScrollToBottom = events.scrollToBottom;
         if(controller!=null) {
             controller.onUiEventActivated();
         }

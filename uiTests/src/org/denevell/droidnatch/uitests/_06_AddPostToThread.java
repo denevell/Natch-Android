@@ -7,6 +7,7 @@ import static com.google.android.apps.common.testing.ui.espresso.action.ViewActi
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.Urls;
@@ -19,6 +20,8 @@ import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogi
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
+
+import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
 
 public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
 
@@ -43,6 +46,30 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
 
         new ListPostsPO()
         	.postHasContent(1, "New post in thread");
+    }
+
+	public void testScrollToPostOnAdd() throws Exception {
+        new AddThreadPO().addThread("New thread", "New thread");
+
+        new AddPostPO()
+        	.addPost("First post in thread")
+        	.addPost("New post in thread")
+        	.addPost("New post in thread")
+        	.addPost("New post in thread")
+        	.addPost("New post in thread")
+        	.addPost("New post in thread")
+        	.addPost("New post in thread")
+        	.addPost("New post in thread")
+        	.addPost("Hidden, I hope");
+
+        pressBack();
+        new ListThreadsPO().pressItem(0);
+        
+        onView(withText("First post in thread")).check(matches(isDisplayed()));
+        onView(withText("Hidden, I hope")).check(ViewAssertions.doesNotExist());
+
+        new AddPostPO().addPost("But should see this.");
+        onView(withText("But should see this.")).check(matches(isDisplayed()));
     }
 
 	public void testRefreshButton() throws Exception {

@@ -85,9 +85,6 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
         if(mLoadingView!=null) {
             mLoadingView.stop();
         }
-        if(mUiEvent!=null) {
-            mUiEvent.success(r);
-        }
         if(mNextUiEvents!=null) {
             for (Receiver<T> event : mNextUiEvents) {
                 if(r!=null && event!=null) {
@@ -95,6 +92,9 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
                     event.success(r);
                 }
             }
+        }
+        if(mUiEvent!=null) {
+            mUiEvent.success(r);
         }
     }
 

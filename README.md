@@ -2,8 +2,6 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* Animate add to post
-
 ### Icebox
 
 * See if I can tests gcm notifications
@@ -19,8 +17,8 @@ The Android client to the Natch REST project.
 * Tech task: Unit tests from gradle
 * Tech task: Use a lower resource hungry emulator in the docker container.
 * I should be able to see new threads notification, a la g+ 
-* Sliding add to thread 
-* Sliding add to post
+* Sliding add thread 
+* Sliding add post
 
 --
 
@@ -87,6 +85,7 @@ The Android client to the Natch REST project.
 6b.  I should see an error on list posts
 6c.  I should be able to refresh the posts 
 6d.  I should see error when I attempt to add a post when not logged in
+6e.  I should animate down to the list bottom on adding a post
 7.   I should delete a thread from within the thread page
 7a.  I shouldn't be able to delete a thread I someone else has created 
 8.   I should delete post from a thread, and then see the existing thread, one post less.
