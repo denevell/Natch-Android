@@ -32,7 +32,7 @@ public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
         ThreadResource o = getItem(position);
         threadTitle.setText(o.getSubject());
         threadAuthor.setText(o.getAuthor());
-        dateText.setText(o.getLastModifiedDate()+"\n"+o.getLastModifiedTime());
+        dateText.setText(" @ " + o.getLastModifiedDate()+" "+o.getLastModifiedTime());
         return convertView;
     }
     

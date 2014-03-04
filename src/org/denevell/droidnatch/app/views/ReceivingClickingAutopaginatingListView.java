@@ -27,8 +27,9 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.squareup.otto.Subscribe;
 
@@ -37,7 +38,7 @@ public class ReceivingClickingAutopaginatingListView
 		AdapterItem, 
 		AdapterItems extends List<AdapterItem>> 
 	extends 
-		GridView
+		ListView
 	implements
     	OnPressObserver<AdapterItem>,
         OnItemClickListener,
@@ -73,7 +74,7 @@ public class ReceivingClickingAutopaginatingListView
      */
 	private Parcelable mSavedListViewState;
 	private View mErrorView;
-	private int mMaxYOverscrollDistance;
+	private View mPaginationView;
 
     public ReceivingClickingAutopaginatingListView(Context context, AttributeSet attrSet) {
         super(context, attrSet);
@@ -143,7 +144,7 @@ public class ReceivingClickingAutopaginatingListView
 
 	@SuppressWarnings("rawtypes")
 	public ReceivingClickingAutopaginatingListView setPaginationView(View view) {
-		//mPaginationView = view;
+		mPaginationView = view;
 		return this;
 	}
 	
@@ -173,33 +174,13 @@ public class ReceivingClickingAutopaginatingListView
 
     @Override
     public void setAdapter(ListAdapter adapter) {
+    	setPaginationFooterIfNeeded(adapter);
     	super.setAdapter(adapter);
         findAndSetEmptyView();
     	if(mSavedListViewState!=null) {
     		super.onRestoreInstanceState(mSavedListViewState);
     	}
     }
-	
-	@Override
-	protected void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
-		if (getAdapter() != null && clampedY
-				&& mTotalAvailableForList > getAdapter().getCount()) {
-			if (mPaginationFooterCallbacks != null) {
-				for (Runnable r : mPaginationFooterCallbacks) {
-					r.run();
-				}
-			}
-		}
-		super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
-	}
-	
-	@Override
-	protected boolean overScrollBy(int deltaX, int deltaY, int scrollX,
-			int scrollY, int scrollRangeX, int scrollRangeY,
-			int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
-		return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX,
-				scrollRangeY, maxOverScrollX, mMaxYOverscrollDistance, isTouchEvent);
-	}
 	
     // On selection stuff
 
@@ -259,6 +240,19 @@ public class ReceivingClickingAutopaginatingListView
     	super.onRestoreInstanceState(bundle.getParcelable("state"));
     }
     
+	private void setPaginationFooterIfNeeded(ListAdapter adapter) {
+		int adapterCount = adapter.getCount();
+		if (getFooterViewsCount() == 0 && mTotalAvailableForList > adapterCount
+				&& mPaginationView != null) {
+			addFooterView(mPaginationView);
+		}
+		if (getFooterViewsCount() != 0
+				&& mTotalAvailableForList <= adapterCount
+				&& mPaginationView != null) {
+			removeFooterView(mPaginationView);
+		}
+	}
+ 
     // Scroll view stuff
 
 	@Override public void onScrollStateChanged(AbsListView view, int scrollState) {}
@@ -276,6 +270,21 @@ public class ReceivingClickingAutopaginatingListView
 		if(getAdapter()!=null && getAdapter().getCount()>0) {
 			mSavedListViewState = super.onSaveInstanceState();
 		}
+		int position = firstVisibleItem + (visibleItemCount);
+		if (totalItemCount > 0 && position == totalItemCount) {
+			if (view.getAdapter() != null
+					&& view.getAdapter() instanceof HeaderViewListAdapter) {
+				View v = view.getAdapter().getView(position - 1, null, view);
+				if (v != null && view.getHeight() >= v.getBottom()) {
+					if (mPaginationFooterCallbacks != null) {
+						for (Runnable r : mPaginationFooterCallbacks) {
+							r.run();
+						}
+					}
+				}
+			}
+		}
+		
 	}
 
 	// Receiving objects stuff

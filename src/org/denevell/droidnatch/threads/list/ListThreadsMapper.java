@@ -8,7 +8,6 @@ import javax.inject.Singleton;
 
 import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.AppWideMapper.ListThreadsPaginationObject;
-import org.denevell.droidnatch.Application;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;

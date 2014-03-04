@@ -75,7 +75,7 @@ public class ReceivingClickingAutopaginatingListViewTests {
 
         // Act 
 
-        clickableListView.onContextItemSelected(new ContextMenuItemHolder(item));
+        clickableListView.onContextItemSelected(new ContextMenuItemHolder(item, 0));
 
         // Assert
         verify(adapter).getItem(3);
