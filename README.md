@@ -3,7 +3,7 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * UI TEST: I should see error when I attempt to add a post when not logged in
-* Better list threads listview
+* Better pagination indicator
 * Sliding add to thread 
 * Sliding add to post
 * Animate add to post
@@ -69,6 +69,7 @@ The Android client to the Natch REST project.
 * Unregister for push notifications
 * Settings screen for gcm stuff
 * I should only be able to add thread if I'm logged in
+* Better list threads listview
 
 ### Stories (Numbers relate to classes names in the uiTests dir)
 

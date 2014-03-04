@@ -3,7 +3,6 @@ package org.denevell.droidnatch.app.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.denevell.droidnatch.Application;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
@@ -15,7 +14,6 @@ import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -94,7 +92,6 @@ public class ReceivingClickingAutopaginatingListView
         super.onAttachedToWindow();
         EventBus.getBus().register(this);
         
-        setOverScrollMode(View.OVER_SCROLL_NEVER);
         final DisplayMetrics metrics = getResources().getDisplayMetrics();
         final float density = metrics.density;
         mMaxYOverscrollDistance = (int) (density * 50);
