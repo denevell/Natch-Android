@@ -76,6 +76,8 @@ public class ReceivingClickingAutopaginatingListView
 	private View mErrorView;
 	private View mPaginationView;
 
+	private boolean mSettingAdapter;
+
     public ReceivingClickingAutopaginatingListView(Context context, AttributeSet attrSet) {
         super(context, attrSet);
         setOnItemClickListener(this);
@@ -92,10 +94,6 @@ public class ReceivingClickingAutopaginatingListView
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         EventBus.getBus().register(this);
-        
-        final DisplayMetrics metrics = getResources().getDisplayMetrics();
-        final float density = metrics.density;
-        mMaxYOverscrollDistance = (int) (density * 50);
     }
 
 	private void findAndSetEmptyView() {
@@ -177,9 +175,6 @@ public class ReceivingClickingAutopaginatingListView
     	setPaginationFooterIfNeeded(adapter);
     	super.setAdapter(adapter);
         findAndSetEmptyView();
-    	if(mSavedListViewState!=null) {
-    		super.onRestoreInstanceState(mSavedListViewState);
-    	}
     }
 	
     // On selection stuff
@@ -267,7 +262,7 @@ public class ReceivingClickingAutopaginatingListView
 			int firstVisibleItem,
 			int visibleItemCount, 
 			int totalItemCount) {
-		if(getAdapter()!=null && getAdapter().getCount()>0) {
+		if(getAdapter()!=null && getAdapter().getCount()>0 && !mSettingAdapter) {
 			mSavedListViewState = super.onSaveInstanceState();
 		}
 		int position = firstVisibleItem + (visibleItemCount);
@@ -291,6 +286,7 @@ public class ReceivingClickingAutopaginatingListView
 	
 	@Override
 	public void success(ReceivingObjects result) {
+        mSettingAdapter = true;
         setVisibility(View.VISIBLE);
         if(mErrorView!=null) {
         	((ViewGroup)getParent()).removeView(mErrorView);
@@ -300,6 +296,10 @@ public class ReceivingClickingAutopaginatingListView
         mListAdapter.clear();
         mListAdapter.addAll(converted);
         setAdapter(mListAdapter);
+        mSettingAdapter = false;
+    	if(mSavedListViewState!=null) {
+    		super.onRestoreInstanceState(mSavedListViewState);
+    	}
 	}
 
 	@Override

@@ -3,9 +3,6 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * UI TEST: I should see error when I attempt to add a post when not logged in
-* Better pagination indicator
-* Sliding add to thread 
-* Sliding add to post
 * Animate add to post
 
 ### Icebox
@@ -25,6 +22,8 @@ The Android client to the Natch REST project.
 * Tech task: Unit tests from gradle
 * Tech task: Use a lower resource hungry emulator in the docker container.
 * I should be able to see new threads notification, a la g+ 
+* Sliding add to thread 
+* Sliding add to post
 
 --
 
