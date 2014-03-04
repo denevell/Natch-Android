@@ -2,6 +2,7 @@ package org.denevell.droidnatch.uitests.pageobjects;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
@@ -44,9 +45,26 @@ public class ListPostsPO {
 		return this;
 	}
 
-	public void checkHasNumberOfPosts(int numPosts) {
+	public ListPostsPO checkHasNumberOfPosts(int numPosts) {
         onView(withId(R.id.list_posts_listview))
         	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(numPosts)));
+        return this;
+	}
+
+	public ListPostsPO pressDeleteThread() {
+        onView(withContentDescription("More options"))
+                .perform(click());
+        onView(withText("Delete thread"))
+                .perform(click());
+        return this;
+	}
+
+	public ListPostsPO pressDeletePost() {
+        onView(withContentDescription("More options"))
+                .perform(click());
+        onView(withText("Delete post"))
+                .perform(click());
+        return this;
 	}
 
 }

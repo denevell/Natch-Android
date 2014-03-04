@@ -4,7 +4,6 @@ import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.doesNotExist;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
@@ -53,8 +52,8 @@ public class _07_DeleteThreadFromThreadPage extends NatchAndroidInstrumentationW
                 .atPosition(0)
                 .perform(longClick());
 
-        onView(withText("Delete thread"))
-                .perform(click());
+        new ListPostsPO()
+        	.pressDeleteThread();
 
         onView(withId(R.id.threads_listview))
                 .check(matches(listViewHasElements(0)));

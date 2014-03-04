@@ -12,7 +12,6 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
 import org.denevell.natch.android.R;
-import org.hamcrest.CoreMatchers;
 
 import android.app.Instrumentation;
 

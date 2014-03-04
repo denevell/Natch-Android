@@ -8,7 +8,6 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
-import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentation;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 
 import com.google.android.apps.common.testing.ui.espresso.Espresso;
