@@ -77,7 +77,6 @@ public class ListThreadsMapper {
 			.setListAdapter(listAdapter)
         	.setTypeAdapter(new ListThreadsToList())
 			.setPaginationView(button)
-			//.setContextMenuListener(new ListThreadsContextMenu(listAdapter))
         	.setErrorView(R.layout.list_view_service_error)
 			.addOnPaginationFooterVisibleCallback(new Runnable() {
 				@Override public void run() {

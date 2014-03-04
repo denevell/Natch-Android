@@ -8,6 +8,7 @@ import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
+import org.denevell.droidnatch.app.baseclasses.ObservableFragment.ContextMenuItemHolder;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
@@ -19,6 +20,14 @@ import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
+import android.view.ActionMode;
+import android.view.ActionMode.Callback;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 
 import com.android.volley.Request;
@@ -42,7 +51,7 @@ public class ListPostsMapper {
     public ReceivingClickingAutopaginatingListView<ThreadResource, PostResource, List<PostResource>> provideListView(
     		final ServiceFetcher<Void, ThreadResource> request,
     		final ListPostsPaginationObject pagination) {
-		ReceivingClickingAutopaginatingListView listview = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.list_posts_listview);
+		final ReceivingClickingAutopaginatingListView listview = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.list_posts_listview);
 
         final Button button = new Button(mActivity);
         button.setText("...Loading...");
@@ -67,7 +76,47 @@ public class ListPostsMapper {
 			})
         	.setPaginationView(button)
 			.setKeyboardHider(new HideKeyboard());
-        listview.setOnCreateContextMenuListener(new ListPostsContextMenu(arrayAdapter));
+    	listview.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+				Callback callback = new Callback() {
+					@Override
+					public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+						ReceivingClickingAutopaginatingListView.sCurrentActionMode = mode;
+						return false;
+					}
+					
+					@Override
+					public void onDestroyActionMode(ActionMode mode) {
+					}
+					
+					@Override
+					public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+						PostResource ob = (PostResource) listview.getAdapter().getItem(position);
+            			String author = ob.getUsername();
+                        String username = Urls.getUsername();
+						if (!Urls.emptyUsername() &&  author!=null && !author.equals(username)) {
+							mode.getMenuInflater().inflate(R.menu.not_yours_context_option_menu, menu);
+						} else if (Urls.emptyUsername()) {
+							mode.getMenuInflater().inflate(R.menu.please_login_context_option_menu, menu);
+						} else if(position==0){
+							mode.getMenuInflater().inflate(R.menu.list_posts_context_thread_option_menu, menu);
+						} else {
+							mode.getMenuInflater().inflate(R.menu.list_posts_context_post_option_menu, menu);
+						}
+						return true;
+					}
+					
+					@Override
+					public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+						EventBus.getBus().post(new ContextMenuItemHolder(item, position));
+						mode.finish();
+						return true;
+					}
+				};
+				((FragmentActivity)parent.getContext()).startActionMode(callback);
+				return true;
+				}
+			});        
 
         return listview;
     } 
