@@ -8,9 +8,11 @@ import javax.inject.Singleton;
 
 import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.AppWideMapper.ListThreadsPaginationObject;
+import org.denevell.droidnatch.Application;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
+import org.denevell.droidnatch.app.baseclasses.ObservableFragment.ContextMenuItemHolder;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
@@ -30,7 +32,15 @@ import org.denevell.natch.android.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.ActionMode;
+import android.view.ActionMode.Callback;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 
 import com.android.volley.Request;
@@ -57,7 +67,7 @@ public class ListThreadsMapper {
     		OnPress<ThreadResource> onPressListener,
     		Context appContext
     		) {
-        ReceivingClickingAutopaginatingListView listView = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.threads_listview);
+        final ReceivingClickingAutopaginatingListView listView = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.threads_listview);
 
         Button button = new Button(mActivity);
         button.setText("...Loading...");
@@ -68,7 +78,7 @@ public class ListThreadsMapper {
 			.setListAdapter(listAdapter)
         	.setTypeAdapter(new ListThreadsToList())
 			.setPaginationView(button)
-			.setContenxtMenuListener(new ListThreadsContextMenu(listAdapter))
+			//.setContextMenuListener(new ListThreadsContextMenu(listAdapter))
         	.setErrorView(R.layout.list_view_service_error)
 			.addOnPaginationFooterVisibleCallback(new Runnable() {
 				@Override public void run() {
@@ -81,6 +91,46 @@ public class ListThreadsMapper {
 				}})
 			.setAvailableItems(new ListThreadsResourceTotalAvailable())
         	.setKeyboardHider(new HideKeyboard());
+
+		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+				Callback callback = new Callback() {
+					@Override
+					public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+						ReceivingClickingAutopaginatingListView.sCurrentActionMode = mode;
+						return false;
+					}
+					
+					@Override
+					public void onDestroyActionMode(ActionMode mode) {
+					}
+					
+					@Override
+					public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                        ThreadResource ob = (ThreadResource) listView.getAdapter().getItem(position);
+                        String author = ob.getAuthor();
+                        String username = Urls.getUsername();
+						if (!Urls.emptyUsername() &&  author!=null && !author.equals(username)) {
+							mode.getMenuInflater().inflate(R.menu.not_yours_context_option_menu, menu);
+						} else if (Urls.emptyUsername()) {
+							mode.getMenuInflater().inflate(R.menu.please_login_context_option_menu, menu);
+						} else {
+							mode.getMenuInflater().inflate(R.menu.list_threads_context_option_menu, menu);
+						}
+						return true;
+					}
+					
+					@Override
+					public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+						EventBus.getBus().post(new ContextMenuItemHolder(item, position));
+						mode.finish();
+						return true;
+					}
+				};
+				((FragmentActivity)parent.getContext()).startActionMode(callback);
+				return true;
+				}
+			});
 
         listView.addOnPressListener(onPressListener);
         return listView;

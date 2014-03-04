@@ -5,6 +5,7 @@ import org.denevell.natch.android.R;
 
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.ActionMode;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;

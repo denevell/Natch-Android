@@ -25,6 +25,10 @@ public class Urls {
 	public static String getUsername() {
 		return sUsername;
 	}
+	
+	public static boolean emptyUsername() {
+		return sUsername == null || sUsername.trim().length()==0;
+	}
 
 	public static void setUsername(String sUsername) {
 		Urls.sUsername = sUsername;

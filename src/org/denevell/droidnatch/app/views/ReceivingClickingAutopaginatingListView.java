@@ -3,6 +3,7 @@ package org.denevell.droidnatch.app.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.denevell.droidnatch.Application;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
@@ -14,9 +15,11 @@ import org.denevell.droidnatch.app.interfaces.TypeAdapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +61,8 @@ public class ReceivingClickingAutopaginatingListView
     	int getTotalAvailableForList(ReceivingObjects ob);
 	}
 
+	public static ActionMode sCurrentActionMode;
+
     private HideKeyboard mHideKeyboard;
     private ArrayList<OnPress<AdapterItem>> mPressListeners = new ArrayList<OnPressObserver.OnPress<AdapterItem>>();
 	private ArrayList<Runnable> mPaginationFooterCallbacks = new ArrayList<Runnable>();
@@ -89,11 +94,10 @@ public class ReceivingClickingAutopaginatingListView
         super.onAttachedToWindow();
         EventBus.getBus().register(this);
         
+        setOverScrollMode(View.OVER_SCROLL_NEVER);
         final DisplayMetrics metrics = getResources().getDisplayMetrics();
         final float density = metrics.density;
-
-        mMaxYOverscrollDistance = (int) (density * 20);
-        
+        mMaxYOverscrollDistance = (int) (density * 50);
     }
 
 	private void findAndSetEmptyView() {
@@ -165,7 +169,7 @@ public class ReceivingClickingAutopaginatingListView
 	}
 
 	@SuppressWarnings("rawtypes")
-	public ReceivingClickingAutopaginatingListView setContenxtMenuListener(OnCreateContextMenuListener contextMenu) {
+	public ReceivingClickingAutopaginatingListView setContextMenuListener(OnCreateContextMenuListener contextMenu) {
 		setOnCreateContextMenuListener(contextMenu);
 		return this;
 	}
@@ -206,8 +210,7 @@ public class ReceivingClickingAutopaginatingListView
     public void onContextItemSelected(ObservableFragment.ContextMenuItemHolder item) {
         try {
             Log.v(TAG, "Long press issued");
-            AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.item.getMenuInfo();
-            int index = info.position;
+            int index = item.position;;
             @SuppressWarnings("unchecked")
             AdapterItem tr = (AdapterItem) getAdapter().getItem(index);
             EventBus.getBus().post(new LongPressListViewEvent(tr, item.item, index));
@@ -219,6 +222,9 @@ public class ReceivingClickingAutopaginatingListView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
+        	try {
+        		sCurrentActionMode.finish();
+        	} catch(Exception e){}
             if(mHideKeyboard!=null && parent!=null) mHideKeyboard.hideKeyboard(parent.getContext(), view);
             Log.v(TAG, "Press issued");
             @SuppressWarnings("unchecked")
