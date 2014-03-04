@@ -115,7 +115,8 @@ public class CustomMatchers {
                 }
                 EditText v = (EditText) view;
                 String error = v.getError().toString();
-				if(error != null && error.length()>0 && error.contains(contains)) {
+                String c = contains;
+				if(error != null && error.length()>0 && error.contains(c)) {
                     return true;
                 }
                 return false;
@@ -123,7 +124,7 @@ public class CustomMatchers {
 
             @Override
             public void describeTo(Description description) {
-                description.appendText("Edit text should have error string");
+                description.appendText("Edit text should contain error string: " + contains);
             }
         };
 	}

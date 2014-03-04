@@ -49,4 +49,10 @@ public class AddThreadPO {
         return this;
 	}
 
+	public AddThreadPO showLoginError() {
+        onView(withId(R.id.add_thread_button))
+        	.check(matches(withText("Please login or register"))); 
+        return this;
+	}
+
 }

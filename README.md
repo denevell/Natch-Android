@@ -2,7 +2,6 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* UI TEST: I should see error when I attempt to add a post when not logged in
 * Animate add to post
 
 ### Icebox
@@ -10,8 +9,6 @@ The Android client to the Natch REST project.
 * See if I can tests gcm notifications
 * I should see an error on delete thread 
 * I should see an error on delete post 
-
-### Colder icebox
 * Pull / push to refresh
 * Save login details
 * I should keep the found threads on rotate / onResume / app close
@@ -81,6 +78,7 @@ The Android client to the Natch REST project.
 1c.  I should be able to use a refresh button
 3.   I should be able to add a new thread and first post in thread
 3a.  I should see server error on adding a new thread with blank input
+3b.  I should see error when I attempt to add a thread when not logged in
 4.   I should refresh the (plus loading) threads after an add
 5.   I should be able to delete a thread I have created 
 5a.  I shouldn't be able to delete a thread I someone else has created 
@@ -88,6 +86,7 @@ The Android client to the Natch REST project.
 6a.  I should see an error on add post with blank data
 6b.  I should see an error on list posts
 6c.  I should be able to refresh the posts 
+6d.  I should see error when I attempt to add a post when not logged in
 7.   I should delete a thread from within the thread page
 7a.  I shouldn't be able to delete a thread I someone else has created 
 8.   I should delete post from a thread, and then see the existing thread, one post less.

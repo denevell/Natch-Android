@@ -24,5 +24,11 @@ public class AddPostPO {
         	.check(matches(CustomMatchers.showsErrorString("blank"))); // Therefore fail
         return this;
 	}
+	
+	public AddPostPO showLoginError() {
+        onView(withId(R.id.list_posts_addpost_edittext))
+        	.check(matches(CustomMatchers.showsErrorString("login"))); // Therefore fail
+        return this;
+	}
 
 }

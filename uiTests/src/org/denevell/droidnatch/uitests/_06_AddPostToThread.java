@@ -14,6 +14,7 @@ import org.denevell.droidnatch.uitests.pageobjects.AddPostPO;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
+import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
@@ -83,5 +84,18 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
         new ListThreadsPO().pressItem(0);
         new ListPostsPO().postHasContent(0, "New thread");
     }
+    
+    public void testAddSeeErrorWhenNotLoggedIn() throws Exception {
+        new AddThreadPO()
+        	.addThreadAndPressBack("Hiya!", "Hiii");
+        
+        new LoginPO().logout(getInstrumentation(), "aaron");
+        
+        new ListThreadsPO().pressItem(0);
+
+        new AddPostPO()
+        	.addPost("Should have logged in")
+        	.showLoginError();
+    }    
 
 }
