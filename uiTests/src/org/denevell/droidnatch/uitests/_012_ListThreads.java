@@ -38,6 +38,7 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
         Urls.setBasePath("http://www.dsflkjsdflkjsdflkjsdlfkjsd.int/");
         pressBack();
         onView(withId(R.id.list_view_service_error_textview)).check(matches(isDisplayed()));
+        new ListThreadsPO().pressRefresh(); // To ensure we don't crash...
         Urls.setBasePath(oldPath);
         new AddThreadPO().addThreadAndPressBack("New", "New");
         new ListThreadsPO().checkHasNumberOfThreads(2);

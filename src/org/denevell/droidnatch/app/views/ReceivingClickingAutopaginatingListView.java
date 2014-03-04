@@ -311,8 +311,12 @@ public class ReceivingClickingAutopaginatingListView
         if(getEmptyView()!=null) {
         	getEmptyView().setVisibility(View.GONE);
         }
+        if(mErrorView!=null && mErrorView.getParent()==null) {
+        	ViewGroup viewGroup = (ViewGroup)getParent();
+			viewGroup.addView(mErrorView);
+        }
         if(mErrorView!=null) {
-        	((ViewGroup)getParent()).addView(mErrorView);
+        	mErrorView.setVisibility(View.VISIBLE);
         }
 	}
 
