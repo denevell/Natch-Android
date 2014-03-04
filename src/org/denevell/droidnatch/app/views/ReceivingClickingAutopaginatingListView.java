@@ -15,6 +15,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,11 +26,8 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.HeaderViewListAdapter;
 import android.widget.ListAdapter;
-import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
@@ -72,6 +70,7 @@ public class ReceivingClickingAutopaginatingListView
      */
 	private Parcelable mSavedListViewState;
 	private View mErrorView;
+	private int mMaxYOverscrollDistance;
 
     public ReceivingClickingAutopaginatingListView(Context context, AttributeSet attrSet) {
         super(context, attrSet);
@@ -89,6 +88,12 @@ public class ReceivingClickingAutopaginatingListView
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         EventBus.getBus().register(this);
+        
+        final DisplayMetrics metrics = getResources().getDisplayMetrics();
+        final float density = metrics.density;
+
+        mMaxYOverscrollDistance = (int) (density * 20);
+        
     }
 
 	private void findAndSetEmptyView() {
@@ -176,7 +181,6 @@ public class ReceivingClickingAutopaginatingListView
 	
 	@Override
 	protected void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
-		super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
 		if (getAdapter() != null && clampedY
 				&& mTotalAvailableForList > getAdapter().getCount()) {
 			if (mPaginationFooterCallbacks != null) {
@@ -185,6 +189,7 @@ public class ReceivingClickingAutopaginatingListView
 				}
 			}
 		}
+		super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
 	}
 	
 	@Override
@@ -192,7 +197,7 @@ public class ReceivingClickingAutopaginatingListView
 			int scrollY, int scrollRangeX, int scrollRangeY,
 			int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
 		return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX,
-				scrollRangeY, maxOverScrollX, maxOverScrollY+100, isTouchEvent);
+				scrollRangeY, maxOverScrollX, mMaxYOverscrollDistance, isTouchEvent);
 	}
 	
     // On selection stuff
@@ -268,19 +273,6 @@ public class ReceivingClickingAutopaginatingListView
 		if(getAdapter()!=null && getAdapter().getCount()>0) {
 			mSavedListViewState = super.onSaveInstanceState();
 		}
-//		int position = firstVisibleItem+(visibleItemCount);
-//		if (totalItemCount > 0 && position == totalItemCount) {
-//			if (view.getAdapter()!=null && view.getAdapter() instanceof HeaderViewListAdapter) {
-//				View v = view.getAdapter().getView(position-1, null, view);
-//				if(v != null && view.getHeight()>=v.getBottom()) {
-//					if(mPaginationFooterCallbacks!=null) {
-//						for (Runnable r: mPaginationFooterCallbacks) {
-//							r.run();
-//						}
-//					}
-//				}
-//			}
-//		}
 	}
 
 	// Receiving objects stuff
