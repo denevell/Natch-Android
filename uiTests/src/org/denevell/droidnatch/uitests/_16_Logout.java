@@ -10,7 +10,6 @@ import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentation;
 
-import com.google.android.apps.common.testing.ui.espresso.Espresso;
 import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 
 public class _16_Logout extends NatchAndroidInstrumentation {
@@ -27,11 +26,8 @@ public class _16_Logout extends NatchAndroidInstrumentation {
     
     public void test() throws Exception {
     	new LoginPO().loginWithDefaultCredential(getInstrumentation());
-    	Espresso.openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText("Login")).check(doesNotExist());
-    	Espresso.openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         new LoginPO().logout(getInstrumentation(), "aaron");
-    	Espresso.openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText("Login")).check(matches(ViewMatchers.isDisplayed()));
     }
 
