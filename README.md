@@ -1,7 +1,15 @@
 The Android client to the Natch REST project.
 
 ## Backlog  
-* Look at pagination refresh again
+* Fix ui tests out of memory thing
+* Change styling of pagination button, size and colour.
+* Overscrolling in listview if doesn't stick this time.
+* ~~Remove scroll to end on pagination~~
+* If overscroll and styling not enough, scroll to new post on pagination
+* Change app to light theme
+* Add lighter styling to list items
+* Style action menu
+* Create icon
 
 ### Icebox
 

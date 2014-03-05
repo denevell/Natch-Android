@@ -71,7 +71,7 @@ public class ListPostsMapper {
 					url = url.replace("{thread_id}", mTheadId);
 					url += pagination.start + "/" + pagination.range;
 					request.getRequest().setUrl(url);
-					EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts(true));
+					EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts(false));
 				}
 			})
         	.setPaginationView(button)
