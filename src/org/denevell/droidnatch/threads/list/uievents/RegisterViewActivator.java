@@ -120,7 +120,9 @@ public class RegisterViewActivator extends LinearLayout implements
 
     @Override
     public void fail(FailureResult f) {
-        if(f!=null && f.getErrorMessage()!=null) {
+        if(f!=null && f.getStatusCode()==400) {
+        	mUsername.setError(getContext().getString(R.string.register_400_error));
+        } else {
         	mUsername.setError("Register failed.");
         }
     }

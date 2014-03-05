@@ -14,8 +14,6 @@ import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogi
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.natch.android.R;
 
-import com.google.android.gms.internal.bp;
-
 public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
 
     public _012_ListThreads() throws Exception {

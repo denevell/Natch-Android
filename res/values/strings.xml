@@ -29,4 +29,5 @@
     <string name="settings_push_notifs_off">push_notifications_off</string>
     <string name="settings_google_play_services_info">google_play_services_info</string>
     <string name="settings_gcm_registered">gcm_register_info</string>
+    <string name="register_400_error">Ensure username and password are not blank.</string>
 </resources>
