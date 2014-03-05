@@ -1,73 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-        <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        >
-
         <ScrollView
+	        xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/list_threads_add_thread_pane_scrollview"
             android:layout_above="@+id/list_threads_add_thread_empty_view"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 >
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    />
 
                 <EditText
                     android:id="@+id/add_thread_subject_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text|textCapSentences"
-                    android:singleLine="true"
-                    android:imeOptions="actionNext|flagNavigateNext"
-                    android:nextFocusForward="@+id/add_thread_content_edittext"
+                    android:layout_alignBottom="@+id/add_thread_button"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/add_thread_button"
                     android:hint="Subject"
-                    />
-
-                <EditText
-                    android:id="@+id/add_thread_tags_edittext"
-                    android:layout_width="match_parent"
-                    android:visibility="gone"
-                    android:singleLine="true"
-                    android:inputType="text|textCapSentences"
                     android:imeOptions="actionNext|flagNavigateNext"
+                    android:inputType="text|textCapSentences"
                     android:nextFocusForward="@+id/add_thread_content_edittext"
-                    android:layout_height="wrap_content"
-                    android:hint="Tags"
-                    />
+                    android:singleLine="true" />
 
                 <EditText
                     android:id="@+id/add_thread_content_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textMultiLine|textCapSentences"
-                    android:lines="5"
-                    android:imeOptions="actionDone"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/add_thread_subject_edittext"
+                    android:ems="10"
                     android:hint="Content"
-                    />
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:lines="3" >
+
+                </EditText>
+
                 <org.denevell.droidnatch.app.views.ButtonHideKeyboard
                     android:id="@+id/add_thread_button"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
                     android:gravity="center"
-                    android:text="Add"/>
-            </LinearLayout>
+                    android:text="Add" />
+
+            </RelativeLayout>
 
         </ScrollView>
-
-    </RelativeLayout>

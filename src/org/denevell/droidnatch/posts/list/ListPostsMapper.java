@@ -62,7 +62,7 @@ public class ListPostsMapper {
 			.setListAdapter(arrayAdapter)
 			.setTypeAdapter(new ThreadResourceResourceToArrayList())
         	.setAvailableItems(new ThreadResourceTotalAvailable())
-        	.setErrorView(R.layout.list_view_service_error)
+        	.setErrorViewId(R.id.list_view_service_error)
 			.addOnPaginationFooterVisibleCallback(new Runnable() {
 				@Override
 				public void run() {

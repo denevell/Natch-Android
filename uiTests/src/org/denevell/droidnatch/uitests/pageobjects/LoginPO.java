@@ -26,7 +26,6 @@ public class LoginPO {
 	}
 
 	public LoginPO loginWithCredential(Instrumentation instr, String username, String password) {
-		openActionBarOverflowOrOptionsMenu(instr.getTargetContext());
         onView(withText("Login")).perform(click());
         onView(withId(R.id.login_username_edittext))
         	.perform(clearText(),
@@ -47,14 +46,12 @@ public class LoginPO {
 	}
 
 	public LoginPO shouldseeUsername(Instrumentation instr, String username) {
-		openActionBarOverflowOrOptionsMenu(instr.getTargetContext());
     	onView(ViewMatchers.withText(username)).check(matches(isDisplayed()));
     	return this;
 	}
 	
 	public LoginPO logout(Instrumentation instrumentation, String username) {
-		openActionBarOverflowOrOptionsMenu(instrumentation.getTargetContext());
-        onView(withText(username)).perform(click());
+        onView(withId(R.id.threads_option_menu_login)).perform(click());
         onView(withId(R.id.logout_button)).perform(click());
 		return this;
 	}
@@ -62,12 +59,14 @@ public class LoginPO {
 	public LoginPO shouldSeeRegisterOption(Instrumentation instr) {
 		openActionBarOverflowOrOptionsMenu(instr.getTargetContext());
     	onView(ViewMatchers.withText("Register")).check(matches(ViewMatchers.isDisplayed()));
+		openActionBarOverflowOrOptionsMenu(instr.getTargetContext());
 		return this;
 	}
 
 	public LoginPO shouldntSeeRegisterOption(Instrumentation instr) {
 		openActionBarOverflowOrOptionsMenu(instr.getTargetContext());
     	onView(ViewMatchers.withText("Register")).check(ViewAssertions.doesNotExist());
+		openActionBarOverflowOrOptionsMenu(instr.getTargetContext());
 		return this;
 	}
 

@@ -70,14 +70,43 @@
             android:contentDescription="listthreads_listview"
             tools:ignore="HardcodedText" />
         
-        <include
+        <LinearLayout
             android:id="@android:id/empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
+            android:orientation="vertical"
             android:visibility="gone"
-            layout="@layout/list_view_empty"
-            />
+            >
+            <org.denevell.droidnatch.threads.list.uievents.AddThreadViewActivator 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+                />
+            <include
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            layout="@layout/list_view_empty"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@id/list_view_service_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+            <org.denevell.droidnatch.threads.list.uievents.AddThreadViewActivator 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+                />
+            <include
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            layout="@layout/list_view_service_error_layout"
+                />
+        </LinearLayout>
         
 
     </RelativeLayout>

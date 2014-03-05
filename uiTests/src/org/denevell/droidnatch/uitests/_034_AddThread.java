@@ -3,7 +3,6 @@ package org.denevell.droidnatch.uitests;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
@@ -49,7 +48,6 @@ public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
 
     public void testSeeErrorWhenNotLoggedIn() throws Exception {
     	new LoginPO().logout(getInstrumentation(), "aaron");
-        onView(withText("Add thread")).perform(click());
         new AddThreadPO().showLoginError();
     }
 

@@ -16,7 +16,7 @@ RUN apt-get install -y xorg xvfb x11vnc ratpoison
 # Get packages needed to run Android
 
 RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 zlib1g:i386 
-RUN dpkg-divert --local --rename --add /sbin/initctl && ln -s /bin/true /sbin/initctl
+RUN dpkg-divert --local --rename --add /sbin/initctl && ln -f -s /bin/true /sbin/initctl
 RUN apt-get install -y libsdl1.2debian:i386 libswt-gtk-3-java
 
 # Get android libs and setup targets
@@ -28,6 +28,10 @@ RUN (while true; do echo 'y'; sleep 2; done) | /android-sdk-linux/tools/android 
 
 RUN (while true; do echo 'no'; sleep 2; done) | ANDROID_HOME=/android-sdk-linux ANDROID_SDK_HOME=/android-sdk-linux /android-sdk-linux/tools/android create avd -n testy -t 1 --snapshot --abi x86 --force
 RUN sed -i 's/240/120/g' /android-sdk-linux/.android/avd/testy.avd/config.ini
+RUN sed -i 's/skin.name=.*/skin.name=240x320/g' /android-sdk-linux/.android/avd/testy.avd/config.ini
+RUN sed -i 's/skin.path=.*/skin.path=240x320/g' /android-sdk-linux/.android/avd/testy.avd/config.ini
+
+
 
 RUN ANDROID_SDK_HOME=/android-sdk-linux ANDROID_HOME=/android-sdk-linux /android-sdk-linux/tools/emulator-x86 @testy -no-window & /android-sdk-linux/platform-tools/adb wait-for-device \
 && while [ ! `/android-sdk-linux/platform-tools/adb shell getprop init.svc.bootanim | grep stopped` ]; do /android-sdk-linux/platform-tools/adb shell getprop init.svc.bootanim; done \

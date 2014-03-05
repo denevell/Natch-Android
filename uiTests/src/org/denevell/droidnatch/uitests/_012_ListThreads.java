@@ -14,6 +14,8 @@ import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogi
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.natch.android.R;
 
+import com.google.android.gms.internal.bp;
+
 public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
 
     public _012_ListThreads() throws Exception {
@@ -40,6 +42,9 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
         onView(withId(R.id.list_view_service_error_textview)).check(matches(isDisplayed()));
         new ListThreadsPO().pressRefresh(); // To ensure we don't crash...
         Urls.setBasePath(oldPath);
+        // So to make the views, and therefore url, refresh
+        TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
+        TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
         new AddThreadPO().addThreadAndPressBack("New", "New");
         new ListThreadsPO().checkHasNumberOfThreads(2);
     }

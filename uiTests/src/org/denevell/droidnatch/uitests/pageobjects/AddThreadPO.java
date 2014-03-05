@@ -5,11 +5,14 @@ import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isEnabled;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
 import org.denevell.droidnatch.uitests.CustomMatchers;
 import org.denevell.natch.android.R;
+import org.hamcrest.CoreMatchers;
 
 import com.google.android.apps.common.testing.ui.espresso.Espresso;
 import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
@@ -19,21 +22,21 @@ import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
  */
 public class AddThreadPO {
 
-    public AddThreadPO addThread(String subject, String content) throws Exception {
+    @SuppressWarnings("unchecked")
+	public AddThreadPO addThread(String subject, String content) throws Exception {
         closeSoftKeyboard();
-        onView(withText("Add thread")).perform(click());
-        onView(withId(R.id.add_thread_subject_edittext))
+        onView(CoreMatchers.allOf(withId(R.id.add_thread_subject_edittext), isDisplayed()))
         	.perform(typeText(subject), 
         			ViewActions.pressImeActionButton(),
         			ViewActions.closeSoftKeyboard());
         Thread.sleep(300);
-        onView(withId(R.id.add_thread_content_edittext))
+        onView(CoreMatchers.allOf(withId(R.id.add_thread_content_edittext), isDisplayed()))
         	.perform(typeText(content), 
         			ViewActions.pressImeActionButton(),
         			ViewActions.closeSoftKeyboard());
         Thread.sleep(300);
         //onView(withId(R.id.add_thread_button)).perform(click());
-        onView(withText("Add")).perform(click());
+        onView(CoreMatchers.allOf(withText("Add"), isDisplayed())).perform(click());
         return this;
     }
     
@@ -43,15 +46,17 @@ public class AddThreadPO {
     	return this;
 	}
 
+	@SuppressWarnings("unchecked")
 	public AddThreadPO showError() {
-        onView(withId(R.id.add_thread_subject_edittext))
+        onView(CoreMatchers.allOf(withId(R.id.add_thread_subject_edittext), isDisplayed()))
         	.check(matches(CustomMatchers.showsErrorString("blank"))); // Therefore fail
         return this;
 	}
 
+	@SuppressWarnings("unchecked")
 	public AddThreadPO showLoginError() {
-        onView(withId(R.id.add_thread_button))
-        	.check(matches(withText("Please login or register"))); 
+        onView(CoreMatchers.allOf(withId(R.id.add_thread_button), isDisplayed()))
+        	.check(matches(CoreMatchers.not(isEnabled()))); 
         return this;
 	}
 

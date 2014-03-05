@@ -26,6 +26,7 @@ import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.LogoutResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
+import org.denevell.droidnatch.threads.list.uievents.AddThreadViewActivator;
 import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
 import org.denevell.natch.android.R;
 
@@ -50,6 +51,8 @@ import dagger.Provides;
 @Module(complete=false, library=true)
 public class ListThreadsMapper {
     
+
+
 	public static final String PROVIDES_LIST_THREADS_LIST_CLICK = "list_threads_list_click";
     private static final String TAG = ListThreadsMapper.class.getSimpleName();
     private Activity mActivity;
@@ -77,7 +80,7 @@ public class ListThreadsMapper {
 			.setListAdapter(listAdapter)
         	.setTypeAdapter(new ListThreadsToList())
 			.setPaginationView(button)
-        	.setErrorView(R.layout.list_view_service_error)
+            .setErrorViewId(R.id.list_view_service_error)
 			.addOnPaginationFooterVisibleCallback(new Runnable() {
 				@Override public void run() {
 					pagination.paginate();
@@ -89,42 +92,12 @@ public class ListThreadsMapper {
 				}})
 			.setAvailableItems(new ListThreadsResourceTotalAvailable())
         	.setKeyboardHider(new HideKeyboard());
+		
+		listView.addHeaderView(new AddThreadViewActivator(mActivity, null));
 
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-				Callback callback = new Callback() {
-					@Override
-					public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-						ReceivingClickingAutopaginatingListView.sCurrentActionMode = mode;
-						return false;
-					}
-					
-					@Override
-					public void onDestroyActionMode(ActionMode mode) {
-					}
-					
-					@Override
-					public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                        ThreadResource ob = (ThreadResource) listView.getAdapter().getItem(position);
-                        String author = ob.getAuthor();
-                        String username = Urls.getUsername();
-						if (!Urls.emptyUsername() &&  author!=null && !author.equals(username)) {
-							mode.getMenuInflater().inflate(R.menu.not_yours_context_option_menu, menu);
-						} else if (Urls.emptyUsername()) {
-							mode.getMenuInflater().inflate(R.menu.please_login_context_option_menu, menu);
-						} else {
-							mode.getMenuInflater().inflate(R.menu.list_threads_context_option_menu, menu);
-						}
-						return true;
-					}
-					
-					@Override
-					public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-						EventBus.getBus().post(new ContextMenuItemHolder(item, position));
-						mode.finish();
-						return true;
-					}
-				};
+				Callback callback = new CallbackImplementation(listView, position);
 				((FragmentActivity)parent.getContext()).startActionMode(callback);
 				return true;
 				}
@@ -193,4 +166,43 @@ public class ListThreadsMapper {
 				.create(mActivity, LoginResourceReturnData.class);
 	}
 
+	private final class CallbackImplementation implements Callback {
+		private final ReceivingClickingAutopaginatingListView<ListThreadsResource, ThreadResource, List<ThreadResource>> listView;
+		private final int position;
+
+		private CallbackImplementation(ReceivingClickingAutopaginatingListView<ListThreadsResource, ThreadResource, List<ThreadResource>> listView, int position) {
+			this.listView = listView;
+			this.position = position;
+		}
+
+		@Override
+		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			ReceivingClickingAutopaginatingListView.sCurrentActionMode = mode;
+			return false;
+		}
+
+		@Override public void onDestroyActionMode(ActionMode mode) { }
+
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+		    ThreadResource ob = (ThreadResource) listView.getAdapter().getItem(position);
+		    String author = ob.getAuthor();
+		    String username = Urls.getUsername();
+			if (!Urls.emptyUsername() &&  author!=null && !author.equals(username)) {
+				mode.getMenuInflater().inflate(R.menu.not_yours_context_option_menu, menu);
+			} else if (Urls.emptyUsername()) {
+				mode.getMenuInflater().inflate(R.menu.please_login_context_option_menu, menu);
+			} else {
+				mode.getMenuInflater().inflate(R.menu.list_threads_context_option_menu, menu);
+			}
+			return true;
+		}
+
+		@Override
+		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+			EventBus.getBus().post(new ContextMenuItemHolder(item, position));
+			mode.finish();
+			return true;
+		}
+	}
 }

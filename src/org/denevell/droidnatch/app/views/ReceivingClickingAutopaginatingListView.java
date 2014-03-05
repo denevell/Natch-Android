@@ -17,7 +17,6 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ActionMode;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +71,7 @@ public class ReceivingClickingAutopaginatingListView
      * Used so we can set a new adapter, and keep the old listview state.
      */
 	private Parcelable mSavedListViewState;
-	private View mErrorView;
+	private int mErrorViewId = -1;
 	private View mPaginationView;
 
 	private boolean mSettingAdapter;
@@ -152,14 +151,8 @@ public class ReceivingClickingAutopaginatingListView
 	}
 
 	@SuppressWarnings("rawtypes")
-	public ReceivingClickingAutopaginatingListView setErrorView(View v) {
-		mErrorView = v;
-		return this;
-	}
-
-	@SuppressWarnings("rawtypes")
-	public ReceivingClickingAutopaginatingListView setErrorView(int layoutId) {
-		mErrorView = LayoutInflater.from(getContext()).inflate(layoutId, this, false);
+	public ReceivingClickingAutopaginatingListView setErrorViewId(int id) {
+		mErrorViewId = id;
 		return this;
 	}
 
@@ -266,10 +259,9 @@ public class ReceivingClickingAutopaginatingListView
 		}
 		int position = firstVisibleItem + (visibleItemCount);
 		if (totalItemCount > 0 && position == totalItemCount) {
-			if (view.getAdapter() != null
-					&& view.getAdapter() instanceof HeaderViewListAdapter) {
+			if (view.getAdapter() != null && view.getAdapter() instanceof HeaderViewListAdapter) {
 				View v = view.getAdapter().getView(position - 1, null, view);
-				if (v != null && view.getHeight() >= v.getBottom()) {
+				if (v != null && v==mPaginationView && view.getHeight() >= v.getBottom()) {
 					if (mPaginationFooterCallbacks != null) {
 						for (Runnable r : mPaginationFooterCallbacks) {
 							r.run();
@@ -287,8 +279,11 @@ public class ReceivingClickingAutopaginatingListView
 	public void success(ReceivingObjects result) {
         mSettingAdapter = true;
         setVisibility(View.VISIBLE);
-        if(mErrorView!=null) {
-        	((ViewGroup)getParent()).removeView(mErrorView);
+        if(mErrorViewId!=-1) {
+        	View errorView = getErrorView();
+        	if(errorView!=null) {
+        		errorView.setVisibility(View.GONE);
+        	}
         }
 		mTotalAvailableForList = getTotalAvailableForList(result);
         AdapterItems converted = mTypeAdapter.convert(result);
@@ -301,6 +296,11 @@ public class ReceivingClickingAutopaginatingListView
     	}
 	}
 
+	private View getErrorView() {
+		View errorView = ((ViewGroup)getParent()).findViewById(mErrorViewId);
+		return errorView;
+	}
+
 	@Override
 	public void fail(FailureResult fail) {
         if(fail!=null && fail.getErrorMessage()!=null) {
@@ -311,12 +311,9 @@ public class ReceivingClickingAutopaginatingListView
         if(getEmptyView()!=null) {
         	getEmptyView().setVisibility(View.GONE);
         }
-        if(mErrorView!=null && mErrorView.getParent()==null) {
-        	ViewGroup viewGroup = (ViewGroup)getParent();
-			viewGroup.addView(mErrorView);
-        }
-        if(mErrorView!=null) {
-        	mErrorView.setVisibility(View.VISIBLE);
+        View errorView = getErrorView();
+        if(errorView !=null) {
+        	errorView.setVisibility(View.VISIBLE);
         }
 	}
 

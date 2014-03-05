@@ -74,5 +74,13 @@
         android:visibility="gone"
         layout="@layout/list_view_empty"
         />
+    
+        <include
+            android:id="@id/list_view_service_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            layout="@layout/list_view_service_error_layout"
+            />
 
 </RelativeLayout>

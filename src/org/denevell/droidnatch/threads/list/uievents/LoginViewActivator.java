@@ -3,6 +3,7 @@ package org.denevell.droidnatch.threads.list.uievents;
 import javax.inject.Inject;
 
 import org.denevell.droidnatch.AppWideMapper;
+import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
@@ -29,8 +30,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import dagger.ObjectGraph;
 
-public class LoginViewActivator extends LinearLayout implements
-		Activator<LoginResourceReturnData>, View.OnClickListener, Finishable {
+public class LoginViewActivator extends LinearLayout implements Activator<LoginResourceReturnData>, View.OnClickListener, Finishable {
+
+	public static class LoginUpdatedEvent { }
+
+	private final class LoginActivatorImplementation implements Activator<LogoutResourceReturnData> {
+		@Override public void setOnSubmitObserver(GenericUiObserver observer) {}
+		@Override public void success(LogoutResourceReturnData result) {
+			logout();
+		}
+		@Override public void fail(FailureResult r) {
+			logout();
+		}
+	}
 
 	@SuppressWarnings("rawtypes")
 	public static class RefreshOptionsMenuReceiver implements Receiver {
@@ -57,6 +69,7 @@ public class LoginViewActivator extends LinearLayout implements
 		@Override public void success(LoginResourceReturnData result) {
 			Urls.setAuthKey(result.getAuthKey());
 			Urls.setUsername(mUsername.getText().toString());
+			EventBus.getBus().post(new LoginUpdatedEvent());
 		}
 		@Override public void fail(FailureResult r) { }
 	}
@@ -98,15 +111,7 @@ public class LoginViewActivator extends LinearLayout implements
 			logoutButton.setVisibility(View.VISIBLE);
 			Receiver<LogoutResourceReturnData> receivers = null;
 			final UiEventThenServiceThenUiEvent<LogoutResourceReturnData> controller = new UiEventThenServiceThenUiEvent<LogoutResourceReturnData>(
-					new Activator<LogoutResourceReturnData>() {
-						@Override public void setOnSubmitObserver(GenericUiObserver observer) {}
-						@Override public void success(LogoutResourceReturnData result) {
-							logout();
-						}
-						@Override public void fail(FailureResult r) {
-							logout();
-						}
-					},
+					new LoginActivatorImplementation(),
 					mLogoutService, 
 					null,
 					receivers)
@@ -172,6 +177,7 @@ public class LoginViewActivator extends LinearLayout implements
 			}
 		}
 		success(null);
+		EventBus.getBus().post(new LoginUpdatedEvent());
 	}
 
 }

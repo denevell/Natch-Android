@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.denevell.droidnatch.AppWideMapper;
+import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
@@ -20,12 +21,14 @@ import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
+import org.denevell.droidnatch.threads.list.uievents.LoginViewActivator.LoginUpdatedEvent;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +36,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
+import com.squareup.otto.Subscribe;
 
 import dagger.ObjectGraph;
 
@@ -41,22 +45,21 @@ public class AddThreadViewActivator extends LinearLayout implements
         View.OnClickListener,
         Finishable {
 
-    private ServiceFetcher<AddPostResourceInput, AddPostResourceReturnData> mAddPostService;
+    private static final String TAG = AddThreadViewActivator.class.getSimpleName();
+	private ServiceFetcher<AddPostResourceInput, AddPostResourceReturnData> mAddPostService;
     @Inject ScreenOpener mScreenOpener;
     private GenericUiObserver mCallback;
     private Button mButton;
     private TextView mSubject;
     private TextView mContent;
-    private TextView mTags;
     private Runnable mSuccessCallback;
-
+    
     public AddThreadViewActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.add_thread_layout, this, true);
         mButton = (Button) findViewById(R.id.add_thread_button);
         mSubject = (TextView) findViewById(R.id.add_thread_subject_edittext);
         mContent = (TextView) findViewById(R.id.add_thread_content_edittext);
-        mTags = (TextView) findViewById(R.id.add_thread_tags_edittext);
     }
 
     private void inject() {
@@ -66,17 +69,18 @@ public class AddThreadViewActivator extends LinearLayout implements
                 new CommonMapper((Activity) getContext())
         ).inject(this);
     }
+    
+    @Override
+    protected void onDetachedFromWindow() {
+    	super.onDetachedFromWindow();
+    	EventBus.getBus().unregister(this);
+    }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        if(Urls.getUsername()==null || Urls.getUsername().isEmpty()) { 
-        	mButton.setText("Please login or register");
-        	mButton.setEnabled(false);
-        } else {
-        	mButton.setEnabled(true);
-        	mButton.setOnClickListener(this);
-        }
+    	EventBus.getBus().register(this);
+        updatedAddButtonOnLogin();
         inject();
         
         Activity act = (Activity) getContext();
@@ -102,6 +106,27 @@ public class AddThreadViewActivator extends LinearLayout implements
                         new OpenNewThreadReceiver(mScreenOpener));
         addThreadController.setup();
     }
+
+	private void updatedAddButtonOnLogin() {
+		try {
+			if (Urls.getUsername() == null || Urls.getUsername().isEmpty()) {
+				// mButton.setText("Please login or register");
+				mButton.setEnabled(false);
+			} else {
+				mButton.setEnabled(true);
+				mButton.setOnClickListener(this);
+			}
+			mButton.requestLayout();
+			mButton.refreshDrawableState();
+		} catch (Exception e) {
+			Log.d(TAG, "Problem updating the add button", e);
+		}
+	}
+    
+    @Subscribe
+    public void onLoginStatusChanged(LoginUpdatedEvent e) {
+    	updatedAddButtonOnLogin();
+    }
     
     @Override
     public void setOnSubmitObserver(GenericUiObserver observer) {
@@ -114,8 +139,6 @@ public class AddThreadViewActivator extends LinearLayout implements
         mSubject.setError(null);
         mContent.setText("");
         mContent.setError(null);
-        mTags.setText("");
-        mTags.setError(null);
         if(mSuccessCallback!=null) mSuccessCallback.run();
     }
 
@@ -135,7 +158,7 @@ public class AddThreadViewActivator extends LinearLayout implements
     public void onClick(View view) {
     	mAddPostService.getRequest().getBody().setContent(mContent.getText().toString());
         mAddPostService.getRequest().getBody().setSubject(mSubject.getText().toString());
-        String[] tags = mTags.getText().toString().split(",");
+        String[] tags = new String[] {""};//mTags.getText().toString().split(",");
         mAddPostService.getRequest().getBody().setTags(Arrays.asList(tags));
         mCallback.onUiEventActivated();
     }
