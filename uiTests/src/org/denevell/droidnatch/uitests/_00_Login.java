@@ -39,4 +39,13 @@ public class _00_Login extends NatchAndroidInstrumentation {
         onView(withId(R.id.login_username_edittext)).check(matches(CustomMatchers.showsErrorString())); // Therefore fail
     }
 
+    public void testBlanksFail() throws Exception {
+        Urls.setUsername(null);
+    	new LoginPO()
+    		.loginWithCredential(getInstrumentation(), " ", " ");
+
+        onView(withId(R.id.login_username_edittext)).check(matches(isDisplayed())); // Therefore fail
+        onView(withId(R.id.login_username_edittext)).check(matches(CustomMatchers.showsErrorString())); // Therefore fail
+    }
+
 }

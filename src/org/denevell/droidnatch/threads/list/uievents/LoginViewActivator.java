@@ -151,6 +151,9 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 
 	@Override
 	public void fail(FailureResult f) {
+		if(f!=null && f.getStatusCode()==400) {
+        	mUsername.setError(getContext().getString(R.string.register_400_error));
+		}
 		if (f != null && f.getErrorMessage() != null) {
 			mUsername.setError("Login failed.");
 		}
