@@ -32,7 +32,6 @@ public class _12_PostsPagination extends NatchAndroidInstrumentationWithLogin {
 	public void test() throws Exception {
         new AddThreadPO().addThread("New thread", "New thread");
         
-
         onView(withId(R.id.list_posts_listview))
         	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(1)));
 
