@@ -40,7 +40,7 @@
             android:contentDescription="list_threads_row_author"
             android:text="author"
 	        android:textColor="@color/normal_text_light"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             tools:ignore="HardcodedText" />
 
         <TextView

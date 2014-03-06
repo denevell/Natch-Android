@@ -9,7 +9,7 @@ The Android client to the Natch REST project.
 * ~~Change app to light theme~~
 * ~~Add lighter styling to list items~~
 * ~~Style action menu~~
-* Create icon
+* ~~Create icon~~
 
 ### Icebox
 
