@@ -28,7 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.Button;
 
 import com.android.volley.Request;
 
@@ -53,9 +52,6 @@ public class ListPostsMapper {
     		final ListPostsPaginationObject pagination) {
 		final ReceivingClickingAutopaginatingListView listview = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.list_posts_listview);
 
-        final Button button = new Button(mActivity);
-        button.setText("...Loading...");
-
         ListPostsArrayAdapter arrayAdapter = new ListPostsArrayAdapter(mActivity.getApplicationContext(), R.layout.posts_list_row);
         
 		listview
@@ -74,7 +70,7 @@ public class ListPostsMapper {
 					EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts(false));
 				}
 			})
-        	.setPaginationView(button)
+			.setPaginationView(R.layout.pagination_button_generic)
 			.setKeyboardHider(new HideKeyboard());
     	listview.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {

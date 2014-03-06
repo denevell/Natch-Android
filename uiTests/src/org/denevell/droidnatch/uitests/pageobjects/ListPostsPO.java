@@ -42,6 +42,7 @@ public class ListPostsPO {
 	@SuppressWarnings("unchecked")
 	public ListPostsPO bringUpEditDeleteOptions(int row) {
 		onData(allOf(is(instanceOf(PostResource.class)))).atPosition(row).perform(longClick());
+		try { Thread.sleep(300); } catch (InterruptedException e) { } 
 		return this;
 	}
 
@@ -60,6 +61,9 @@ public class ListPostsPO {
 	}
 
 	public ListPostsPO pressDeletePost() {
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {}
         onView(withContentDescription("More options"))
                 .perform(click());
         onView(withText("Delete post"))

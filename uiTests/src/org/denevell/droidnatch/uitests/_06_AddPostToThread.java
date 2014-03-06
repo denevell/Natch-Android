@@ -58,8 +58,6 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
         	.addPost("New post in thread")
         	.addPost("New post in thread")
         	.addPost("New post in thread")
-        	.addPost("New post in thread")
-        	.addPost("New post in thread")
         	.addPost("Hidden, I hope");
 
         pressBack();

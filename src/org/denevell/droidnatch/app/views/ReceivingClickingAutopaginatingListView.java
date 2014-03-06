@@ -17,6 +17,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ActionMode;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,8 +140,8 @@ public class ReceivingClickingAutopaginatingListView
 	}
 
 	@SuppressWarnings("rawtypes")
-	public ReceivingClickingAutopaginatingListView setPaginationView(View view) {
-		mPaginationView = view;
+	public ReceivingClickingAutopaginatingListView setPaginationView(int layout) {
+		mPaginationView = LayoutInflater.from(getContext()).inflate(layout, this, false);
 		return this;
 	}
 	

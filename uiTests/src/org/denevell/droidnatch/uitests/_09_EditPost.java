@@ -7,6 +7,7 @@ import static com.google.android.apps.common.testing.ui.espresso.action.ViewActi
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.doesNotExist;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
@@ -23,6 +24,7 @@ import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogi
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
+import org.hamcrest.CoreMatchers;
 
 public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
 
@@ -39,6 +41,7 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
         getActivity();
     }
 
+	@SuppressWarnings("unchecked")
 	public void test() throws Exception {
         new AddThreadPO().addThread("New thread", "New thread");
 
@@ -47,7 +50,7 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
 
         new ListPostsPO().bringUpEditDeleteOptions(1);
 
-        onView(withText("Edit post"))
+        onView(CoreMatchers.allOf(withText("Edit post"), isDisplayed()))
                 .perform(click());
 
         new EditPostPO().edit("Edited");
@@ -73,6 +76,7 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
         onView(withText("Edit post")).check(doesNotExist());
     }
 
+	@SuppressWarnings("unchecked")
 	public void testErrorOnBlanks() throws Exception {
         new AddThreadPO().addThread("New thread", "New thread");
 
@@ -81,7 +85,7 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
 
         new ListPostsPO().bringUpEditDeleteOptions(1);
 
-        onView(withText("Edit post"))
+        onView(CoreMatchers.allOf(withText("Edit post"), isDisplayed()))
                 .perform(click());
 
         new EditPostPO()

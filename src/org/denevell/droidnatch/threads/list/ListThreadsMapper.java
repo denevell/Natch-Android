@@ -41,7 +41,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.Button;
 
 import com.android.volley.Request;
 
@@ -71,15 +70,12 @@ public class ListThreadsMapper {
     		) {
         final ReceivingClickingAutopaginatingListView listView = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.threads_listview);
 
-        Button button = new Button(mActivity);
-        button.setText("...Loading...");
-
         ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(appContext, R.layout.threads_list_row);
 
 		listView
 			.setListAdapter(listAdapter)
         	.setTypeAdapter(new ListThreadsToList())
-			.setPaginationView(button)
+			.setPaginationView(R.layout.pagination_button_generic)
             .setErrorViewId(R.id.list_view_service_error)
 			.addOnPaginationFooterVisibleCallback(new Runnable() {
 				@Override public void run() {
