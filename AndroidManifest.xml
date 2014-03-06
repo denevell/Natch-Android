@@ -42,6 +42,7 @@
         <activity
             android:name="org.denevell.droidnatch.MainPageActivity"
             android:launchMode="singleInstance"
+	        android:theme="@style/AppTheme"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,6 +52,7 @@
 
         <activity
             android:name="org.denevell.droidnatch.settings.SettingsActivity"
+	        android:theme="@style/AppTheme"
             android:label="@string/app_name" >
         </activity>
         
