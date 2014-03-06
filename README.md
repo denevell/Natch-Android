@@ -4,8 +4,8 @@ The Android client to the Natch REST project.
 * ~~Remove scroll to end on pagination~~
 * ~~Overscrolling in listview if doesn't stick this time.~~
 * ~~Change styling of pagination button, size and colour.~~
-* Fix ui tests out of memory thing
-* If styling not enough, scroll to new post on pagination
+* ~~Fix ui tests out of memory thing~~
+* ~~If styling not enough, scroll to new post on pagination~~
 * Change app to light theme
 * Add lighter styling to list items
 * Style action menu
