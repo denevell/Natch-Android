@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="grid_item_bg">#333</color>
-	<color name="grid_item_selected">#555</color>
+	<color name="grid_item_bg">#ddd</color>
+	<color name="grid_item_selected">#aaa</color>
+	<color name="normal_text_light">#222</color>
+	<color name="list_view_divider">#aaa</color>
+	<color name="window_background">#bbb</color>
+	<color name="content_add_bg">#eee</color>
+    <color name="apptheme_color">#99cc00</color>
 </resources>

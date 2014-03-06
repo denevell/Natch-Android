@@ -48,6 +48,7 @@
             <org.denevell.droidnatch.app.views.ButtonHideKeyboard
                 android:id="@+id/register_button"
                 android:layout_width="match_parent"
+		        android:background="@drawable/forum_btn_default_holo_light"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Register"

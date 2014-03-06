@@ -10,7 +10,7 @@
         android:orderInCategory="101"
         android:showAsAction="ifRoom"
         android:title="Refresh" 
-        android:icon="@android:drawable/stat_notify_sync"
+        android:icon="@android:drawable/ic_popup_sync"
         tools:ignore="HardcodedText"/>
     <item
         android:id="@+id/threads_option_menu_login"

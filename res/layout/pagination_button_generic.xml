@@ -6,6 +6,6 @@
     android:padding="10dp"
     android:text="More content loading..."
     android:textAppearance="?android:attr/textAppearanceMedium"
-    android:textStyle="bold|italic" >
+    android:textStyle="italic" >
 
 </Button>

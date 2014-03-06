@@ -5,6 +5,6 @@
         android:orderInCategory="110"
         android:showAsAction="ifRoom"
         android:title="Refresh" 
-        android:icon="@android:drawable/stat_notify_sync"
+        android:icon="@android:drawable/ic_popup_sync"
         tools:ignore="HardcodedText"/>
 </menu>

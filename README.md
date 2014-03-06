@@ -7,8 +7,8 @@ The Android client to the Natch REST project.
 * ~~Fix ui tests out of memory thing~~
 * ~~If styling not enough, scroll to new post on pagination~~
 * ~~Change app to light theme~~
-* Add lighter styling to list items
-* Style action menu
+* ~~Add lighter styling to list items~~
+* ~~Style action menu~~
 * Create icon
 
 ### Icebox
