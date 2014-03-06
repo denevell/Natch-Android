@@ -39,50 +39,66 @@
         <requestFocus />
     </LinearLayout>
 
-    <org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator
-        android:id="@+id/list_posts_addpost_edittext"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/fl2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
+        android:background="@color/content_add_bg"
+        android:layout_marginTop="5dp" 
+        android:layout_marginLeft="5dp" 
+        android:layout_marginRight="5dp" 
         android:layout_marginBottom="5dp"
-        android:contentDescription="add_post_edittext"
-        android:ems="10"
-        android:hint="Add post"
-        android:imeOptions="actionDone"
-        android:inputType="textCapSentences"
-        tools:ignore="HardcodedText" />
+        android:paddingBottom="0dp"
+        >
+
+        <org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator
+            android:id="@+id/list_posts_addpost_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/forum_edit_text_holo_light"
+            android:contentDescription="add_post_edittext"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:ems="10"
+            android:hint="Add post"
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences"
+            tools:ignore="HardcodedText" />
+
+    </FrameLayout>
 
     <org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView
         android:id="@+id/list_posts_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="2"
-        android:layout_margin="5dp"
+        android:layout_below="@id/fl2"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="0dp"
+        list_posts_listview=""
         android:divider="@color/list_view_divider"
         android:dividerHeight="5dp"
         android:horizontalSpacing="5dp"
-        android:verticalSpacing="5dp"
-        android:layout_below="@id/list_posts_addpost_edittext"
-        android:contentDescription="list_posts_listview" />
+        android:numColumns="2"
+        android:verticalSpacing="5dp" />
 
     <include
         android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:visibility="gone"
         layout="@layout/list_view_empty"
-        />
-    
-        <include
-            android:id="@id/list_view_service_error"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            layout="@layout/list_view_service_error_layout"
-            />
+        android:visibility="gone" />
+
+    <include
+        android:id="@id/list_view_service_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/list_view_service_error_layout"
+        android:visibility="gone" />
 
 </RelativeLayout>

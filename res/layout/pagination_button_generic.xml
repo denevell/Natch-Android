@@ -5,6 +5,7 @@
     android:layout_margin="20dp"
     android:padding="10dp"
     android:text="More content loading..."
+    android:background="@drawable/forum_btn_default_holo_light"
     android:textAppearance="?android:attr/textAppearanceMedium"
     android:textStyle="italic" >
 
