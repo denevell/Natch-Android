@@ -6,6 +6,7 @@ import static com.google.android.apps.common.testing.ui.espresso.Espresso.regist
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
@@ -21,6 +22,7 @@ import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 import org.denevell.natch.android.R;
 
+import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
 
 public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
@@ -122,5 +124,12 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
         	.addPost("Should have logged in")
         	.showLoginError();
     }    
+    
+    public void testLinksClickable() throws Exception {
+        new AddThreadPO()
+        	.addThread("Hiya!", "Here's a link www.slashdot.org");
 
+        onView(withContentDescription("list_posts_row0")).perform(ViewActions.click());
+        onView(withContentDescription("list_posts_row0")).perform(ViewActions.click());
+    }    
 }

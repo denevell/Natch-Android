@@ -10,7 +10,7 @@ The Android client to the Natch REST project.
 * Edit text expanded on click
 * Edit text de-expanded on click
 * Hide gcm key on server
-* Links in posts
+* ~~Links in posts~~
 
 ### Icebox
 
