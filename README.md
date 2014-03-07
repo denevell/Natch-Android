@@ -3,7 +3,7 @@ The Android client to the Natch REST project.
 ## Backlog  
 * ~~Links in posts~~
 * ~~Login on action button~~
-* Green button with diff disabled and normal
+* ~~Green button with diff disabled and normal~~
 * Loading on dialogue buttons
 * Save login info to prefs
 * And clear logout info
