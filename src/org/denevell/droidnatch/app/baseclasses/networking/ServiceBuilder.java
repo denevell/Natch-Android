@@ -2,7 +2,7 @@ package org.denevell.droidnatch.app.baseclasses.networking;
 
 import java.util.ArrayList;
 
-import org.denevell.droidnatch.AppWideMapper.PaginationObject;
+import org.denevell.droidnatch.PaginationMapper.PaginationObject;
 import org.denevell.droidnatch.app.baseclasses.JsonConverter;
 import org.denevell.droidnatch.app.baseclasses.NatchJsonFailureFactory;
 import org.denevell.droidnatch.app.baseclasses.ProgressBarIndicator;

@@ -2,7 +2,7 @@ package org.denevell.droidnatch.app.push;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.SeenThreadsSaver;
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.entities.CutDownThreadResource;
 import org.denevell.natch.android.R;
@@ -41,7 +41,7 @@ public class NewThreadsPushBroadcastReceiver extends BroadcastReceiver {
 				String threadString =  extras.getString("thread");
 				CutDownThreadResource thread = new Gson().fromJson(threadString, CutDownThreadResource.class);
 				String threadAuthor = thread.getAuthor();
-				String appAuthor = Urls.getUsername();
+				String appAuthor = ShamefulStatics.getUsername(context);
 				if(appAuthor == null || threadAuthor == null || !threadAuthor.equals(appAuthor)) {
 					sendNotification(context, thread);
 				} else {

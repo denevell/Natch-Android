@@ -3,7 +3,7 @@ package org.denevell.droidnatch.threads.list.uievents;
 import java.util.Map;
 
 import org.denevell.droidnatch.EventBus;
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
@@ -46,7 +46,7 @@ public class LongClickDeleteActivator extends View implements Activator<DeletePo
         
         Activity act = (Activity) getContext();
         
-        String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
+        String url = ShamefulStatics.getBasePath() + getContext().getString(R.string.url_del);
 		mService 
         	= new ServiceBuilder<Void, DeletePostResourceReturnData>()
         		.url(url)
@@ -54,7 +54,7 @@ public class LongClickDeleteActivator extends View implements Activator<DeletePo
         		.addLazyHeader(new LazyHeadersCallback() {
 					@Override
 					public void run(Map<String, String> headersMap) {
-						headersMap.put("AuthKey", Urls.getAuthKey());
+						headersMap.put("AuthKey", ShamefulStatics.getAuthKey(getContext()));
 					}
 				 })
         		.create(act, DeletePostResourceReturnData.class);
@@ -87,7 +87,7 @@ public class LongClickDeleteActivator extends View implements Activator<DeletePo
     public void onLongPress(ReceivingClickingAutopaginatingListView.LongPressListViewEvent obj) {
         if(obj.ob instanceof ThreadResource && obj.menuItem.getItemId()==R.id.posts_context_menu_delete_thread) {
             ThreadResource pr = (ThreadResource) obj.ob;
-            String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
+            String url = ShamefulStatics.getBasePath() + getContext().getString(R.string.url_del);
             mService.getRequest().setUrl(url+pr.getRootPostId());
             mCallback.onUiEventActivated();
         }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.denevell.droidnatch.AppWideMapper;
+import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
@@ -41,7 +41,7 @@ public class ListThreadsViewStarter extends View {
 
     private void createObjectGraph() {
         ObjectGraph.create(
-        		AppWideMapper.getInstance(),
+        		PaginationMapper.getInstance(),
                 new CommonMapper((Activity) getContext()),
                 new ScreenOpenerMapper((FragmentActivity) getContext()),
                 new ListThreadsMapper((Activity) getContext())

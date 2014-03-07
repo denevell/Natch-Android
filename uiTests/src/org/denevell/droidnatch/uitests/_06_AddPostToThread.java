@@ -10,7 +10,7 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.uitests.pageobjects.AddPostPO;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
@@ -71,7 +71,7 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
     }
 
 	public void testRefreshButton() throws Exception {
-		String threadId = TestUtils.addPostViaRest();
+		String threadId = TestUtils.addPostViaRest(getInstrumentation().getTargetContext());
 		
         new ListThreadsPO()
         	.pressRefresh()
@@ -79,7 +79,7 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
 
         new ListPostsPO().checkHasNumberOfPosts(1);
 
-		TestUtils.addPostViaRest(threadId);
+		TestUtils.addPostViaRest(getInstrumentation().getTargetContext(), threadId);
 
         onView(withId(R.id.posts_option_menu_refresh)).perform(click());
 
@@ -98,13 +98,13 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
     public void testSeeConnectionErrorListView() throws Exception {
         new AddThreadPO().addThreadAndPressBack("New thread", "New thread");
 
-        String oldPath = Urls.getBasePath();
-        Urls.setBasePath("http://www.dsflkjsdflkjsdflkjsdlfkjsd.int/");
+        String oldPath = ShamefulStatics.getBasePath();
+        ShamefulStatics.setBasePath("http://www.dsflkjsdflkjsdflkjsdlfkjsd.int/");
         
         new ListThreadsPO().pressItem(0);
         onView(withId(R.id.list_view_service_error_textview)).check(matches(isDisplayed()));
         onView(withId(R.id.posts_option_menu_refresh)).perform(click()); // To test we don't crash
-        Urls.setBasePath(oldPath);
+        ShamefulStatics.setBasePath(oldPath);
         pressBack();
         new ListThreadsPO().pressItem(0);
         new ListPostsPO().postHasContent(0, "New thread");

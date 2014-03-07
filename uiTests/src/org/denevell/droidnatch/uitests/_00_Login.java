@@ -7,7 +7,6 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentation;
 import org.denevell.natch.android.R;
@@ -20,7 +19,6 @@ public class _00_Login extends NatchAndroidInstrumentation {
 
     @Override
     protected void setUp() throws Exception {
-        Urls.setUsername(null);
         super.setUp();
     }
     
@@ -31,7 +29,6 @@ public class _00_Login extends NatchAndroidInstrumentation {
     }
 
     public void testFail() throws Exception {
-        Urls.setUsername(null);
     	new LoginPO()
     		.loginWithCredential(getInstrumentation(), "bad", "bad");
 
@@ -40,7 +37,6 @@ public class _00_Login extends NatchAndroidInstrumentation {
     }
 
     public void testBlanksFail() throws Exception {
-        Urls.setUsername(null);
     	new LoginPO()
     		.loginWithCredential(getInstrumentation(), " ", " ");
 

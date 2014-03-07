@@ -1,7 +1,6 @@
 package org.denevell.droidnatch.uitests.utils;
 
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 
 public class NatchAndroidInstrumentationWithLogin extends NatchAndroidInstrumentation {
@@ -12,7 +11,6 @@ public class NatchAndroidInstrumentationWithLogin extends NatchAndroidInstrument
 
     @Override
     protected void setUp() throws Exception {
-        Urls.setUsername("");
         super.setUp();
         new LoginPO().loginWithDefaultCredential(getInstrumentation());
     }

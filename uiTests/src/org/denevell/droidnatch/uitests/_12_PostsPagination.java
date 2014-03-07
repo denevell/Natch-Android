@@ -5,7 +5,7 @@ import static com.google.android.apps.common.testing.ui.espresso.action.ViewActi
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 
-import org.denevell.droidnatch.AppWideMapper;
+import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
@@ -22,7 +22,7 @@ public class _12_PostsPagination extends NatchAndroidInstrumentationWithLogin {
 
     @Override
     protected void setUp() throws Exception {
-        AppWideMapper instance = AppWideMapper.getInstance();
+        PaginationMapper instance = PaginationMapper.getInstance();
 		instance.postsPaginationObject().defaultRange=1;
         instance.postsPaginationObject().paginationMaximum=1;
         instance.postsPaginationObject().range=1;

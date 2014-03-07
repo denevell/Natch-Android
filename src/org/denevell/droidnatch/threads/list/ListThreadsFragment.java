@@ -36,7 +36,7 @@ public class ListThreadsFragment extends ObservableFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        new ListThreadsOptionsMenu().create(menu, inflater);
+        new ListThreadsOptionsMenu().create(menu, inflater, getActivity().getApplicationContext());
     }
 
 }

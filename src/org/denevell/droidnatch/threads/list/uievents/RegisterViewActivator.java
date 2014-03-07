@@ -2,8 +2,8 @@ package org.denevell.droidnatch.threads.list.uievents;
 
 import javax.inject.Inject;
 
-import org.denevell.droidnatch.AppWideMapper;
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.PaginationMapper;
+import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
@@ -57,7 +57,7 @@ public class RegisterViewActivator extends LinearLayout implements
         Activity activity = (Activity) getContext();
 		ObjectGraph.create(
                 new CommonMapper(activity),
-                AppWideMapper.getInstance(),
+                PaginationMapper.getInstance(),
 				new ListThreadsMapper(activity)
         ).inject(this);
     }
@@ -73,7 +73,7 @@ public class RegisterViewActivator extends LinearLayout implements
         mUsername = (EditText) findViewById(R.id.register_username_edittext);
         mPassword = (EditText) findViewById(R.id.register_password_edittext);
         
-        String url = Urls.getBasePath()+getContext().getString(R.string.url_register);
+        String url = ShamefulStatics.getBasePath()+getContext().getString(R.string.url_register);
 		mRegisterService = new ServiceBuilder<RegisterResourceInput, RegisterResourceReturnData>()
         		.url(url)
         		.method(Request.Method.PUT)

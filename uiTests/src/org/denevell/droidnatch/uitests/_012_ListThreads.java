@@ -7,7 +7,7 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
@@ -34,12 +34,12 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
     public void testSeeConnectionErrorListView() throws Exception {
         new ListThreadsPO().checkNoThreads();
         new AddThreadPO().addThread("Listing threads", "Listing threads");
-        String oldPath = Urls.getBasePath();
-        Urls.setBasePath("http://www.dsflkjsdflkjsdflkjsdlfkjsd.int/");
+        String oldPath = ShamefulStatics.getBasePath();
+        ShamefulStatics.setBasePath("http://www.dsflkjsdflkjsdflkjsdlfkjsd.int/");
         pressBack();
         onView(withId(R.id.list_view_service_error_textview)).check(matches(isDisplayed()));
         new ListThreadsPO().pressRefresh(); // To ensure we don't crash...
-        Urls.setBasePath(oldPath);
+        ShamefulStatics.setBasePath(oldPath);
         // So to make the views, and therefore url, refresh
         TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
         TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
@@ -55,7 +55,7 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
 
     public void testRefreshButton() throws Exception {
         new AddThreadPO().addThreadAndPressBack("Listing threads", "Listing threads");
-        TestUtils.addPostViaRest();
+        TestUtils.addPostViaRest(getInstrumentation().getTargetContext());
         new ListThreadsPO()
         	.pressRefresh()
         	.checkHasNumberOfThreads(2);

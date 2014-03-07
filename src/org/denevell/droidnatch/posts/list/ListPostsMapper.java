@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.inject.Singleton;
 
-import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
+import org.denevell.droidnatch.PaginationMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.EventBus;
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment.ContextMenuItemHolder;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
@@ -63,7 +63,7 @@ public class ListPostsMapper {
 				@Override
 				public void run() {
 					pagination.paginate();
-					String url = Urls.getBasePath() + mActivity.getString(R.string.url_posts);
+					String url = ShamefulStatics.getBasePath() + mActivity.getString(R.string.url_posts);
 					url = url.replace("{thread_id}", mTheadId);
 					url += pagination.start + "/" + pagination.range;
 					request.getRequest().setUrl(url);
@@ -89,10 +89,10 @@ public class ListPostsMapper {
 					public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 						PostResource ob = (PostResource) listview.getAdapter().getItem(position);
             			String author = ob.getUsername();
-                        String username = Urls.getUsername();
-						if (!Urls.emptyUsername() &&  author!=null && !author.equals(username)) {
+                        String username = ShamefulStatics.getUsername(mActivity.getApplicationContext());
+						if (!ShamefulStatics.emptyUsername(mActivity.getApplicationContext()) &&  author!=null && !author.equals(username)) {
 							mode.getMenuInflater().inflate(R.menu.not_yours_context_option_menu, menu);
-						} else if (Urls.emptyUsername()) {
+						} else if (ShamefulStatics.emptyUsername(mActivity.getApplicationContext())) {
 							mode.getMenuInflater().inflate(R.menu.please_login_context_option_menu, menu);
 						} else if(position==0){
 							mode.getMenuInflater().inflate(R.menu.list_posts_context_thread_option_menu, menu);
@@ -121,7 +121,7 @@ public class ListPostsMapper {
     @Provides @Singleton 
     public ServiceFetcher<Void, ThreadResource> providesService(
     		ListPostsPaginationObject pagination) {
-        String url = Urls.getBasePath() + mActivity.getString(R.string.url_posts);
+        String url = ShamefulStatics.getBasePath() + mActivity.getString(R.string.url_posts);
         url = url.replace("{thread_id}", mTheadId);
 		ServiceFetcher<Void, ThreadResource> service
         	= new ServiceBuilder<Void, ThreadResource>()

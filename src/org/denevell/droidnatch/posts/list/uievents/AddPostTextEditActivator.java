@@ -5,9 +5,9 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.denevell.droidnatch.AppWideMapper;
+import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.EventBus;
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
@@ -52,7 +52,7 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
 
     private void inject(Activity activity, String threadId) {
         ObjectGraph.create(
-        		AppWideMapper.getInstance(),
+        		PaginationMapper.getInstance(),
         		new ListPostsMapper(activity, threadId),
                 new CommonMapper((Activity) getContext())
         ).inject(this);
@@ -66,14 +66,14 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
         AddPostResourceInput entity = new AddPostResourceInput();
 		entity.setThreadId(threadId);
 
-        String url = Urls.getBasePath()+getContext().getString(R.string.url_add_post);
+        String url = ShamefulStatics.getBasePath()+getContext().getString(R.string.url_add_post);
 		addPostService = new ServiceBuilder<AddPostResourceInput, AddPostResourceReturnData>()
         		.url(url)
         		.method(Request.Method.PUT)
         		.entity(entity)
         		.addLazyHeader(new LazyHeadersCallback() {
 					@Override public void run(Map<String, String> headersMap) {
-						headersMap.put("AuthKey", Urls.getAuthKey());
+						headersMap.put("AuthKey", ShamefulStatics.getAuthKey(getContext().getApplicationContext()));
 					}
 				})
         		.create(act, AddPostResourceReturnData.class); 

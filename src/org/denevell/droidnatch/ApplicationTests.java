@@ -16,11 +16,11 @@ public class ApplicationTests {
 	@Test
 	public void baseUrlNotFromStringsXml() throws Exception {
 		// Arrange
-		Urls.setBasePath("something");
+		ShamefulStatics.setBasePath("something");
 	    Robolectric.buildActivity(MainPageActivity.class).create().get();		
 	    
 		// Assert
-		assertEquals("something", Urls.getBasePath());
+		assertEquals("something", ShamefulStatics.getBasePath());
 	}
 	
 	@Test
@@ -29,25 +29,7 @@ public class ApplicationTests {
 	    Robolectric.buildActivity(MainPageActivity.class).create().get();		
 				
 		// Assert
-		assertTrue(Urls.getBasePath().length()>0);
+		assertTrue(ShamefulStatics.getBasePath().length()>0);
 	}
 
-    @Test
-    public void authKeyNotFromStringsXml() throws Exception {
-        // Arrange
-        Urls.setAuthKey("somethingk");
-        Robolectric.buildActivity(MainPageActivity.class).create().get();
-
-        // Assert
-        assertEquals("somethingk", Urls.getAuthKey());
-    }
-
-    @Test
-    public void authKeyFromStringsXmlIfNothingSet() throws Exception {
-        // Arrange
-        Robolectric.buildActivity(MainPageActivity.class).create().get();
-
-        // Assert
-        assertTrue(Urls.getAuthKey().length()>0);
-    }
 }

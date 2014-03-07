@@ -6,7 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module(library=true, complete=false)
-public class AppWideMapper {
+public class PaginationMapper {
 	
     public static class PaginationObject {
         public int start = 0;
@@ -21,14 +21,14 @@ public class AppWideMapper {
 	public class ListPostsPaginationObject extends PaginationObject {}
 	public class ListThreadsPaginationObject extends PaginationObject {}
 
-	private static AppWideMapper sStaticInstance;
+	private static PaginationMapper sStaticInstance;
 	private static ListPostsPaginationObject sPostsPaginationObject;
 	private static ListThreadsPaginationObject sThreadsPaginationObject;
-	private AppWideMapper() {}
+	private PaginationMapper() {}
 
-	public static AppWideMapper getInstance() {
+	public static PaginationMapper getInstance() {
 		if(sStaticInstance==null) {
-			sStaticInstance = new AppWideMapper();
+			sStaticInstance = new PaginationMapper();
 			return sStaticInstance;
 		} else {
 			return sStaticInstance;

@@ -12,11 +12,12 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 
 import com.google.gson.Gson;
@@ -58,11 +59,11 @@ public class TestUtils {
         instru.waitForIdleSync();
 	}
 
-	public static String addPostViaRest() throws Exception {
-		return addPostViaRest(null);
+	public static String addPostViaRest(Context c) throws Exception {
+		return addPostViaRest(c, null);
 	}
         	
-	public static String addPostViaRest(String threadId) throws Exception {
+	public static String addPostViaRest(Context c, String threadId) throws Exception {
         HttpClient httpclient = new DefaultHttpClient();
         HttpPut httpput = new HttpPut("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/post/addthread");
         httpput.addHeader("Content-Type", "application/json");
@@ -73,7 +74,7 @@ public class TestUtils {
         	addString = "{\"subject\":\"...\", \"content\":\"...\"}";
         }
 		httpput.setEntity(new StringEntity(addString));
-        httpput.setHeader("AuthKey", Urls.getAuthKey());
+        httpput.setHeader("AuthKey", ShamefulStatics.getAuthKey(c));
         HttpResponse resp = httpclient.execute(httpput);
         BufferedReader br = new BufferedReader(new InputStreamReader(resp.getEntity().getContent()));
         return new Gson().fromJson(br, AddPostResourceReturnData.class).getThread().getId();

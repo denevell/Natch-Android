@@ -8,7 +8,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.ShamefulStatics;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -39,8 +39,9 @@ public class NatchAndroidInstrumentation extends ActivityInstrumentationTestCase
         httpput.setEntity(new StringEntity("{\"username\":\"aaron\", \"password\":\"aaron\"}"));
         httpclient.execute(httpput);
 
-        Urls.setBasePath("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/");
+        ShamefulStatics.setBasePath("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/");
 
+        ShamefulStatics.logout(getInstrumentation().getTargetContext());
         getActivity();
         disableAnimation(getInstrumentation().getContext());
         Espresso.registerIdlingResources(new VolleyIdlingResource("VolleyCalls"));

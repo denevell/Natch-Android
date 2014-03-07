@@ -11,15 +11,15 @@ public class UrlsTests {
 
     @Test
     public void setUrl() {
-    	Urls.setBasePath("basepath1");
+    	ShamefulStatics.setBasePath("basepath1");
     	
-    	assertEquals("basepath1", Urls.getBasePath());
+    	assertEquals("basepath1", ShamefulStatics.getBasePath());
     }
 
     @Test
     public void setAuthKey() {
-        Urls.setAuthKey("authkey1");
+    	ShamefulStatics.setAuthKey("authkey1", null);
 
-        assertEquals("authkey1", Urls.getAuthKey());
+        assertEquals("authkey1", ShamefulStatics.getAuthKey(null));
     }
 }

@@ -1,7 +1,6 @@
 package org.denevell.droidnatch.uitests;
 
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentation;
 
@@ -13,7 +12,6 @@ public class _13_SeeUsernameAfterLogin extends NatchAndroidInstrumentation {
 
     @Override
     protected void setUp() throws Exception {
-    	Urls.setUsername("");
         super.setUp();
     }
     

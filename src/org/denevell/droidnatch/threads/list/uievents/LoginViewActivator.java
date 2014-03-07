@@ -2,9 +2,9 @@ package org.denevell.droidnatch.threads.list.uievents;
 
 import javax.inject.Inject;
 
-import org.denevell.droidnatch.AppWideMapper;
+import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.EventBus;
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
@@ -34,7 +34,7 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 
 	public static class LoginUpdatedEvent { }
 
-	private final class LoginActivatorImplementation implements Activator<LogoutResourceReturnData> {
+	private final class LogoutActivatorImplementation implements Activator<LogoutResourceReturnData> {
 		@Override public void setOnSubmitObserver(GenericUiObserver observer) {}
 		@Override public void success(LogoutResourceReturnData result) {
 			logout();
@@ -67,8 +67,8 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 			mUsername = username;
 		}
 		@Override public void success(LoginResourceReturnData result) {
-			Urls.setAuthKey(result.getAuthKey());
-			Urls.setUsername(mUsername.getText().toString());
+			ShamefulStatics.setAuthKey(result.getAuthKey(), mUsername.getContext().getApplicationContext());
+			ShamefulStatics.setUsername(mUsername.getText().toString(), mUsername.getContext().getApplicationContext());
 			EventBus.getBus().post(new LoginUpdatedEvent());
 		}
 		@Override public void fail(FailureResult r) { }
@@ -91,7 +91,7 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 		Activity activity = (Activity) getContext();
 		ObjectGraph.create(
 				new CommonMapper(activity),
-				AppWideMapper.getInstance(),
+				PaginationMapper.getInstance(),
 				new ListThreadsMapper(activity)
 				).inject(
 				this);
@@ -103,7 +103,7 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 		super.onAttachedToWindow();
 		inject();
 		final FragmentActivity act = (FragmentActivity) getContext();
-		String username = Urls.getUsername();
+		String username = ShamefulStatics.getUsername(getContext().getApplicationContext());
 		if(username!=null && username.length()>0) {
 			View v = findViewById(R.id.threads_list_add_thread_pane_scrollview);
 			v.setVisibility(View.GONE);
@@ -111,7 +111,7 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 			logoutButton.setVisibility(View.VISIBLE);
 			Receiver<LogoutResourceReturnData> receivers = null;
 			final UiEventThenServiceThenUiEvent<LogoutResourceReturnData> controller = new UiEventThenServiceThenUiEvent<LogoutResourceReturnData>(
-					new LoginActivatorImplementation(),
+					new LogoutActivatorImplementation(),
 					mLogoutService, 
 					null,
 					receivers)
@@ -172,8 +172,7 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 	}
 
 	private void logout() {
-		Urls.setAuthKey("");
-		Urls.setUsername("");
+		ShamefulStatics.logout(getContext().getApplicationContext());
 		if(getContext()!=null) {
 			if(getContext() instanceof FragmentActivity) {
 				((FragmentActivity)getContext()).supportInvalidateOptionsMenu();

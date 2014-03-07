@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.denevell.droidnatch.AppWideMapper;
-import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
+import org.denevell.droidnatch.PaginationMapper;
+import org.denevell.droidnatch.PaginationMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
@@ -52,7 +52,7 @@ public class ListPostsViewStarter extends View {
         String threadId = bundle.getString(ListPostsFragment.BUNDLE_KEY_THREAD_ID);
         ObjectGraph.create(
                 new CommonMapper((Activity) getContext()),
-                AppWideMapper.getInstance(),
+                PaginationMapper.getInstance(),
                 new ListPostsMapper((Activity) getContext(), threadId)
         ).inject(this);
         controller =

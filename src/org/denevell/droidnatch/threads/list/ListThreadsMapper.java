@@ -6,10 +6,10 @@ import java.util.Map;
 
 import javax.inject.Singleton;
 
-import org.denevell.droidnatch.AppWideMapper.ListPostsPaginationObject;
-import org.denevell.droidnatch.AppWideMapper.ListThreadsPaginationObject;
+import org.denevell.droidnatch.PaginationMapper.ListPostsPaginationObject;
+import org.denevell.droidnatch.PaginationMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.EventBus;
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment.ContextMenuItemHolder;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
@@ -80,7 +80,7 @@ public class ListThreadsMapper {
 			.addOnPaginationFooterVisibleCallback(new Runnable() {
 				@Override public void run() {
 					pagination.paginate();
-					String url = Urls.getBasePath()
+					String url = ShamefulStatics.getBasePath()
 							+ mActivity.getString(R.string.url_threads) + ""
 							+ pagination.start + "/" + pagination.range;
 					listService.getRequest().setUrl(url);
@@ -125,7 +125,7 @@ public class ListThreadsMapper {
     @Provides @Singleton 
     public ServiceFetcher<Void, ListThreadsResource> provideListThreadsService(
     		ListThreadsPaginationObject pagination) {
-		String url = Urls.getBasePath()+mActivity.getString(R.string.url_threads);
+		String url = ShamefulStatics.getBasePath()+mActivity.getString(R.string.url_threads);
 		ServiceFetcher<Void, ListThreadsResource> listThreadsService
         	= new ServiceBuilder<Void, ListThreadsResource>()
         		.url(url)
@@ -137,14 +137,14 @@ public class ListThreadsMapper {
 
     @Provides @Singleton 
     public ServiceFetcher<Void, LogoutResourceReturnData> provideLogoutService() {
-		String url = Urls.getBasePath()+mActivity.getString(R.string.url_logout);
+		String url = ShamefulStatics.getBasePath()+mActivity.getString(R.string.url_logout);
 		ServiceFetcher<Void, LogoutResourceReturnData> listThreadsService
         	= new ServiceBuilder<Void, LogoutResourceReturnData>()
         		.url(url)
         		.addLazyHeader(new LazyHeadersCallback() {
 					@Override
 					public void run(Map<String, String> headersMap) {
-						headersMap.put("AuthKey", Urls.getAuthKey());
+						headersMap.put("AuthKey", ShamefulStatics.getAuthKey(mActivity.getApplicationContext()));
 					}
 				})
         		.method(Request.Method.DELETE)
@@ -155,7 +155,7 @@ public class ListThreadsMapper {
     @Provides @Singleton 
     public ServiceFetcher<LoginResourceInput, LoginResourceReturnData> providesLoginService(
     		ListThreadsPaginationObject pagination) {
-		String url = Urls.getBasePath() + mActivity.getString(R.string.url_login);
+		String url = ShamefulStatics.getBasePath() + mActivity.getString(R.string.url_login);
 		return new ServiceBuilder<LoginResourceInput, LoginResourceReturnData>()
 				.url(url).method(Request.Method.POST)
 				.entity(new LoginResourceInput())
@@ -183,10 +183,10 @@ public class ListThreadsMapper {
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 		    ThreadResource ob = (ThreadResource) listView.getAdapter().getItem(position);
 		    String author = ob.getAuthor();
-		    String username = Urls.getUsername();
-			if (!Urls.emptyUsername() &&  author!=null && !author.equals(username)) {
+		    String username = ShamefulStatics.getUsername(mActivity.getApplicationContext());
+			if (!ShamefulStatics.emptyUsername(mActivity.getApplicationContext()) &&  author!=null && !author.equals(username)) {
 				mode.getMenuInflater().inflate(R.menu.not_yours_context_option_menu, menu);
-			} else if (Urls.emptyUsername()) {
+			} else if (ShamefulStatics.emptyUsername(mActivity.getApplicationContext())) {
 				mode.getMenuInflater().inflate(R.menu.please_login_context_option_menu, menu);
 			} else {
 				mode.getMenuInflater().inflate(R.menu.list_threads_context_option_menu, menu);

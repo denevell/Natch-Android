@@ -5,7 +5,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.denevell.droidnatch.EventBus;
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
@@ -49,7 +49,7 @@ public class LongClickDeleteThreadActivator extends View implements Activator<De
                 new CommonMapper((Activity) getContext())
         ).inject(this);
         
-        String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
+        String url = ShamefulStatics.getBasePath() + getContext().getString(R.string.url_del);
 		Activity act = (Activity) getContext();
 		mService 
         	= new ServiceBuilder<Void, DeletePostResourceReturnData>()
@@ -58,7 +58,7 @@ public class LongClickDeleteThreadActivator extends View implements Activator<De
         		.addLazyHeader(new LazyHeadersCallback() {
 					@Override
 					public void run(Map<String, String> headersMap) {
-						headersMap.put("AuthKey", Urls.getAuthKey());
+						headersMap.put("AuthKey", ShamefulStatics.getAuthKey(getContext().getApplicationContext()));
 					}
 				 })
         		.create(act, DeletePostResourceReturnData.class);        
@@ -86,7 +86,7 @@ public class LongClickDeleteThreadActivator extends View implements Activator<De
         		&& obj.menuItem.getTitle().toString().equals("Delete thread")) {
             PostResource tr = (PostResource) obj.ob;
             if(obj.index==0) {
-                String url = Urls.getBasePath() + getContext().getString(R.string.url_del);
+                String url = ShamefulStatics.getBasePath() + getContext().getString(R.string.url_del);
                 mService.getRequest().setUrl(url + tr.getId());
                 mCallback.onUiEventActivated();
             }

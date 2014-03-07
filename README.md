@@ -4,9 +4,9 @@ The Android client to the Natch REST project.
 * ~~Links in posts~~
 * ~~Login on action button~~
 * ~~Green button with diff disabled and normal~~
+* ~~Save login info to prefs~~
+* ~~And clear logout info~~
 * Loading on dialogue buttons
-* Save login info to prefs
-* And clear logout info
 * Deploygate
 * Edit text expanded on click
 * Edit text de-expanded on click
@@ -20,6 +20,7 @@ The Android client to the Natch REST project.
 * Have register link on login page
 * I should see an error on delete thread 
 * I should see an error on delete post 
+* Refactor the shamefulstatic class.
 * Only see notification for summaries
 * Tech task: Unit tests from gradle
 * I should keep the found threads on rotate / onResume / app close

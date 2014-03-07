@@ -1,7 +1,7 @@
 package org.denevell.droidnatch.uitests;
 
-import org.denevell.droidnatch.AppWideMapper;
-import org.denevell.droidnatch.AppWideMapper.ListThreadsPaginationObject;
+import org.denevell.droidnatch.PaginationMapper;
+import org.denevell.droidnatch.PaginationMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
@@ -16,7 +16,7 @@ public class _11_ThreadsPagination extends NatchAndroidInstrumentationWithLogin 
 
     @Override
     protected void setUp() throws Exception {
-    	ListThreadsPaginationObject instance = AppWideMapper.getInstance().threadsPaginationObject();
+    	ListThreadsPaginationObject instance = PaginationMapper.getInstance().threadsPaginationObject();
 		instance.defaultRange=1;
         instance.paginationMaximum=1;
         instance.range=1;

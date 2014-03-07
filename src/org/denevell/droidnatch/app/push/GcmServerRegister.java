@@ -1,6 +1,6 @@
 package org.denevell.droidnatch.app.push;
 
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
@@ -35,7 +35,7 @@ public class GcmServerRegister {
 					ServiceFetcher<PushInput, SuccessOrError> service = new ServiceBuilder<PushInput, SuccessOrError>()
 							.entity(pushResource)
 							.method(Request.Method.PUT)
-							.url(Urls.getBasePath() + appContext.getString(R.string.url_push_add))
+							.url(ShamefulStatics.getBasePath() + appContext.getString(R.string.url_push_add))
 							.create(null, SuccessOrError.class);
 					service.setServiceCallbacks(new ServiceCallbacks<SuccessOrError>() {
 						@Override

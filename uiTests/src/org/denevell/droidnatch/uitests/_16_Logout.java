@@ -6,7 +6,6 @@ import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewA
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.Urls;
 import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentation;
 
@@ -20,7 +19,6 @@ public class _16_Logout extends NatchAndroidInstrumentation {
 
     @Override
     protected void setUp() throws Exception {
-        Urls.setUsername(null);
         super.setUp();
     }
     

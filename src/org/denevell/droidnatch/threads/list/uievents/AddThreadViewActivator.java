@@ -5,9 +5,9 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.denevell.droidnatch.AppWideMapper;
+import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.EventBus;
-import org.denevell.droidnatch.Urls;
+import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
@@ -65,7 +65,7 @@ public class AddThreadViewActivator extends LinearLayout implements
     private void inject() {
         ObjectGraph.create(
                 new ScreenOpenerMapper((FragmentActivity) getContext()),
-                AppWideMapper.getInstance(),
+                PaginationMapper.getInstance(),
                 new CommonMapper((Activity) getContext())
         ).inject(this);
     }
@@ -85,14 +85,14 @@ public class AddThreadViewActivator extends LinearLayout implements
         
         Activity act = (Activity) getContext();
         
-        String url = Urls.getBasePath()+getContext().getString(R.string.url_addthread);
+        String url = ShamefulStatics.getBasePath()+getContext().getString(R.string.url_addthread);
         mAddPostService = new ServiceBuilder<AddPostResourceInput, AddPostResourceReturnData>()
         		.url(url)
         		.method(Request.Method.PUT)
         		.entity(new AddPostResourceInput())
         		.addLazyHeader(new LazyHeadersCallback() {
 					@Override public void run(Map<String, String> headersMap) {
-						headersMap.put("AuthKey", Urls.getAuthKey());
+						headersMap.put("AuthKey", ShamefulStatics.getAuthKey(getContext().getApplicationContext()));
 					}
 				})
         		.create(act, AddPostResourceReturnData.class);
@@ -109,7 +109,7 @@ public class AddThreadViewActivator extends LinearLayout implements
 
 	private void updatedAddButtonOnLogin() {
 		try {
-			if (Urls.getUsername() == null || Urls.getUsername().isEmpty()) {
+			if (ShamefulStatics.emptyUsername(getContext().getApplicationContext())) {
 				// mButton.setText("Please login or register");
 				mButton.setEnabled(false);
 			} else {

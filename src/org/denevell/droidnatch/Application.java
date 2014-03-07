@@ -20,7 +20,6 @@ public class Application extends android.app.Application {
         super.onCreate();
         appInstance = this;
         setBasePathIfEmpty();
-        setAuthKeyIfEmpty();
 
         GcmServerRegister.registerForPushInBackground(this);
         boolean prefs = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("push_notifications_off", false);
@@ -33,16 +32,10 @@ public class Application extends android.app.Application {
      * and so we should probably leave it alone.
      */
     private void setBasePathIfEmpty() {
-        if(Urls.getBasePath()==null || Urls.getBasePath().isEmpty()) {
-            Urls.setBasePath(getString(R.string.url_baseurl));
+        if(ShamefulStatics.getBasePath()==null || ShamefulStatics.getBasePath().isEmpty()) {
+            ShamefulStatics.setBasePath(getString(R.string.url_baseurl));
         }
         //Urls.setBasePath("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/");
-    }
-
-    private void setAuthKeyIfEmpty() {
-        if(Urls.getAuthKey()==null || Urls.getAuthKey().isEmpty()) {
-            Urls.setAuthKey(getString(R.string.services_session_id));
-        }
     }
 
     public synchronized static RequestQueue getRequestQueue () {
