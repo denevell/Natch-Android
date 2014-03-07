@@ -5,8 +5,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.EventBus;
+import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
@@ -31,6 +31,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -39,11 +42,12 @@ import com.android.volley.Request;
 import dagger.ObjectGraph;
 
 public class AddPostTextEditActivator extends EditTextHideKeyboard implements
-        Activator<AddPostResourceReturnData>,OnEditorActionListener {
+        Activator<AddPostResourceReturnData>, OnEditorActionListener {
     
     private GenericUiObserver mCallback;
     private ServiceFetcher<AddPostResourceInput, AddPostResourceReturnData> addPostService;
     @Inject ReceivingClickingAutopaginatingListView<ThreadResource, PostResource, List<PostResource>> mListView;
+	//protected boolean mExpanded;
     
     public AddPostTextEditActivator(Context context, AttributeSet attrSet) {
         super(context, attrSet);
@@ -91,6 +95,23 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
                             @Override public void fail(FailureResult r) { }
                         });
         addPostController.setup();
+//        setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Animation anim=AnimationUtils.loadAnimation(getContext(), R.anim.expand_edittext);
+//				setWidth(getMeasuredWidth());
+//				if(!mExpanded) {
+//					setHeight(getMeasuredHeight()*2);
+//					setSingleLine(false);
+//					setMaxLines(6);
+//					setMinLines(3);
+//				} else {
+//					setHeight(getMeasuredHeight()/2);
+//				}
+//				startAnimation(anim);
+//				mExpanded = !mExpanded;
+//			}
+//		});
     }
 
     @Override
@@ -98,12 +119,13 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
         if(event!=null && event.getAction()==KeyEvent.ACTION_DOWN) {
             return true; // Natsty hack to ui automator doesn't call this twice
         }
+        
         addPostService.getRequest().getBody().setSubject("-");
         addPostService.getRequest().getBody().setContent(v.getText().toString());
         mCallback.onUiEventActivated();
         return true;
     }
-
+    
     @Override
     public void setOnSubmitObserver(GenericUiObserver observer) {
         mCallback = observer;

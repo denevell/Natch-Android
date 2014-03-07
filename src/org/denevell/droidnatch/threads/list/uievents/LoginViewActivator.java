@@ -145,12 +145,14 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 
 	@Override
 	public void success(LoginResourceReturnData result) {
+		setEnabled(true);
 		if (mSuccessCallback != null)
 			mSuccessCallback.run();
 	}
 
 	@Override
 	public void fail(FailureResult f) {
+		setEnabled(true);
 		if(f!=null && f.getStatusCode()==400) {
         	mUsername.setError(getContext().getString(R.string.register_400_error));
 		}
@@ -169,6 +171,7 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 		mLoginService.getRequest().getBody().setPassword(mPassword.getText().toString());
 		mLoginService.getRequest().getBody().setUsername(mUsername.getText().toString());
 		mCallback.onUiEventActivated();
+		setEnabled(false);
 	}
 
 	private void logout() {

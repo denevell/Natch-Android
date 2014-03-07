@@ -105,6 +105,7 @@ public class EditPostViewActivator extends LinearLayout implements
 
     @Override
     public void success(EditPostResourceReturnData result) {
+        setEnabled(true);
         mContent.setText("");
         mContent.setError(null);
         if(mSuccessCallback!=null) mSuccessCallback.run();
@@ -117,6 +118,7 @@ public class EditPostViewActivator extends LinearLayout implements
 
     @Override
     public void fail(FailureResult f) {
+        setEnabled(true);
         if(f!=null && f.getErrorMessage()!=null) {
             mContent.setError(f.getErrorMessage());
         }
@@ -127,6 +129,7 @@ public class EditPostViewActivator extends LinearLayout implements
         mEditPostService.getRequest().getBody().setContent(mContent.getText().toString());
         mEditPostService.getRequest().setUrl(mEditPostService.getRequest().getRequest().getUrl() + "/" + mPost.getId());
         mCallback.onUiEventActivated();
+        setEnabled(false);
     }
 
     @Override
