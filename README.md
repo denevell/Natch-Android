@@ -2,12 +2,12 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 * ~~Links in posts~~
-* Login on action button
+* ~~Login on action button~~
+* Green button with diff disabled and normal
 * Loading on dialogue buttons
 * Save login info to prefs
-* And clear loutout info
+* And clear logout info
 * Deploygate
-* Green button with diff disabled and normal
 * Edit text expanded on click
 * Edit text de-expanded on click
 * Hide gcm key on server
@@ -17,6 +17,7 @@ The Android client to the Natch REST project.
 * List view save position when first is showing.
 * See if I can tests gcm notifications
 * Test memory consumption
+* Have register link on login page
 * I should see an error on delete thread 
 * I should see an error on delete post 
 * Only see notification for summaries

@@ -20,6 +20,7 @@ import org.denevell.natch.android.R;
 import org.hamcrest.CoreMatchers;
 
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
+import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 
 public class ListThreadsPO {
 
@@ -77,6 +78,16 @@ public class ListThreadsPO {
 	public ListThreadsPO pressRefresh() {
         onView(withId(R.id.threads_option_menu_refresh)).perform(click());
 		return this;
+	}
+
+	public ListThreadsPO pressLoginLink() {
+        onView(withText("Please login")).perform(click());
+        return this;
+	}
+
+	public ListThreadsPO shouldntSeeLoginLink() {
+        onView(withText("Please login")).check(ViewAssertions.doesNotExist());
+        return this;
 	}
 	
 

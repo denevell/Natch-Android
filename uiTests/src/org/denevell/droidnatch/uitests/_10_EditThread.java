@@ -66,6 +66,24 @@ public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
         onView(withContentDescription("list_threads_row0")).check(matches(withText("Edited title")));
     }
 
+	public void testShowLoginMessageWhenNotLoggedIn() throws Exception {
+        new AddThreadPO().addThreadAndPressBack("New thread to delete", "New thread to delete");
+
+        new LoginPO().logoutDefaultUser(getInstrumentation());
+
+		new ListThreadsPO().pressItem(0);
+
+        new ListPostsPO()
+        	.bringUpEditDeleteOptions(0)
+        	.pressPleaseLogin();
+
+        new LoginPO().loginOnDialogueBoxWithDefaultCredential(getInstrumentation());
+
+        new ListPostsPO()
+        	.bringUpEditDeleteOptions(0)
+        	.shouldntSeePleaseLogin();
+    }
+
 	public void testCannotEditOthersThread() throws Exception {
         new AddThreadPO().addThread("New thread to edit", "New thread to edit");
         

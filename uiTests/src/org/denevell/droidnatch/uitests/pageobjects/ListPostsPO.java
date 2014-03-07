@@ -71,4 +71,14 @@ public class ListPostsPO {
         return this;
 	}
 
+	public ListPostsPO pressPleaseLogin() {
+        onView(withText("Please login")).perform(click());
+        return this;
+	}
+
+	public ListPostsPO shouldntSeePleaseLogin() {
+        onView(withText("Please login")).check(ViewAssertions.doesNotExist());
+        return this;
+	}
+
 }

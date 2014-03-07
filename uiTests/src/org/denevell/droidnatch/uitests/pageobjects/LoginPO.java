@@ -22,11 +22,20 @@ import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 public class LoginPO {
 
 	public LoginPO loginWithDefaultCredential(Instrumentation instr) {
-		return loginWithCredential(instr, "aaron", "aaron");
+        onView(withText("Login")).perform(click());
+		return loginOnDialogueBoxWithCredential(instr, "aaron", "aaron");
 	}
 
-	public LoginPO loginWithCredential(Instrumentation instr, String username, String password) {
+	public LoginPO loginWithCredential(Instrumentation instr, String user, String pass) {
         onView(withText("Login")).perform(click());
+		return loginOnDialogueBoxWithCredential(instr, user, pass);
+	}
+
+	public LoginPO loginOnDialogueBoxWithDefaultCredential(Instrumentation instr) {
+		return loginOnDialogueBoxWithCredential(instr, "aaron", "aaron");
+	}
+
+	public LoginPO loginOnDialogueBoxWithCredential(Instrumentation instr, String username, String password) {
         onView(withId(R.id.login_username_edittext))
         	.perform(clearText(),
         			typeText(username), 
@@ -68,6 +77,10 @@ public class LoginPO {
     	onView(ViewMatchers.withText("Register")).check(ViewAssertions.doesNotExist());
 		openActionBarOverflowOrOptionsMenu(instr.getTargetContext());
 		return this;
+	}
+
+	public void logoutDefaultUser(Instrumentation instrumentation) {
+		logout(instrumentation, "aaron");
 	}
 
 }

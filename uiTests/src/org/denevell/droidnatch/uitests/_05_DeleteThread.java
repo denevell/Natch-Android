@@ -37,6 +37,22 @@ public class _05_DeleteThread extends NatchAndroidInstrumentationWithLogin {
         new ListThreadsPO().checkNoThreads();
     }
 
+	public void testShowLoginMessageWhenNotLoggedIn() throws Exception {
+        new AddThreadPO().addThreadAndPressBack("New thread to delete", "New thread to delete");
+
+        new LoginPO().logoutDefaultUser(getInstrumentation());
+
+        new ListThreadsPO()
+        	.bringUpEditDeleteOptions(0)
+        	.pressLoginLink();
+
+        new LoginPO().loginOnDialogueBoxWithDefaultCredential(getInstrumentation());
+
+        new ListThreadsPO()
+        	.bringUpEditDeleteOptions(0)
+        	.shouldntSeeLoginLink();
+    }
+
 	public void testCannotDeleteOthersPost() throws Exception {
         new AddThreadPO().addThreadAndPressBack("New thread to delete", "New thread to delete");
 
