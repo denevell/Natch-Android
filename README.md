@@ -14,16 +14,15 @@ The Android client to the Natch REST project.
 
 ### Icebox
 
-* Login from any page
+* List view save position when first is showing.
 * See if I can tests gcm notifications
 * Test memory consumption
 * I should see an error on delete thread 
 * I should see an error on delete post 
-* I should keep the found threads on rotate / onResume / app close
 * Only see notification for summaries
-* Save login details
-* 403/401 logs you out?
 * Tech task: Unit tests from gradle
+* I should keep the found threads on rotate / onResume / app close
+* 403/401 logs you out?
 * I should be able to see new threads notification, a la g+ 
 * Sliding add thread 
 * Sliding add post
