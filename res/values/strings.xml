@@ -25,6 +25,8 @@
     <item type="id" name="list_view_service_error">list_view_service_error</item>
     <item type="id" name="posts_context_menu_edit_thread">posts_context_menu_edit_thread</item>
     <item type="id" name="posts_context_menu_edit_post">posts_context_menu_edit_post</item>
+    <item type="id" name="please_login_context_menu">posts_context_menu_edit_post</item>
+
     <string name="gcm_project">348075870621</string>
     <string name="settings_push_notifs_off">push_notifications_off</string>
     <string name="settings_google_play_services_info">google_play_services_info</string>

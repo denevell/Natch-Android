@@ -1,8 +1,9 @@
 The Android client to the Natch REST project.
 
 ## Backlog  
-* Loading on dialogue buttons
+* ~~Links in posts~~
 * Login on action button
+* Loading on dialogue buttons
 * Save login info to prefs
 * And clear loutout info
 * Deploygate
@@ -10,7 +11,6 @@ The Android client to the Natch REST project.
 * Edit text expanded on click
 * Edit text de-expanded on click
 * Hide gcm key on server
-* ~~Links in posts~~
 
 ### Icebox
 
