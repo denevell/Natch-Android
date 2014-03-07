@@ -1,25 +1,27 @@
 The Android client to the Natch REST project.
 
 ## Backlog  
-* ~~Remove scroll to end on pagination~~
-* ~~Overscrolling in listview if doesn't stick this time.~~
-* ~~Change styling of pagination button, size and colour.~~
-* ~~Fix ui tests out of memory thing~~
-* ~~If styling not enough, scroll to new post on pagination~~
-* ~~Change app to light theme~~
-* ~~Add lighter styling to list items~~
-* ~~Style action menu~~
-* ~~Create icon~~
+* Loading on dialogue buttons
+* Login on action button
+* Save login info to prefs
+* And clear loutout info
+* Deploygate
+* Green button with diff disabled and normal
+* Edit text expanded on click
+* Edit text de-expanded on click
+* Hide gcm key on server
+* Links in posts
 
 ### Icebox
 
+* Login from any page
 * See if I can tests gcm notifications
+* Test memory consumption
 * I should see an error on delete thread 
 * I should see an error on delete post 
 * I should keep the found threads on rotate / onResume / app close
 * Only see notification for summaries
 * Save login details
-* Login from any page
 * 403/401 logs you out?
 * Tech task: Unit tests from gradle
 * I should be able to see new threads notification, a la g+ 
