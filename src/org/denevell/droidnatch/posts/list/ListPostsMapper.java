@@ -52,7 +52,7 @@ public class ListPostsMapper {
     		final ListPostsPaginationObject pagination) {
 		final ReceivingClickingAutopaginatingListView listview = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.list_posts_listview);
 
-        ListPostsArrayAdapter arrayAdapter = new ListPostsArrayAdapter(mActivity.getApplicationContext(), R.layout.posts_list_row);
+        ListPostsArrayAdapter arrayAdapter = new ListPostsArrayAdapter(mActivity, R.layout.posts_list_row);
         
 		listview
 			.setListAdapter(arrayAdapter)
