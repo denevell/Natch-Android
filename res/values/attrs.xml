@@ -15,5 +15,8 @@
      	<attr name="button_background" format="reference"></attr>
      	<attr name="button_text" format="string"></attr>
      </declare-styleable>
-    
+
+     <declare-styleable name="FragementPopMenuActivator">
+     	<attr name="pop_option_menu_item" format="reference"></attr>
+     </declare-styleable>
 </resources>

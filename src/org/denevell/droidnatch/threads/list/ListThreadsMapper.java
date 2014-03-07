@@ -6,9 +6,9 @@ import java.util.Map;
 
 import javax.inject.Singleton;
 
+import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.PaginationMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.PaginationMapper.ListThreadsPaginationObject;
-import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment.ContextMenuItemHolder;
@@ -181,17 +181,26 @@ public class ListThreadsMapper {
 
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-		    ThreadResource ob = (ThreadResource) listView.getAdapter().getItem(position);
-		    String author = ob.getAuthor();
-		    String username = ShamefulStatics.getUsername(mActivity.getApplicationContext());
-			if (!ShamefulStatics.emptyUsername(mActivity.getApplicationContext()) &&  author!=null && !author.equals(username)) {
-				mode.getMenuInflater().inflate(R.menu.not_yours_context_option_menu, menu);
-			} else if (ShamefulStatics.emptyUsername(mActivity.getApplicationContext())) {
-				mode.getMenuInflater().inflate(R.menu.please_login_context_option_menu, menu);
-			} else {
-				mode.getMenuInflater().inflate(R.menu.list_threads_context_option_menu, menu);
+			if(position==0) return false; // 0 is the header
+			try {
+				ThreadResource ob = (ThreadResource) listView.getAdapter() .getItem(position);
+				String author = ob.getAuthor();
+				String username = ShamefulStatics.getUsername(mActivity .getApplicationContext());
+				if (!ShamefulStatics.emptyUsername(mActivity.getApplicationContext())
+						&& author != null
+						&& !author.equals(username)) {
+					mode.getMenuInflater().inflate(
+							R.menu.not_yours_context_option_menu, menu);
+				} else if (ShamefulStatics.emptyUsername(mActivity .getApplicationContext())) {
+					mode.getMenuInflater().inflate( R.menu.please_login_context_option_menu, menu);
+				} else {
+					mode.getMenuInflater().inflate( R.menu.list_threads_context_option_menu, menu);
+				}
+				return true;
+			} catch (Exception e) {
+				Log.d(TAG, "Couldnt open action menu", e);
+				return false;
 			}
-			return true;
 		}
 
 		@Override

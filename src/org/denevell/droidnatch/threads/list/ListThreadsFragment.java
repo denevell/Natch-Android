@@ -18,6 +18,7 @@ public class ListThreadsFragment extends ObservableFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         try {
+        	getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
             getActivity().setTitle(R.string.page_title_threads);
             setHasOptionsMenu(true);
             View v = inflater.inflate(R.layout.threads_list_fragment, container, false);

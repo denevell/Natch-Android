@@ -7,14 +7,15 @@ The Android client to the Natch REST project.
 * ~~Save login info to prefs~~
 * ~~And clear logout info~~
 * ~~Loading on dialogue buttons~~
-* Deploygate
-* Hide gcm key on server
+* ~~Deploygate~~
+* ~~Hide gcm key on server~~
 
 ### Icebox
 
 * Crash reporter
 * Have register link on login page
 * Add post button
+* Make add post box two lines high
 * Edit text expanded on click
 * Edit text de-expanded on click
 * I should see an error on delete thread 
@@ -23,20 +24,22 @@ The Android client to the Natch REST project.
 * I should keep the found threads on rotate / onResume / app close
 * 403/401 logs you out?
 * I should be able to see new threads notification, a la g+ 
+* Only receive gcm notifications from uat, not live.
 * Sliding add thread 
 * Sliding add post
 
 ### Testing to do
 
-* Test duplicate registers.
 * Test memory consumption
+* Test long click on first item in list thread listview
 * Tech task: Unit tests from gradle
 * See if I can tests gcm notifications
+* Test duplicate registers.
 
 ### Refactoring
 
 * Refactor login / logout view class 
-* Refactor the shamefulstatic class.
+* Refactor the shamefulstatics class.
 
 ### Non criticial bugs
 

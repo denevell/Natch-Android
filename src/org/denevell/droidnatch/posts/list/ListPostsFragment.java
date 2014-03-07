@@ -22,6 +22,7 @@ public class ListPostsFragment extends ObservableFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         setHasOptionsMenu(true);
         String threadName = getArguments().getString(BUNDLE_KEY_THREAD_NAME);
         getActivity().setTitle(threadName);

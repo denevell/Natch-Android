@@ -12,7 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
-    private int mLastPosition = -1;
+    @SuppressWarnings("unused")
+	private int mLastPosition = -1;
 
 	public ListThreadsArrayAdapter(Context context, int textViewResourceId) {
     	super(context, android.R.layout.simple_list_item_1);

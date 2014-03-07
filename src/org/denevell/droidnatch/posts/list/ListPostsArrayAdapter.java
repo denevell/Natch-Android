@@ -13,7 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ListPostsArrayAdapter extends ArrayAdapter<PostResource> {
-    private int mLastPosition = -1;
+    @SuppressWarnings("unused")
+	private int mLastPosition = -1;
 
 	public ListPostsArrayAdapter(Context context, int textViewResourceId) {
     	super(context, android.R.layout.simple_list_item_1);

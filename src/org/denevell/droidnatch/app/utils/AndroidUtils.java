@@ -1,6 +1,7 @@
 package org.denevell.droidnatch.app.utils;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -24,6 +25,15 @@ public class AndroidUtils {
         }
         return true;
     }
+
+	public static boolean isFragmentManagerEmpty(FragmentManager supportFragmentManager) {
+    	if(supportFragmentManager.getFragments()==null || supportFragmentManager.getFragments().size()==0) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+
 
 
 }

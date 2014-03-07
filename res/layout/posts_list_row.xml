@@ -24,7 +24,7 @@
         android:autoLink="all"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:text="Content\ncontent\ncontent"
+        android:text="Content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:ignore="HardcodedText" />
     
