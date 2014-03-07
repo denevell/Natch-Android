@@ -7,8 +7,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,8 +36,11 @@ public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
         threadAuthor.setText(o.getAuthor());
         dateText.setText(" @ " + o.getLastModifiedDate()+" "+o.getLastModifiedTime());
         
-        Animation animation = AnimationUtils.loadAnimation(getContext(), (position > mLastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-        convertView.startAnimation(animation);
+//        if(position>1 && position > mLastPosition) {
+//        	Animation animation = AnimationUtils.loadAnimation(getContext(), (position > mLastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+//        	convertView.startAnimation(animation);
+//        }
+        
         mLastPosition = position;        
         
         return convertView;

@@ -8,8 +8,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -40,8 +38,10 @@ public class ListPostsArrayAdapter extends ArrayAdapter<PostResource> {
 
         dateText.setText(o.getLastModifiedDate()+"\n"+o.getLastModifiedTime());
 
-        Animation animation = AnimationUtils.loadAnimation(getContext(), (position > mLastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-        convertView.startAnimation(animation);
+//        if(position>0 && position > mLastPosition) {
+//        	Animation animation = AnimationUtils.loadAnimation(getContext(), (position > mLastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+//        	convertView.startAnimation(animation);
+//        }
         mLastPosition = position;        
 
         return convertView;

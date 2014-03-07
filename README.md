@@ -13,23 +13,30 @@ The Android client to the Natch REST project.
 ### Icebox
 
 * Crash reporter
+* Have register link on login page
 * Add post button
 * Edit text expanded on click
 * Edit text de-expanded on click
-* See if I can tests gcm notifications
-* Test memory consumption
-* Have register link on login page
 * I should see an error on delete thread 
 * I should see an error on delete post 
-* Refactor the shamefulstatic class.
 * Only see notification for summaries
-* Tech task: Unit tests from gradle
 * I should keep the found threads on rotate / onResume / app close
 * 403/401 logs you out?
 * I should be able to see new threads notification, a la g+ 
-* Test duplicate registers.
 * Sliding add thread 
 * Sliding add post
+
+### Testing to do
+
+* Test duplicate registers.
+* Test memory consumption
+* Tech task: Unit tests from gradle
+* See if I can tests gcm notifications
+
+### Refactoring
+
+* Refactor login / logout view class 
+* Refactor the shamefulstatic class.
 
 ### Non criticial bugs
 
