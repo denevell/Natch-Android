@@ -110,7 +110,7 @@ public class EditThreadViewActivator extends LinearLayout implements
 
     @Override
     public void success(EditPostResourceReturnData result) {
-    	setEnabled(true);
+        if(mButton!=null) mButton.setEnabled(true);
         mContent.setText("");
         mContent.setError(null);
         if(mSuccessCallback!=null) mSuccessCallback.run();
@@ -126,7 +126,7 @@ public class EditThreadViewActivator extends LinearLayout implements
 
     @Override
     public void fail(FailureResult f) {
-    	setEnabled(true);
+        if(mButton!=null) mButton.setEnabled(true);
         if(f!=null && f.getErrorMessage()!=null) {
             mSubject.setError(f.getErrorMessage());
         }
@@ -137,8 +137,8 @@ public class EditThreadViewActivator extends LinearLayout implements
         mEditPostService.getRequest().getBody().setContent(mContent.getText().toString());
         mEditPostService.getRequest().getBody().setSubject(mSubject.getText().toString());
         mEditPostService.getRequest().setUrl(mEditPostService.getRequest().getRequest().getUrl() + "/" + mPost.getId());
+        if(mButton!=null) mButton.setEnabled(false);
         mCallback.onUiEventActivated();
-    	setEnabled(false);
     }
 
     @Override

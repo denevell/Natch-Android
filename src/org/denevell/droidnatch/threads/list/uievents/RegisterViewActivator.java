@@ -95,7 +95,7 @@ public class RegisterViewActivator extends LinearLayout implements
 
 	@Override
     public void success(RegisterResourceReturnData result) {
-    	setEnabled(true);
+        if(mButton!=null) mButton.setEnabled(true);
         if(mSuccessCallback!=null) mSuccessCallback.run();
         
         FragmentActivity act = (FragmentActivity) getContext();
@@ -121,7 +121,7 @@ public class RegisterViewActivator extends LinearLayout implements
 
     @Override
     public void fail(FailureResult f) {
-    	setEnabled(true);
+        if(mButton!=null) mButton.setEnabled(true);
         if(f!=null && f.getStatusCode()==400) {
         	mUsername.setError(getContext().getString(R.string.register_400_error));
         } else {
@@ -133,8 +133,8 @@ public class RegisterViewActivator extends LinearLayout implements
     public void onClick(View view) {
         mRegisterService.getRequest().getBody().setPassword(mPassword.getText().toString());
         mRegisterService.getRequest().getBody().setUsername(mUsername.getText().toString());
+        if(mButton!=null) mButton.setEnabled(false);
         mCallback.onUiEventActivated();
-    	setEnabled(false);
     }
 
 }

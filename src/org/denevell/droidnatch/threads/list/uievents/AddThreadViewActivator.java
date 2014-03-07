@@ -135,7 +135,7 @@ public class AddThreadViewActivator extends LinearLayout implements
 
     @Override
     public void success(AddPostResourceReturnData result) {
-    	setEnabled(true);
+        if(mButton!=null) mButton.setEnabled(true);
         mSubject.setText("");
         mSubject.setError(null);
         mContent.setText("");
@@ -150,7 +150,7 @@ public class AddThreadViewActivator extends LinearLayout implements
 
     @Override
     public void fail(FailureResult f) {
-    	setEnabled(true);
+        if(mButton!=null) mButton.setEnabled(true);
         if(f!=null && f.getErrorMessage()!=null) {
             mSubject.setError(f.getErrorMessage());
         }
@@ -162,8 +162,8 @@ public class AddThreadViewActivator extends LinearLayout implements
         mAddPostService.getRequest().getBody().setSubject(mSubject.getText().toString());
         String[] tags = new String[] {""};//mTags.getText().toString().split(",");
         mAddPostService.getRequest().getBody().setTags(Arrays.asList(tags));
+        if(mButton!=null) mButton.setEnabled(false);
         mCallback.onUiEventActivated();
-        setEnabled(false);
     }
 
 }
