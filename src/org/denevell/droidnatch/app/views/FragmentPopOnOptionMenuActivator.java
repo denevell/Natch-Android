@@ -32,6 +32,7 @@ public class FragmentPopOnOptionMenuActivator extends ViewThatListensOnEventBus 
 	@Subscribe
 	public void onOptionMenu(ObservableFragment.OptionMenuItemHolder menu) {
         try {
+	    if(menu.item.getItemId()!=mOptionId) return;
             Log.v(TAG, "Poping the stack");
             FragmentManager f = ((FragmentActivity)getContext()).getSupportFragmentManager();
             f.popBackStack();
