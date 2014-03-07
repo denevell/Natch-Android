@@ -6,15 +6,14 @@ The Android client to the Natch REST project.
 * ~~Green button with diff disabled and normal~~
 * ~~Save login info to prefs~~
 * ~~And clear logout info~~
-* Loading on dialogue buttons
-* Deploygate
 * Edit text expanded on click
 * Edit text de-expanded on click
+* Loading on dialogue buttons
+* Deploygate
 * Hide gcm key on server
 
 ### Icebox
 
-* List view save position when first is showing.
 * See if I can tests gcm notifications
 * Test memory consumption
 * Have register link on login page
@@ -28,6 +27,11 @@ The Android client to the Natch REST project.
 * I should be able to see new threads notification, a la g+ 
 * Sliding add thread 
 * Sliding add post
+
+### Non criticial bugs
+
+* Scrolling to bottom of posts when pagination in place fails
+* List view save position when first is showing.
 
 --
 

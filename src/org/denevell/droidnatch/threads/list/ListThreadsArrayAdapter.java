@@ -1,18 +1,22 @@
 package org.denevell.droidnatch.threads.list;
 
+import org.denevell.droidnatch.threads.list.entities.ThreadResource;
+import org.denevell.natch.android.R;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-import org.denevell.natch.android.R;
-
 public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
-    public ListThreadsArrayAdapter(Context context, int textViewResourceId) {
+    private int mLastPosition;
+
+	public ListThreadsArrayAdapter(Context context, int textViewResourceId) {
     	super(context, android.R.layout.simple_list_item_1);
     }
 
@@ -33,6 +37,11 @@ public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
         threadTitle.setText(o.getSubject());
         threadAuthor.setText(o.getAuthor());
         dateText.setText(" @ " + o.getLastModifiedDate()+" "+o.getLastModifiedTime());
+        
+        Animation animation = AnimationUtils.loadAnimation(getContext(), (position > mLastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+        convertView.startAnimation(animation);
+        mLastPosition = position;        
+        
         return convertView;
     }
     

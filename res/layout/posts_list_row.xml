@@ -24,7 +24,7 @@
         android:autoLink="all"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:text="Title"
+        android:text="Content\ncontent\ncontent"
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:ignore="HardcodedText" />
     
@@ -32,6 +32,7 @@
         android:id="@+id/list_posts_row_author_date_linearlayout"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
+        android:layout_alignBottom="@id/list_posts_row_title_textview"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:orientation="vertical" >
@@ -43,7 +44,7 @@
 		        android:textColor="@color/normal_text_light"
                 android:contentDescription="list_posts_row_author"
                 android:text="author"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 tools:ignore="HardcodedText" />
 
         <TextView
