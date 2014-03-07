@@ -6,14 +6,16 @@ The Android client to the Natch REST project.
 * ~~Green button with diff disabled and normal~~
 * ~~Save login info to prefs~~
 * ~~And clear logout info~~
-* Edit text expanded on click
-* Edit text de-expanded on click
 * Loading on dialogue buttons
 * Deploygate
 * Hide gcm key on server
 
 ### Icebox
 
+* Crash reporter
+* Add post button
+* Edit text expanded on click
+* Edit text de-expanded on click
 * See if I can tests gcm notifications
 * Test memory consumption
 * Have register link on login page
