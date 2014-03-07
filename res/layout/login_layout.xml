@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="5dp"
     android:paddingTop="5dp" >
 
@@ -45,27 +46,27 @@
                 android:singleLine="true"
                 tools:ignore="HardcodedText" />
 
-            <org.denevell.droidnatch.app.views.ButtonHideKeyboard
+			<org.denevell.droidnatch.app.views.ButtonWithProgress
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-		        android:background="@drawable/forum_btn_default_holo_light"
                 android:gravity="center"
-                android:text="Login"
+		        app:button_background="@drawable/forum_btn_default_holo_light"
+                app:button_text="Login"
                 tools:ignore="HardcodedText" />
 
         </LinearLayout>
     </ScrollView>
     
-    <Button
+    <org.denevell.droidnatch.app.views.ButtonWithProgress
         android:id="@+id/logout_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/forum_btn_default_holo_light"
         android:layout_alignParentTop="true"
         android:visibility="gone"
         android:gravity="center"
-        android:text="Logout"
+		app:button_background="@drawable/forum_btn_default_holo_light"
+        app:button_text="Logout"
         tools:ignore="HardcodedText" />
 
 </RelativeLayout>

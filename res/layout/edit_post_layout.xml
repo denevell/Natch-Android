@@ -5,6 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:app="http://schemas.android.com/apk/res-auto"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         >
@@ -31,13 +32,13 @@
                     android:hint="Content"
                     />
 
-                <org.denevell.droidnatch.app.views.ButtonHideKeyboard
+                <org.denevell.droidnatch.app.views.ButtonWithProgress
                     android:id="@+id/edit_post_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/forum_btn_default_holo_light"
+                    app:button_background="@drawable/forum_btn_default_holo_light"
                     android:gravity="center"
-                    android:text="Edit"/>
+                    app:button_text="Edit"/>
             </LinearLayout>
 
         </ScrollView>

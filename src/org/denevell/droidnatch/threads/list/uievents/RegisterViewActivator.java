@@ -12,6 +12,7 @@ import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.app.views.ButtonWithProgress;
 import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
@@ -27,7 +28,6 @@ import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -42,7 +42,7 @@ public class RegisterViewActivator extends LinearLayout implements
 
 	private GenericUiObserver mCallback;
     private Runnable mSuccessCallback;
-	private Button mButton;
+	private ButtonWithProgress mButton;
 	private EditText mUsername;
 	private EditText mPassword;
 	private ServiceFetcher<RegisterResourceInput, RegisterResourceReturnData> mRegisterService;
@@ -68,7 +68,7 @@ public class RegisterViewActivator extends LinearLayout implements
         super.onAttachedToWindow();
         inject();
         Activity act = (Activity) getContext();
-        mButton  = (Button) findViewById(R.id.register_button);
+        mButton  = (ButtonWithProgress) findViewById(R.id.register_button);
         mButton.setOnClickListener(this);
         mUsername = (EditText) findViewById(R.id.register_username_edittext);
         mPassword = (EditText) findViewById(R.id.register_password_edittext);
@@ -95,7 +95,7 @@ public class RegisterViewActivator extends LinearLayout implements
 
 	@Override
     public void success(RegisterResourceReturnData result) {
-        if(mButton!=null) mButton.setEnabled(true);
+        if(mButton!=null) mButton.loadingStop();
         if(mSuccessCallback!=null) mSuccessCallback.run();
         
         FragmentActivity act = (FragmentActivity) getContext();
@@ -121,9 +121,11 @@ public class RegisterViewActivator extends LinearLayout implements
 
     @Override
     public void fail(FailureResult f) {
-        if(mButton!=null) mButton.setEnabled(true);
+        if(mButton!=null) mButton.loadingStop();
         if(f!=null && f.getStatusCode()==400) {
         	mUsername.setError(getContext().getString(R.string.register_400_error));
+        } else if(f!=null && f.getErrorMessage()!=null && f.getErrorMessage().length()>0) {
+        	mUsername.setError(f.getErrorMessage());
         } else {
         	mUsername.setError("Register failed.");
         }
@@ -133,7 +135,7 @@ public class RegisterViewActivator extends LinearLayout implements
     public void onClick(View view) {
         mRegisterService.getRequest().getBody().setPassword(mPassword.getText().toString());
         mRegisterService.getRequest().getBody().setUsername(mUsername.getText().toString());
-        if(mButton!=null) mButton.setEnabled(false);
+        if(mButton!=null) mButton.loadingStart();
         mCallback.onUiEventActivated();
     }
 

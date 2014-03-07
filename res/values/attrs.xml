@@ -10,5 +10,10 @@
      	<attr name="fragment_class" format="string"></attr>
      	<attr name="option_menu_item_for_fragment_opener" format="reference"></attr>
      </declare-styleable>
+
+     <declare-styleable name="ButtonWithProgress">
+     	<attr name="button_background" format="reference"></attr>
+     	<attr name="button_text" format="string"></attr>
+     </declare-styleable>
     
 </resources>

@@ -15,6 +15,7 @@ import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.app.views.ButtonWithProgress;
 import org.denevell.droidnatch.posts.list.entities.EditPostResource;
 import org.denevell.droidnatch.posts.list.entities.EditPostResourceReturnData;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
@@ -25,7 +26,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -41,7 +41,7 @@ public class EditThreadViewActivator extends LinearLayout implements
 
     private ServiceFetcher<EditPostResource, EditPostResourceReturnData> mEditPostService;
     private GenericUiObserver mCallback;
-    private Button mButton;
+    private ButtonWithProgress mButton;
     private TextView mContent;
     private TextView mSubject;
     private Runnable mSuccessCallback;
@@ -50,7 +50,7 @@ public class EditThreadViewActivator extends LinearLayout implements
     public EditThreadViewActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.edit_thread_layout, this, true);
-        mButton = (Button) findViewById(R.id.edit_thread_button);
+        mButton = (ButtonWithProgress) findViewById(R.id.edit_thread_button);
         mContent = (TextView) findViewById(R.id.edit_thread_content_edittext);
         mSubject = (TextView) findViewById(R.id.edit_thread_subject_edittext);
     }
@@ -110,7 +110,7 @@ public class EditThreadViewActivator extends LinearLayout implements
 
     @Override
     public void success(EditPostResourceReturnData result) {
-        if(mButton!=null) mButton.setEnabled(true);
+        if(mButton!=null) mButton.loadingStop();
         mContent.setText("");
         mContent.setError(null);
         if(mSuccessCallback!=null) mSuccessCallback.run();
@@ -126,7 +126,7 @@ public class EditThreadViewActivator extends LinearLayout implements
 
     @Override
     public void fail(FailureResult f) {
-        if(mButton!=null) mButton.setEnabled(true);
+        if(mButton!=null) mButton.loadingStop();
         if(f!=null && f.getErrorMessage()!=null) {
             mSubject.setError(f.getErrorMessage());
         }
@@ -137,7 +137,7 @@ public class EditThreadViewActivator extends LinearLayout implements
         mEditPostService.getRequest().getBody().setContent(mContent.getText().toString());
         mEditPostService.getRequest().getBody().setSubject(mSubject.getText().toString());
         mEditPostService.getRequest().setUrl(mEditPostService.getRequest().getRequest().getUrl() + "/" + mPost.getId());
-        if(mButton!=null) mButton.setEnabled(false);
+        if(mButton!=null) mButton.loadingStart();
         mCallback.onUiEventActivated();
     }
 

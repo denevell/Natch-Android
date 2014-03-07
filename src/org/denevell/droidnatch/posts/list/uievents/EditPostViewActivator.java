@@ -15,6 +15,7 @@ import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.app.views.ButtonWithProgress;
 import org.denevell.droidnatch.posts.list.entities.EditPostResource;
 import org.denevell.droidnatch.posts.list.entities.EditPostResourceReturnData;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
@@ -25,7 +26,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -41,7 +41,7 @@ public class EditPostViewActivator extends LinearLayout implements
 
     private ServiceFetcher<EditPostResource, EditPostResourceReturnData> mEditPostService;
     private GenericUiObserver mCallback;
-    private Button mButton;
+    private ButtonWithProgress mButton;
     private TextView mContent;
     private Runnable mSuccessCallback;
     private PostResource mPost;
@@ -49,7 +49,7 @@ public class EditPostViewActivator extends LinearLayout implements
     public EditPostViewActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.edit_post_layout, this, true);
-        mButton = (Button) findViewById(R.id.edit_post_button);
+        mButton = (ButtonWithProgress) findViewById(R.id.edit_post_button);
         mContent = (TextView) findViewById(R.id.edit_post_edittext);
     }
 
@@ -105,7 +105,7 @@ public class EditPostViewActivator extends LinearLayout implements
 
     @Override
     public void success(EditPostResourceReturnData result) {
-        if(mButton!=null) mButton.setEnabled(true);
+        if(mButton!=null) mButton.loadingStop();
         mContent.setText("");
         mContent.setError(null);
         if(mSuccessCallback!=null) mSuccessCallback.run();
@@ -118,7 +118,7 @@ public class EditPostViewActivator extends LinearLayout implements
 
     @Override
     public void fail(FailureResult f) {
-        if(mButton!=null) mButton.setEnabled(true);
+        if(mButton!=null) mButton.loadingStop();
         if(f!=null && f.getErrorMessage()!=null) {
             mContent.setError(f.getErrorMessage());
         }
@@ -128,7 +128,7 @@ public class EditPostViewActivator extends LinearLayout implements
     public void onClick(View view) {
         mEditPostService.getRequest().getBody().setContent(mContent.getText().toString());
         mEditPostService.getRequest().setUrl(mEditPostService.getRequest().getRequest().getUrl() + "/" + mPost.getId());
-        if(mButton!=null) mButton.setEnabled(false);
+        if(mButton!=null) mButton.loadingStart();
         mCallback.onUiEventActivated();
     }
 

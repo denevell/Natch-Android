@@ -6,7 +6,7 @@ The Android client to the Natch REST project.
 * ~~Green button with diff disabled and normal~~
 * ~~Save login info to prefs~~
 * ~~And clear logout info~~
-* Loading on dialogue buttons
+* ~~Loading on dialogue buttons~~
 * Deploygate
 * Hide gcm key on server
 
@@ -27,6 +27,7 @@ The Android client to the Natch REST project.
 * I should keep the found threads on rotate / onResume / app close
 * 403/401 logs you out?
 * I should be able to see new threads notification, a la g+ 
+* Test duplicate registers.
 * Sliding add thread 
 * Sliding add post
 

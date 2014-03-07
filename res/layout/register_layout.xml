@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="5dp" >
 
     <ScrollView
@@ -45,13 +46,13 @@
                 android:singleLine="true"
                 tools:ignore="HardcodedText" />
 
-            <org.denevell.droidnatch.app.views.ButtonHideKeyboard
+			<org.denevell.droidnatch.app.views.ButtonWithProgress
                 android:id="@+id/register_button"
                 android:layout_width="match_parent"
-		        android:background="@drawable/forum_btn_default_holo_light"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Register"
+		        app:button_background="@drawable/forum_btn_default_holo_light"
+                app:button_text="Register"
                 tools:ignore="HardcodedText" />
 
         </LinearLayout>

@@ -2,8 +2,8 @@ package org.denevell.droidnatch.threads.list.uievents;
 
 import javax.inject.Inject;
 
-import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.EventBus;
+import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
@@ -12,6 +12,7 @@ import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.app.views.ButtonWithProgress;
 import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
@@ -24,23 +25,33 @@ import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import dagger.ObjectGraph;
 
+/**
+ * Need to refactor this code, separate out logout for starters.
+ * @author user
+ *
+ */
 public class LoginViewActivator extends LinearLayout implements Activator<LoginResourceReturnData>, View.OnClickListener, Finishable {
 
 	public static class LoginUpdatedEvent { }
 
 	private final class LogoutActivatorImplementation implements Activator<LogoutResourceReturnData> {
+		private ButtonWithProgress mLogoutButton;
+		public LogoutActivatorImplementation(ButtonWithProgress logoutButton) {
+			mLogoutButton = logoutButton;
+		}
 		@Override public void setOnSubmitObserver(GenericUiObserver observer) {}
 		@Override public void success(LogoutResourceReturnData result) {
 			logout();
+			if(mLogoutButton!=null) mLogoutButton.loadingStop();
 		}
 		@Override public void fail(FailureResult r) {
 			logout();
+			if(mLogoutButton!=null) mLogoutButton.loadingStop();
 		}
 	}
 
@@ -76,7 +87,7 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 
 	private GenericUiObserver mCallback;
 	private Runnable mSuccessCallback;
-	private Button mButton;
+	private ButtonWithProgress mButton;
 	private EditText mUsername;
 	private EditText mPassword;
 	@Inject ServiceFetcher<LoginResourceInput, LoginResourceReturnData> mLoginService;
@@ -107,11 +118,11 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 		if(username!=null && username.length()>0) {
 			View v = findViewById(R.id.threads_list_add_thread_pane_scrollview);
 			v.setVisibility(View.GONE);
-			Button logoutButton = (Button) findViewById(R.id.logout_button);
+			final ButtonWithProgress logoutButton = (ButtonWithProgress) findViewById(R.id.logout_button);
 			logoutButton.setVisibility(View.VISIBLE);
 			Receiver<LogoutResourceReturnData> receivers = null;
 			final UiEventThenServiceThenUiEvent<LogoutResourceReturnData> controller = new UiEventThenServiceThenUiEvent<LogoutResourceReturnData>(
-					new LogoutActivatorImplementation(),
+					new LogoutActivatorImplementation(logoutButton),
 					mLogoutService, 
 					null,
 					receivers)
@@ -119,11 +130,12 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 			logoutButton.setOnClickListener(new OnClickListener() {
 				@Override public void onClick(View v) {
 					controller.onUiEventActivated();
+					logoutButton.loadingStart();
 				}
 			});
 
 		} else {
-			mButton = (Button) findViewById(R.id.login_button);
+			mButton = (ButtonWithProgress) findViewById(R.id.login_button);
 			mButton.setOnClickListener(this);
 			mUsername = (EditText) findViewById(R.id.login_username_edittext);
 			mPassword = (EditText) findViewById(R.id.login_password_edittext);
@@ -145,14 +157,14 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 
 	@Override
 	public void success(LoginResourceReturnData result) {
-		if(mButton!=null) mButton.setEnabled(true);
+		if(mButton!=null) mButton.loadingStop();
 		if (mSuccessCallback != null)
 			mSuccessCallback.run();
 	}
 
 	@Override
 	public void fail(FailureResult f) {
-		if(mButton!=null) mButton.setEnabled(true);
+		if(mButton!=null) mButton.loadingStop();
 		if(f!=null && f.getStatusCode()==400) {
         	mUsername.setError(getContext().getString(R.string.register_400_error));
 		}
@@ -170,7 +182,7 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 	public void onClick(View view) {
 		mLoginService.getRequest().getBody().setPassword(mPassword.getText().toString());
 		mLoginService.getRequest().getBody().setUsername(mUsername.getText().toString());
-		if(mButton!=null) mButton.setEnabled(false);
+		if(mButton!=null) mButton.loadingStart();
 		mCallback.onUiEventActivated();
 	}
 

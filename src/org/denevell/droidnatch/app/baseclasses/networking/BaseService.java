@@ -83,7 +83,7 @@ public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, S
             Object s = response.get("successful");
             if(s!=null && s instanceof Boolean && ((Boolean)s)==false) {
             	
-                NetworkResponse nr = new NetworkResponse(400,response.toString().getBytes(),null,false);
+                NetworkResponse nr = new NetworkResponse(200,response.toString().getBytes(),null,false);
                 onErrorResponse(new VolleyError(nr));
                 return;
             }
