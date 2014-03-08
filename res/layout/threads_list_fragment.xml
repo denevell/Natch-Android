@@ -53,6 +53,10 @@
            	app:option_menu_item="@+id/threads_option_menu_add_thread"
             />
 
+        <org.denevell.droidnatch.threads.list.uievents.WebsiteFromOptionMenuActivator
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+
         <org.denevell.droidnatch.threads.list.uievents.LongClickDeleteActivator
             android:layout_width="0dp"
             android:layout_height="0dp" />
