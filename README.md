@@ -19,6 +19,8 @@ The Android client to the Natch REST project.
 * Only receive gcm notifications from uat, not live.
 * Sliding add thread 
 * Sliding add post
+* Turn of notifications in notification
+* Reply to post
 
 ### Testing to do
 

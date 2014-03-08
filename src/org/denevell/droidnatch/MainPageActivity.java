@@ -56,8 +56,10 @@ public class MainPageActivity extends FragmentActivity {
     				gotoMainFragment(mOpener);
     			} 
     			mOpener.openScreen(ListPostsFragment.class, map, true);
+    			setIntent(null);
     			return;
     		}
+    		setIntent(null);
     	}
     	if(AndroidUtils.isFragmentManagerEmpty(getSupportFragmentManager())) {
     		gotoMainFragment(mOpener);
