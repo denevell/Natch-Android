@@ -5,7 +5,6 @@ The Android client to the Natch REST project.
 * Crash reporter
 * Add post button
 * Make add post box two lines high
-* Can login from add post failure
 
 ### Icebox
 
@@ -28,6 +27,7 @@ The Android client to the Natch REST project.
 * Test can register from not logged in popup
 * Test back indicator on posts page
 * Test long click on first item in list thread listview
+* Test register / login after failed post
 * See if I can tests gcm notifications
 * Test duplicate registers.
 * Tech task: Unit tests from gradle

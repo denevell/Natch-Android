@@ -29,7 +29,9 @@ import org.denevell.natch.android.R;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -41,7 +43,8 @@ import dagger.ObjectGraph;
 public class AddPostTextEditActivator extends EditTextHideKeyboard implements
         Activator<AddPostResourceReturnData>, OnEditorActionListener {
     
-    private GenericUiObserver mCallback;
+    private static final String TAG = AddPostTextEditActivator.class.getSimpleName();
+	private GenericUiObserver mCallback;
     private ServiceFetcher<AddPostResourceInput, AddPostResourceReturnData> addPostService;
     @Inject ReceivingClickingAutopaginatingListView<ThreadResource, PostResource, List<PostResource>> mListView;
 	//protected boolean mExpanded;
@@ -135,7 +138,15 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
 
     @Override
     public void fail(FailureResult f) {
-        if(f!=null && f.getErrorMessage()!=null) {
+    	if(f.getStatusCode()==403 || f.getStatusCode()==401) {
+    		try {
+    			FragmentActivity act = (FragmentActivity) getContext();
+    			act.startActionMode(new ListPostsMapper.NotLoggedInActionMenuImplementation());
+			} catch (Exception e) {
+				Log.e(TAG, "Couldn't open action menu for login / reg");
+				setError("Exception while adding post...");
+			} 
+    	} else if(f!=null && f.getErrorMessage()!=null) {
             setError(f.getErrorMessage());
         }
     }

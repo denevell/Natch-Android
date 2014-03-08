@@ -4,10 +4,11 @@ import java.util.List;
 
 import javax.inject.Singleton;
 
-import org.denevell.droidnatch.PaginationMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.EventBus;
+import org.denevell.droidnatch.PaginationMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
+import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment.ContextMenuItemHolder;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -36,7 +37,7 @@ import dagger.Provides;
 
 @Module(complete = false, library=true)
 public class ListPostsMapper {
-   
+ 
 	private Activity mActivity;
 	private String mTheadId;
 
@@ -74,41 +75,7 @@ public class ListPostsMapper {
 			.setKeyboardHider(new HideKeyboard());
     	listview.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-				Callback callback = new Callback() {
-					@Override
-					public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-						ReceivingClickingAutopaginatingListView.sCurrentActionMode = mode;
-						return false;
-					}
-					
-					@Override
-					public void onDestroyActionMode(ActionMode mode) {
-					}
-					
-					@Override
-					public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-						PostResource ob = (PostResource) listview.getAdapter().getItem(position);
-            			String author = ob.getUsername();
-                        String username = ShamefulStatics.getUsername(mActivity.getApplicationContext());
-						if (!ShamefulStatics.emptyUsername(mActivity.getApplicationContext()) &&  author!=null && !author.equals(username)) {
-							mode.getMenuInflater().inflate(R.menu.not_yours_context_option_menu, menu);
-						} else if (ShamefulStatics.emptyUsername(mActivity.getApplicationContext())) {
-							mode.getMenuInflater().inflate(R.menu.please_login_context_option_menu, menu);
-						} else if(position==0){
-							mode.getMenuInflater().inflate(R.menu.list_posts_context_thread_option_menu, menu);
-						} else {
-							mode.getMenuInflater().inflate(R.menu.list_posts_context_post_option_menu, menu);
-						}
-						return true;
-					}
-					
-					@Override
-					public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-						EventBus.getBus().post(new ContextMenuItemHolder(item, position));
-						mode.finish();
-						return true;
-					}
-				};
+				Callback callback = new ActionMenuImplementation(listview, position);
 				((FragmentActivity)parent.getContext()).startActionMode(callback);
 				return true;
 				}
@@ -131,5 +98,78 @@ public class ListPostsMapper {
         		.create(mActivity, ThreadResource.class);
 		return service;
 	}
+    
+  	private final class ActionMenuImplementation implements Callback {
+  		@SuppressWarnings("rawtypes")
+  		private final ReceivingClickingAutopaginatingListView listview;
+  		private final int position;
+
+  		@SuppressWarnings("rawtypes")
+  		private ActionMenuImplementation(ReceivingClickingAutopaginatingListView listview, int position) {
+  			this.listview = listview;
+  			this.position = position;
+  		}
+
+  		@Override
+  		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+  			ReceivingClickingAutopaginatingListView.sCurrentActionMode = mode;
+  			return false;
+  		}
+
+  		@Override
+  		public void onDestroyActionMode(ActionMode mode) {
+  		}
+
+  		@Override
+  		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+  			PostResource ob = (PostResource) listview.getAdapter().getItem(position);
+  			String author = ob.getUsername();
+  		    String username = ShamefulStatics.getUsername(mActivity.getApplicationContext());
+  			if (!ShamefulStatics.emptyUsername(mActivity.getApplicationContext()) &&  author!=null && !author.equals(username)) {
+  				mode.getMenuInflater().inflate(R.menu.not_yours_context_option_menu, menu);
+  			} else if (ShamefulStatics.emptyUsername(mActivity.getApplicationContext())) {
+  				mode.getMenuInflater().inflate(R.menu.please_login_context_option_menu, menu);
+  			} else if(position==0){
+  				mode.getMenuInflater().inflate(R.menu.list_posts_context_thread_option_menu, menu);
+  			} else {
+  				mode.getMenuInflater().inflate(R.menu.list_posts_context_post_option_menu, menu);
+  			}
+  			return true;
+  		}
+
+  		@Override
+  		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+  			EventBus.getBus().post(new ContextMenuItemHolder(item, position));
+  			mode.finish();
+  			return true;
+  		}
+  	}
+
+  	public static final class NotLoggedInActionMenuImplementation implements Callback {
+
+  		@Override
+  		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+  			ReceivingClickingAutopaginatingListView.sCurrentActionMode = mode;
+  			return false;
+  		}
+
+  		@Override
+  		public void onDestroyActionMode(ActionMode mode) {
+  		}
+
+  		@Override
+  		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+  			mode.getMenuInflater().inflate(R.menu.please_login_context_option_menu, menu);
+  			return true;
+  		}
+
+  		@Override
+  		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+  			EventBus.getBus().post(new ObservableFragment.OptionMenuItemHolder(item));
+  			mode.finish();
+  			return true;
+  		}
+  	}
+
 
 }

@@ -93,25 +93,33 @@ public class RegisterViewActivator extends LinearLayout implements
         mCallback = observer;
     }
 
+	@SuppressWarnings("unchecked")
 	@Override
     public void success(RegisterResourceReturnData result) {
-        if(mButton!=null) mButton.loadingStop();
-        if(mSuccessCallback!=null) mSuccessCallback.run();
-        
         FragmentActivity act = (FragmentActivity) getContext();
 
 		LoginResourceInput entity = mLoginService.getRequest().getBody();
         entity.setPassword(mPassword.getText().toString());
         entity.setUsername(mUsername.getText().toString());
 
-		@SuppressWarnings({ "unchecked", "unused" })
-		UiEventThenServiceThenUiEvent<LoginResourceReturnData> con = 
-			new UiEventThenServiceThenUiEvent<LoginResourceReturnData>(
+		new UiEventThenServiceThenUiEvent<LoginResourceReturnData>(
 				null,
 				mLoginService, 
 				null, 
 				new RefreshOptionsMenuReceiver(act),
-				new UpdateLoginInfoReceiver(mUsername)).setup();
+				new UpdateLoginInfoReceiver(mUsername),
+				new Receiver<LoginResourceReturnData>() {
+					@Override
+					public void success(LoginResourceReturnData result) {
+						if(mButton!=null) mButton.loadingStop();
+						if(mSuccessCallback!=null) mSuccessCallback.run();
+					}
+					@Override
+					public void fail(FailureResult r) {
+						if(mButton!=null) mButton.loadingStop();
+						if(mUsername!=null) mUsername.setError("Failed to login after register.");
+					}
+				}).setup();
     }
 
 	@Override
