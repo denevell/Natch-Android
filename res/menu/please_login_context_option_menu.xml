@@ -7,4 +7,11 @@
         android:title="Please login" 
         tools:ignore="HardcodedText"/>
 
+    <item
+        android:id="@id/please_register_context_menu"
+        android:orderInCategory="110"
+        android:showAsAction="ifRoom"
+        android:title="Or register" 
+        tools:ignore="HardcodedText"/>
+
 </menu>

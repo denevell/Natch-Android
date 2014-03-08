@@ -3,9 +3,9 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * Crash reporter
-* Have register link on login page
 * Add post button
 * Make add post box two lines high
+* Can login from add post failure
 
 ### Icebox
 
@@ -25,6 +25,7 @@ The Android client to the Natch REST project.
 
 * Test memory consumption
 * Test can see author / date
+* Test can register from not logged in popup
 * Test back indicator on posts page
 * Test long click on first item in list thread listview
 * See if I can tests gcm notifications
