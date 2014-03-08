@@ -3,7 +3,6 @@ The Android client to the Natch REST project.
 ## Backlog  
 * Test can see author / date
 * Test can register from not-logged-in popup
-* Test back indicator on posts page
 * Test going to website
 * Test long click on first item in list thread listview
 

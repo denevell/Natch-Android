@@ -126,4 +126,14 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
     public void testLinksClickable() throws Exception {
     	// Can't test atm - no way to click on link.
     }    
+    
+    public void testBackIconWorks() throws Exception {
+        new AddThreadPO().addThread("Hiya!", "Hiii");
+        
+        new ListPostsPO()
+        	.checkHasNumberOfPosts(1)
+        	.pressBackIcon();
+        
+        new ListThreadsPO().checkHasNumberOfThreads(1);
+    }    
 }

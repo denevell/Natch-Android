@@ -4,8 +4,6 @@ import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
@@ -73,6 +71,11 @@ public class ListPostsPO {
 	public ListPostsPO shouldntSeePleaseLogin() {
         onView(withText("Please login")).check(ViewAssertions.doesNotExist());
         return this;
+	}
+
+	public ListPostsPO pressBackIcon() {
+        onView(withContentDescription("Navigate up")).perform(click());
+		return this;
 	}
 
 }
