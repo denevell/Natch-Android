@@ -1,3 +1,4 @@
+
 package org.denevell.droidnatch.posts.list.uievents;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.Lazy
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.views.EditTextHideKeyboard;
+import org.denevell.droidnatch.app.views.ButtonWithProgress;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.posts.list.ListPostsMapper;
@@ -32,26 +33,33 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import com.android.volley.Request;
 
 import dagger.ObjectGraph;
 
-public class AddPostTextEditActivator extends EditTextHideKeyboard implements
-        Activator<AddPostResourceReturnData>, OnEditorActionListener {
+public class AddPostViewActivator extends FrameLayout implements
+        Activator<AddPostResourceReturnData>, OnClickListener {
     
-    private static final String TAG = AddPostTextEditActivator.class.getSimpleName();
+    private static final String TAG = AddPostViewActivator.class.getSimpleName();
 	private GenericUiObserver mCallback;
     private ServiceFetcher<AddPostResourceInput, AddPostResourceReturnData> addPostService;
     @Inject ReceivingClickingAutopaginatingListView<ThreadResource, PostResource, List<PostResource>> mListView;
+	private ButtonWithProgress mButton;
+	private EditText mEditText;
 	//protected boolean mExpanded;
     
-    public AddPostTextEditActivator(Context context, AttributeSet attrSet) {
+    public AddPostViewActivator(Context context, AttributeSet attrSet) {
         super(context, attrSet);
-        setOnEditorActionListener(this);
+        LayoutInflater.from(context).inflate(R.layout.post_add_layout, this, true);
+        mButton = (ButtonWithProgress) findViewById(R.id.post_add_button);
+        mButton.setOnClickListener(this);
+        mEditText = (EditText) findViewById(R.id.post_add_edittext);
     }
 
     private void inject(Activity activity, String threadId) {
@@ -80,7 +88,7 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
 						headersMap.put("AuthKey", ShamefulStatics.getAuthKey(getContext().getApplicationContext()));
 					}
 				})
-        		.create(act, AddPostResourceReturnData.class); 
+        		.create(null, AddPostResourceReturnData.class); 
         
 		@SuppressWarnings("unchecked")
         UiEventThenServiceThenUiEvent<AddPostResourceReturnData> addPostController =
@@ -114,17 +122,18 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
 //		});
     }
 
-    @Override
-    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if(event!=null && event.getAction()==KeyEvent.ACTION_DOWN) {
-            return true; // Natsty hack to ui automator doesn't call this twice
-        }
-        
-        addPostService.getRequest().getBody().setSubject("-");
-        addPostService.getRequest().getBody().setContent(v.getText().toString());
-        mCallback.onUiEventActivated();
-        return true;
-    }
+	@Override
+	public void onClick(View v) {
+		if(mEditText!=null && mEditText.getText().length()>0) {
+			addPostService.getRequest().getBody().setSubject("-");
+			addPostService.getRequest().getBody().setContent(mEditText.getText().toString());
+			mCallback.onUiEventActivated();
+			if(mButton!=null) mButton.loadingStart();
+		} else {
+			Log.e(TAG, "Edit text was null...");
+		}
+	}
+
     
     @Override
     public void setOnSubmitObserver(GenericUiObserver observer) {
@@ -133,21 +142,26 @@ public class AddPostTextEditActivator extends EditTextHideKeyboard implements
 
     @Override
     public void success(AddPostResourceReturnData result) {
-        setText("");
+    	if(mButton!=null) mButton.loadingStop();
+        if(mEditText!=null) {
+        	mEditText.setText("");
+        	mEditText.setError(null);
+        }
     }
 
     @Override
     public void fail(FailureResult f) {
+    	if(mButton!=null) mButton.loadingStop();
     	if(f.getStatusCode()==403 || f.getStatusCode()==401) {
     		try {
     			FragmentActivity act = (FragmentActivity) getContext();
     			act.startActionMode(new ListPostsMapper.NotLoggedInActionMenuImplementation());
 			} catch (Exception e) {
 				Log.e(TAG, "Couldn't open action menu for login / reg");
-				setError("Exception while adding post...");
+				if(mEditText!=null) mEditText.setError("Exception while adding post...");
 			} 
     	} else if(f!=null && f.getErrorMessage()!=null) {
-            setError(f.getErrorMessage());
+            if(mEditText!=null) mEditText.setError(f.getErrorMessage());
         }
     }
 

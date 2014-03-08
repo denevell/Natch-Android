@@ -6,7 +6,7 @@ import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.views.LaunchActivityFromOptionMenuActivator;
-import org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator;
+import org.denevell.droidnatch.posts.list.uievents.AddPostViewActivator;
 import org.denevell.droidnatch.posts.list.uievents.EditPostViewActivator;
 import org.denevell.droidnatch.posts.list.uievents.EditThreadViewActivator;
 import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
@@ -29,7 +29,7 @@ import dagger.Provides;
 @Module(injects = {
 		LoginViewActivator.class,
 		RegisterViewActivator.class,
-		AddPostTextEditActivator.class,
+		AddPostViewActivator.class,
 		AddThreadViewActivator.class,
         PreviousScreenReceiver.class,
         EditPostViewActivator.class,

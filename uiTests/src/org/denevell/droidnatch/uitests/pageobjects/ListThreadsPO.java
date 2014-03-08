@@ -20,7 +20,6 @@ import org.denevell.natch.android.R;
 import org.hamcrest.CoreMatchers;
 
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
-import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 
 public class ListThreadsPO {
 

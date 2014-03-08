@@ -2,7 +2,7 @@ package org.denevell.droidnatch.uitests.pageobjects;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.closeSoftKeyboard;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
@@ -10,12 +10,15 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import org.denevell.droidnatch.uitests.CustomMatchers;
 import org.denevell.natch.android.R;
 
+import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
+
 public class AddPostPO {
 
-    public AddPostPO addPost(String content) throws Exception {
+	public AddPostPO addPost(String content) throws Exception {
         closeSoftKeyboard();
-        onView(withId(R.id.list_posts_addpost_edittext))
-                .perform(typeText(content), pressImeActionButton());
+        onView(withId(R.id.post_add_edittext)).perform(typeText(content), ViewActions.closeSoftKeyboard());
+        try { Thread.sleep(300); } catch(Exception e) {}
+        onView(withId(R.id.post_add_button)).perform(click());
         return this;
     }
     

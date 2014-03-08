@@ -22,7 +22,6 @@ The Android client to the Natch REST project.
 
 ### Testing to do
 
-* Test memory consumption
 * Test can see author / date
 * Test can register from not logged in popup
 * Test back indicator on posts page
@@ -31,6 +30,7 @@ The Android client to the Natch REST project.
 * See if I can tests gcm notifications
 * Test duplicate registers.
 * Tech task: Unit tests from gradle
+* Test memory consumption
 
 ### Refactoring
 

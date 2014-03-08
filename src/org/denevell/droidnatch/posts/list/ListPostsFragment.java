@@ -1,7 +1,7 @@
 package org.denevell.droidnatch.posts.list;
 
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
-import org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator;
+import org.denevell.droidnatch.posts.list.uievents.AddPostViewActivator;
 import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
 import org.denevell.natch.android.R;
 
@@ -34,7 +34,7 @@ public class ListPostsFragment extends ObservableFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
     	super.onViewCreated(view, savedInstanceState);
         try {
-            AddPostTextEditActivator addPost = (AddPostTextEditActivator) getActivity().findViewById(R.id.list_posts_addpost_edittext);
+            AddPostViewActivator addPost = (AddPostViewActivator) getActivity().findViewById(R.id.list_posts_addpost_edittext);
             addPost.setup(getArguments());
             ListPostsViewStarter listPosts = (ListPostsViewStarter) getActivity().findViewById(R.id.list_posts_listpostsview_holder);
             listPosts.setup(getArguments());

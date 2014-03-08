@@ -75,18 +75,15 @@
         android:paddingBottom="0dp"
         >
 
-        <org.denevell.droidnatch.posts.list.uievents.AddPostTextEditActivator
+        <org.denevell.droidnatch.posts.list.uievents.AddPostViewActivator
             android:id="@+id/list_posts_addpost_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/forum_edit_text_holo_light"
             android:contentDescription="add_post_edittext"
             android:paddingTop="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:ems="10"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
             android:hint="Add post"
-            android:imeOptions="actionDone"
             android:inputType="textCapSentences"
             tools:ignore="HardcodedText" />
 

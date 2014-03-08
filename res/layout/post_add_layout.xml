@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+        <ScrollView
+		    xmlns:app="http://schemas.android.com/apk/res-auto"
+	        xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/list_threads_add_thread_pane_scrollview"
+            android:background="@color/content_add_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/post_add_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/add_thread_button"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/post_add_button"
+                    android:background="@drawable/forum_edit_text_holo_light"
+                    android:hint="Add post"
+                    android:imeOptions="actionDone"
+                    android:inputType="text|textCapSentences|textMultiLine"
+                    android:lines="2" />
+
+                <org.denevell.droidnatch.app.views.ButtonWithProgress
+                    android:id="@+id/post_add_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    app:button_background="@drawable/forum_btn_default_holo_light"
+                    app:button_text="+" 
+                    app:button_expand="false" 
+                    />
+
+            </RelativeLayout>
+
+        </ScrollView>
