@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.deploygate.sdk.DeployGate;
 
 public class Application extends android.app.Application {
 
@@ -18,6 +19,7 @@ public class Application extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        DeployGate.install(this);
         appInstance = this;
         setBasePathIfEmpty();
 
