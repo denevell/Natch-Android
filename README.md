@@ -1,21 +1,14 @@
 The Android client to the Natch REST project.
 
 ## Backlog  
-* ~~Links in posts~~
-* ~~Login on action button~~
-* ~~Green button with diff disabled and normal~~
-* ~~Save login info to prefs~~
-* ~~And clear logout info~~
-* ~~Loading on dialogue buttons~~
-* ~~Deploygate~~
-* ~~Hide gcm key on server~~
-
-### Icebox
 
 * Crash reporter
 * Have register link on login page
 * Add post button
 * Make add post box two lines high
+
+### Icebox
+
 * Edit text expanded on click
 * Edit text de-expanded on click
 * I should see an error on delete thread 
@@ -31,10 +24,12 @@ The Android client to the Natch REST project.
 ### Testing to do
 
 * Test memory consumption
+* Test can see author / date
+* Test back indicator on posts page
 * Test long click on first item in list thread listview
-* Tech task: Unit tests from gradle
 * See if I can tests gcm notifications
 * Test duplicate registers.
+* Tech task: Unit tests from gradle
 
 ### Refactoring
 

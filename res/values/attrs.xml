@@ -14,6 +14,7 @@
      <declare-styleable name="ButtonWithProgress">
      	<attr name="button_background" format="reference"></attr>
      	<attr name="button_text" format="string"></attr>
+     	<attr name="button_expand" format="boolean"></attr>
      </declare-styleable>
 
      <declare-styleable name="FragementPopMenuActivator">

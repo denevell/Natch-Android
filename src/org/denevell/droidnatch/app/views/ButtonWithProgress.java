@@ -32,6 +32,8 @@ public class ButtonWithProgress extends RelativeLayout {
 			Drawable buttonBackground = a.getDrawable(R.styleable.ButtonWithProgress_button_background);
 			mButton.setText(buttonText);
 			mButton.setBackgroundDrawable(buttonBackground);
+			boolean expand = a.getBoolean(R.styleable.ButtonWithProgress_button_expand, true);
+			if(!expand) mButton.getLayoutParams().width=LayoutParams.WRAP_CONTENT;
 		} finally {
 			a.recycle();
 		}

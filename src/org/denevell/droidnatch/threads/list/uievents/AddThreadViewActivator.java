@@ -5,8 +5,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.EventBus;
+import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
@@ -19,6 +19,7 @@ import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
+import org.denevell.droidnatch.app.views.ButtonWithProgress;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.droidnatch.threads.list.uievents.LoginViewActivator.LoginUpdatedEvent;
@@ -31,7 +32,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,7 +49,7 @@ public class AddThreadViewActivator extends LinearLayout implements
 	private ServiceFetcher<AddPostResourceInput, AddPostResourceReturnData> mAddPostService;
     @Inject ScreenOpener mScreenOpener;
     private GenericUiObserver mCallback;
-    private Button mButton;
+    private ButtonWithProgress mButton;
     private TextView mSubject;
     private TextView mContent;
     private Runnable mSuccessCallback;
@@ -57,7 +57,7 @@ public class AddThreadViewActivator extends LinearLayout implements
     public AddThreadViewActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.add_thread_layout, this, true);
-        mButton = (Button) findViewById(R.id.add_thread_button);
+        mButton = (ButtonWithProgress) findViewById(R.id.add_thread_button);
         mSubject = (TextView) findViewById(R.id.add_thread_subject_edittext);
         mContent = (TextView) findViewById(R.id.add_thread_content_edittext);
     }
@@ -83,8 +83,6 @@ public class AddThreadViewActivator extends LinearLayout implements
         updatedAddButtonOnLogin();
         inject();
         
-        Activity act = (Activity) getContext();
-        
         String url = ShamefulStatics.getBasePath()+getContext().getString(R.string.url_addthread);
         mAddPostService = new ServiceBuilder<AddPostResourceInput, AddPostResourceReturnData>()
         		.url(url)
@@ -95,7 +93,7 @@ public class AddThreadViewActivator extends LinearLayout implements
 						headersMap.put("AuthKey", ShamefulStatics.getAuthKey(getContext().getApplicationContext()));
 					}
 				})
-        		.create(act, AddPostResourceReturnData.class);
+        		.create(null, AddPostResourceReturnData.class);
         
         @SuppressWarnings("unchecked")
 		Controller addThreadController =
@@ -135,7 +133,7 @@ public class AddThreadViewActivator extends LinearLayout implements
 
     @Override
     public void success(AddPostResourceReturnData result) {
-        if(mButton!=null) mButton.setEnabled(true);
+        if(mButton!=null) mButton.loadingStop();
         mSubject.setText("");
         mSubject.setError(null);
         mContent.setText("");
@@ -150,7 +148,7 @@ public class AddThreadViewActivator extends LinearLayout implements
 
     @Override
     public void fail(FailureResult f) {
-        if(mButton!=null) mButton.setEnabled(true);
+        if(mButton!=null) mButton.loadingStop();
         if(f!=null && f.getErrorMessage()!=null) {
             mSubject.setError(f.getErrorMessage());
         }
@@ -162,7 +160,7 @@ public class AddThreadViewActivator extends LinearLayout implements
         mAddPostService.getRequest().getBody().setSubject(mSubject.getText().toString());
         String[] tags = new String[] {""};//mTags.getText().toString().split(",");
         mAddPostService.getRequest().getBody().setTags(Arrays.asList(tags));
-        if(mButton!=null) mButton.setEnabled(false);
+        if(mButton!=null) mButton.loadingStart();
         mCallback.onUiEventActivated();
     }
 
