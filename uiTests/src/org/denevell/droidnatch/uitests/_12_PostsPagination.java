@@ -1,12 +1,10 @@
 package org.denevell.droidnatch.uitests;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressImeActionButton;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 
-import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.MainPageActivity;
+import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.uitests.pageobjects.AddPostPO;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;

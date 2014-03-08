@@ -5,14 +5,13 @@ import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
-import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
 import org.denevell.droidnatch.uitests.CustomMatchers;
 import org.denevell.natch.android.R;
 
 import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
-import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 
 public class AddPostPO {
 
@@ -25,14 +24,13 @@ public class AddPostPO {
     }
     
 	public AddPostPO showBlankError() {
-        onView(withId(R.id.list_posts_addpost_edittext))
+        onView(withId(R.id.post_add_edittext))
         	.check(matches(CustomMatchers.showsErrorString("blank"))); // Therefore fail
         return this;
 	}
 	
 	public AddPostPO showLoginError() {
-        onView(withId(R.id.list_posts_addpost_edittext))
-        	.check(matches(withText("login"))); // Therefore fail
+        onView(withId(R.id.please_login_context_menu)).check(matches(isDisplayed())); // Therefore fail
         return this;
 	}
 
