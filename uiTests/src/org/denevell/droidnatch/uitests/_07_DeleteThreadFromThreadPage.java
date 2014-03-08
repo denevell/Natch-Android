@@ -18,6 +18,7 @@ import java.util.Date;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
+import org.denevell.droidnatch.uitests.pageobjects.AddPostPO;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
@@ -62,7 +63,7 @@ public class _07_DeleteThreadFromThreadPage extends NatchAndroidInstrumentationW
 	public void testCannotDeleteOthersThread() throws Exception {
         new AddThreadPO().addThread("New thread to edit", "New thread to edit");
         
-        new ListPostsPO().addPost("New post");
+        new AddPostPO().addPost("New post");
         
         pressBack();
 

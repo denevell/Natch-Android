@@ -14,6 +14,7 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import java.util.Date;
 
 import org.denevell.droidnatch.MainPageActivity;
+import org.denevell.droidnatch.uitests.pageobjects.AddPostPO;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.EditPostPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
@@ -45,8 +46,7 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
 	public void test() throws Exception {
         new AddThreadPO().addThread("New thread", "New thread");
 
-        onView(withId(R.id.list_posts_addpost_edittext))
-                .perform(typeText("New post in thread"), pressImeActionButton());
+        new AddPostPO().addPost("New post in thread");
 
         new ListPostsPO().bringUpEditDeleteOptions(1);
 
@@ -61,7 +61,7 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
 	public void testCannotEditOthersPost() throws Exception {
         new AddThreadPO().addThread("New thread to edit", "New thread to edit");
         
-        new ListPostsPO().addPost("New post");
+        new AddPostPO().addPost("New post");
         
         pressBack();
 
@@ -80,8 +80,7 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
 	public void testErrorOnBlanks() throws Exception {
         new AddThreadPO().addThread("New thread", "New thread");
 
-        onView(withId(R.id.list_posts_addpost_edittext))
-                .perform(typeText("New post in thread"), pressImeActionButton());
+        new AddPostPO().addPost("New post in thread");
 
         new ListPostsPO().bringUpEditDeleteOptions(1);
 

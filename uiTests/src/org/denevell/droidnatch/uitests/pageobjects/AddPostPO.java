@@ -6,11 +6,13 @@ import static com.google.android.apps.common.testing.ui.espresso.action.ViewActi
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
 import org.denevell.droidnatch.uitests.CustomMatchers;
 import org.denevell.natch.android.R;
 
 import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
+import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 
 public class AddPostPO {
 
@@ -30,7 +32,7 @@ public class AddPostPO {
 	
 	public AddPostPO showLoginError() {
         onView(withId(R.id.list_posts_addpost_edittext))
-        	.check(matches(CustomMatchers.showsErrorString("login"))); // Therefore fail
+        	.check(matches(withText("login"))); // Therefore fail
         return this;
 	}
 

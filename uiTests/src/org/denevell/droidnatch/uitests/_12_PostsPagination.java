@@ -7,6 +7,7 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 
 import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.MainPageActivity;
+import org.denevell.droidnatch.uitests.pageobjects.AddPostPO;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
@@ -35,8 +36,7 @@ public class _12_PostsPagination extends NatchAndroidInstrumentationWithLogin {
         onView(withId(R.id.list_posts_listview))
         	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(1)));
 
-        onView(withId(R.id.list_posts_addpost_edittext))
-                .perform(typeText("One"), pressImeActionButton());
+        new AddPostPO().addPost("One");
         
         // Should now trigger the pagination to show more
 

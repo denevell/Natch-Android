@@ -13,6 +13,7 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import java.util.Date;
 
 import org.denevell.droidnatch.MainPageActivity;
+import org.denevell.droidnatch.uitests.pageobjects.AddPostPO;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.EditThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
@@ -87,7 +88,7 @@ public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
 	public void testCannotEditOthersThread() throws Exception {
         new AddThreadPO().addThread("New thread to edit", "New thread to edit");
         
-        new ListPostsPO().addPost("New post");
+        new AddPostPO().addPost("New post");
         
         pressBack();
 

@@ -17,6 +17,7 @@ import java.util.Date;
 
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
+import org.denevell.droidnatch.uitests.pageobjects.AddPostPO;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
@@ -44,8 +45,7 @@ public class _08_DeletePost extends NatchAndroidInstrumentationWithLogin {
         String date = new Date().toString();
         new AddThreadPO().addThread("New thread to open"+date, "New thread to open"+date);
 
-        onView(withId(R.id.list_posts_addpost_edittext))
-                .perform(typeText("New post in thread"), pressImeActionButton());
+        new AddPostPO().addPost("New post in thread");
 
         onView(withId(R.id.list_posts_listview))
                 .check(matches(listViewHasElements(2)));

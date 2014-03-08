@@ -33,12 +33,6 @@ public class ListPostsPO {
         return this;
 	}
 
-	public ListPostsPO addPost(String string) {
-        onView(withId(R.id.list_posts_addpost_edittext))
-                .perform(typeText(string), pressImeActionButton());
-        return this;
-	}
-
 	@SuppressWarnings("unchecked")
 	public ListPostsPO bringUpEditDeleteOptions(int row) {
 		onData(allOf(is(instanceOf(PostResource.class)))).atPosition(row).perform(longClick());
