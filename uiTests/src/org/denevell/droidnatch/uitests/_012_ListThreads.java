@@ -6,6 +6,8 @@ import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewA
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 
+import java.util.Date;
+
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
@@ -51,6 +53,12 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
         new ListThreadsPO().seeEmptyView();
         new AddThreadPO().addThreadAndPressBack("Listing threads", "Listing threads");
         new ListThreadsPO().dontSeeEmptyView();
+    }
+
+	public void testCanSeeDate() throws Exception {
+    	long time = new Date().getTime();
+        new AddThreadPO().addThreadAndPressBack("Listing threads", "Listing threads");
+        new ListThreadsPO().seeAuthorAndPostsNum("aaron", time, 1);
     }
 
     public void testRefreshButton() throws Exception {

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class CustomMatchers {
 
@@ -125,6 +126,30 @@ public class CustomMatchers {
             @Override
             public void describeTo(Description description) {
                 description.appendText("Edit text should contain error string: " + contains);
+            }
+        };
+	}
+
+	public static Matcher<? super View> withRegexText(final String regex) {
+        return new TypeSafeMatcher<View>() {
+			private String text;
+			@Override
+            public boolean matchesSafely(View view) {
+                if (!(view instanceof TextView)) {
+                    return false;
+                }
+                TextView v = (TextView) view;
+                text = v.getText().toString();
+				if(text == null) {
+					return false;
+				}
+				boolean ret = text.matches(regex);
+                return ret;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText(text + "should match the regex: " + regex);
             }
         };
 	}

@@ -2,7 +2,6 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 * Paste in the add thread box.
-* Test can see author / date
 * Test can register from not-logged-in popup
 * Test going to website
 * Test long click on first item in list thread listview
@@ -28,7 +27,6 @@ The Android client to the Natch REST project.
 * Test register / login after failed post
 * See if I can tests gcm notifications
 * Test duplicate registers.
-* Test to see number of posts
 * Tech task: Unit tests from gradle
 * Test memory consumption
 
@@ -97,6 +95,7 @@ The Android client to the Natch REST project.
 1a.  I should see an error on list threads 
 1b.  I should see empty screen on no threads
 1c.  I should be able to use a refresh button
+1d   I should see the date and number posts
 3.   I should be able to add a new thread and first post in thread
 3a.  I should see server error on adding a new thread with blank input
 3b.  I should see error when I attempt to add a thread when not logged in
