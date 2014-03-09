@@ -35,7 +35,10 @@ public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
         ThreadResource o = getItem(position);
         threadTitle.setText(o.getSubject());
         threadAuthor.setText(o.getAuthor());
-        dateText.setText(" @ " + o.getLastModifiedDate()+" "+o.getLastModifiedTime());
+        int numPosts = o.getNumPosts();
+        dateText.setText(" @ " + o.getLastModifiedDate()+" "+o.getLastModifiedTime() + " | Posts: " + numPosts);
+        
+        //☆
         
 //        if(position>1 && position > mLastPosition) {
 //        	Animation animation = AnimationUtils.loadAnimation(getContext(), (position > mLastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
