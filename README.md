@@ -1,10 +1,8 @@
 The Android client to the Natch REST project.
 
 ## Backlog  
-* Paste in the add thread box.
-* Test can register from not-logged-in popup
-* Test going to website
 * Test long click on first item in list thread listview
+* Only receive gcm notifications from uat, not live.
 
 ### Icebox
 
@@ -16,7 +14,6 @@ The Android client to the Natch REST project.
 * I should keep the found threads on rotate / onResume / app close
 * 403/401 logs you out?
 * I should be able to see new threads notification, a la g+ 
-* Only receive gcm notifications from uat, not live.
 * Sliding add thread 
 * Sliding add post
 * Turn of notifications in notification
@@ -24,6 +21,8 @@ The Android client to the Natch REST project.
 
 ### Testing to do
 
+* Test can register from not-logged-in popup
+* Test going to website
 * Test register / login after failed post
 * See if I can tests gcm notifications
 * Test duplicate registers.

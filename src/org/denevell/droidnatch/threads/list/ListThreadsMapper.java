@@ -93,6 +93,7 @@ public class ListThreadsMapper {
 
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+				if(position==0) return false; // This is the add thread header;
 				Callback callback = new CallbackImplementation(listView, position);
 				((FragmentActivity)parent.getContext()).startActionMode(callback);
 				return true;
