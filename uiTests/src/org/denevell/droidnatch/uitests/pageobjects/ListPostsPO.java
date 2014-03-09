@@ -12,6 +12,10 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.CustomMatchers;
 import org.denevell.natch.android.R;
@@ -75,6 +79,18 @@ public class ListPostsPO {
 
 	public ListPostsPO pressBackIcon() {
         onView(withContentDescription("Navigate up")).perform(click());
+		return this;
+	}
+	
+	public ListPostsPO seeDate(long time) {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(time);
+        int dom = c.get(Calendar.DAY_OF_MONTH);
+        String month = new SimpleDateFormat("MM", Locale.UK).format(c.getTime());
+        String year = new SimpleDateFormat("yy", Locale.UK).format(c.getTime());
+        String dateString = dom + "/" + month + "/" + year;		
+        onView(withContentDescription("list_posts_row_date0")).check(ViewAssertions.matches(
+        		CustomMatchers.withRegexText(".*"+dateString+"\\\n.*")));
 		return this;
 	}
 

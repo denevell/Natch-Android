@@ -149,7 +149,7 @@ public class CustomMatchers {
 
             @Override
             public void describeTo(Description description) {
-                description.appendText(text + "should match the regex: " + regex);
+                description.appendText(text + " should match the regex: " + regex);
             }
         };
 	}

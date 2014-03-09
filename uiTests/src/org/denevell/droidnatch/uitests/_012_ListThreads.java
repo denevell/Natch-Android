@@ -58,7 +58,7 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
 	public void testCanSeeDate() throws Exception {
     	long time = new Date().getTime();
         new AddThreadPO().addThreadAndPressBack("Listing threads", "Listing threads");
-        new ListThreadsPO().seeAuthorAndPostsNum("aaron", time, 1);
+        new ListThreadsPO().seeDateAndPostsNum(time, 1);
     }
 
     public void testRefreshButton() throws Exception {

@@ -9,6 +9,8 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
+import java.util.Date;
+
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.uitests.pageobjects.AddPostPO;
@@ -136,4 +138,11 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
         
         new ListThreadsPO().checkHasNumberOfThreads(1);
     }    
+
+	public void shouldSeeDateOnPost() throws Exception {
+        new AddThreadPO().addThread("New thread", "New thread");
+
+        new ListPostsPO()
+        	.seeDate(new Date().getTime());
+    }
 }

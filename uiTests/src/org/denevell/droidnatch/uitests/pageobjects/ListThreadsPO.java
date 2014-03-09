@@ -93,7 +93,7 @@ public class ListThreadsPO {
         return this;
 	}
 
-	public ListThreadsPO seeAuthorAndPostsNum(String string, long time, int pageNum) {
+	public ListThreadsPO seeDateAndPostsNum(long time, int pageNum) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(time);
         int dom = c.get(Calendar.DAY_OF_MONTH);
