@@ -17,7 +17,6 @@ import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.Lazy
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.utils.AndroidUtils;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
@@ -32,7 +31,6 @@ import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.ActionMode;
@@ -42,7 +40,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.RelativeLayout;
 
 import com.android.volley.Request;
 
@@ -63,16 +60,19 @@ public class ListThreadsMapper {
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-	@Provides @Singleton
+	@Provides
     public ReceivingClickingAutopaginatingListView<ListThreadsResource, ThreadResource, List<ThreadResource>> providesListView(
     		final ServiceFetcher<Void, ListThreadsResource> listService,
     		final ListThreadsPaginationObject pagination,
-    		OnPress<ThreadResource> onPressListener,
-    		Context appContext
+    		OnPress<ThreadResource> onPressListener
     		) {
         final ReceivingClickingAutopaginatingListView listView = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.threads_listview);
 
-        ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(appContext, R.layout.threads_list_row);
+        ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(mActivity.getApplicationContext(), R.layout.threads_list_row);
+
+		if(true) return listView
+        	.setTypeAdapter(new ListThreadsToList())
+			.setListAdapter(listAdapter);
 
 		listView
 			.setListAdapter(listAdapter)
@@ -90,6 +90,7 @@ public class ListThreadsMapper {
 				}})
 			.setAvailableItems(new ListThreadsResourceTotalAvailable())
         	.setKeyboardHider(new HideKeyboard());
+        if(true) return null;
 		
 		listView.addHeaderView(new AddThreadViewActivator(mActivity, null));
 
@@ -108,7 +109,6 @@ public class ListThreadsMapper {
     }
 
 	@Provides
-	@Singleton
 	public OnPress<ThreadResource> providesOnListClickAction(
 			final ScreenOpener screenOpener,
 			final ListPostsPaginationObject pagination) {
@@ -126,7 +126,7 @@ public class ListThreadsMapper {
 		return onPress;
 	}
     
-    @Provides @Singleton 
+    @Provides @Singleton
     public ServiceFetcher<Void, ListThreadsResource> provideListThreadsService(
     		ListThreadsPaginationObject pagination) {
 		String url = ShamefulStatics.getBasePath()+mActivity.getString(R.string.url_threads);

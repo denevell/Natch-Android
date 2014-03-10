@@ -6,6 +6,7 @@ import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.natch.android.R;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,12 +47,14 @@ public class ListPostsArrayAdapter extends ArrayAdapter<PostResource> {
 //        }
         mLastPosition = position;        
 
-        // So it doesn't clash with transparent nav bar
-        if(position==getCount()-1) {
-        	convertView.setPadding(0, 0, 0, AndroidUtils.getNavigationBarHeight(getContext()));
-        } else {
-        	convertView.setPadding(0, 0, 0, 0);
-        }
+		// So it doesn't clash with transparent nav bar
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			if (position == getCount() - 1) {
+				convertView.setPadding(0, 0, 0, AndroidUtils.getNavigationBarHeight(getContext()));
+			} else {
+				convertView.setPadding(0, 0, 0, 0);
+			}
+		}
 
         return convertView;
         

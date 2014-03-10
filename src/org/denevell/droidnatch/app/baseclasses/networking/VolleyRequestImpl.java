@@ -1,5 +1,6 @@
 package org.denevell.droidnatch.app.baseclasses.networking;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,8 +24,8 @@ public class VolleyRequestImpl<I, R> implements VolleyRequest<I, R> {
 
 	private ObjectToStringConverter mResponseConverter;
     private String mUrl;
-    private ErrorListener mErrorListener;
-    private Listener<JSONObject> mListener;
+    private WeakReference<ErrorListener> mErrorListener;
+    private WeakReference<Listener<JSONObject>> mListener;
     private Map<String, String> headersMap = new HashMap<String, String>();
     private I mBody;
 	private int mRequestType;
@@ -50,12 +51,12 @@ public class VolleyRequestImpl<I, R> implements VolleyRequest<I, R> {
 
     @Override
     public void setErrorListener(ErrorListener errorListener) {
-        mErrorListener = errorListener;
+        mErrorListener = new WeakReference<ErrorListener>(errorListener);
     }
 
     @Override
     public void setListener(Listener<JSONObject> listener) {
-        mListener = listener;
+        mListener = new WeakReference<Listener<JSONObject>>(listener);
     }
 
     @SuppressWarnings("rawtypes")
@@ -73,7 +74,7 @@ public class VolleyRequestImpl<I, R> implements VolleyRequest<I, R> {
     	}
         JsonObjectRequest jsObjRequest = new JsonObjectRequest( 
                 mRequestType, mUrl, jOb,
-                mListener, mErrorListener) {
+                mListener.get(), mErrorListener.get()) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                Map<String, String> headers = super.getHeaders();

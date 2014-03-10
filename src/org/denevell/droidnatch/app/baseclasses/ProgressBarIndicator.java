@@ -1,25 +1,31 @@
 package org.denevell.droidnatch.app.baseclasses;
 
+import java.lang.ref.WeakReference;
+
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 
 import android.app.Activity;
 
 public class ProgressBarIndicator implements ProgressIndicator {
     
-    private Activity mActivity;
+    private WeakReference<Activity> mActivity;
 
     public ProgressBarIndicator(Activity activity) {
-        mActivity = activity;
+        mActivity = new WeakReference<Activity>(activity);
     }
     
     @Override
     public void start() {
-        mActivity.setProgressBarIndeterminateVisibility(true);
+    	if(mActivity!=null && mActivity.get()!=null) {
+    		mActivity.get().setProgressBarIndeterminateVisibility(true);
+    	}
     }
     
     @Override
     public void stop() {
-        mActivity.setProgressBarIndeterminateVisibility(false);
+    	if(mActivity!=null && mActivity.get()!=null) {
+    		mActivity.get().setProgressBarIndeterminateVisibility(false);
+    	}
     }
 
 }

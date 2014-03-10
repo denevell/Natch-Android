@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.EventBus;
+import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
@@ -52,15 +52,15 @@ public class ListThreadsViewStarter extends View {
 	@Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        EventBus.getBus().register(this);
         createObjectGraph();
-
+        //StoreReferenceToLatestPostReceiver a = new StoreReferenceToLatestPostReceiver(getContext().getApplicationContext());
         controller = new UiEventThenServiceThenUiEvent<ListThreadsResource>(
                 mListThreadsService,
                 mListViewReceivingUiObject,
-                new StoreReferenceToLatestPostReceiver(getContext().getApplicationContext()))
+                null)
                 	.setup();
 
-        EventBus.getBus().register(this);
     }
 
     @Override

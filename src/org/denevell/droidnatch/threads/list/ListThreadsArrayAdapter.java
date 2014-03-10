@@ -5,6 +5,7 @@ import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,11 +50,13 @@ public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
         mLastPosition = position;        
         
         // So it doesn't clash with transparent nav bar
-        if(position==getCount()-1) {
-        	convertView.setPadding(0, 0, 0, AndroidUtils.getNavigationBarHeight(getContext()));
-        } else {
-        	convertView.setPadding(0, 0, 0, 0);
-        }
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			if (position == getCount() - 1) {
+				convertView.setPadding(0, 0, 0, AndroidUtils.getNavigationBarHeight(getContext()));
+			} else {
+				convertView.setPadding(0, 0, 0, 0);
+			}
+		}
         
         return convertView;
     }

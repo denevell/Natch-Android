@@ -94,6 +94,7 @@ public class AddThreadViewActivator extends LinearLayout implements
 					}
 				})
         		.create(null, AddPostResourceReturnData.class);
+        if(true) return;
         
         @SuppressWarnings("unchecked")
 		Controller addThreadController =

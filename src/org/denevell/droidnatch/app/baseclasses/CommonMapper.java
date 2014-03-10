@@ -1,7 +1,5 @@
 package org.denevell.droidnatch.app.baseclasses;
 
-import javax.inject.Singleton;
-
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
@@ -54,12 +52,12 @@ public class CommonMapper {
         mAppContext = c.getApplicationContext();
     }
 
-    @Provides @Singleton
+    @Provides 
     public Context providesAppContext() {
         return mAppContext;
     }
     
-    @Provides @Singleton
+    @Provides 
     public ProgressIndicator providesProgress() {
         ProgressBarIndicator progress = new ProgressBarIndicator(mActivityContext);
         return progress;

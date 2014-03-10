@@ -1,13 +1,13 @@
 package org.denevell.droidnatch.app.baseclasses;
 
-import android.util.Log;
-
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
+
+import android.util.Log;
 
 @SuppressWarnings("rawtypes")
 public class UiEventThenServiceThenUiEvent<T> implements Controller,
@@ -85,7 +85,7 @@ public class UiEventThenServiceThenUiEvent<T> implements Controller,
         if(mLoadingView!=null) {
             mLoadingView.stop();
         }
-        if(mNextUiEvents!=null) {
+		if(mNextUiEvents!=null) {
             for (Receiver<T> event : mNextUiEvents) {
                 if(r!=null && event!=null) {
                     Log.v(TAG, "Calling next ui event");

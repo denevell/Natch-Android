@@ -10,9 +10,9 @@ public class PaginationMapper {
 	
     public static class PaginationObject {
         public int start = 0;
-        public int range = 10;
-        public int defaultRange = 10;
-        public int paginationMaximum = 10;
+        public int range = 1;
+        public int defaultRange = 1;
+        public int paginationMaximum = 1;
 		public void paginate() {
 			range=range+paginationMaximum;
 		}

@@ -167,7 +167,7 @@ public class ReceivingClickingAutopaginatingListView
     public void setAdapter(ListAdapter adapter) {
     	setPaginationFooterIfNeeded(adapter);
     	super.setAdapter(adapter);
-        findAndSetEmptyView();
+        //findAndSetEmptyView();
     }
 	
     // On selection stuff

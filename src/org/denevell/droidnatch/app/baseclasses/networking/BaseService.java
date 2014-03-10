@@ -1,5 +1,7 @@
 package org.denevell.droidnatch.app.baseclasses.networking;
 
+import java.lang.ref.WeakReference;
+
 import org.denevell.droidnatch.Application;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
@@ -25,7 +27,7 @@ public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, S
 
     private static final String TAG = BaseService.class.getSimpleName();
     protected ProgressIndicator mProgress;
-    protected ServiceCallbacks<T> mCallbacks;
+    protected WeakReference<ServiceCallbacks<T>> mCallbacks;
     private FailureResultFactory mFailureResultFactory;
     protected VolleyRequest<I, T> mVolleyRequest;
     private ObjectToStringConverter mResponseConverter;
@@ -42,8 +44,8 @@ public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, S
         mVolleyRequest = volleyRequest;
         mResponseConverter = responseConverter;
         mClass = classInstance;
-        mVolleyRequest.setErrorListener(this);
-        mVolleyRequest.setListener(this);
+        mVolleyRequest.setErrorListener(new WeakReference<ErrorListener>(this).get());
+        mVolleyRequest.setListener(new WeakReference<Listener>(this).get());
     }
     
     @Override
@@ -73,7 +75,7 @@ public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, S
 
     @Override
     public void setServiceCallbacks(ServiceCallbacks<T> callbacks) {
-        mCallbacks = callbacks;
+        mCallbacks = new WeakReference<ServiceCallbacks<T>>(callbacks);
     }    
     
     @Override
@@ -95,11 +97,12 @@ public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, S
         }
         String success = response.toString();
         T res = mResponseConverter.convert(success, mClass);
-        if(mCallbacks!=null) {
-            mCallbacks.onServiceSuccess(res);
+        if(mCallbacks!=null && mCallbacks.get()!=null) {
+            mCallbacks.get().onServiceSuccess(res);
         }
+        removeReferences();
     }
-    
+
     @Override
     public void onErrorResponse(VolleyError error) {
     	if(error!=null && error.getMessage()!=null && error.getMessage().equals("java.io.IOException: No authentication challenges found")) {
@@ -110,9 +113,20 @@ public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, S
             mProgress.stop();
         }        
         FailureResult f = mFailureResultFactory.newInstance(error);
-        if(mCallbacks!=null) {
-            mCallbacks.onServiceFail(f);
+        if(mCallbacks!=null && mCallbacks.get()!=null) {
+            mCallbacks.get().onServiceFail(f);
         }
+        removeReferences();
     }
+
+    /**
+     * For garbage collection
+     */
+	private void removeReferences() {
+		//mVolleyRequest = null;
+        //mProgress = null;
+        //mCallbacks = null;
+	}
+    
 
 }

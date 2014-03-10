@@ -11,6 +11,7 @@ import org.denevell.natch.android.R;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -28,6 +29,7 @@ public class MainPageActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         try {
             requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+            setContentView(R.layout.activity_main);
             mOpener = new FragmentScreenOpener(this);
             setContentView(R.layout.activity_main);
         } catch (Exception e) {
@@ -39,7 +41,9 @@ public class MainPageActivity extends FragmentActivity {
     @Override
     protected void onResume() {
     	super.onResume();
-        setTransparentNavigationMenu();
+    	if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+    		setTransparentNavigationMenu();
+    	}
     }
 
     @Override
@@ -60,6 +64,13 @@ public class MainPageActivity extends FragmentActivity {
     		gotoMainFragment(mOpener);
     	}
     }
+    
+    @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	Application.killRequestQueue();
+    }
+
 
 	private void gotoThreadPageFromIntent(Intent intent) {
 		Bundle extras = intent.getExtras();

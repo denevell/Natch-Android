@@ -37,7 +37,7 @@ public class Application extends android.app.Application {
         if(ShamefulStatics.getBasePath()==null || ShamefulStatics.getBasePath().isEmpty()) {
             ShamefulStatics.setBasePath(getString(R.string.url_baseurl));
         }
-        //ShamefulStatics.setBasePath("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/");
+        ShamefulStatics.setBasePath("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/");
     }
 
     public synchronized static RequestQueue getRequestQueue () {
@@ -45,5 +45,13 @@ public class Application extends android.app.Application {
             requestQueue = Volley.newRequestQueue(appInstance);
         }
         return requestQueue;
+    }
+    
+    /**
+     * To prevent memory leaks
+     */
+    public synchronized static void killRequestQueue() {
+    	requestQueue = null;
+    	//appInstance = null;
     }
 }
