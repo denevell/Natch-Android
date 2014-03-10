@@ -68,12 +68,8 @@ public class ListThreadsMapper {
     		) {
         final ReceivingClickingAutopaginatingListView listView = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.threads_listview);
 
-        ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(mActivity.getApplicationContext(), R.layout.threads_list_row);
-
-		if(true) return listView
-        	.setTypeAdapter(new ListThreadsToList())
-			.setListAdapter(listAdapter);
-
+        final ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(mActivity.getApplicationContext(), R.layout.threads_list_row);
+    	
 		listView
 			.setListAdapter(listAdapter)
         	.setTypeAdapter(new ListThreadsToList())
@@ -90,7 +86,6 @@ public class ListThreadsMapper {
 				}})
 			.setAvailableItems(new ListThreadsResourceTotalAvailable())
         	.setKeyboardHider(new HideKeyboard());
-        if(true) return null;
 		
 		listView.addHeaderView(new AddThreadViewActivator(mActivity, null));
 

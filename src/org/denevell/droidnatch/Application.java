@@ -21,6 +21,7 @@ public class Application extends android.app.Application {
         super.onCreate();
         DeployGate.install(this);
         appInstance = this;
+        getRequestQueue();
         setBasePathIfEmpty();
 
         GcmServerRegister.registerForPushInBackground(this);

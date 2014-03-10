@@ -29,7 +29,6 @@ public class MainPageActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         try {
             requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-            setContentView(R.layout.activity_main);
             mOpener = new FragmentScreenOpener(this);
             setContentView(R.layout.activity_main);
         } catch (Exception e) {
