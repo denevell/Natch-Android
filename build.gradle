@@ -69,7 +69,7 @@ android {
         packagingOptions {
           exclude 'LICENSE.txt'
         }
-        compileSdkVersion 18
+        compileSdkVersion 19
 }
 
 // Unit tests

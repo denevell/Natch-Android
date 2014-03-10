@@ -1,4 +1,5 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android"> 
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"> 
     <!--
         Base application theme for API 14+. This theme completely replaces
         AppBaseTheme from BOTH res/values/styles.xml and
@@ -6,6 +7,9 @@
     -->
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
         <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:windowActionBarOverlay" tools:targetApi="19">false</item>
+        <item name="android:windowTranslucentNavigation" tools:targetApi="19">true</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="19">false</item>
         <!-- API 14 theme customizations can go here. -->
     </style>
 

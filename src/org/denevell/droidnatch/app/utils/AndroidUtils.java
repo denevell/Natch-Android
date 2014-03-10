@@ -1,8 +1,10 @@
 package org.denevell.droidnatch.app.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.util.TypedValue;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -34,6 +36,41 @@ public class AndroidUtils {
     	}
     }
 
+	public static int getStatusBarHeight(Context activityContext) {
+	      int result = 0;
+	      int resourceId = activityContext.getResources().getIdentifier("status_bar_height", "dimen", "android");
+	      if (resourceId > 0) {
+	          result = activityContext.getResources().getDimensionPixelSize(resourceId);
+	      }
+	      return result;
+	}
+
+	public static int getNavigationBarWidth(Context activityContext) {
+	      int result = 0;
+	      int resourceId = activityContext.getResources().getIdentifier("navigation_bar_width", "dimen", "android");
+	      if (resourceId > 0) {
+	          result = activityContext.getResources().getDimensionPixelSize(resourceId);
+	      }
+	      return result;
+	}
+
+	public static int getNavigationBarHeight(Context activityContext) {
+	      int result = 0;
+	      int resourceId = activityContext.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+	      if (resourceId > 0) {
+	          result = activityContext.getResources().getDimensionPixelSize(resourceId);
+	      }
+	      return result;
+	}
+	
+	public static int getActionbarHeight(Context activityContext) {
+		TypedValue tv = new TypedValue();
+		int actionBarHeight = 0;
+		if (activityContext.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+			actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,activityContext.getResources().getDisplayMetrics());
+		}
+		return actionBarHeight;
+	}
 
 
 }
