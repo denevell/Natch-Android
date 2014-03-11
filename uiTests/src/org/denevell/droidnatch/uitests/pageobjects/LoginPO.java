@@ -61,7 +61,7 @@ public class LoginPO {
 	
 	public LoginPO logout(Instrumentation instrumentation, String username) {
         onView(withId(R.id.threads_option_menu_login)).perform(click());
-        onView(withId(R.id.logout_button)).perform(click());
+        //onView(withId(R.id.logout_button)).perform(click());
 		return this;
 	}
 

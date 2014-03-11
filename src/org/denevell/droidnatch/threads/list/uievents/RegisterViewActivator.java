@@ -18,8 +18,6 @@ import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.RegisterResourceInput;
 import org.denevell.droidnatch.threads.list.entities.RegisterResourceReturnData;
-import org.denevell.droidnatch.threads.list.uievents.LoginViewActivator.RefreshOptionsMenuReceiver;
-import org.denevell.droidnatch.threads.list.uievents.LoginViewActivator.UpdateLoginInfoReceiver;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
@@ -106,8 +104,8 @@ public class RegisterViewActivator extends LinearLayout implements
 				null,
 				mLoginService, 
 				null, 
-				new RefreshOptionsMenuReceiver(act),
-				new UpdateLoginInfoReceiver(mUsername),
+				//new RefreshOptionsMenuReceiver(act),
+				//new UpdateLoginInfoReceiver(mUsername),
 				new Receiver<LoginResourceReturnData>() {
 					@Override
 					public void success(LoginResourceReturnData result) {

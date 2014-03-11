@@ -10,7 +10,6 @@ import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.PaginationMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.PaginationMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.ShamefulStatics;
-import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment.ContextMenuItemHolder;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
@@ -20,26 +19,18 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
-import org.denevell.droidnatch.threads.list.entities.ListThreadsResourceTotalAvailable;
-import org.denevell.droidnatch.threads.list.entities.ListThreadsToList;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.LogoutResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-import org.denevell.droidnatch.threads.list.uievents.AddThreadViewActivator;
-import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
 import org.denevell.natch.android.R;
 
 import android.app.Activity;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.ActionMode.Callback;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.android.volley.Request;
 
@@ -66,41 +57,42 @@ public class ListThreadsMapper {
     		final ListThreadsPaginationObject pagination,
     		OnPress<ThreadResource> onPressListener
     		) {
-        final ReceivingClickingAutopaginatingListView listView = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.threads_listview);
-
-        final ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(mActivity.getApplicationContext(), R.layout.threads_list_row);
-    	
-		listView
-			.setListAdapter(listAdapter)
-        	.setTypeAdapter(new ListThreadsToList())
-			.setPaginationView(R.layout.pagination_button_generic)
-            .setErrorViewId(R.id.list_view_service_error)
-			.addOnPaginationFooterVisibleCallback(new Runnable() {
-				@Override public void run() {
-					pagination.paginate();
-					String url = ShamefulStatics.getBasePath()
-							+ mActivity.getString(R.string.url_threads) + ""
-							+ pagination.start + "/" + pagination.range;
-					listService.getRequest().setUrl(url);
-					EventBus.getBus().post(new ListThreadsViewStarter.CallControllerListThreads());
-				}})
-			.setAvailableItems(new ListThreadsResourceTotalAvailable())
-        	.setKeyboardHider(new HideKeyboard());
-		
-		listView.addHeaderView(new AddThreadViewActivator(mActivity, null));
-
-		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
-			@Override public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-				if(position==0) return false; // This is the add thread header;
-				Callback callback = new CallbackImplementation(listView, position);
-				((FragmentActivity)parent.getContext()).startActionMode(callback);
-				return true;
-				}
-			});
-
-        listView.addOnPressListener(onPressListener);
-        
-        return listView;
+    	return null;
+//         final ReceivingClickingAutopaginatingListView listView = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.threads_listview);
+//
+//        final ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(mActivity.getApplicationContext(), R.layout.threads_list_row);
+//    	
+//		listView
+//			.setListAdapter(listAdapter)
+//        	.setTypeAdapter(new ListThreadsToList())
+//			.setPaginationView(R.layout.pagination_button_generic)
+//            .setErrorViewId(R.id.list_view_service_error)
+//			.addOnPaginationFooterVisibleCallback(new Runnable() {
+//				@Override public void run() {
+//					pagination.paginate();
+//					String url = ShamefulStatics.getBasePath()
+//							+ mActivity.getString(R.string.url_threads) + ""
+//							+ pagination.start + "/" + pagination.range;
+//					listService.getRequest().setUrl(url);
+//					EventBus.getBus().post(new ListThreadsViewStarter.CallControllerListThreads());
+//				}})
+//			.setAvailableItems(new ListThreadsResourceTotalAvailable())
+//        	.setKeyboardHider(new HideKeyboard());
+//		
+//		listView.addHeaderView(new AddThreadViewActivator(mActivity, null));
+//
+//		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+//			@Override public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+//				if(position==0) return false; // This is the add thread header;
+//				Callback callback = new CallbackImplementation(listView, position);
+//				((FragmentActivity)parent.getContext()).startActionMode(callback);
+//				return true;
+//				}
+//			});
+//
+//        listView.addOnPressListener(onPressListener);
+//        
+//        return listView;
     }
 
 	@Provides

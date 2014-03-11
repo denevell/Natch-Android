@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="5dp"
     android:paddingTop="5dp" >
-
+<!-- 
     <ScrollView
         android:id="@+id/threads_list_add_thread_pane_scrollview"
         android:layout_width="match_parent"
@@ -24,18 +24,18 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 tools:ignore="TextFields" />
-
+ -->
             <EditText
                 android:id="@+id/login_username_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Username"
                 android:imeOptions="actionNext|flagNavigateNext"
-                android:inputType="text"
+                android:inputType="textNoSuggestions"
                 android:nextFocusForward="@+id/login_password_edittext"
                 android:singleLine="true"
                 tools:ignore="HardcodedText" />
-
+<!-- 
             <EditText
                 android:id="@+id/login_password_edittext"
                 android:layout_width="match_parent"
@@ -67,6 +67,6 @@
         android:gravity="center"
 		app:button_background="@drawable/forum_btn_default_holo_light"
         app:button_text="Logout"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText" /> -->
 
 </RelativeLayout>

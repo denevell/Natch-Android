@@ -60,15 +60,15 @@ public class DialoguePopupOnMenuActivator extends ViewThatListensOnEventBus {
 
 	public void createDialogue(final MenuItem menu, final Object entity) {
 		if (menu.getItemId() != mOptionId) return;
-		InitialiseView viewInit = new InitialiseView() {
+/*		InitialiseView viewInit = new InitialiseView() {
 			@Override
 			public void intialise(View v, final DialogFragment df) {
 				dismissDialogueOnViewFinished(v, df);
 				setEntityIfAvailable(entity, v);
 			}
 		};
-		final DialogueFragmentWithView df = DialogueFragmentWithView
-				.getInstance(mLayout, viewInit);
+*/		final DialogueFragmentWithView df = DialogueFragmentWithView
+				.getInstance(mLayout, null);
 		df.show(mActivity.getSupportFragmentManager(), String.valueOf(mLayout));
 	}
 

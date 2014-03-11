@@ -34,7 +34,7 @@ public class DialogueFragmentWithView extends DialogFragmentWithRotationFix {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = LayoutInflater.from(getActivity()).inflate(mLayout, container, false);
+		View view = LayoutInflater.from(getActivity().getApplicationContext()).inflate(mLayout, container, false);
 		if(mInitView!=null) mInitView.intialise(view, this);
 		return view;
 	}

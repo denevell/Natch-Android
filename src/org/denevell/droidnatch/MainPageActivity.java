@@ -68,6 +68,7 @@ public class MainPageActivity extends FragmentActivity {
     protected void onDestroy() {
     	super.onDestroy();
     	Application.killRequestQueue();
+    	mOpener = null;
     }
 
 
