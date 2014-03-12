@@ -2,6 +2,7 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 * Test long click on first item in list thread listview
+* Sort of alignment for authors in posts
 * Only receive gcm notifications from uat, not live.
 
 ### Icebox
