@@ -44,6 +44,12 @@ public class RegisterPO {
         return this;
 	}
 
+	public RegisterPO showRegisterDuplication() {
+        onView(withId(R.id.register_username_edittext))
+        	.check(matches(CustomMatchers.showsErrorString("Username already exists"))); // Therefore fail
+        return this;
+	}
+
 	public RegisterPO registerSuccess() {
         onView(withId(R.id.register_username_edittext))
         	.check(doesNotExist()); // We thus know we've logged in okay

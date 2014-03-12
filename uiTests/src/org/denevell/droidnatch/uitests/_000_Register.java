@@ -33,7 +33,8 @@ public class _000_Register extends NatchAndroidInstrumentation {
     public void testFail() throws Exception {
     	new RegisterPO()
     		.register(getInstrumentation(), "aaron", "aaron") // Should be in the db from the base class
-    		.showRegisterError();
+    		.showRegisterError()
+    		.showRegisterDuplication();
     }
 
 
