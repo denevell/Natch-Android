@@ -20,6 +20,7 @@ import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ButtonWithProgress;
+import org.denevell.droidnatch.posts.list.ListPostsMapper;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.droidnatch.threads.list.uievents.LoginViewActivator.LoginUpdatedEvent;
@@ -109,11 +110,13 @@ public class AddThreadViewActivator extends LinearLayout implements
 		try {
 			if (ShamefulStatics.emptyUsername(getContext().getApplicationContext())) {
 				// mButton.setText("Please login or register");
-				mButton.setEnabled(false);
+				//mButton.setEnabled(false);
 			} else {
-				mButton.setEnabled(true);
-				mButton.setOnClickListener(this);
+				//mButton.setEnabled(true);
+				//mButton.setOnClickListener(this);
 			}
+			mButton.setEnabled(true);
+			mButton.setOnClickListener(this);
 			mButton.requestLayout();
 			mButton.refreshDrawableState();
 		} catch (Exception e) {
@@ -149,13 +152,25 @@ public class AddThreadViewActivator extends LinearLayout implements
     @Override
     public void fail(FailureResult f) {
         if(mButton!=null) mButton.loadingStop();
-        if(f!=null && f.getErrorMessage()!=null) {
+        if(f!=null && f.getStatusCode()==403 || f.getStatusCode()==401) {
+    		try {
+    			FragmentActivity act = (FragmentActivity) getContext();
+    			act.startActionMode(new ListPostsMapper.NotLoggedInActionMenuImplementation());
+			} catch (Exception e) {
+				Log.e(TAG, "Couldn't open action menu for login / reg");
+				if(mSubject!=null) mSubject.setError("Please login first");
+			} 
+        } else if(f!=null && f.getErrorMessage()!=null) {
             mSubject.setError(f.getErrorMessage());
+        } else {
+            mSubject.setError("Unknown error");
         }
     }
 
     @Override
     public void onClick(View view) {
+    	if(mSubject!=null && mSubject.getText()!=null && 
+    			mSubject.getText().toString().trim().length()==0) return;
     	mAddPostService.getRequest().getBody().setContent(mContent.getText().toString());
         mAddPostService.getRequest().getBody().setSubject(mSubject.getText().toString());
         String[] tags = new String[] {""};//mTags.getText().toString().split(",");

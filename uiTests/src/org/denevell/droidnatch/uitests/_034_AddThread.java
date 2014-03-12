@@ -47,7 +47,9 @@ public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
 
     public void testSeeErrorWhenNotLoggedIn() throws Exception {
     	new LoginPO().logout(getInstrumentation(), "aaron");
-        new AddThreadPO().showLoginError();
+        new AddThreadPO()
+        	.addThread("a", "b")
+        	.showLoginError();
     }
 
 

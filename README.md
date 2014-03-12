@@ -26,6 +26,8 @@ The Android client to the Natch REST project.
 * Test register / login after failed post
 * See if I can tests gcm notifications
 * Test duplicate registers.
+* Test for login after add thread on unregistered
+* Espresso function to scroll to bottom of view
 * Tech task: Unit tests from gradle
 
 ### Refactoring

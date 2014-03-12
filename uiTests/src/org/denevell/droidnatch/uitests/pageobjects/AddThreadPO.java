@@ -53,10 +53,10 @@ public class AddThreadPO {
         return this;
 	}
 
-	@SuppressWarnings("unchecked")
 	public AddThreadPO showLoginError() {
-        onView(CoreMatchers.allOf(withId(R.id.add_thread_button), isDisplayed()))
-        	.check(matches(CoreMatchers.not(isEnabled()))); 
+       // onView(CoreMatchers.allOf(withId(R.id.add_thread_button), isDisplayed()))
+       // 	.check(matches(CoreMatchers.not(isEnabled()))); 
+        onView(withId(R.id.please_login_context_menu)).check(matches(isDisplayed())); // Therefore fail
         return this;
 	}
 

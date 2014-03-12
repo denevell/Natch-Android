@@ -2,8 +2,8 @@
 
     <item
         android:id="@+id/posts_option_menu_refresh"
-        android:orderInCategory="110"
-        android:showAsAction="ifRoom"
+        android:orderInCategory="100"
+        android:showAsAction="always"
         android:title="Refresh" 
         android:icon="@android:drawable/ic_popup_sync"
         tools:ignore="HardcodedText"/>
