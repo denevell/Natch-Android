@@ -2,8 +2,10 @@ package org.denevell.droidnatch.uitests;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 
 import java.util.Date;
@@ -67,6 +69,13 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
         new ListThreadsPO()
         	.pressRefresh()
         	.checkHasNumberOfThreads(2);
+    }
+
+    public void testCanLongClickOnFirstRowDoesntCrashThings() throws Exception {
+        new AddThreadPO().addThreadAndPressBack("Listing threads", "Listing threads");
+        onView(withContentDescription("list_threads_row0")).perform(longClick());
+        new ListThreadsPO()
+        	.checkHasNumberOfThreads(1);
     }
 
 }

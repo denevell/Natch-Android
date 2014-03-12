@@ -22,7 +22,9 @@ public class RegisterPO {
 
 	public RegisterPO register(Instrumentation instr, String username, String password) {
 		openActionBarOverflowOrOptionsMenu(instr.getTargetContext());
+        try { Thread.sleep(300); } catch (InterruptedException e1) { e1.printStackTrace(); }
         onView(withText("Register")).perform(click());
+        try { Thread.sleep(300); } catch (InterruptedException e1) { e1.printStackTrace(); }
         onView(withId(R.id.register_username_edittext))
         	.perform(clearText(),
         			typeText(username), 

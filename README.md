@@ -3,7 +3,7 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * ~~Test duplicate registers.~~
-* Test long click on first item in list thread listview
+* ~~Test long click on first item in list thread listview~~
 * Test for login after add thread on unregistered
 * Only receive gcm notifications from uat, not live.
 * Place portfolio files on server
