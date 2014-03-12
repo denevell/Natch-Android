@@ -4,7 +4,7 @@ The Android client to the Natch REST project.
 
 * ~~Test duplicate registers.~~
 * ~~Test long click on first item in list thread listview~~
-* Test for login after add thread on unregistered
+* ~~Test for login after add thread on unregistered~~
 * Only receive gcm notifications from uat, not live.
 * Place portfolio files on server
 * Golang to parse them and output in a basic way
@@ -91,6 +91,7 @@ The Android client to the Natch REST project.
 ### Stories (Numbers relate to classes names in the uiTests dir)
 
 00.  I should be able to register, and be automatically logged in, and no longer see the register option
+00a. I should see duplicate usernames message if tried to register with a taken name.
 0.   I should be able to login and change the auth key for the calls.
 0a.  I should see an error message on login fail
 0b.  I should see my name once logged in
@@ -101,7 +102,7 @@ The Android client to the Natch REST project.
 1d   I should see the date and number posts
 3.   I should be able to add a new thread and first post in thread
 3a.  I should see server error on adding a new thread with blank input
-3b.  I should see error when I attempt to add a thread when not logged in
+3b.  I should see error when I attempt to add a thread when not logged in, and then login and add
 3c.  I should see author of new thread
 4.   I should refresh the (plus loading) threads after an add
 5.   I should be able to delete a thread I have created 

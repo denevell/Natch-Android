@@ -45,14 +45,15 @@ public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
         	.showError();
     }
 
-    public void testSeeErrorWhenNotLoggedIn() throws Exception {
+    public void testSeeErrorWhenNotLoggedInAndCanThenAdd() throws Exception {
     	new LoginPO().logout(getInstrumentation(), "aaron");
         new AddThreadPO()
         	.addThread("a", "b")
-        	.showLoginError();
+        	.showLoginError()
+        	.pressLoginAfterTryingToAdd();
+    	new LoginPO().loginOnDialogueBoxWithDefaultCredential(getInstrumentation());
+        new AddThreadPO().addThreadAndPressBack("Hiya!", "Content");
+        new ListThreadsPO().checkHasNumberOfThreads(1);
     }
-
-
-
 
 }
