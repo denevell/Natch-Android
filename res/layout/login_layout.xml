@@ -35,16 +35,17 @@
                 android:nextFocusForward="@+id/login_password_edittext"
                 android:singleLine="true"
                 tools:ignore="HardcodedText" />
-<!-- 
+
             <EditText
                 android:id="@+id/login_password_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 android:imeOptions="actionDone"
-                android:inputType="text|textPassword"
+                android:inputType="text|textPassword|textNoSuggestions"
                 android:singleLine="true"
                 tools:ignore="HardcodedText" />
+<!-- 
 
 			<org.denevell.droidnatch.app.views.ButtonWithProgress
                 android:id="@+id/login_button"

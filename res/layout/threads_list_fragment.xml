@@ -30,12 +30,12 @@
              />
 
 -->
+ <!--        
         <org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator
             android:layout_width="0dp" android:layout_height="0dp"
            	app:dialogue_layout="@layout/login_dialogue_layout"
            	app:option_menu_item="@+id/threads_option_menu_login"
              />
- <!--        
         <org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator
             android:layout_width="0dp" android:layout_height="0dp"
            	app:dialogue_layout="@layout/login_dialogue_layout"

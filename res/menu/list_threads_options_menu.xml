@@ -1,17 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
-<!--     <item -->
-<!--         android:id="@+id/threads_option_menu_add_thread" -->
-<!--         android:orderInCategory="100" -->
-<!--         android:showAsAction="ifRoom" -->
-<!--         android:title="Add thread" tools:ignore="HardcodedText"/> -->
-    <item
+     <item
         android:id="@+id/threads_option_menu_refresh"
         android:orderInCategory="101"
         android:showAsAction="ifRoom"
+        android:visible="false"
         android:title="Refresh" 
         android:icon="@android:drawable/ic_popup_sync"
-        tools:ignore="HardcodedText"/>
+        tools:ignore="HardcodedText"/> 
     <item
         android:id="@+id/threads_option_menu_login"
         android:orderInCategory="102"
@@ -21,16 +17,19 @@
         android:id="@+id/threads_option_menu_register"
         android:orderInCategory="103"
         android:showAsAction="ifRoom"
+        android:visible="false"
         android:title="Register" tools:ignore="HardcodedText"/>
     <item
         android:id="@+id/threads_option_menu_settings"
         android:orderInCategory="104"
         android:showAsAction="never"
+        android:visible="false"
         android:title="Settings" tools:ignore="HardcodedText"/>
     <item
         android:id="@+id/threads_option_menu_website"
         android:orderInCategory="104"
         android:showAsAction="never"
+        android:visible="false"
         android:title="Website" tools:ignore="HardcodedText"/>
 
 </menu>

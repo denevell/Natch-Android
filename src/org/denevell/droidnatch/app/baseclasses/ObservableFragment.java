@@ -1,10 +1,18 @@
 package org.denevell.droidnatch.app.baseclasses;
 
 import org.denevell.droidnatch.EventBus;
+import org.denevell.natch.android.R;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class ObservableFragment extends Fragment {
@@ -40,8 +48,42 @@ public class ObservableFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        EventBus.getBus().post(new OptionMenuItemHolder(item));
+/*    	View v = LayoutInflater
+    			.from(getActivity().getApplicationContext())
+    			.inflate(R.layout.login_layout, null);
+    	new AlertDialog.Builder(getActivity())
+    	.setView(v)
+    	.create()
+    	.show();*/
+    	DialogFragment df = new Df();
+		df.show(getActivity().getSupportFragmentManager(), "sdf");
         return super.onOptionsItemSelected(item);
     }
+    
+    public static class Df extends DialogFragment {
+    	
+    	@Override
+    	public Dialog onCreateDialog(Bundle savedInstanceState) {
+    		Dialog onCreateDialog = super.onCreateDialog(savedInstanceState);
+    		return onCreateDialog;
+    	}
+    	
+    	@Override
+    	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    		View view = LayoutInflater
+    				.from(getActivity().getApplicationContext())
+    				.inflate(R.layout.login_layout, container, false);
+    		return view;
+    	}
+    	
+    	@Override
+    	public void onDismiss(DialogInterface dialog) {
+    		Log.d(TAG, "Dismiss");
+    		super.onDismiss(dialog);
+    		dialog.cancel();
+    		dialog.dismiss();
+    	}
+    	
+    }    
     
 }

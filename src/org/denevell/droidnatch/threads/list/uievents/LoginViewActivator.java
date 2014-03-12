@@ -7,9 +7,11 @@ import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 import org.denevell.natch.android.R;
 
 import android.content.Context;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 /**
@@ -70,7 +72,9 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 	private GenericUiObserver mCallback;
 	private Runnable mSuccessCallback;
 	private ButtonWithProgress mButton;
+	*/
 	private EditText mUsername;
+	/*
 	private EditText mPassword;
 	@Inject ServiceFetcher<LoginResourceInput, LoginResourceReturnData> mLoginService;
 	@Inject ServiceFetcher<Void, LogoutResourceReturnData> mLogoutService;
@@ -89,11 +93,19 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 				).inject(
 				this);
 	}*/
+	
+	@Override
+	protected void onDetachedFromWindow() {
+		mUsername.setText(null);
+		mUsername = null;
+		super.onDetachedFromWindow();
+	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void onAttachedToWindow() {
 		super.onAttachedToWindow();
+		mUsername = (EditText) findViewById(R.id.login_username_edittext);
+		mUsername.setInputType(~(InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE|InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
 /*		inject();
 		final FragmentActivity act = (FragmentActivity) getContext();
 		String username = ShamefulStatics.getUsername(getContext().getApplicationContext());
