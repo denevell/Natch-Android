@@ -46,8 +46,7 @@ public class _07_DeleteThreadFromThreadPage extends NatchAndroidInstrumentationW
 
     @SuppressWarnings("unchecked")
 	public void test() throws Exception {
-        String date = new Date().toString();
-        new AddThreadPO().addThread("New thread to open"+date, "New thread ot open"+date);
+        new AddThreadPO().addThread("New thread to open", "New thread ot open");
 
         onData(allOf(is(instanceOf(PostResource.class))))
                 .atPosition(0)

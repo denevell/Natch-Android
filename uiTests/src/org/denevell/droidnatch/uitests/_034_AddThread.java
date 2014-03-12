@@ -7,11 +7,10 @@ import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewA
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
-import java.util.Date;
-
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
+import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
@@ -33,11 +32,11 @@ public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
     }
 
     public void testAdd() throws Exception {
-        String date = new Date().toString();
-        new AddThreadPO().addThread("Hiya!"+date, "Content"+date);
-        new ListPostsPO().postHasContent(0, "Content"+date);
+        new AddThreadPO().addThread("Hiya!", "Content");
+        new ListPostsPO().postHasContent(0, "Content");
         pressBack();
-        onView(withContentDescription("list_threads_row0")).check(matches(withText("Hiya!"+date)));
+        onView(withContentDescription("list_threads_row0")).check(matches(withText("Hiya!")));
+        new ListThreadsPO().threadHasAuthor(0, "aaron");
     }
 
     public void testSeeError() throws Exception {

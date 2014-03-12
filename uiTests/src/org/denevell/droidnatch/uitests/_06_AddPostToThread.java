@@ -47,7 +47,8 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
         	.addPost("New post in thread");
 
         new ListPostsPO()
-        	.postHasContent(1, "New post in thread");
+        	.postHasContent(1, "New post in thread")
+        	.postHasAuthor(1, "aaron");
     }
 
 	public void testScrollToPostOnAdd() throws Exception {

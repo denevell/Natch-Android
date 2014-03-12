@@ -27,7 +27,6 @@ The Android client to the Natch REST project.
 * See if I can tests gcm notifications
 * Test duplicate registers.
 * Tech task: Unit tests from gradle
-* Test memory consumption
 
 ### Refactoring
 
@@ -78,18 +77,17 @@ The Android client to the Natch REST project.
 
 ## Complete: To test
 
-* Add thread button disabled if not logged in
 * Listview saved on rotation.
 * Unregister for push notifications
 * Settings screen for gcm stuff
 * I should only be able to add thread if I'm logged in
-* Better list threads listview
 
 ### Stories (Numbers relate to classes names in the uiTests dir)
 
 00.  I should be able to register, and be automatically logged in, and no longer see the register option
 0.   I should be able to login and change the auth key for the calls.
-0.   I should see an error message on login fail
+0a.  I should see an error message on login fail
+0b.  I should see my name once logged in
 1.   I should see some threads along with content of first post in the app
 1a.  I should see an error on list threads 
 1b.  I should see empty screen on no threads
@@ -98,6 +96,7 @@ The Android client to the Natch REST project.
 3.   I should be able to add a new thread and first post in thread
 3a.  I should see server error on adding a new thread with blank input
 3b.  I should see error when I attempt to add a thread when not logged in
+3c.  I should see author of new thread
 4.   I should refresh the (plus loading) threads after an add
 5.   I should be able to delete a thread I have created 
 5a.  I shouldn't be able to delete a thread I someone else has created 
@@ -107,6 +106,7 @@ The Android client to the Natch REST project.
 6c.  I should be able to refresh the posts 
 6d.  I should see error when I attempt to add a post when not logged in
 6e.  I should animate down to the list bottom on adding a post
+6f.  I should see author of new post 
 7.   I should delete a thread from within the thread page
 7a.  I shouldn't be able to delete a thread I someone else has created 
 8.   I should delete post from a thread, and then see the existing thread, one post less.
@@ -118,9 +118,5 @@ The Android client to the Natch REST project.
 10b: I should see an error on edit thread with blank data
 11:  I should be able to press more to see more threads
 12:  I should be able to press more to see more posts 
-13:  I should see whether I am logged in or not, showing who I am logged in as.
-14:  I should see the author of the thread on the threads page
-15:  I should see the author of a post in a thread page
-16.  I should be able to logout
+13.  I should be able to logout
 *:   I should be able to see dates on posts
-*:   I should be able to see dates on threads

@@ -27,16 +27,13 @@ public class RegisterPO {
         	.perform(clearText(),
         			typeText(username), 
         			ViewActions.pressImeActionButton());
+        try { Thread.sleep(300); } catch (InterruptedException e1) { e1.printStackTrace(); }
         onView(withId(R.id.register_password_edittext))
         	.perform(clearText(),
         			typeText(password), 
         			pressImeActionButton(),
         			ViewActions.closeSoftKeyboard());
-        try {
-			Thread.sleep(300);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+        try { Thread.sleep(300); } catch (InterruptedException e1) { e1.printStackTrace(); }
         onView(withText("Register")).perform(click());
         return this;
 	}

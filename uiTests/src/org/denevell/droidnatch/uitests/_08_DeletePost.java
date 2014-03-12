@@ -11,8 +11,6 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 
-import java.util.Date;
-
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.pageobjects.AddPostPO;
@@ -40,8 +38,7 @@ public class _08_DeletePost extends NatchAndroidInstrumentationWithLogin {
 
     @SuppressWarnings("unchecked")
 	public void test_1_DeletePost() throws Exception {
-        String date = new Date().toString();
-        new AddThreadPO().addThread("New thread to open"+date, "New thread to open"+date);
+        new AddThreadPO().addThread("New thread to open", "New thread to open");
 
         new AddPostPO().addPost("New post in thread");
 

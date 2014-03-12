@@ -27,7 +27,9 @@ import com.google.gson.Gson;
  */
 public class TestUtils {
 
-    public static void deleteDb() throws Exception {
+    public static String SERVER_HOST = "10.0.2.2";
+
+	public static void deleteDb() throws Exception {
 
         final String DBDriver = "org.postgresql.Driver";
         Class.forName(DBDriver);
@@ -38,7 +40,7 @@ public class TestUtils {
 
         Connection conn = DriverManager.getConnection(
                 "jdbc:postgresql://" +
-                        "10.0.2.2" +
+                        SERVER_HOST +
                         ":5432" + "/testnatch",
                 connectionProps);
 
@@ -65,7 +67,7 @@ public class TestUtils {
         	
 	public static String addPostViaRest(Context c, String threadId) throws Exception {
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPut httpput = new HttpPut("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/post/addthread");
+        HttpPut httpput = new HttpPut("http://"+SERVER_HOST+":8080/Natch-REST-ForAutomatedTests/rest/post/addthread");
         httpput.addHeader("Content-Type", "application/json");
         String addString = null;
         if(threadId!=null) {

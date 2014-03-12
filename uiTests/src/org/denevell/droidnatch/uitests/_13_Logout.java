@@ -11,9 +11,9 @@ import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentation;
 
 import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 
-public class _16_Logout extends NatchAndroidInstrumentation {
+public class _13_Logout extends NatchAndroidInstrumentation {
 
-    public _16_Logout() throws Exception {
+    public _13_Logout() throws Exception {
         super("org.denevell.natch.android", MainPageActivity.class);
     }
 

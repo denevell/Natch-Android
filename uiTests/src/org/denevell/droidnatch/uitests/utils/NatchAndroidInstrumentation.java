@@ -30,16 +30,17 @@ public class NatchAndroidInstrumentation extends ActivityInstrumentationTestCase
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        TestUtils.SERVER_HOST = "192.168.43.103";
         TestUtils.deleteDb();
 
         // Register
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPut httpput = new HttpPut("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/user/");
+        HttpPut httpput = new HttpPut("http://"+TestUtils.SERVER_HOST+":8080/Natch-REST-ForAutomatedTests/rest/user/");
         httpput.addHeader("Content-Type", "application/json");
         httpput.setEntity(new StringEntity("{\"username\":\"aaron\", \"password\":\"aaron\"}"));
         httpclient.execute(httpput);
 
-        ShamefulStatics.setBasePath("http://10.0.2.2:8080/Natch-REST-ForAutomatedTests/rest/");
+        ShamefulStatics.setBasePath("http://"+TestUtils.SERVER_HOST+":8080/Natch-REST-ForAutomatedTests/rest/");
 
         ShamefulStatics.logout(getInstrumentation().getTargetContext());
         getActivity();

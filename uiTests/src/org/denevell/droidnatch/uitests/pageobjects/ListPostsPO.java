@@ -24,9 +24,10 @@ import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertio
 
 public class ListPostsPO {
 
-	public void postHasContent(int i, String string) {
+	public ListPostsPO postHasContent(int i, String string) {
         onView(withContentDescription("list_posts_row"+i))
         	.check(matches(withText(string)));
+        return this;
 	}
 
 	public ListPostsPO postHasAuthor(int i, String string) {
@@ -78,7 +79,7 @@ public class ListPostsPO {
 	}
 
 	public ListPostsPO pressBackIcon() {
-        onView(withContentDescription("Navigate up")).perform(click());
+        onView(withId(android.R.id.home)).perform(click());
 		return this;
 	}
 	
