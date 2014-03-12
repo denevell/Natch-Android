@@ -6,8 +6,10 @@ The Android client to the Natch REST project.
 * ~~Test long click on first item in list thread listview~~
 * ~~Test for login after add thread on unregistered~~
 * ~~Only receive gcm notifications from uat, not live.~~
-* Place portfolio files on server
-* Golang to parse them and output in a basic way
+* ~~Place portfolio files on server~~
+* Golang to fetch remote portfolio file
+* Golang to parse json into portfolio objects
+* Golang to use objects in template file
 
 ### Icebox
 
