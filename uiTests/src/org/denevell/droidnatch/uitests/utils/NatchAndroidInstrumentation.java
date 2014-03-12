@@ -30,7 +30,7 @@ public class NatchAndroidInstrumentation extends ActivityInstrumentationTestCase
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        TestUtils.SERVER_HOST = "192.168.43.103";
+        //TestUtils.SERVER_HOST = "192.168.43.103";
         TestUtils.deleteDb();
 
         // Register
