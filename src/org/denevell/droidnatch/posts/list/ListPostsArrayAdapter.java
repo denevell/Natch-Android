@@ -1,7 +1,6 @@
 package org.denevell.droidnatch.posts.list;
 
 
-import org.denevell.droidnatch.app.utils.AndroidUtils;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.natch.android.R;
 
@@ -45,14 +44,6 @@ public class ListPostsArrayAdapter extends ArrayAdapter<PostResource> {
 //        	convertView.startAnimation(animation);
 //        }
         mLastPosition = position;        
-
-        // So it doesn't clash with transparent nav bar
-        if(position==getCount()-1) {
-        	convertView.setPadding(0, 0, 0, AndroidUtils.getNavigationBarHeight(getContext()));
-        } else {
-        	convertView.setPadding(0, 0, 0, 0);
-        }
-
         return convertView;
         
     }    

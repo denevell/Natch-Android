@@ -10,13 +10,10 @@ import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.natch.android.R;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
-import android.widget.FrameLayout;
 
 public class MainPageActivity extends FragmentActivity {
 
@@ -36,12 +33,6 @@ public class MainPageActivity extends FragmentActivity {
         }
     }
     
-    @Override
-    protected void onResume() {
-    	super.onResume();
-        setTransparentNavigationMenu();
-    }
-
     @Override
     protected void onNewIntent(Intent intent) {
     	super.onNewIntent(intent);
@@ -81,19 +72,6 @@ public class MainPageActivity extends FragmentActivity {
 
 	private void gotoMainFragment(FragmentScreenOpener sopner) {
 		sopner.openScreen(ListThreadsFragment.class, null, false);
-	}
-
-	private void setTransparentNavigationMenu() {
-		View v = findViewById(R.id.main_fragment_holder);
-		int statusBarHeight = AndroidUtils.getStatusBarHeight(this);
-		int actionBarHeight = AndroidUtils.getActionbarHeight(this);
-		int navBarWidth= AndroidUtils.getNavigationBarWidth(this);
-		Log.d(TAG, "Margin top: " + statusBarHeight);
-		Log.d(TAG, "Actionbar top: " + actionBarHeight);
-		((FrameLayout.LayoutParams)v.getLayoutParams()).topMargin = statusBarHeight + actionBarHeight;
-		if(getResources().getConfiguration().orientation==Configuration.ORIENTATION_LANDSCAPE) {
-			((FrameLayout.LayoutParams)v.getLayoutParams()).rightMargin = navBarWidth;
-		}
 	}
     
 	

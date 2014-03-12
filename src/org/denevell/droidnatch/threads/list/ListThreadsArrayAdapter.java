@@ -1,6 +1,5 @@
 package org.denevell.droidnatch.threads.list;
 
-import org.denevell.droidnatch.app.utils.AndroidUtils;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.natch.android.R;
 
@@ -39,22 +38,11 @@ public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
         int numPosts = o.getNumPosts();
         dateText.setText(" @ " + o.getLastModifiedDate()+" "+o.getLastModifiedTime() + " | Posts: " + numPosts);
         
-        //☆
-        
 //        if(position>1 && position > mLastPosition) {
 //        	Animation animation = AnimationUtils.loadAnimation(getContext(), (position > mLastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
 //        	convertView.startAnimation(animation);
 //        }
-        
         mLastPosition = position;        
-        
-        // So it doesn't clash with transparent nav bar
-        if(position==getCount()-1) {
-        	convertView.setPadding(0, 0, 0, AndroidUtils.getNavigationBarHeight(getContext()));
-        } else {
-        	convertView.setPadding(0, 0, 0, 0);
-        }
-        
         return convertView;
     }
     
