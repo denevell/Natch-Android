@@ -2,11 +2,13 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 * Test long click on first item in list thread listview
-* Sort of alignment for authors in posts
+* Test duplicate registers.
+* Test for login after add thread on unregistered
 * Only receive gcm notifications from uat, not live.
 
 ### Icebox
 
+* Sort of alignment for authors in posts
 * Edit text expanded on click
 * Edit text de-expanded on click
 * I should see an error on delete thread 
@@ -26,8 +28,6 @@ The Android client to the Natch REST project.
 * Test going to website
 * Test register / login after failed post
 * See if I can tests gcm notifications
-* Test duplicate registers.
-* Test for login after add thread on unregistered
 * Espresso function to scroll to bottom of view
 * Tech task: Unit tests from gradle
 
