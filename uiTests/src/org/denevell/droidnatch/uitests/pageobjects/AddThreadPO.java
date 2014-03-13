@@ -62,4 +62,9 @@ public class AddThreadPO {
         return this;
 	}
 
+	public AddThreadPO pressRegisterAfterTryingToAdd() {
+        onView(withId(R.id.please_register_context_menu)).perform(click());
+        return this;
+	}
+
 }

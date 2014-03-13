@@ -3,7 +3,7 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * Test new post after not logged in then reg
-* Test thread after not logged in then reg
+* ~~Test thread after not logged in then reg~~
 * Images for projects
 * Integrate bootstrap
 * Caching json file
@@ -101,7 +101,8 @@ The Android client to the Natch REST project.
 3.   I should be able to add a new thread and first post in thread
 3a.  I should see server error on adding a new thread with blank input
 3b.  I should see error when I attempt to add a thread when not logged in, and then login and add
-3c.  I should see author of new thread
+3c.  I should see error when I attempt to add a thread when not logged in, and then register and add
+3d.  I should see author of new thread
 4.   I should refresh the (plus loading) threads after an add
 5.   I should be able to delete a thread I have created 
 5a.  I shouldn't be able to delete a thread I someone else has created 

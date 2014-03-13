@@ -7,11 +7,14 @@ import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewA
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
+import java.util.Date;
+
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
+import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
@@ -52,6 +55,18 @@ public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
         	.showLoginError()
         	.pressLoginAfterTryingToAdd();
     	new LoginPO().loginOnDialogueBoxWithDefaultCredential(getInstrumentation());
+        new AddThreadPO().addThreadAndPressBack("Hiya!", "Content");
+        new ListThreadsPO().checkHasNumberOfThreads(1);
+    }
+
+    public void testSeeErrorWhenNotLoggedInAndCanThenRegisterAndAdd() throws Exception {
+    	new LoginPO().logout(getInstrumentation(), "aaron");
+        new AddThreadPO()
+        	.addThread("a", "b")
+        	.showLoginError()
+        	.pressRegisterAfterTryingToAdd();
+    	String user = "aaron" + new Date().getTime();
+		new RegisterPO().registerFromDialogueBox(getInstrumentation(), user, user);
         new AddThreadPO().addThreadAndPressBack("Hiya!", "Content");
         new ListThreadsPO().checkHasNumberOfThreads(1);
     }

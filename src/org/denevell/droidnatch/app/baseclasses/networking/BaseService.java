@@ -102,7 +102,9 @@ public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, S
     
     @Override
     public void onErrorResponse(VolleyError error) {
-    	if(error!=null && error.getMessage()!=null && error.getMessage().equals("java.io.IOException: No authentication challenges found")) {
+    	if(error!=null && error.getMessage()!=null && 
+    			(error.getMessage().contains("No authentication challenges found") ||
+    			 error.getMessage().contains("authentication challenge"))) {
     		error = new VolleyError(new NetworkResponse(403, null, null, false));
     	}
         if(error!=null) Log.e(TAG, "Service error: " +  error.toString(), error.getCause());

@@ -25,6 +25,11 @@ public class RegisterPO {
         try { Thread.sleep(300); } catch (InterruptedException e1) { e1.printStackTrace(); }
         onView(withText("Register")).perform(click());
         try { Thread.sleep(300); } catch (InterruptedException e1) { e1.printStackTrace(); }
+		registerFromDialogueBox(instr, username, password);
+		return this;
+	}
+
+	public RegisterPO registerFromDialogueBox(Instrumentation instr, String username, String password) {
         onView(withId(R.id.register_username_edittext))
         	.perform(clearText(),
         			typeText(username), 
