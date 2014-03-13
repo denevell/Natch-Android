@@ -8,8 +8,8 @@ The Android client to the Natch REST project.
 * ~~Only receive gcm notifications from uat, not live.~~
 * ~~Place portfolio files on server~~
 * ~~Golang to fetch remote portfolio file~~
-* Golang to parse json into portfolio objects
-* Golang to use objects in template file
+* ~~Golang to parse json into portfolio objects~~
+* ~~Golang to use objects in template file~~
 
 ### Icebox
 
