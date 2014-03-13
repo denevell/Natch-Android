@@ -1,8 +1,11 @@
 package org.denevell.droidnatch.uitests;
 
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
+
+import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.PaginationMapper.ListThreadsPaginationObject;
-import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
@@ -29,6 +32,8 @@ public class _11_ThreadsPagination extends NatchAndroidInstrumentationWithLogin 
         new ListThreadsPO().checkHasNumberOfThreads(1);
 
         new AddThreadPO().addThreadAndPressBack("Two", "One");
+        
+        onView(withId(org.denevell.natch.android.R.id.threads_listview)).perform(CustomMatchers.scrollToBottomOfListView());
 
         new ListThreadsPO().checkHasNumberOfThreads(2);
         

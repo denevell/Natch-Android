@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.apps.common.testing.ui.espresso.UiController;
+import com.google.android.apps.common.testing.ui.espresso.ViewAction;
+
 public class CustomMatchers {
 
     public static Matcher<View> listViewHasElements() {
@@ -81,6 +84,40 @@ public class CustomMatchers {
                 description.appendText("list view should have "  + numOfElements + " elements but got: " + mAdapterCount);
             }
         };
+    }
+
+    public static ViewAction scrollToBottomOfListView() {
+    		return new ViewAction() {
+				@Override
+				public void perform(UiController arg0, View view) {
+                        ListView listView = (ListView) view;
+                        int last = listView.getAdapter().getCount();
+                        listView.smoothScrollToPosition(last);
+				}
+				
+				@Override
+				public String getDescription() {
+					return "Problem scrolling to bottom of ListView";
+				}
+				
+				@Override
+				public Matcher<View> getConstraints() {
+					return new TypeSafeMatcher<View>() {
+						@Override public void describeTo(Description description) {
+							description.appendText("View should be a ListView with an adapter");
+						}
+						@Override public boolean matchesSafely(View view) {
+							if (!(view instanceof ListView)) {
+								return false;
+							} else if(((ListView)view).getAdapter()==null) {
+								return false;
+							} else {
+								return true;
+							}
+						}
+					};
+				}
+			};
     }
 
 	public static Matcher<? super View> showsErrorString() {

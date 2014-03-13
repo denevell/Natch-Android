@@ -38,6 +38,8 @@ public class _12_PostsPagination extends NatchAndroidInstrumentationWithLogin {
         
         // Should now trigger the pagination to show more
 
+        onView(withId(R.id.list_posts_listview)).perform(CustomMatchers.scrollToBottomOfListView());
+
         onView(withId(R.id.list_posts_listview))
         	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(2)));
 

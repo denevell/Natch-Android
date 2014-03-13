@@ -4,7 +4,7 @@ The Android client to the Natch REST project.
 
 * ~~Test new post after not logged in then reg~~
 * ~~Test thread after not logged in then reg~~
-* Espresso scroll to bottom of list
+* ~~Espresso scroll to bottom of list~~
 * Images for projects
 * Integrate bootstrap
 * Caching json file
