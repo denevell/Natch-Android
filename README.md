@@ -6,7 +6,8 @@ The Android client to the Natch REST project.
 * ~~Test thread after not logged in then reg~~
 * ~~Espresso scroll to bottom of list~~
 * ~~Images for projects~~
-* Integrate bootstrap
+* ~~Separate template file~~
+* ~~Integrate bootstrap~~
 * Caching json file
 * Check for updated json file
 * Refactor logout from login view
