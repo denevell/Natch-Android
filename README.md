@@ -2,14 +2,14 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* ~~Test duplicate registers.~~
-* ~~Test long click on first item in list thread listview~~
-* ~~Test for login after add thread on unregistered~~
-* ~~Only receive gcm notifications from uat, not live.~~
-* ~~Place portfolio files on server~~
-* ~~Golang to fetch remote portfolio file~~
-* ~~Golang to parse json into portfolio objects~~
-* ~~Golang to use objects in template file~~
+* Test new post after not logged in then reg
+* Test thread after not logged in then reg
+* Images for projects
+* Integrate bootstrap
+* Caching json file
+* Check for updated json file
+* Espresso scroll to bottom of list
+* Refactor logout from login view
 
 ### Icebox
 
@@ -29,16 +29,12 @@ The Android client to the Natch REST project.
 
 ### Testing to do
 
-* Test can register from not-logged-in popup from add post
-* Test can register from not-logged-in popup from add thread
-* Espresso function to scroll to bottom of view
 * Test going to website
 * See if I can tests gcm notifications
 * Tech task: Unit tests from gradle
 
 ### Refactoring
 
-* Refactor login / logout view class 
 * Refactor the shamefulstatics class.
 
 ### Non criticial bugs

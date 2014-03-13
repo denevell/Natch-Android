@@ -17,7 +17,6 @@ import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.Lazy
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
-import org.denevell.droidnatch.app.utils.AndroidUtils;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
@@ -42,7 +41,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.RelativeLayout;
 
 import com.android.volley.Request;
 
