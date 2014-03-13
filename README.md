@@ -2,13 +2,13 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* Test new post after not logged in then reg
+* ~~Test new post after not logged in then reg~~
 * ~~Test thread after not logged in then reg~~
+* Espresso scroll to bottom of list
 * Images for projects
 * Integrate bootstrap
 * Caching json file
 * Check for updated json file
-* Espresso scroll to bottom of list
 * Refactor logout from login view
 
 ### Icebox
@@ -110,9 +110,10 @@ The Android client to the Natch REST project.
 6a.  I should see an error on add post with blank data
 6b.  I should see an error on list posts
 6c.  I should be able to refresh the posts 
-6d.  I should see error when I attempt to add a post when not logged in
-6e.  I should animate down to the list bottom on adding a post
-6f.  I should see author of new post 
+6d.  I should see login error when I attempt to add a post when not logged in and can then add
+6e.  I should see reg error when I attempt to add a post when not logged in and can then add
+6f.  I should animate down to the list bottom on adding a post
+6g.  I should see author of new post 
 7.   I should delete a thread from within the thread page
 7a.  I shouldn't be able to delete a thread I someone else has created 
 8.   I should delete post from a thread, and then see the existing thread, one post less.

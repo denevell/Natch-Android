@@ -144,8 +144,8 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 					this,
 					mLoginService, 
 					null,
-					new RefreshOptionsMenuReceiver(act),
-					new UpdateLoginInfoReceiver(mUsername))
+					new UpdateLoginInfoReceiver(mUsername),
+					new RefreshOptionsMenuReceiver(act))
 						.setup();
 		}
 	}
