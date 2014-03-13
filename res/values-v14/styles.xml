@@ -8,6 +8,68 @@
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
         <item name="android:windowBackground">@color/window_background</item>
         <!-- API 14 theme customizations can go here. -->
+<!--      	<item name="android:actionMenuTextAppearance">@style/ActionMenuTitleText.Forum</item>
+	      	<item name="android:actionMenuTextColor">#fff</item> -->
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_forum</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Forum</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Forum</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Forum</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Forum</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Forum</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_forum</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_forum</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Forum</item>
     </style>
+
+
+    <style name="ActionBar.Solid.Forum" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
+        <item name="android:background">@drawable/ab_background_textured_forum</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_forum</item>
+        <item name="android:backgroundSplit">@drawable/ab_background_textured_forum</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Forum</item>
+        <item name="android:titleTextStyle">@style/ActionBarTitleText.Forum</item>
+    </style>
+
+    <style name="ActionBarTitleText.Forum" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+         <item name="android:textColor">#fff</item>
+<!--        <item name="android:textSize">19sp</item> -->
+    </style>    
+
+    <style name="ActionBar.Transparent.Forum" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_forum</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Forum</item>
+    </style>
+
+    <style name="PopupMenu.Forum" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_forum</item>	
+    </style>
+
+    <style name="DropDownListView.Forum" parent="@android:style/Widget.Holo.Light.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_forum</item>
+    </style>
+
+    <style name="ActionBarTabStyle.Forum" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_forum</item>
+    </style>
+
+    <style name="DropDownNav.Forum" parent="@android:style/Widget.Holo.Light.Spinner">
+        <item name="android:background">@drawable/spinner_background_ab_forum</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_forum</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_forum</item>
+    </style>
+    
+    <style name="ProgressBar.Forum" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_forum</item>
+    </style>
+    
+    <style name="ActionButton.CloseMode.Forum" parent="@android:style/Widget.Holo.Light.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_forum</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Forum.Widget" parent="@android:style/Theme.Holo">
+        <item name="android:popupMenuStyle">@style/PopupMenu.Forum</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Forum</item>
+    </style>    
 
 </resources>

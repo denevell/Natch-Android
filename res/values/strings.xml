@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Forum</string>
+    <string name="app_name">AndroidManchester</string>
     <string name="url_baseurl">http://denevell.org:8912/Natch-REST-ForAutomatedTests/rest/</string>
     <string name="url_threads">threads/</string>
     <string name="url_logout">user/logout</string>
@@ -17,7 +17,7 @@
     <string name="list_threads_loading">Loading threads</string>
     <string name="list_thread_loading">Loading posts</string>
     <string name="page_title_posts">Posts</string>
-    <string name="page_title_threads">Forum</string>
+    <string name="page_title_threads">AndroidManc.</string>
 
     <item type="id" name="posts_context_menu_delete_thread">posts_context_menu_delete_thread</item>
     <item type="id" name="posts_context_menu_delete_post">posts_context_menu_delete_post</item>
