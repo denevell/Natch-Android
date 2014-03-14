@@ -5,6 +5,7 @@ import org.denevell.droidnatch.posts.list.uievents.AddPostViewActivator;
 import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
 import org.denevell.natch.android.R;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,8 @@ public class ListPostsFragment extends ObservableFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActivity().getActionBar().removeAllTabs();
+		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         setHasOptionsMenu(true);
         String threadName = getArguments().getString(BUNDLE_KEY_THREAD_NAME);
         getActivity().setTitle(threadName);

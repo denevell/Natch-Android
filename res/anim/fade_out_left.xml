@@ -1,5 +1,5 @@
 <!--
-/* //device/apps/common/res/anim/slide_in_left.xml
+/* //device/apps/common/res/anim/slide_out_right.xml
 **
 ** Copyright 2007, The Android Open Source Project
 **
@@ -17,5 +17,5 @@
 */
 -->
 <set xmlns:android="http://schemas.android.com/apk/res/android">
-<alpha android:fromAlpha="0.0" android:toAlpha="1.0" android:duration="@android:integer/config_shortAnimTime"/>
+<alpha android:fromAlpha="1.0" android:toAlpha="0.0" android:duration="@android:integer/config_shortAnimTime"/>
 </set>

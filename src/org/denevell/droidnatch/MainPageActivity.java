@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.denevell.droidnatch.app.baseclasses.FragmentScreenOpener;
 import org.denevell.droidnatch.app.utils.AndroidUtils;
+import org.denevell.droidnatch.home.HomeFragment;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.natch.android.R;
 
 import android.content.Intent;
@@ -71,7 +71,7 @@ public class MainPageActivity extends FragmentActivity {
 	}
 
 	private void gotoMainFragment(FragmentScreenOpener sopner) {
-		sopner.openScreen(ListThreadsFragment.class, null, false);
+		sopner.openScreen(HomeFragment.class, null, false);
 	}
     
 	

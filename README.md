@@ -9,8 +9,8 @@ The Android client to the Natch REST project.
 * ~~Separate template file~~
 * ~~Integrate bootstrap~~
 * ~~Refactor logout from login view~~
-* Caching json file
-* Check for updated json file
+* ~~Caching json file~~
+* ~~Check for updated json file~~
 
 ### Icebox
 

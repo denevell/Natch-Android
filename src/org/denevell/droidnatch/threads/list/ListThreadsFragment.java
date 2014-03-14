@@ -30,11 +30,6 @@ public class ListThreadsFragment extends ObservableFragment {
     }
     
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-    	super.onCreate(savedInstanceState);
-    }
-    
-    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         new ListThreadsOptionsMenu().create(menu, inflater, getActivity().getApplicationContext());
