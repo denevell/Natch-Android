@@ -2,15 +2,15 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* ~~Test new post after not logged in then reg~~
-* ~~Test thread after not logged in then reg~~
-* ~~Espresso scroll to bottom of list~~
-* ~~Images for projects~~
-* ~~Separate template file~~
-* ~~Integrate bootstrap~~
-* ~~Refactor logout from login view~~
-* ~~Caching json file~~
-* ~~Check for updated json file~~
+* ~~Look at google apps for business~~
+* Rest of projects in json
+* Add contact and profile to site
+* Better headers for projects
+* Backup old forum file
+* Change web title to android manchester
+* Change package name for app
+* Update CV
+* Update covering letter
 
 ### Icebox
 
