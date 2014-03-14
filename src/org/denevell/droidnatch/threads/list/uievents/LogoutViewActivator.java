@@ -75,6 +75,8 @@ public class LogoutViewActivator extends LinearLayout implements Activator<Logou
 	public void fail(FailureResult f) {
 		logout();
 		if(mButton!=null) mButton.loadingStop();
+		if (mSuccessCallback != null)
+			mSuccessCallback.run();
 	}
 
 	@Override
