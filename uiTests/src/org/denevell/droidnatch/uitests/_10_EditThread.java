@@ -93,7 +93,7 @@ public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
         pressBack();
 
 		String username = "new"+new Date().getTime();
-		new LoginPO().logout(getInstrumentation(), "aaron");
+		new LoginPO().logout(getInstrumentation());
 		new RegisterPO().register(getInstrumentation(), username, username); // Logs us in too
 		
 		new ListThreadsPO().pressItem(0);

@@ -66,7 +66,7 @@ public class _07_DeleteThreadFromThreadPage extends NatchAndroidInstrumentationW
         
         pressBack();
 
-        new LoginPO().logout(getInstrumentation(), "aaron");
+        new LoginPO().logout(getInstrumentation());
 		String username = "new"+new Date().getTime();
 		new RegisterPO().register(getInstrumentation(), username, username); // Logs us in too
 		

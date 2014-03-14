@@ -23,10 +23,13 @@ public class _000_Register extends NatchAndroidInstrumentation {
 		new RegisterPO()
     		.register(getInstrumentation(), username, username)
     		.registerSuccess();
+		// Often fails since there's a gap between register and login
+		// where Espresso thinks Volley has stopped, but it hasn't. 
+		// Run it through the debugger and see if it still fails.
 		new LoginPO()
 			.shouldseeUsername(getInstrumentation(), username)
 			.shouldntSeeRegisterOption(getInstrumentation())
-			.logout(getInstrumentation(), username)
+			.logout(getInstrumentation())
 			.shouldSeeRegisterOption(getInstrumentation());
     }
     

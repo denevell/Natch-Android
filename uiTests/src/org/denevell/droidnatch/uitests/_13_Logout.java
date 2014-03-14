@@ -25,7 +25,7 @@ public class _13_Logout extends NatchAndroidInstrumentation {
     public void test() throws Exception {
     	new LoginPO().loginWithDefaultCredential(getInstrumentation());
         onView(withText("Login")).check(doesNotExist());
-        new LoginPO().logout(getInstrumentation(), "aaron");
+        new LoginPO().logout(getInstrumentation());
         onView(withText("Login")).check(matches(ViewMatchers.isDisplayed()));
     }
 

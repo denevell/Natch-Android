@@ -18,6 +18,7 @@ public class AddPostPO {
 
 	public AddPostPO addPost(String content) throws Exception {
         closeSoftKeyboard();
+        try { Thread.sleep(300); } catch(Exception e) {}
         onView(withId(R.id.post_add_edittext)).perform(clearText(), typeText(content), ViewActions.closeSoftKeyboard());
         try { Thread.sleep(300); } catch(Exception e) {}
         onView(withId(R.id.post_add_button)).perform(click());

@@ -106,8 +106,8 @@ public class RegisterViewActivator extends LinearLayout implements
 				null,
 				mLoginService, 
 				null, 
-				new RefreshOptionsMenuReceiver(act),
 				new UpdateLoginInfoReceiver(mUsername),
+				new RefreshOptionsMenuReceiver(act),
 				new Receiver<LoginResourceReturnData>() {
 					@Override
 					public void success(LoginResourceReturnData result) {

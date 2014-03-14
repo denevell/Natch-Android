@@ -46,6 +46,12 @@
            	app:dialogue_layout="@layout/register_dialogue_layout"
            	app:option_menu_item="@+id/please_register_context_menu"
              />
+
+        <org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator
+            android:layout_width="0dp" android:layout_height="0dp"
+           	app:dialogue_layout="@layout/logout_dialogue_layout"
+           	app:option_menu_item="@+id/logout_context_menu"
+             />
         
         <org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator
             android:layout_width="0dp" android:layout_height="0dp" 

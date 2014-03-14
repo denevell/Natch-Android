@@ -58,15 +58,4 @@
         </LinearLayout>
     </ScrollView>
     
-    <org.denevell.droidnatch.app.views.ButtonWithProgress
-        android:id="@+id/logout_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:visibility="gone"
-        android:gravity="center"
-		app:button_background="@drawable/forum_btn_default_holo_light"
-        app:button_text="Logout"
-        tools:ignore="HardcodedText" />
-
 </RelativeLayout>

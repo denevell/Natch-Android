@@ -58,7 +58,7 @@ public class _05_DeleteThread extends NatchAndroidInstrumentationWithLogin {
 
         new ListThreadsPO().threadHasContent(0, "New thread to delete");
 
-		new LoginPO().logout(getInstrumentation(), "aaron");
+		new LoginPO().logout(getInstrumentation());
         long timeString = new Date().getTime();
 		String username = "new"+timeString;
 		new RegisterPO().register(getInstrumentation(), username, username); // Logs us in too
