@@ -14,6 +14,8 @@ The Android client to the Natch REST project.
 
 ### Icebox
 
+* Highlight unread threads
+* Annoncements list view
 * Sort of alignment for authors in posts
 * Edit text expanded on click
 * Edit text de-expanded on click
@@ -31,6 +33,7 @@ The Android client to the Natch REST project.
 ### Testing to do
 
 * Test going to website
+* Test that logout dialogue box closes.
 * See if I can tests gcm notifications
 * Tech task: Unit tests from gradle
 
