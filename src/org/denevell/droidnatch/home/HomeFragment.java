@@ -2,8 +2,10 @@ package org.denevell.droidnatch.home;
 
 import java.util.ArrayList;
 
+import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.notifications.NotificationFragment;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
+import org.denevell.droidnatch.threads.list.ListThreadsOptionsMenu;
 import org.denevell.natch.android.R;
 
 import android.app.ActionBar;
@@ -16,10 +18,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends ObservableFragment {
 	
 	public class FragmentSwipeListener implements OnPageChangeListener {
 		@Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
@@ -68,7 +72,12 @@ public class HomeFragment extends Fragment {
 		public int getCount() {
 			return mFragments.size();
 		}
-
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -90,10 +99,11 @@ public class HomeFragment extends Fragment {
 		ab.addTab(tab);
 		return view;
 	}
-	
-	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
-	}
+    
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        new ListThreadsOptionsMenu().create(menu, inflater, getActivity().getApplicationContext());
+    }
 
 }

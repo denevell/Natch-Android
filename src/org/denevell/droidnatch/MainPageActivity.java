@@ -22,9 +22,9 @@ public class MainPageActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         try {
-            requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
             mOpener = new FragmentScreenOpener(this);
             setContentView(R.layout.activity_main);
         } catch (Exception e) {
