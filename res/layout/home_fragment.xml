@@ -2,7 +2,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
+
+        <org.denevell.droidnatch.app.views.LaunchActivityFromOptionMenuActivator
+            android:layout_width="0dp" android:layout_height="0dp"
+           	app:fragment_class="org.denevell.droidnatch.settings.SettingsActivity"
+           	app:option_menu_item_for_fragment_opener="@+id/threads_option_menu_settings"
+             />
+
+        <org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator
+            android:layout_width="0dp" android:layout_height="0dp"
+           	app:dialogue_layout="@layout/register_dialogue_layout"
+           	app:option_menu_item="@+id/threads_option_menu_register"
+             />
+
+        <org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator
+            android:layout_width="0dp" android:layout_height="0dp"
+           	app:dialogue_layout="@layout/login_dialogue_layout"
+           	app:option_menu_item="@+id/threads_option_menu_login"
+             />
+
+        <org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator
+            android:layout_width="0dp" android:layout_height="0dp"
+           	app:dialogue_layout="@layout/login_dialogue_layout"
+           	app:option_menu_item="@id/please_login_context_menu"
+             />
+
+        <org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator
+            android:layout_width="0dp" android:layout_height="0dp"
+           	app:dialogue_layout="@layout/register_dialogue_layout"
+           	app:option_menu_item="@+id/please_register_context_menu"
+             />
+
+        <org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator
+            android:layout_width="0dp" android:layout_height="0dp"
+           	app:dialogue_layout="@layout/logout_dialogue_layout"
+           	app:option_menu_item="@+id/logout_context_menu"
+             />
+        
+        <org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator
+            android:layout_width="0dp" android:layout_height="0dp" 
+           	app:dialogue_layout="@layout/add_thread_dialogue_layout"
+           	app:option_menu_item="@+id/threads_option_menu_add_thread"
+            />
+
+        <org.denevell.droidnatch.threads.list.uievents.WebsiteFromOptionMenuActivator
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/home_fragment_viewpager"

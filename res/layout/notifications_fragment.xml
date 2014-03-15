@@ -4,12 +4,60 @@
     android:layout_height="fill_parent"
     >
 
-    <ProgressBar
-        android:id="@+id/progressBar1"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+       <org.denevell.droidnatch.notifications.AnnouncementsViewStarter
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+        
+        <org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView
+            android:id="@+id/announcements_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="2"
+        	android:divider="@color/list_view_divider"
+            android:layout_margin="5dp"
+            android:dividerHeight="5dp"
+            android:horizontalSpacing="5dp"
+            android:verticalSpacing="5dp"
+            android:layout_alignParentTop="true"
+            android:contentDescription="listthreads_listview"
+            tools:ignore="HardcodedText" />
+        
+        <LinearLayout
+            android:id="@android:id/empty"
+            android:layout_margin="5dp"
+            android:dividerHeight="5dp"
+            android:horizontalSpacing="5dp"
+            android:verticalSpacing="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+            <include
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            layout="@layout/list_view_empty"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@id/list_view_service_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:dividerHeight="5dp"
+            android:horizontalSpacing="5dp"
+            android:verticalSpacing="5dp"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+            <include
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            layout="@layout/list_view_service_error_layout"
+                />
+        </LinearLayout>    
 
 </RelativeLayout>
