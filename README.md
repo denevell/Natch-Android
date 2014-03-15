@@ -3,10 +3,10 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * ~~Look at google apps for business~~
+* ~~Backup old forum file~~
 * Rest of projects in json
 * Add contact and profile to site
 * Better headers for projects
-* Backup old forum file
 * Change web title to android manchester
 * Change package name for app
 * Update CV
@@ -34,6 +34,7 @@ The Android client to the Natch REST project.
 
 * Test going to website
 * Test that logout dialogue box closes.
+* Test that back indicator doesn't appear once back from posts fragment.
 * See if I can tests gcm notifications
 * Tech task: Unit tests from gradle
 
