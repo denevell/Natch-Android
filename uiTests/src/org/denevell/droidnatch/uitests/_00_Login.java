@@ -9,12 +9,12 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentation;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 public class _00_Login extends NatchAndroidInstrumentation {
 
     public _00_Login() throws Exception {
-        super("org.denevell.natch.android", MainPageActivity.class);
+        super("com.newfivefour.android.manchester", MainPageActivity.class);
     }
 
     @Override

@@ -20,7 +20,7 @@ import org.denevell.droidnatch.threads.list.entities.RegisterResourceInput;
 import org.denevell.droidnatch.threads.list.entities.RegisterResourceReturnData;
 import org.denevell.droidnatch.threads.list.uievents.LoginViewActivator.RefreshOptionsMenuReceiver;
 import org.denevell.droidnatch.threads.list.uievents.LoginViewActivator.UpdateLoginInfoReceiver;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
 import android.content.Context;

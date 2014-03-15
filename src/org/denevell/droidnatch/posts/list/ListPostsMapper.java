@@ -18,7 +18,7 @@ import org.denevell.droidnatch.posts.list.entities.ThreadResourceResourceToArray
 import org.denevell.droidnatch.posts.list.entities.ThreadResourceTotalAvailable;
 import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
 import android.support.v4.app.FragmentActivity;

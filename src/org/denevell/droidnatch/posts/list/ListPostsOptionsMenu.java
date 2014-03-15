@@ -1,6 +1,6 @@
 package org.denevell.droidnatch.posts.list;
 
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.view.Menu;
 import android.view.MenuInflater;

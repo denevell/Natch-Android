@@ -2,7 +2,7 @@ package org.denevell.droidnatch.posts.list;
 
 
 import org.denevell.droidnatch.posts.list.entities.PostResource;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -6,9 +6,11 @@ The Android client to the Natch REST project.
 * ~~Backup old forum file~~
 * ~~Better headers for projects~~
 * ~~Add contact and profile to site~~
-* Rest of projects in json
+* ~~Change package name for app~~
+* ~~Save current uat db~~
 * Change web title to android manchester
-* Change package name for app
+* Restore uat db
+* Rest of projects in json
 * Update CV
 * Update covering letter
 

@@ -4,7 +4,7 @@ import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.DummyMenuItem;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.content.Context;
 import android.view.Menu;

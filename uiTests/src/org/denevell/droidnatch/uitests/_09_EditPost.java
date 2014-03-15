@@ -26,7 +26,7 @@ import org.hamcrest.CoreMatchers;
 public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
 
     public _09_EditPost() throws Exception {
-        super("org.denevell.natch.android", MainPageActivity.class);
+        super("com.newfivefour.android.manchester", MainPageActivity.class);
     }
 
     @Override

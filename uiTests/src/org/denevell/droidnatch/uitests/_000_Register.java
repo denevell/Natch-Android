@@ -10,7 +10,7 @@ import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentation;
 public class _000_Register extends NatchAndroidInstrumentation {
 
     public _000_Register() throws Exception {
-        super("org.denevell.natch.android", MainPageActivity.class);
+        super("com.newfivefour.android.manchester", MainPageActivity.class);
     }
 
     @Override

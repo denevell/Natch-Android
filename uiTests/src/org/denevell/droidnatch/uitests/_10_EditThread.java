@@ -23,12 +23,12 @@ import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
 
     public _10_EditThread() throws Exception {
-        super("org.denevell.natch.android", MainPageActivity.class);
+        super("com.newfivefour.android.manchester", MainPageActivity.class);
     }
 
     @Override

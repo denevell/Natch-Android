@@ -9,14 +9,14 @@ import org.denevell.droidnatch.uitests.pageobjects.AddPostPO;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
 
 public class _12_PostsPagination extends NatchAndroidInstrumentationWithLogin {
 
     public _12_PostsPagination() throws Exception {
-        super("org.denevell.natch.android", MainPageActivity.class);
+        super("com.newfivefour.android.manchester", MainPageActivity.class);
     }
 
     @Override

@@ -22,7 +22,7 @@ import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
 
     public _034_AddThread() throws Exception {
-        super("org.denevell.natch.android", MainPageActivity.class);
+        super("com.newfivefour.android.manchester", MainPageActivity.class);
     }
 
     @Override

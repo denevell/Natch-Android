@@ -2,7 +2,7 @@ package org.denevell.droidnatch.threads.list.uievents;
 
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.views.ViewThatListensOnEventBus;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.content.Context;
 import android.content.Intent;

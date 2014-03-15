@@ -20,7 +20,7 @@ import java.util.Locale;
 
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.uitests.CustomMatchers;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 import org.hamcrest.CoreMatchers;
 
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;

@@ -22,14 +22,14 @@ import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
 
 public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
 
     public _06_AddPostToThread() throws Exception {
-        super("org.denevell.natch.android", MainPageActivity.class);
+        super("com.newfivefour.android.manchester", MainPageActivity.class);
     }
 
     @Override

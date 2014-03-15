@@ -17,7 +17,7 @@ import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogi
 public class _05_DeleteThread extends NatchAndroidInstrumentationWithLogin {
 
     public _05_DeleteThread() throws  Exception {
-        super("org.denevell.natch.android", MainPageActivity.class);
+        super("com.newfivefour.android.manchester", MainPageActivity.class);
     }
 
     @Override

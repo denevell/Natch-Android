@@ -18,7 +18,7 @@ import java.util.Locale;
 
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.CustomMatchers;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
 

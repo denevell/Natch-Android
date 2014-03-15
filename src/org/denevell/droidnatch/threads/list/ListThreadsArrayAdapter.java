@@ -1,7 +1,7 @@
 package org.denevell.droidnatch.threads.list;
 
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

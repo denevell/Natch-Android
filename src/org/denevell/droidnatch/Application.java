@@ -1,7 +1,6 @@
 package org.denevell.droidnatch;
 
 import org.denevell.droidnatch.app.push.GcmServerRegister;
-import org.denevell.natch.android.R;
 
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -9,6 +8,7 @@ import android.util.Log;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.deploygate.sdk.DeployGate;
+import com.newfivefour.android.manchester.R;
 
 public class Application extends android.app.Application {
 

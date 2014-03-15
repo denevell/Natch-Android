@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

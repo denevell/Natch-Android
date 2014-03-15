@@ -11,7 +11,7 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
 import org.denevell.droidnatch.uitests.CustomMatchers;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 public class EditPostPO {
 

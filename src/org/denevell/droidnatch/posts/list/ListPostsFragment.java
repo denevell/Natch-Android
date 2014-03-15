@@ -3,7 +3,7 @@ package org.denevell.droidnatch.posts.list;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.posts.list.uievents.AddPostViewActivator;
 import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.os.Bundle;
 import android.util.Log;

@@ -14,7 +14,7 @@ import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
 public class _13_Logout extends NatchAndroidInstrumentation {
 
     public _13_Logout() throws Exception {
-        super("org.denevell.natch.android", MainPageActivity.class);
+        super("com.newfivefour.android.manchester", MainPageActivity.class);
     }
 
     @Override

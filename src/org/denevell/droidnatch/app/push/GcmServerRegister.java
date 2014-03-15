@@ -7,7 +7,7 @@ import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.threads.list.entities.PushInput;
 import org.denevell.droidnatch.threads.list.entities.SuccessOrError;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.content.Context;
 import android.os.AsyncTask;

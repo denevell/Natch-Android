@@ -4,7 +4,7 @@ import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.interfaces.CanSetEntity;
 import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.views.DialogueFragmentWithView.InitialiseView;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.content.Context;
 import android.content.res.TypedArray;

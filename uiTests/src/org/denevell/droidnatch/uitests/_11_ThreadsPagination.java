@@ -14,7 +14,7 @@ import org.denevell.droidnatch.uitests.utils.TestUtils;
 public class _11_ThreadsPagination extends NatchAndroidInstrumentationWithLogin {
 
     public _11_ThreadsPagination() throws Exception {
-        super("org.denevell.natch.android", MainPageActivity.class);
+        super("com.newfivefour.android.manchester", MainPageActivity.class);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class _11_ThreadsPagination extends NatchAndroidInstrumentationWithLogin 
 
         new AddThreadPO().addThreadAndPressBack("Two", "One");
         
-        onView(withId(org.denevell.natch.android.R.id.threads_listview)).perform(CustomMatchers.scrollToBottomOfListView());
+        onView(withId(com.newfivefour.android.manchester.R.id.threads_listview)).perform(CustomMatchers.scrollToBottomOfListView());
 
         new ListThreadsPO().checkHasNumberOfThreads(2);
         

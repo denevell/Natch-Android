@@ -7,7 +7,7 @@ import org.denevell.droidnatch.app.baseclasses.FragmentScreenOpener;
 import org.denevell.droidnatch.app.utils.AndroidUtils;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.content.Intent;
 import android.os.Bundle;

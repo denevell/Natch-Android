@@ -2,7 +2,7 @@ package org.denevell.droidnatch.settings;
 
 import org.denevell.droidnatch.app.push.GcmServerRegister;
 import org.denevell.droidnatch.app.utils.AndroidUtils;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.os.Bundle;
 import android.preference.EditTextPreference;

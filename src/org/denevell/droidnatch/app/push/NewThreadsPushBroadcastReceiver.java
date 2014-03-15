@@ -5,7 +5,7 @@ import org.denevell.droidnatch.SeenThreadsSaver;
 import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.entities.CutDownThreadResource;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
 import android.app.Notification;

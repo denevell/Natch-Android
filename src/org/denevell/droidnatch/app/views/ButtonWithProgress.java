@@ -1,6 +1,6 @@
 package org.denevell.droidnatch.app.views;
 
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -21,9 +21,9 @@ public class ButtonWithProgress extends RelativeLayout {
 	@SuppressWarnings("deprecation")
 	public ButtonWithProgress(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		LayoutInflater.from(context).inflate(org.denevell.natch.android.R.layout.button_with_progress, this, true);
-		mButton = (Button) findViewById(org.denevell.natch.android.R.id.button_with_progress_button);
-		mProgress = (ProgressBar) findViewById(org.denevell.natch.android.R.id.button_with_progress_progressbar);
+		LayoutInflater.from(context).inflate(com.newfivefour.android.manchester.R.layout.button_with_progress, this, true);
+		mButton = (Button) findViewById(com.newfivefour.android.manchester.R.id.button_with_progress_button);
+		mProgress = (ProgressBar) findViewById(com.newfivefour.android.manchester.R.id.button_with_progress_progressbar);
 		mProgress.setVisibility(View.GONE);
 
 		TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ButtonWithProgress, 0, 0);

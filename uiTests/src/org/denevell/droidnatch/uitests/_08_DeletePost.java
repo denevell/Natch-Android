@@ -19,12 +19,12 @@ import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 public class _08_DeletePost extends NatchAndroidInstrumentationWithLogin {
 
     public _08_DeletePost() throws Exception {
-        super("org.denevell.natch.android", MainPageActivity.class);
+        super("com.newfivefour.android.manchester", MainPageActivity.class);
     }
 
     @Override

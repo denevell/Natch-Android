@@ -19,7 +19,7 @@ import org.denevell.droidnatch.app.views.ButtonWithProgress;
 import org.denevell.droidnatch.posts.list.entities.EditPostResource;
 import org.denevell.droidnatch.posts.list.entities.EditPostResourceReturnData;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
 import android.content.Context;

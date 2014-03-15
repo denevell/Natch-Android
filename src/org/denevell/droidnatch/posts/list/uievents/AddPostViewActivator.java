@@ -25,7 +25,7 @@ import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
 import android.content.Context;

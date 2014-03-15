@@ -16,12 +16,12 @@ import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
 
     public _012_ListThreads() throws Exception {
-        super("org.denevell.natch.android", MainPageActivity.class);
+        super("com.newfivefour.android.manchester", MainPageActivity.class);
     }
 
     @Override

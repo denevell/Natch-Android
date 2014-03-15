@@ -1,7 +1,7 @@
 package org.denevell.droidnatch.threads.list;
 
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
-import org.denevell.natch.android.R;
+import com.newfivefour.android.manchester.R;
 
 import android.os.Bundle;
 import android.util.Log;
