@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class NotificationFragment extends Fragment {
+public class AnnouncementsFragment extends Fragment {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class NotificationFragment extends Fragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.notifications_fragment, container, false);
+		return inflater.inflate(R.layout.announcements_fragment, container, false);
 	}
 	
 	@Override

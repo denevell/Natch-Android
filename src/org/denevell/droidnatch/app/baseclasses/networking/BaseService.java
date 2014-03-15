@@ -90,13 +90,18 @@ public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, S
         } catch (JSONException e) {
             //e.printStackTrace();
         }
+        try {
+        	String success = response.toString();
+        	T res = mResponseConverter.convert(success, mClass);
+        	if(mCallbacks!=null) {
+        		mCallbacks.onServiceSuccess(res);
+        	}
+		} catch (Exception e) {
+			Log.e(TAG, "Problem sending success data to listeners", e);
+			e.printStackTrace();
+		}
         if(mProgress!=null) {
             mProgress.stop();
-        }
-        String success = response.toString();
-        T res = mResponseConverter.convert(success, mClass);
-        if(mCallbacks!=null) {
-            mCallbacks.onServiceSuccess(res);
         }
     }
     

@@ -20,8 +20,8 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
+import org.denevell.droidnatch.threads.list.entities.ListThreadsResourceToListWithoutAnnounces;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResourceTotalAvailable;
-import org.denevell.droidnatch.threads.list.entities.ListThreadsToList;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.LogoutResourceReturnData;
@@ -74,7 +74,7 @@ public class ListThreadsMapper {
 
 		listView
 			.setListAdapter(listAdapter)
-        	.setTypeAdapter(new ListThreadsToList())
+        	.setTypeAdapter(new ListThreadsResourceToListWithoutAnnounces())
 			.setPaginationView(R.layout.pagination_button_generic)
             .setErrorViewId(R.id.list_view_service_error)
 			.addOnPaginationFooterVisibleCallback(new Runnable() {

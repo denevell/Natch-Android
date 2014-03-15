@@ -37,7 +37,7 @@
             <include
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
-	            layout="@layout/list_view_empty"
+	            layout="@layout/list_view_empty_announcements"
                 />
         </LinearLayout>
 

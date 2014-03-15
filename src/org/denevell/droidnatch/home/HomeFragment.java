@@ -3,7 +3,7 @@ package org.denevell.droidnatch.home;
 import java.util.ArrayList;
 
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
-import org.denevell.droidnatch.notifications.NotificationFragment;
+import org.denevell.droidnatch.notifications.AnnouncementsFragment;
 import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.ListThreadsOptionsMenu;
 import org.denevell.natch.android.R;
@@ -60,7 +60,7 @@ public class HomeFragment extends ObservableFragment {
 			super(fm);
 			mFragments = new ArrayList<Fragment>();
 			mFragments.add(new ListThreadsFragment());
-			mFragments.add(new NotificationFragment());
+			mFragments.add(new AnnouncementsFragment());
 		}
 		
 		@Override
