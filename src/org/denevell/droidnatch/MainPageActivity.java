@@ -27,6 +27,7 @@ public class MainPageActivity extends FragmentActivity {
         try {
             mOpener = new FragmentScreenOpener(this);
             setContentView(R.layout.activity_main);
+            setProgressBarIndeterminateVisibility(false);
         } catch (Exception e) {
             Log.e(TAG, "Failed to parse activity", e);
             return;

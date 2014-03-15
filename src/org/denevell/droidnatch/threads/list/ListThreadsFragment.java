@@ -15,13 +15,13 @@ public class ListThreadsFragment extends ObservableFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-       	getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
-        getActivity().setTitle(R.string.page_title_threads);
 	}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+       	getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
+        getActivity().setTitle(R.string.page_title_threads);
         View v = inflater.inflate(R.layout.threads_list_fragment, container, false);
         return v;
     }
