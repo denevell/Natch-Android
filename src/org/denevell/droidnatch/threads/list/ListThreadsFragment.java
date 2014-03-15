@@ -25,5 +25,11 @@ public class ListThreadsFragment extends ObservableFragment {
         View v = inflater.inflate(R.layout.threads_list_fragment, container, false);
         return v;
     }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+       	getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
+    }
 
 }

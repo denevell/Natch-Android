@@ -21,5 +21,11 @@ public class NotificationFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.notifications_fragment, container, false);
 	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+       	getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
+	}
 
 }
