@@ -4,9 +4,9 @@ The Android client to the Natch REST project.
 
 * ~~Look at google apps for business~~
 * ~~Backup old forum file~~
+* ~~Better headers for projects~~
 * Rest of projects in json
 * Add contact and profile to site
-* Better headers for projects
 * Change web title to android manchester
 * Change package name for app
 * Update CV
