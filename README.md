@@ -2,23 +2,21 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* ~~Look at google apps for business~~
-* ~~Backup old forum file~~
-* ~~Better headers for projects~~
-* ~~Add contact and profile to site~~
-* ~~Change package name for app~~
-* ~~Save current uat db~~
-* ~~Change web title to android manchester~~
-* ~~Restore uat db~~
-* ~~Place cv and covering letter on server~~
-* ~~Update covering letter~~
-* ~~Update CV~~
-* ~~Rest of projects in json~~
+* Test announcements appear
+* Test announcements don't appear in chat page
+* Test announcements can't be deleted by anyone in list threads or list thread page
+* Test going back to announcements from list thread page goes back to the correct tab 
+* Look at using outlook for hosted email
+* Add images to portfolio
+* Add links to portfolio
+* Jetty command to compile and deploy
+* Jetty test with jetty runner
 
 ### Icebox
 
 * Highlight unread threads
-* Annoncements list view
+* Option to only receive announcements push messages
+* Only show announcements from certain people?
 * Sort of alignment for authors in posts
 * Edit text expanded on click
 * Edit text de-expanded on click
@@ -35,10 +33,6 @@ The Android client to the Natch REST project.
 
 ### Testing to do
 
-* Test announcements appear
-* Test announcements don't appear in chat page
-* Test announcements can't be deleted by anyone in list threads or list thread page
-* Test going back to announcements from list thread page goes back to the correct tab 
 * Test going to website
 * Test that logout dialogue box closes.
 * Test that back indicator doesn't appear once back from posts fragment.
