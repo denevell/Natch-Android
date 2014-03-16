@@ -1,20 +1,12 @@
 package org.denevell.droidnatch.home;
 
-import java.util.ArrayList;
-
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
-import org.denevell.droidnatch.notifications.AnnouncementsFragment;
-import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.ListThreadsOptionsMenu;
 import org.denevell.natch.android.R;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
@@ -31,49 +23,12 @@ public class HomeFragment extends ObservableFragment {
 		@Override
 		public void onPageSelected(int position) {
 			getActivity().getActionBar().setSelectedNavigationItem(position);
+			if(position==1) {
+				
+			}
 		}
 	}
 
-	public class TabListener implements ActionBar.TabListener {
-		private ViewPager mVp;
-		private int mPagerNumber;
-
-		public TabListener(ViewPager vp, int num) {
-			mVp = vp;
-			mPagerNumber = num;
-		}
-
-		@Override
-		public void onTabSelected(Tab tab, FragmentTransaction ft) {
-			mVp.setCurrentItem(mPagerNumber, true);
-		}
-		@Override public void onTabUnselected(Tab tab, FragmentTransaction ft) { }
-		@Override public void onTabReselected(Tab tab, FragmentTransaction ft) { }
-
-	}
-
-	public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-		
-		private ArrayList<Fragment> mFragments;
-
-		public MyFragmentPagerAdapter(FragmentManager fm) {
-			super(fm);
-			mFragments = new ArrayList<Fragment>();
-			mFragments.add(new ListThreadsFragment());
-			mFragments.add(new AnnouncementsFragment());
-		}
-		
-		@Override
-		public Fragment getItem(int position) {
-			return mFragments.get(position);
-		}
-
-		@Override
-		public int getCount() {
-			return mFragments.size();
-		}
-	}
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -90,12 +45,12 @@ public class HomeFragment extends ObservableFragment {
 		ab.removeAllTabs();
 
 		ViewPager pager = (ViewPager) view.findViewById(R.id.home_fragment_viewpager);
-		pager.setAdapter(new MyFragmentPagerAdapter(getChildFragmentManager()));
+		pager.setAdapter(new HomeFragmentPagerAdapter(getChildFragmentManager()));
 		pager.setOnPageChangeListener(new FragmentSwipeListener());
 
-		Tab tab = ab.newTab().setText(R.string.home_chat_tab).setTabListener(new TabListener(pager, 0));
+		Tab tab = ab.newTab().setText(R.string.home_chat_tab).setTabListener(new HomeFragmentTabListener(pager, 0));
 		ab.addTab(tab);
-		tab = ab.newTab().setText(R.string.home_announcements_tab).setTabListener(new TabListener(pager, 1));
+		tab = ab.newTab().setText(R.string.home_announcements_tab).setTabListener(new HomeFragmentTabListener(pager, 1));
 		ab.addTab(tab);
 		return view;
 	}
