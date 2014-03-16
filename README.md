@@ -8,8 +8,8 @@ The Android client to the Natch REST project.
 * ~~Add contact and profile to site~~
 * ~~Change package name for app~~
 * ~~Save current uat db~~
-* Change web title to android manchester
-* Restore uat db
+* ~~Change web title to android manchester~~
+* ~~Restore uat db~~
 * Rest of projects in json
 * Update CV
 * Update covering letter
