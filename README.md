@@ -11,9 +11,9 @@ The Android client to the Natch REST project.
 * ~~Change web title to android manchester~~
 * ~~Restore uat db~~
 * ~~Place cv and covering letter on server~~
+* ~~Update covering letter~~
 * Rest of projects in json
 * Update CV
-* Update covering letter
 
 ### Icebox
 
