@@ -6,6 +6,7 @@ import org.denevell.droidnatch.app.interfaces.FailureResultFactory;
 import org.denevell.droidnatch.app.interfaces.ObjectToStringConverter;
 import org.denevell.droidnatch.app.interfaces.ProgressIndicator;
 import org.denevell.droidnatch.app.views.LaunchActivityFromOptionMenuActivator;
+import org.denevell.droidnatch.notifications.AnnouncementsViewStarter;
 import org.denevell.droidnatch.posts.list.uievents.AddPostViewActivator;
 import org.denevell.droidnatch.posts.list.uievents.EditPostViewActivator;
 import org.denevell.droidnatch.posts.list.uievents.EditThreadViewActivator;
@@ -32,6 +33,7 @@ import dagger.Provides;
 		RegisterViewActivator.class,
 		AddPostViewActivator.class,
 		AddThreadViewActivator.class,
+		AnnouncementsViewStarter.class,
         PreviousScreenReceiver.class,
         EditPostViewActivator.class,
         EditThreadViewActivator.class,

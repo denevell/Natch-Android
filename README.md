@@ -35,6 +35,10 @@ The Android client to the Natch REST project.
 
 ### Testing to do
 
+* Test announcements appear
+* Test announcements don't appear in chat page
+* Test announcements can't be deleted by anyone in list threads or list thread page
+* Test going back to announcements from list thread page goes back to the correct tab 
 * Test going to website
 * Test that logout dialogue box closes.
 * Test that back indicator doesn't appear once back from posts fragment.

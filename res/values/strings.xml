@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">AndroidManchester</string>
     <string name="url_baseurl">http://denevell.org:8912/Natch-REST-ForAutomatedTests/rest/</string>
+    <string name="url_announcements">threads/announcements/0/50</string>
     <string name="url_threads">threads/</string>
     <string name="url_logout">user/logout</string>
     <string name="url_threads_latest">threads/0/1</string>
@@ -22,6 +23,7 @@
     <item type="id" name="posts_context_menu_delete_thread">posts_context_menu_delete_thread</item>
     <item type="id" name="posts_context_menu_delete_post">posts_context_menu_delete_post</item>
     <item type="id" name="list_view_service_error">list_view_service_error</item>
+    <item type="id" name="list_view_loading">list_view_service_error</item>
     <item type="id" name="posts_context_menu_edit_thread">posts_context_menu_edit_thread</item>
     <item type="id" name="posts_context_menu_edit_post">posts_context_menu_edit_post</item>
     <item type="id" name="please_login_context_menu">please_login_context_menu</item>
@@ -34,4 +36,6 @@
     <string name="settings_gcm_registered">gcm_register_info</string>
     <string name="register_400_error">Ensure username and password are not blank.</string>
     <string name="url_website">http://uat.denevell.org/</string>
+    <string name="home_chat_tab">Chat</string>
+    <string name="home_announcements_tab">Announcements</string>
 </resources>

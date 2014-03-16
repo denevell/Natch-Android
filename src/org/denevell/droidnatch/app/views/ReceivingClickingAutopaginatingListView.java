@@ -30,6 +30,7 @@ import android.widget.HeaderViewListAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.newfivefour.android.manchester.R;
 import com.squareup.otto.Subscribe;
 
 public class ReceivingClickingAutopaginatingListView
@@ -95,15 +96,6 @@ public class ReceivingClickingAutopaginatingListView
         EventBus.getBus().register(this);
     }
 
-	private void findAndSetEmptyView() {
-		if(getParent() instanceof ViewGroup) {
-			View findViewById = ((ViewGroup) getParent()).findViewById(android.R.id.empty);
-			if (findViewById != null) {
-				setEmptyView(findViewById);
-			}
-        }
-	}
-
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -167,8 +159,27 @@ public class ReceivingClickingAutopaginatingListView
     public void setAdapter(ListAdapter adapter) {
     	setPaginationFooterIfNeeded(adapter);
     	super.setAdapter(adapter);
+        setLoading(false);
         findAndSetEmptyView();
     }
+
+	private void findAndSetEmptyView() {
+		if(getParent() instanceof ViewGroup) {
+			View findViewById = ((ViewGroup) getParent()).findViewById(android.R.id.empty);
+			if (findViewById != null) {
+				setEmptyView(findViewById);
+			}
+        }
+	}
+
+	public void setLoading(boolean show) {
+		if(getParent() instanceof ViewGroup) {
+			View findViewById = ((ViewGroup) getParent()).findViewById(R.id.list_view_loading);
+			if (findViewById != null) {
+				findViewById.setVisibility((show) ? View.VISIBLE : View.GONE);
+			}
+        }
+	}
 	
     // On selection stuff
 

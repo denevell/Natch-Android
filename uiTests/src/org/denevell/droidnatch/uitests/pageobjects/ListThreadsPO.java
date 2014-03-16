@@ -1,6 +1,5 @@
 package org.denevell.droidnatch.uitests.pageobjects;
 
-import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
@@ -9,16 +8,14 @@ import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewA
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withParent;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.uitests.CustomMatchers;
 import com.newfivefour.android.manchester.R;
 import org.hamcrest.CoreMatchers;
@@ -45,37 +42,35 @@ public class ListThreadsPO {
 	}
 
 	public ListThreadsPO threadHasContent(int i, String string) {
-        onView(withContentDescription("list_threads_row"+i))
-        	.check(matches(withText(string)));
+        onView(withContentDescription("list_threads_row"+i)).check(matches(withText(string)));
         return this;
 	}
 
-	@SuppressWarnings("unchecked")
 	public ListThreadsPO bringUpEditDeleteOptions(int row) {
-		onData(allOf(is(instanceOf(ThreadResource.class)))).atPosition(row).perform(longClick());
+        onView(withContentDescription("list_threads_row"+row)).perform(longClick());
 		return this;
 	}
 
-	@SuppressWarnings("unchecked")
 	public ListThreadsPO pressItem(int row) {
-		onData(allOf(is(instanceOf(ThreadResource.class)))).atPosition(row).perform(click());
+        onView(withContentDescription("list_threads_row"+row)).perform(click());
+		return this;
+	}
+
+	public ListThreadsPO pressItemThenBack(int row) {
+        onView(withContentDescription("list_threads_row"+row)).perform(click(), pressBack());
 		return this;
 	}
 
 	@SuppressWarnings("unchecked")
-	public ListThreadsPO pressItemThenBack(int row) {
-		onData(allOf(is(instanceOf(ThreadResource.class)))).atPosition(row).perform(
-				click(),
-				pressBack());
-		return this;
-	}
-
 	public void seeEmptyView() {
-        onView(withId(android.R.id.empty)).check(ViewAssertions.matches(isDisplayed()));
+        onView(allOf(withId(android.R.id.empty), withParent(withId(R.id.threads_list_relativelayout))))
+        		.check(ViewAssertions.matches(isDisplayed()));
 	}
 
+	@SuppressWarnings("unchecked")
 	public void dontSeeEmptyView() {
-        onView(withId(android.R.id.empty)).check(matches(CoreMatchers.not(isDisplayed())));
+        onView(allOf(withId(android.R.id.empty), withParent(withId(R.id.threads_list_relativelayout))))
+        		.check(matches(CoreMatchers.not(isDisplayed())));
 	}
 
 	public ListThreadsPO pressRefresh() {
@@ -103,6 +98,13 @@ public class ListThreadsPO {
         onView(withContentDescription("list_threads_row_date0")).check(ViewAssertions.matches(
         		CustomMatchers.withRegexText(".*"+dateString+".*| Posts: "+pageNum+".*")));
 		return this;
+	}
+
+	@SuppressWarnings("unchecked")
+	public ListThreadsPO seeServiceError() {
+        onView(allOf(withId(R.id.list_view_service_error), withParent(withId(R.id.threads_list_relativelayout))))
+        	.check(matches(isDisplayed()));
+        return this;
 	}
 	
 

@@ -106,7 +106,7 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
         ShamefulStatics.setBasePath("http://www.dsflkjsdflkjsdflkjsdlfkjsd.int/");
         
         new ListThreadsPO().pressItem(0);
-        onView(withId(R.id.list_view_service_error_textview)).check(matches(isDisplayed()));
+        onView(withId(R.id.list_view_service_error)).check(matches(isDisplayed()));
         onView(withId(R.id.posts_option_menu_refresh)).perform(click()); // To test we don't crash
         ShamefulStatics.setBasePath(oldPath);
         pressBack();

@@ -85,6 +85,15 @@ public class ThreadResource {
 		return tags;
 	}
 
+	public boolean containsTag(String string) {
+		for (String t: tags) {
+			if(t.equals(string)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}

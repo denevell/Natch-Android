@@ -1,32 +1,15 @@
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/threads_list_relativelayout"
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
 
-        <LinearLayout
-            android:id="@+id/one"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <requestFocus />
-        </LinearLayout>
-
-        <org.denevell.droidnatch.threads.list.uievents.LongClickDeleteActivator
-            android:layout_width="0dp"
-            android:layout_height="0dp" />
-
-        <org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter
+       <org.denevell.droidnatch.notifications.AnnouncementsViewStarter
             android:layout_width="0dp"
             android:layout_height="0dp" />
         
         <org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView
-            android:id="@+id/threads_listview"
+            android:id="@+id/announcements_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:numColumns="2"
@@ -51,14 +34,10 @@
             android:orientation="vertical"
             android:visibility="gone"
             >
-            <org.denevell.droidnatch.threads.list.uievents.AddThreadViewActivator 
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-                />
             <include
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
-	            layout="@layout/list_view_empty"
+	            layout="@layout/list_view_empty_announcements"
                 />
         </LinearLayout>
 
@@ -74,19 +53,11 @@
             android:orientation="vertical"
             android:visibility="gone"
             >
-            <org.denevell.droidnatch.threads.list.uievents.AddThreadViewActivator 
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-                />
             <include
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            layout="@layout/list_view_service_error_layout"
                 />
-        </LinearLayout>
-        
+        </LinearLayout>    
 
-    </RelativeLayout>
-
-
-
+</RelativeLayout>

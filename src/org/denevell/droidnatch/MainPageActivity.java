@@ -5,15 +5,16 @@ import java.util.Map;
 
 import org.denevell.droidnatch.app.baseclasses.FragmentScreenOpener;
 import org.denevell.droidnatch.app.utils.AndroidUtils;
+import org.denevell.droidnatch.home.HomeFragment;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.threads.list.ListThreadsFragment;
-import com.newfivefour.android.manchester.R;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Window;
+
+import com.newfivefour.android.manchester.R;
 
 public class MainPageActivity extends FragmentActivity {
 
@@ -22,11 +23,12 @@ public class MainPageActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         try {
-            requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
             mOpener = new FragmentScreenOpener(this);
             setContentView(R.layout.activity_main);
+            setProgressBarIndeterminateVisibility(false);
         } catch (Exception e) {
             Log.e(TAG, "Failed to parse activity", e);
             return;
@@ -71,7 +73,7 @@ public class MainPageActivity extends FragmentActivity {
 	}
 
 	private void gotoMainFragment(FragmentScreenOpener sopner) {
-		sopner.openScreen(ListThreadsFragment.class, null, false);
+		sopner.openScreen(HomeFragment.class, null, false);
 	}
     
 	

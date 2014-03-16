@@ -3,10 +3,7 @@ package org.denevell.droidnatch.uitests;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
-import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
-import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
-import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 
 import java.util.Date;
 
@@ -41,8 +38,9 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
         String oldPath = ShamefulStatics.getBasePath();
         ShamefulStatics.setBasePath("http://www.dsflkjsdflkjsdflkjsdlfkjsd.int/");
         pressBack();
-        onView(withId(R.id.list_view_service_error_textview)).check(matches(isDisplayed()));
-        new ListThreadsPO().pressRefresh(); // To ensure we don't crash...
+        new ListThreadsPO()
+        	.seeServiceError()
+        	.pressRefresh(); // To ensure we don't crash...
         ShamefulStatics.setBasePath(oldPath);
         // So to make the views, and therefore url, refresh
         TestUtils.toggleOrientationChange(getActivity(), getInstrumentation());
