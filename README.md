@@ -12,8 +12,8 @@ The Android client to the Natch REST project.
 * ~~Restore uat db~~
 * ~~Place cv and covering letter on server~~
 * ~~Update covering letter~~
-* Rest of projects in json
-* Update CV
+* ~~Update CV~~
+* ~~Rest of projects in json~~
 
 ### Icebox
 
