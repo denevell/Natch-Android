@@ -10,6 +10,7 @@ The Android client to the Natch REST project.
 * ~~Save current uat db~~
 * ~~Change web title to android manchester~~
 * ~~Restore uat db~~
+* ~~Place cv and covering letter on server~~
 * Rest of projects in json
 * Update CV
 * Update covering letter
