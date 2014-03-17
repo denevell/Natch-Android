@@ -1,13 +1,20 @@
 package org.denevell.droidnatch.uitests;
 
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
+import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 
 import org.denevell.droidnatch.MainPageActivity;
+import org.denevell.droidnatch.uitests.pageobjects.AddPostPO;
 import org.denevell.droidnatch.uitests.pageobjects.AnnouncementsListPO;
+import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
+
+import com.newfivefour.android.manchester.R;
 
 public class _14_Announcements extends NatchAndroidInstrumentationWithLogin {
 
@@ -39,6 +46,26 @@ public class _14_Announcements extends NatchAndroidInstrumentationWithLogin {
     		.pressTab()
     		.pressRefresh()
     		.checkHasNumberOfThreads(0);;
+    }
+
+    public void testCanClickOnAnnouncement() throws Exception {
+    	TestUtils.addAnnouncement(getActivity(), "New Announce", "Announce content");
+    	new ListThreadsPO()
+    		.pressRefresh();
+    	new AnnouncementsListPO()
+    		.pressAnnouncementsTab()
+    		.pressItem(0);
+    	new ListPostsPO()
+    		.checkHasNumberOfPosts(1)
+    		.postHasContent(0, "Announce content");
+    	new AddPostPO()
+    		.addPost("New");
+    	new ListPostsPO()
+    		.checkHasNumberOfPosts(2)
+    		.postHasContent(1, "New");
+    	
+        onView(withId(R.id.list_posts_listpostsview_holder))
+        	.check(matches(CustomMatchers.viewHasActivityTitle("New Announce")));
     }
 
 }

@@ -37,4 +37,9 @@ public class AnnouncementsListPO {
         return this;
 	}
 
+	public AnnouncementsListPO pressItem(int i) {
+        onView(withContentDescription("announcement_title_row"+i)).perform(click());
+        return this;
+	}
+
 }
