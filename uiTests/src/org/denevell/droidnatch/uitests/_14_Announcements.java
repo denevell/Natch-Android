@@ -1,6 +1,7 @@
 package org.denevell.droidnatch.uitests;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
@@ -34,9 +35,10 @@ public class _14_Announcements extends NatchAndroidInstrumentationWithLogin {
     public void testSeeAnnouncement() throws Exception {
     	TestUtils.addAnnouncement(getActivity(), "New Announce", "Announce content");
     	TestUtils.addAnnouncement(getActivity(), "Newer Announce", "Newer Announce content");
+    	TestUtils.addPostViaRest(getActivity());
     	new ListThreadsPO()
     		.pressRefresh()
-    		.checkHasNumberOfThreads(0);
+    		.checkHasNumberOfThreads(1);
     	new AnnouncementsListPO()
     		.pressAnnouncementsTab()
     		.checkHasNumberOfPosts(2)
@@ -45,7 +47,7 @@ public class _14_Announcements extends NatchAndroidInstrumentationWithLogin {
     	new ListThreadsPO()
     		.pressTab()
     		.pressRefresh()
-    		.checkHasNumberOfThreads(0);;
+    		.checkHasNumberOfThreads(1);;
     }
 
     public void testCanClickOnAnnouncement() throws Exception {
@@ -66,6 +68,24 @@ public class _14_Announcements extends NatchAndroidInstrumentationWithLogin {
     	
         onView(withId(R.id.list_posts_listpostsview_holder))
         	.check(matches(CustomMatchers.viewHasActivityTitle("New Announce")));
+    }
+
+    public void testGoesBackToSameTab() throws Exception {
+    	TestUtils.addAnnouncement(getActivity(), "New Announce", "Announce content");
+    	new ListThreadsPO()
+    		.pressRefresh();
+    	new AnnouncementsListPO()
+    		.pressAnnouncementsTab()
+    		.pressItem(0);
+    	pressBack();
+    	new AnnouncementsListPO()
+    		.seeAnnouncementTitle(0, "New Announce");
+    	new ListThreadsPO()
+    		.pressTab()
+    		.checkHasNumberOfThreads(0);;
+    	new AnnouncementsListPO()
+    		.pressAnnouncementsTab()
+    		.checkHasNumberOfPosts(1);
     }
 
 }

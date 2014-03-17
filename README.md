@@ -9,8 +9,7 @@ The Android client to the Natch REST project.
 * ~~Test announcements appear~~
 * ~~Test announcements don't appear in chat page~~
 * ~~Test can see content of announcements and can add posts~~
-* Test announcements can't be deleted by anyone in list threads or list thread page
-* Test going back to announcements from list thread page goes back to the correct tab 
+* ~~Test going back to announcements from list thread page goes back to the correct tab~~
 * Look at using outlook for hosted email
 * Add images to portfolio
 * Add links to portfolio

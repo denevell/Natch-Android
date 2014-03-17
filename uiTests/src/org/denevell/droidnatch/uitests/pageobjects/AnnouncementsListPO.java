@@ -39,6 +39,7 @@ public class AnnouncementsListPO {
 
 	public AnnouncementsListPO pressItem(int i) {
         onView(withContentDescription("announcement_title_row"+i)).perform(click());
+        try { Thread.sleep(500); } catch (InterruptedException e) { }
         return this;
 	}
 
