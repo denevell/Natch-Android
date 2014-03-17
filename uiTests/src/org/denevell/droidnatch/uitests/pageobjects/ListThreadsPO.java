@@ -106,6 +106,12 @@ public class ListThreadsPO {
         	.check(matches(isDisplayed()));
         return this;
 	}
+
+	public ListThreadsPO pressTab() {
+        onView(withText("Chat"))
+        	.perform(click());
+        return this;
+	}
 	
 
 }

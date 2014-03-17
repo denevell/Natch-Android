@@ -13,7 +13,6 @@ import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
-import com.newfivefour.android.manchester.R;
 
 public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
 

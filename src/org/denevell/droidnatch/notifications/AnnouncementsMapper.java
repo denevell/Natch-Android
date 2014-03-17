@@ -14,7 +14,6 @@ import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
-import org.denevell.droidnatch.threads.list.ListThreadsArrayAdapter;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResourceTotalAvailable;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsToList;
@@ -49,7 +48,7 @@ public class AnnouncementsMapper {
     		) {
         final ReceivingClickingAutopaginatingListView listView = (ReceivingClickingAutopaginatingListView) mActivity.findViewById(R.id.announcements_listview);
 
-        ListThreadsArrayAdapter listAdapter = new ListThreadsArrayAdapter(appContext, R.layout.threads_list_row);
+        AnnouncementsArrayAdapter listAdapter = new AnnouncementsArrayAdapter(appContext, R.layout.threads_list_row);
 
 		listView
 			.setListAdapter(listAdapter)

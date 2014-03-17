@@ -11,6 +11,8 @@ import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 
+import com.newfivefour.android.manchester.R;
+
 public class _11_ThreadsPagination extends NatchAndroidInstrumentationWithLogin {
 
     public _11_ThreadsPagination() throws Exception {
@@ -33,7 +35,8 @@ public class _11_ThreadsPagination extends NatchAndroidInstrumentationWithLogin 
 
         new AddThreadPO().addThreadAndPressBack("Two", "One");
         
-        onView(withId(com.newfivefour.android.manchester.R.id.threads_listview)).perform(CustomMatchers.scrollToBottomOfListView());
+        onView(withId(R.id.threads_listview)).perform(CustomMatchers.scrollToBottomOfListView());
+        try { Thread.sleep(android.R.integer.config_longAnimTime); } catch (InterruptedException e) { }
 
         new ListThreadsPO().checkHasNumberOfThreads(2);
         

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.denevell.natch.android.test"
+    package="com.newfivefour.android.manchester.test"
     android:versionCode="1"
     android:versionName="1.0" >
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19" />
@@ -10,7 +10,7 @@
     </application>
 
     <instrumentation android:name="com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
-	  android:targetPackage="org.denevell.natch.android"/>
+	  android:targetPackage="com.newfivefour.android.manchester"/>
     
 
 

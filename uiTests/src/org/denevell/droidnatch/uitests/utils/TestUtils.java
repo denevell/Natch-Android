@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.apache.http.HttpResponse;
@@ -13,7 +14,9 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.denevell.droidnatch.ShamefulStatics;
+import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
+import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -63,6 +66,20 @@ public class TestUtils {
 
 	public static String addPostViaRest(Context c) throws Exception {
 		return addPostViaRest(c, null);
+	}
+
+	@SuppressWarnings("serial")
+	public static String addAnnouncement(Context c, String subject, String content) throws Exception {
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPut httpput = new HttpPut("http://"+SERVER_HOST+":8080/Natch-REST-ForAutomatedTests/rest/post/addthread");
+        httpput.addHeader("Content-Type", "application/json");
+        String addString = new Gson().toJson(new AddPostResourceInput(subject, content, new ArrayList<String>(){{ add("announcements");}}), AddPostResourceInput.class).toString();
+		httpput.setEntity(new StringEntity(addString));
+        httpput.setHeader("AuthKey", ShamefulStatics.getAuthKey(c));
+        HttpResponse resp = httpclient.execute(httpput);
+        BufferedReader br = new BufferedReader(new InputStreamReader(resp.getEntity().getContent()));
+        ThreadResource thread = new Gson().fromJson(br, AddPostResourceReturnData.class).getThread();
+		return thread.getId();
 	}
         	
 	public static String addPostViaRest(Context c, String threadId) throws Exception {
