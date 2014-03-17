@@ -11,16 +11,21 @@ The Android client to the Natch REST project.
 * ~~Test can see content of announcements and can add posts~~
 * ~~Test going back to announcements from list thread page goes back to the correct tab~~
 * ~~Add images to portfolio~~
-* Add links to portfolio
+* ~~Add links to portfolio~~
+---
+* Upload app to Google play beta testers thing
 * Look at using outlook for hosted email
 * Jetty test with jetty runner
+* Look at speeding up dd command
+* Option to only receive announcements push messages
 
 ### Icebox
 
 * Highlight unread threads
-* Option to only receive announcements push messages
-* Only show announcements from certain people?
 * Sort of alignment for authors in posts
+---
+* Turn of notifications in notification
+* Only show announcements from certain people?
 * Edit text expanded on click
 * Edit text de-expanded on click
 * I should see an error on delete thread 
@@ -31,7 +36,6 @@ The Android client to the Natch REST project.
 * I should be able to see new threads notification, a la g+ 
 * Sliding add thread 
 * Sliding add post
-* Turn of notifications in notification
 * Reply to post
 
 ### Testing to do
