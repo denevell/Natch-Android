@@ -2,27 +2,16 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* ~~Jetty command to compile and deploy~~
-* ~~Jetty command to clear old wars~~
-* ~~Jetty to not crash on high loads~~
-* ~~Jetty logging~~
-* ~~Test announcements appear~~
-* ~~Test announcements don't appear in chat page~~
-* ~~Test can see content of announcements and can add posts~~
-* ~~Test going back to announcements from list thread page goes back to the correct tab~~
-* ~~Add images to portfolio~~
-* ~~Add links to portfolio~~
----
-* Upload app to Google play beta testers thing
-* Look at using outlook for hosted email
-* Jetty test with jetty runner
-* Look at speeding up dd command
+* ~~Upload app to Google play beta testers thing~~
+* ~~Jetty test with jetty runner~~
 * Option to only receive announcements push messages
+* Look at using outlook for hosted email
+* Look at speeding up dd command
+* Sort of alignment for authors in posts
 
 ### Icebox
 
 * Highlight unread threads
-* Sort of alignment for authors in posts
 ---
 * Turn of notifications in notification
 * Only show announcements from certain people?
