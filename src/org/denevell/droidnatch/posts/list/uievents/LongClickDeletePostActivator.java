@@ -15,14 +15,15 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
-import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.android.volley.Request;
+import com.newfivefour.android.manchester.R;
 import com.squareup.otto.Subscribe;
 
 import dagger.ObjectGraph;
@@ -88,6 +89,7 @@ public class LongClickDeletePostActivator extends View
     public void onLongPress(ReceivingClickingAutopaginatingListView.LongPressListViewEvent obj) {
         if(obj.ob instanceof PostResource 
         		&& obj.menuItem.getTitle().toString().equals("Delete post")) {
+        	Log.d(TAG, "Deleting post.");
             PostResource pr = (PostResource) obj.ob;
             String url = ShamefulStatics.getBasePath() + getContext().getString(R.string.url_del);
             mService.getRequest().setUrl(url + pr.getId());

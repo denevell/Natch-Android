@@ -18,22 +18,24 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.threads.list.entities.DeletePostResourceReturnData;
-import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.android.volley.Request;
+import com.newfivefour.android.manchester.R;
 import com.squareup.otto.Subscribe;
 
 import dagger.ObjectGraph;
 
 public class LongClickDeleteThreadActivator extends View implements Activator<DeletePostResourceReturnData> {
 
-    private GenericUiObserver mCallback;
+    private static final String TAG = LongClickDeleteThreadActivator.class.getSimpleName();
+	private GenericUiObserver mCallback;
     @Inject ScreenOpener screenOpener;
 	private ServiceFetcher<Void, DeletePostResourceReturnData> mService;
 
@@ -84,6 +86,7 @@ public class LongClickDeleteThreadActivator extends View implements Activator<De
     public void onLongPress(ReceivingClickingAutopaginatingListView.LongPressListViewEvent obj) {
         if(obj.ob instanceof PostResource 
         		&& obj.menuItem.getTitle().toString().equals("Delete thread")) {
+        	Log.d(TAG, "Deleting thread.");
             PostResource tr = (PostResource) obj.ob;
             if(obj.index==0) {
                 String url = ShamefulStatics.getBasePath() + getContext().getString(R.string.url_del);
