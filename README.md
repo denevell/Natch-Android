@@ -36,6 +36,9 @@ The Android client to the Natch REST project.
 * Test that back indicator doesn't appear once back from posts fragment.
 * See if I can tests gcm notifications
 * Tech task: Unit tests from gradle
+* Should close the keyboard on clicking a list item
+* Listview saved on rotation.
+* Settings screen for gcm stuff
 
 ### Refactoring
 
@@ -47,14 +50,6 @@ The Android client to the Natch REST project.
 * List view save position when first is showing.
 
 --
-
-## Dev complete
-
-* I should be able to keep the position of the refreshed list
-* Should close the keyboard on clicking a list item
-* Shouldn't be able to click the edit text during the loading screens
-* Goto invidiual thread on notification
-* Check if registered for gcm notifications
 
 ## Tasks complete
 
@@ -82,13 +77,6 @@ The Android client to the Natch REST project.
 * Task: EditText which automatically hides the keyboard
 * Task: Gradle for the junit tests
 * Task: Use a lower resource hungry emulator in the docker container.
-
-## Complete: To test
-
-* Listview saved on rotation.
-* Unregister for push notifications
-* Settings screen for gcm stuff
-* I should only be able to add thread if I'm logged in
 
 ### Stories (Numbers relate to classes names in the uiTests dir)
 
