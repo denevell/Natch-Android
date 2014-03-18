@@ -1,7 +1,6 @@
 package org.denevell.droidnatch.home;
 
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
-import org.denevell.droidnatch.threads.list.ListThreadsOptionsMenu;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -59,7 +58,7 @@ public class HomeFragment extends ObservableFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        new ListThreadsOptionsMenu().create(menu, inflater, getActivity().getApplicationContext());
+        new HomeFragmentOptionsMenu().create(menu, inflater, getActivity().getApplicationContext());
     }
 
 }

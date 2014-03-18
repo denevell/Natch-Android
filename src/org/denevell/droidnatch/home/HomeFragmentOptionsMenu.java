@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list;
+package org.denevell.droidnatch.home;
 
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.ShamefulStatics;
@@ -12,7 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 
-public class ListThreadsOptionsMenu {
+public class HomeFragmentOptionsMenu {
 	
 	public void create(Menu menu, MenuInflater inflater, Context appContext) {
         inflater.inflate(R.menu.list_threads_options_menu, menu);

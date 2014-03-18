@@ -31,6 +31,7 @@ The Android client to the Natch REST project.
 ### Testing to do
 
 * Test going to website
+* Tests for the push messages
 * Test that logout dialogue box closes.
 * Test that back indicator doesn't appear once back from posts fragment.
 * See if I can tests gcm notifications

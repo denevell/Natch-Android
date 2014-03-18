@@ -1,4 +1,4 @@
-package org.denevell.droidnatch.threads.list.uievents;
+package org.denevell.droidnatch.home.uievents;
 
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.views.ViewThatListensOnEventBus;
@@ -11,19 +11,19 @@ import android.util.AttributeSet;
 
 import com.squareup.otto.Subscribe;
 
-public class WebsiteFromOptionMenuActivator extends ViewThatListensOnEventBus {
+public class SourceCodeWebsiteFromOptionMenuActivator extends ViewThatListensOnEventBus {
 	@SuppressWarnings("unused")
-	private static final String TAG = WebsiteFromOptionMenuActivator.class.getSimpleName();
+	private static final String TAG = SourceCodeWebsiteFromOptionMenuActivator.class.getSimpleName();
 
-	public WebsiteFromOptionMenuActivator(Context context, AttributeSet attrs) throws Exception {
+	public SourceCodeWebsiteFromOptionMenuActivator(Context context, AttributeSet attrs) throws Exception {
 		super(context, attrs);
 	}
 
 	@Subscribe
 	public void onOptionMenu(ObservableFragment.OptionMenuItemHolder menu) {
-		if(R.id.threads_option_menu_website!= menu.item.getItemId()) return;
+		if(R.id.threads_option_menu_source!= menu.item.getItemId()) return;
 		Intent i = new Intent(Intent.ACTION_VIEW);
-		i.setData(Uri.parse(getContext().getString(R.string.url_website)));
+		i.setData(Uri.parse(getContext().getString(R.string.url_website_source_code)));
 		getContext().startActivity(i);
 	}
 
