@@ -136,6 +136,7 @@ public class EditThreadViewActivator extends LinearLayout implements
     public void onClick(View view) {
         mEditPostService.getRequest().getBody().setContent(mContent.getText().toString());
         mEditPostService.getRequest().getBody().setSubject(mSubject.getText().toString());
+        mEditPostService.getRequest().getBody().setTags(mPost.getTags());
         mEditPostService.getRequest().setUrl(mEditPostService.getRequest().getRequest().getUrl() + "/" + mPost.getId());
         if(mButton!=null) mButton.loadingStart();
         mCallback.onUiEventActivated();
