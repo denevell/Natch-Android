@@ -70,20 +70,20 @@ public class NewThreadsPushBroadcastReceiver extends BroadcastReceiver {
 			i.putExtra(ListPostsFragment.BUNDLE_KEY_THREAD_ID, threadFromServer.getId());
 			i.putExtra(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, threadFromServer.getSubject());
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			PendingIntent pi = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);	
+			PendingIntent pi = PendingIntent.getActivity(context, threadFromServer.getId().hashCode(), i, PendingIntent.FLAG_ONE_SHOT);	
 			
 			@SuppressWarnings("deprecation")
 			Notification notification = new Notification.Builder(
 					context)
 					.setSmallIcon(android.R.drawable.stat_notify_chat)
-					.setContentTitle("New thread")
-					.setTicker("New thread: " + threadFromServer.getSubject())
+					.setContentTitle((isAnnouncement) ? "Announcement" : "New thread")
+					.setTicker(((isAnnouncement) ? "Announcement: " : "New thread: ") + threadFromServer.getSubject())
 					.setContentIntent(pi)
 					.setAutoCancel(true)
 					.setContentText(threadFromServer.getSubject())
 					.getNotification();
 			NotificationManager mgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-			mgr.notify(0, notification);
+			mgr.notify((isAnnouncement) ? 1 : 0, notification);
 		} else {
 			Log.i(TAG, "We've already got the latest post apparently.");
 		}		
