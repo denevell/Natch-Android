@@ -28,10 +28,6 @@ public class NewThreadsPushBroadcastReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Log.i(TAG, "Got gcm broadcast.");
-
-        boolean shouldntNotify = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.settings_push_notifs_off), false);
-        if(shouldntNotify) return;
-
 		Bundle extras = intent.getExtras();
 		GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(context);
 		String messageType = gcm.getMessageType(intent);
@@ -45,7 +41,7 @@ public class NewThreadsPushBroadcastReceiver extends BroadcastReceiver {
 				if(appAuthor == null || threadAuthor == null || !threadAuthor.equals(appAuthor)) {
 					sendNotification(context, thread);
 				} else {
-					Log.w(TAG, "Not notifying the user about their own thread.");
+					Log.d(TAG, "Not notifying the user about their own thread.");
 				}
 			} else {
 				Log.w(TAG, "Got an odd message type" + messageType);
@@ -55,6 +51,18 @@ public class NewThreadsPushBroadcastReceiver extends BroadcastReceiver {
 	}
 
 	private void sendNotification(Context context, CutDownThreadResource threadFromServer) {
+        boolean wantsNewThreads = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.settings_push_new_threads_on), true);
+        boolean wantsAnnouncements = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.settings_push_announcements_on), true);
+        boolean isAnnouncement = threadFromServer.getTags()!=null && threadFromServer.getTags().contains("announcements");
+        if(!wantsNewThreads && !isAnnouncement) {
+        	Log.d(TAG, "We don't want notifications of normal threads. Bailing.");
+        	return;
+        }
+        if(!wantsAnnouncements && isAnnouncement) {
+        	Log.d(TAG, "We don't want notifications of announcements. Bailing.");
+        	return;
+        }
+
 		String latestId = threadFromServer.getId();
 		if (latestId!= null && SeenThreadsSaver.isThisIdNew(context, latestId)) {
 			SeenThreadsSaver.addThreadId(context, latestId);

@@ -4,8 +4,8 @@ The Android client to the Natch REST project.
 
 * ~~Upload app to Google play beta testers thing~~
 * ~~Jetty test with jetty runner~~
+* ~~Look at using outlook for hosted email~~
 * Option to only receive announcements push messages
-* Look at using outlook for hosted email
 * Look at speeding up dd command
 * Sort of alignment for authors in posts
 
