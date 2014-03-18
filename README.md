@@ -8,6 +8,7 @@ The Android client to the Natch REST project.
 * Option to only receive announcements push messages
 * Look at speeding up dd command
 * Sort of alignment for authors in posts
+* Setup backup of production database
 
 ### Icebox
 
