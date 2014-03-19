@@ -72,8 +72,10 @@ public class SeenThreadsSaver {
 		if(thread==null) {
 			seenThreads.put(id, new ThreadModification(id, modification, modification));
 		} else {
-			thread.visitedModificationDate = modification;
-			seenThreads.put(id, thread);
+			if(modification>thread.visitedModificationDate) {
+				thread.visitedModificationDate = modification;
+				seenThreads.put(id, thread);
+			}
 		}
 	}
 

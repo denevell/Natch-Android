@@ -12,6 +12,7 @@ The Android client to the Natch REST project.
 
 ### Icebox
 
+* Add bug reporting
 * Setup backup of production database
 ---
 * Turn of notifications in notification
