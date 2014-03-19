@@ -35,6 +35,14 @@ dependencies {
 }
 
 android {
+ 	signingConfigs {
+		release {
+    		    storeFile new File( "android.key.store" )
+		    storePassword "xxx"
+    		    keyAlias "xxx"
+    		    keyPassword "xxx"
+		}
+	}
   	buildTypes {
     		release {
       			signingConfig signingConfigs.release
@@ -113,5 +121,3 @@ task unitTest(type:Test, dependsOn: assemble) {
         testClassesDir = project.sourceSets.unitTest.output.classesDir
         classpath = project.sourceSets.unitTest.runtimeClasspath
 }
-
-check.dependsOn unitTest
