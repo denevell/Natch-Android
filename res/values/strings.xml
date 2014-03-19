@@ -22,6 +22,7 @@
 
     <item type="id" name="posts_context_menu_delete_thread">posts_context_menu_delete_thread</item>
     <item type="id" name="posts_context_menu_delete_post">posts_context_menu_delete_post</item>
+    <item type="id" name="threads_context_menu_delete_post">threads_context_menu_delete_post</item>
     <item type="id" name="list_view_service_error">list_view_service_error</item>
     <item type="id" name="list_view_loading">list_view_service_error</item>
     <item type="id" name="posts_context_menu_edit_thread">posts_context_menu_edit_thread</item>

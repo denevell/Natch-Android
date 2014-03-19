@@ -48,8 +48,7 @@ public class MainPageActivity extends FragmentActivity {
         Intent intent = getIntent();
     	if(intent!=null && intent.getExtras()!=null) {
     		gotoThreadPageFromIntent(intent);
-    	}
-    	if(AndroidUtils.isFragmentManagerEmpty(getSupportFragmentManager())) {
+    	} else if(AndroidUtils.isFragmentManagerEmpty(getSupportFragmentManager())) {
     		gotoMainFragment(mOpener);
     	}
     }

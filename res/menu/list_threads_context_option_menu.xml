@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@id/posts_context_menu_delete_thread"
+        android:id="@id/threads_context_menu_delete_post"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
         android:title="Delete thread" 

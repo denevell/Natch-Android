@@ -84,8 +84,7 @@ public class LongClickDeleteThreadActivator extends View implements Activator<De
 
     @Subscribe
     public void onLongPress(ReceivingClickingAutopaginatingListView.LongPressListViewEvent obj) {
-        if(obj.ob instanceof PostResource 
-        		&& obj.menuItem.getTitle().toString().equals("Delete thread")) {
+        if(obj.ob instanceof PostResource && obj.menuItem.getItemId()==R.id.posts_context_menu_delete_thread) {
         	Log.d(TAG, "Deleting thread.");
             PostResource tr = (PostResource) obj.ob;
             if(obj.index==0) {

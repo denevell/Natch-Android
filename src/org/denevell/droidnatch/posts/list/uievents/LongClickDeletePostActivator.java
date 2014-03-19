@@ -31,7 +31,6 @@ import dagger.ObjectGraph;
 public class LongClickDeletePostActivator extends View
         implements Activator<DeletePostResourceReturnData> {
     
-    @SuppressWarnings("unused")
     private static final String TAG = LongClickDeletePostActivator.class.getSimpleName();
     private GenericUiObserver mCallback;
 	private ServiceFetcher<Void, DeletePostResourceReturnData> mService;
@@ -87,8 +86,7 @@ public class LongClickDeletePostActivator extends View
 
     @Subscribe
     public void onLongPress(ReceivingClickingAutopaginatingListView.LongPressListViewEvent obj) {
-        if(obj.ob instanceof PostResource 
-        		&& obj.menuItem.getTitle().toString().equals("Delete post")) {
+        if(obj.ob instanceof PostResource && obj.menuItem.getItemId()==R.id.posts_context_menu_delete_post ) {
         	Log.d(TAG, "Deleting post.");
             PostResource pr = (PostResource) obj.ob;
             String url = ShamefulStatics.getBasePath() + getContext().getString(R.string.url_del);
