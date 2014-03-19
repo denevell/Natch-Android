@@ -88,4 +88,27 @@ public class _14_Announcements extends NatchAndroidInstrumentationWithLogin {
     		.checkHasNumberOfPosts(1);
     }
 
+    public void testSeeUnreadThreadAsBold() throws Exception {
+    	String threadId = TestUtils.addAnnouncement(getActivity(), "A", "nnounce");
+        new ListThreadsPO()
+        	.pressRefresh();
+        new AnnouncementsListPO()
+        	.pressAnnouncementsTab()
+        	.checkHasNumberOfPosts(1)
+        	.checkRowIsMarkedUnread(0)
+        	.pressItem(0);
+        pressBack();
+        new AnnouncementsListPO()
+        	.checkRowIsNotMarkedUnread(0);
+        TestUtils.addPostViaRest(getActivity(), threadId);
+        new ListThreadsPO()
+        	.pressRefresh();
+        new AnnouncementsListPO()
+        	.checkRowIsMarkedUnread(0)
+        	.pressItem(0);
+        pressBack();
+        new AnnouncementsListPO()
+        	.checkRowIsNotMarkedUnread(0);
+    }
+
 }

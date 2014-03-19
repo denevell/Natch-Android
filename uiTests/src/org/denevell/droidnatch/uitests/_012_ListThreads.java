@@ -3,7 +3,9 @@ package org.denevell.droidnatch.uitests;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
-import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.CoreMatchers.allOf;
 
 import java.util.Date;
 
@@ -68,11 +70,30 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
         	.checkHasNumberOfThreads(2);
     }
 
-    public void testCanLongClickOnFirstRowDoesntCrashThings() throws Exception {
-        new AddThreadPO().addThreadAndPressBack("Listing threads", "Listing threads");
-        onView(withContentDescription("list_threads_row0")).perform(longClick());
+    public void testSeeUnreadThreadAsBold() throws Exception {
+    	String threadId = TestUtils.addPostViaRest(getActivity());
         new ListThreadsPO()
-        	.checkHasNumberOfThreads(1);
+        	.pressRefresh()
+        	.checkHasNumberOfThreads(1)
+        	.checkRowIsMarkedUnread(0)
+        	.pressItem(0);
+        pressBack();
+        new ListThreadsPO()
+        	.checkRowIsNotMarkedUnread(0);
+        TestUtils.addPostViaRest(getActivity(), threadId);
+        new ListThreadsPO()
+        	.pressRefresh()
+        	.checkRowIsMarkedUnread(0)
+        	.pressItem(0);
+        pressBack();
+        new ListThreadsPO()
+        	.checkRowIsNotMarkedUnread(0);
+    }
+
+	@SuppressWarnings("unchecked")
+	public void testCanLongClickOnFirstRowDoesntCrashThings() throws Exception {
+        onView(allOf(withId(com.newfivefour.android.manchester.R.id.add_thread_subject_edittext), isDisplayed()))
+        	.perform(longClick());
     }
 
 }

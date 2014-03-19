@@ -11,16 +11,17 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withParent;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.not;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 import org.denevell.droidnatch.uitests.CustomMatchers;
-import com.newfivefour.android.manchester.R;
 import org.hamcrest.CoreMatchers;
 
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
+import com.newfivefour.android.manchester.R;
 
 public class ListThreadsPO {
 
@@ -30,9 +31,10 @@ public class ListThreadsPO {
         return this;
 	}
 
-	public void checkHasNumberOfThreads(int numThreads) {
+	public ListThreadsPO checkHasNumberOfThreads(int numThreads) {
         onView(withId(R.id.threads_listview))
         	.check(ViewAssertions.matches(CustomMatchers.listViewHasElements(numThreads)));
+        return this;
 	}
 
 	public ListThreadsPO threadHasAuthor(int i, String string) {
@@ -53,6 +55,7 @@ public class ListThreadsPO {
 
 	public ListThreadsPO pressItem(int row) {
         onView(withContentDescription("list_threads_row"+row)).perform(click());
+        try { Thread.sleep(500); } catch (InterruptedException e) { }
 		return this;
 	}
 
@@ -108,9 +111,18 @@ public class ListThreadsPO {
 	}
 
 	public ListThreadsPO pressTab() {
-        onView(withText("Chat"))
-        	.perform(click());
+        onView(withText("Chat")).perform(click());
         return this;
+	}
+
+	public ListThreadsPO checkRowIsMarkedUnread(int row) {
+        onView(withContentDescription("list_threads_row"+row)).check(matches(CustomMatchers.bold()));
+		return this;
+	}
+
+	public ListThreadsPO checkRowIsNotMarkedUnread(int row) {
+        onView(withContentDescription("list_threads_row"+row)).check(matches(not(CustomMatchers.bold())));
+		return this;
 	}
 	
 

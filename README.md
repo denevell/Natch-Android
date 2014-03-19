@@ -6,24 +6,21 @@ The Android client to the Natch REST project.
 * ~~Jetty test with jetty runner~~
 * ~~Look at using outlook for hosted email~~
 * ~~Option to only receive announcements push messages~~
+* ~~Highlight unread threads~~
 * Look at speeding up dd command
 * Sort of alignment for authors in posts
 
 ### Icebox
 
-* Highlight unread threads
 * Setup backup of production database
 ---
 * Turn of notifications in notification
-* Only show announcements from certain people?
-* Edit text expanded on click
-* Edit text de-expanded on click
 * I should see an error on delete thread 
 * I should see an error on delete post 
 * Only see notification for summaries
 * I should keep the found threads on rotate / onResume / app close
-* 403/401 logs you out?
-* I should be able to see new threads notification, a la g+ 
+* Edit text expanded on click
+* Edit text de-expanded on click
 * Sliding add thread 
 * Sliding add post
 * Reply to post
@@ -43,6 +40,7 @@ The Android client to the Natch REST project.
 ### Refactoring
 
 * Refactor the shamefulstatics class.
+* Refactor the preferencing saving code.
 
 ### Non criticial bugs
 

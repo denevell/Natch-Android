@@ -24,9 +24,11 @@ public class StoreReferenceToLatestPostReceiver implements Receiver<ListThreadsR
 	public void success(ListThreadsResource result) {
 		try {
 			List<ThreadResource> threads = result.getThreads();
+			SeenThreadsSaver.recoverFromDiskIfNeeded(mAppContext);
 			for (ThreadResource threadResource : threads) {
-				SeenThreadsSaver.addThreadId(mAppContext, threadResource.getId());
+				SeenThreadsSaver.addThread(threadResource.getId(), threadResource.getModification());
 			}
+			SeenThreadsSaver.commitToStorage(mAppContext);
 		} catch (Exception e) {
 			Log.e(TAG, "Problem parsing results for posts.");
 		}

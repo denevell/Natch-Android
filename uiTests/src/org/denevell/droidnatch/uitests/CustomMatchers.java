@@ -5,6 +5,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.EditText;
@@ -187,6 +188,29 @@ public class CustomMatchers {
             @Override
             public void describeTo(Description description) {
                 description.appendText(text + " should match the regex: " + regex);
+            }
+        };
+	}
+
+	public static Matcher<? super View> bold() {
+        return new TypeSafeMatcher<View>() {
+			@Override
+            public boolean matchesSafely(View view) {
+                if (!(view instanceof TextView)) {
+                    return false;
+                }
+                TextView v = (TextView) view;
+                Typeface tf = v.getTypeface();
+				if(tf == null) {
+					return false;
+				}
+				boolean ret = tf.isBold();
+                return ret;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("TextView should have boldface text");
             }
         };
 	}

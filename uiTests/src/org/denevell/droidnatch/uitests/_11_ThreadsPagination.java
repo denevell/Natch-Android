@@ -36,7 +36,7 @@ public class _11_ThreadsPagination extends NatchAndroidInstrumentationWithLogin 
         new AddThreadPO().addThreadAndPressBack("Two", "One");
         
         onView(withId(R.id.threads_listview)).perform(CustomMatchers.scrollToBottomOfListView());
-        try { Thread.sleep(android.R.integer.config_longAnimTime); } catch (InterruptedException e) { }
+        try { Thread.sleep(500); } catch (InterruptedException e) { }
 
         new ListThreadsPO().checkHasNumberOfThreads(2);
         

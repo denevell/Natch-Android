@@ -65,7 +65,8 @@ public class NewThreadsPushBroadcastReceiver extends BroadcastReceiver {
 
 		String latestId = threadFromServer.getId();
 		if (latestId!= null && SeenThreadsSaver.isThisIdNew(context, latestId)) {
-			SeenThreadsSaver.addThreadId(context, latestId);
+			SeenThreadsSaver.addThread(latestId, threadFromServer.getModification());
+			SeenThreadsSaver.commitToStorage(context);
 			Intent i = new Intent(context, MainPageActivity.class);
 			i.putExtra(ListPostsFragment.BUNDLE_KEY_THREAD_ID, threadFromServer.getId());
 			i.putExtra(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, threadFromServer.getSubject());

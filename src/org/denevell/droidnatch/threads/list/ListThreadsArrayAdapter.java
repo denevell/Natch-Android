@@ -1,9 +1,12 @@
 package org.denevell.droidnatch.threads.list;
 
+import org.denevell.droidnatch.SeenThreadsSaver;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
+
 import com.newfivefour.android.manchester.R;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +40,11 @@ public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
         threadAuthor.setText(o.getAuthor());
         int numPosts = o.getNumPosts();
         dateText.setText(" @ " + o.getLastModifiedDate()+" "+o.getLastModifiedTime() + " | Posts: " + numPosts);
+        if(!SeenThreadsSaver.isThisThreadVisited(o.getId(), o.getModification())) {
+        	threadTitle.setTypeface(null, Typeface.BOLD);
+        } else {
+        	threadTitle.setTypeface(null, Typeface.NORMAL);
+        }
         
 //        if(position>1 && position > mLastPosition) {
 //        	Animation animation = AnimationUtils.loadAnimation(getContext(), (position > mLastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);

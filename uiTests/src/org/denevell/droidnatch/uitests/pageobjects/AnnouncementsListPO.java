@@ -6,6 +6,7 @@ import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewA
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.not;
 
 import org.denevell.droidnatch.uitests.CustomMatchers;
 
@@ -41,6 +42,16 @@ public class AnnouncementsListPO {
         onView(withContentDescription("announcement_title_row"+i)).perform(click());
         try { Thread.sleep(500); } catch (InterruptedException e) { }
         return this;
+	}
+
+	public AnnouncementsListPO checkRowIsMarkedUnread(int row) {
+        onView(withContentDescription("announcement_title_row"+row)).check(matches(CustomMatchers.bold()));
+		return this;
+	}
+
+	public AnnouncementsListPO checkRowIsNotMarkedUnread(int row) {
+        onView(withContentDescription("announcement_title_row"+row)).check(matches(not(CustomMatchers.bold())));
+		return this;
 	}
 
 }
