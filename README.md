@@ -14,6 +14,7 @@ The Android client to the Natch REST project.
 ### Icebox
 
 ---
+* Save edit box in add threads page
 * Turn of notifications in notification
 * I should see an error on delete thread 
 * I should see an error on delete post 
