@@ -4,12 +4,12 @@ The Android client to the Natch REST project.
 
 * ~~Look at why Jetty isn't finding the manifest thing~~
 * ~~Make production version of the jetty deployment~~
+* ~~Scrolling in add thread header edit text~~
 * Use jetty version on uat
+* Setup backup of production database
 * Sort of alignment for authors in posts
 * Add bug reporting
-* Setup backup of production database
 * Quotation mark bug
-* Scrolling in add thread header edit text
 
 ### Icebox
 
