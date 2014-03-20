@@ -2,18 +2,17 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* ~~Upload app to Google play beta testers thing~~
-* ~~Jetty test with jetty runner~~
-* ~~Look at using outlook for hosted email~~
-* ~~Option to only receive announcements push messages~~
-* ~~Highlight unread threads~~
-* Look at speeding up dd command
+* ~~Look at why Jetty isn't finding the manifest thing~~
+* ~~Make production version of the jetty deployment~~
+* Use jetty version on uat
 * Sort of alignment for authors in posts
+* Add bug reporting
+* Setup backup of production database
+* Quotation mark bug
+* Scrolling in add thread header edit text
 
 ### Icebox
 
-* Add bug reporting
-* Setup backup of production database
 ---
 * Turn of notifications in notification
 * I should see an error on delete thread 
