@@ -19,8 +19,6 @@ The Android client to the Natch REST project.
 * I should see an error on delete post 
 * Only see notification for summaries
 * I should keep the found threads on rotate / onResume / app close
-* Edit text expanded on click
-* Edit text de-expanded on click
 * Sliding add thread 
 * Sliding add post
 * Reply to post
