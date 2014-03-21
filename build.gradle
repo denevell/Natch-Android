@@ -8,18 +8,21 @@ buildscript {
     }
 }
 
-apply plugin: 'android'
-
 repositories {
-    mavenCentral()
+     	mavenCentral()
+	maven {
+		url "http://www.bugsense.com/gradle/"
+        } 
 }
 
+apply plugin: 'android'
+
 dependencies {
-    	compile 'com.deploygate:sdk:3.1'
         compile 'com.squareup.dagger:dagger-compiler:1.1.0'
         compile 'com.squareup.dagger:dagger:1.1.0'
         compile 'com.google.code.gson:gson:2.2.4'
         compile 'com.android.support:support-v4:19.0.0'
+        compile 'com.bugsense.trace:bugsense:3.6'
         compile 'com.google.android.gms:play-services:4.2.42'
 	compile 'org.apache.commons:commons-lang3:3.1'
         compile 'org.mockito:mockito-all:1.9.5'

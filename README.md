@@ -5,16 +5,15 @@ The Android client to the Natch REST project.
 * ~~Look at why Jetty isn't finding the manifest thing~~
 * ~~Make production version of the jetty deployment~~
 * ~~Scrolling in add thread header edit text~~
-* Use jetty version on uat
+* ~~Use jetty version on uat~~
+* ~~Quotation mark bug~~
+* ~~Add bug reporting~~
 * Setup backup of production database
-* Sort of alignment for authors in posts
-* Add bug reporting
-* Quotation mark bug
+* Sort out alignment for authors in posts
 
 ### Icebox
 
----
-* Save edit box in add threads page
+* Save edit box content in add threads page
 * Turn of notifications in notification
 * I should see an error on delete thread 
 * I should see an error on delete post 

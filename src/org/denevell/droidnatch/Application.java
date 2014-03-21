@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.deploygate.sdk.DeployGate;
+import com.bugsense.trace.BugSenseHandler;
 import com.newfivefour.android.manchester.R;
 
 public class Application extends android.app.Application {
@@ -19,7 +19,7 @@ public class Application extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        DeployGate.install(this);
+	BugSenseHandler.initAndStartSession(Application.this, "c7e316a1");
         appInstance = this;
         setBasePathIfEmpty();
 
