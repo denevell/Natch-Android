@@ -12,6 +12,7 @@ import java.util.Date;
 import org.denevell.droidnatch.MainPageActivity;
 import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
+import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
@@ -31,6 +32,17 @@ public class _012_ListThreads extends NatchAndroidInstrumentationWithLogin {
         new ListThreadsPO().checkNoThreads();
         new AddThreadPO().addThreadAndPressBack("Listing threads", "Listing threads");
         new ListThreadsPO().checkHasNumberOfThreads(1);
+    }
+
+    public void testCanSeeHtmlUnescapedEntities() throws Exception {
+        new ListThreadsPO().checkNoThreads();
+        new AddThreadPO().addThreadAndPressBack("a\"<>\"", "a\"<>\"");
+        new ListThreadsPO()
+        	.threadHasContent(0, "a\"<>\"")
+        	.pressItem(0);
+        new ListPostsPO()
+        	.postHasContent(0, "a\"<>\"")
+        	.pageHasTitle("a\"<>\"");
     }
 
     public void testSeeConnectionErrorListView() throws Exception {

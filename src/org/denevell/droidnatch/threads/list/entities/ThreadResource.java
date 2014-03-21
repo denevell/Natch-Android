@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 
 public class ThreadResource {
@@ -45,6 +46,9 @@ public class ThreadResource {
 	}
 
 	public String getSubject() {
+		if(subject!=null) {
+			subject = StringEscapeUtils.unescapeHtml4(subject);
+		}
 		return subject;
 	}
 

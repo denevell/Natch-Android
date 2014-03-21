@@ -95,4 +95,10 @@ public class ListPostsPO {
 		return this;
 	}
 
+	public ListPostsPO pageHasTitle(String string) {
+        onView(withContentDescription("list_posts_row_author0"))
+        	.check(matches(CustomMatchers.viewHasActivityTitle(string)));
+        return this;
+	}
+
 }

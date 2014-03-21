@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import android.annotation.SuppressLint;
 
 @SuppressLint("SimpleDateFormat")
@@ -58,7 +60,9 @@ public class PostResource {
 	}
 	public String getContent() {
 		String content2 = content;
-		content2 = content2.replace("&gt;", ">");
+		if(content2!=null) {
+			content2 = StringEscapeUtils.unescapeHtml4(content2);
+		}
 		return content2;
 	}
 	public String getQuotedContent() {
