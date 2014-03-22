@@ -4,10 +4,11 @@ The Android client to the Natch REST project.
 
 * ~~Setup backup of production database~~
 * ~~Move production to jetty server~~
-* Make a build variant for the uat server
+* ~~Make a build variant for the uat server~~
 
 ### Icebox
 
+* Separate signing key file
 * Sort out alignment for authors in posts
 * Keep selection on context item long press
 * Save edit box content in add threads page
