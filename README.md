@@ -2,17 +2,13 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* ~~Look at why Jetty isn't finding the manifest thing~~
-* ~~Make production version of the jetty deployment~~
-* ~~Scrolling in add thread header edit text~~
-* ~~Use jetty version on uat~~
-* ~~Quotation mark bug~~
-* ~~Add bug reporting~~
-* Setup backup of production database
-* Sort out alignment for authors in posts
+* ~~Setup backup of production database~~
+* Move production to jetty server
 
 ### Icebox
 
+* Sort out alignment for authors in posts
+* Keep selection on context item long press
 * Save edit box content in add threads page
 * Turn of notifications in notification
 * I should see an error on delete thread 
@@ -26,7 +22,6 @@ The Android client to the Natch REST project.
 ### Testing to do
 
 * Test going to website
-* Tests for the push messages
 * Test that logout dialogue box closes.
 * Test that back indicator doesn't appear once back from posts fragment.
 * See if I can tests gcm notifications
