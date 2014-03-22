@@ -38,6 +38,7 @@ public class Application extends android.app.Application {
             ShamefulStatics.setBasePath(getString(R.string.url_baseurl));
         }
         //ShamefulStatics.setBasePath("http://169.254.8.212:8080/Natch-REST-ForAutomatedTests/rest/");
+        //ShamefulStatics.setBasePath("http://denevell.org:8912/Natch-REST-ForAutomatedTests/rest/");
     }
 
     public synchronized static RequestQueue getRequestQueue () {

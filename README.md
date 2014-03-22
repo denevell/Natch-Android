@@ -4,6 +4,7 @@ The Android client to the Natch REST project.
 
 * ~~Setup backup of production database~~
 * ~~Move production to jetty server~~
+* Make a build variant for the uat server
 
 ### Icebox
 

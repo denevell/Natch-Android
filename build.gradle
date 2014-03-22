@@ -52,6 +52,10 @@ android {
     		release {
       			signingConfig signingConfigs.release
     		}
+		uat.initWith(buildTypes.debug)
+		uat {
+			packageNameSuffix ".uat"
+		}
   	}
         buildToolsVersion "19.0.1"                                                                                                          
         // Since the build tools auto fail on error, and we're getting werid erros with 0.7 of the build tools
@@ -63,16 +67,13 @@ android {
         }
         sourceSets {
                 main {
-                    manifest.srcFile 'AndroidManifest.xml'
                     java {
-                        srcDirs = ['src','volley/src']
+                        srcDirs = ['src/main/java','volley/src']
                         exclude '**/*Tests*'
                     }
-                    resources.srcDirs = ['src']
-                    renderscript.srcDirs = ['src']
-                    res.srcDirs = ['res']
-                    assets.srcDirs = ['assets']
                 }
+		uat {
+		}
                 instrumentTest {
                         manifest.srcFile 'uiTests/AndroidManifest.xml'
                         java.srcDirs = ['uiTests/src']
@@ -82,10 +83,10 @@ android {
                 }
         }
         defaultConfig {
-            testInstrumentationRunner 'com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner'
+        	testInstrumentationRunner 'com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner'
         }
         packagingOptions {
-          exclude 'LICENSE.txt'
+        	exclude 'LICENSE.txt'
         }
         compileSdkVersion 19
 }
