@@ -3,7 +3,7 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * ~~Setup backup of production database~~
-* Move production to jetty server
+* ~~Move production to jetty server~~
 
 ### Icebox
 
