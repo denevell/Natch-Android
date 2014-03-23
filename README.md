@@ -2,16 +2,15 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* ~~Setup backup of production database~~
-* ~~Move production to jetty server~~
-* ~~Make a build variant for the uat server~~
+* Save edit box content in add threads page
+* Keep selection on context item long press
+* Sort out alignment for authors in posts
+* Look at boldface for authors in post
+* Separate signing key file
 
 ### Icebox
 
-* Separate signing key file
-* Sort out alignment for authors in posts
-* Keep selection on context item long press
-* Save edit box content in add threads page
+* Better detection of gcm server registration
 * Turn of notifications in notification
 * I should see an error on delete thread 
 * I should see an error on delete post 

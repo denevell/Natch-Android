@@ -42,9 +42,9 @@ android {
  	signingConfigs {
 		release {
     		    storeFile new File( "android.key.store" )
-		    storePassword "xxx"
-    		    keyAlias "xxx"
-    		    keyPassword "xxx"
+		    storePassword "****"
+    		    keyAlias "android.key.store"
+    		    keyPassword "****"
 		}
 	}
   	buildTypes {
