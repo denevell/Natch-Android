@@ -3,7 +3,7 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * ~~Create self-signed key~~
-* Crease self-signed key with openssl
+* ~~Crease self-signed key with openssl~~
 * Create CA with openssl
 * Check you can sign with the CA
 * Sign server cert with CA
