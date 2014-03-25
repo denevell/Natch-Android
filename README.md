@@ -2,14 +2,19 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
+* Create self-signed key
+* Crease self-signed key with openssl
+* Create CA with openssl
+* Check you can sign with the CA
+* Sign server cert with CA
+
+### Icebox
+
 * Save edit box content in add threads page
 * Keep selection on context item long press
 * Sort out alignment for authors in posts
 * Look at boldface for authors in post
 * Separate signing key file
-
-### Icebox
-
 * Better detection of gcm server registration
 * Turn of notifications in notification
 * I should see an error on delete thread 
