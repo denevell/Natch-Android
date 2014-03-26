@@ -30,6 +30,8 @@
     <item type="id" name="please_login_context_menu">please_login_context_menu</item>
     <item type="id" name="please_register_context_menu">please_register_context_menu</item>
     <item type="id" name="logout_context_menu">logout_context_menu</item>
+    
+    <item type="bool" name="trust_all_certs">false</item>
 
     <string name="gcm_project">348075870621</string>
     <string name="settings_push_new_threads_on">newthreads_notifications_on</string>
