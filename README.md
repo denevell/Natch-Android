@@ -9,7 +9,12 @@ The Android client to the Natch REST project.
 * ~~Sign server cert with CA~~
 * ~~Create a better CA~~
 * ~~Access via 443 not 8443~~
-* Force website into https only
+* ~~Force website into https only~~
+* Generate csr
+* Buy a cert
+* Redirect to https in apache
+* Add ssl cert 
+* No apache ps
 
 ### Icebox
 
