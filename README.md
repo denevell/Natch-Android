@@ -2,19 +2,9 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* ~~Create self-signed key~~
-* ~~Crease self-signed key with openssl~~
-* ~~Create CA with openssl~~
-* ~~Check you can sign with the CA~~
-* ~~Sign server cert with CA~~
-* ~~Create a better CA~~
-* ~~Access via 443 not 8443~~
-* ~~Force website into https only~~
-* Generate csr
-* Buy a cert
-* Redirect to https in apache
-* Add ssl cert 
-* No apache ps
+* ~~Turn of notifications in notification~~
+* Refactor thread saving code
+* Fix still boldface bug after post is deleted
 
 ### Icebox
 
@@ -24,7 +14,6 @@ The Android client to the Natch REST project.
 * Look at boldface for authors in post
 * Separate signing key file
 * Better detection of gcm server registration
-* Turn of notifications in notification
 * I should see an error on delete thread 
 * I should see an error on delete post 
 * Only see notification for summaries
@@ -47,7 +36,6 @@ The Android client to the Natch REST project.
 ### Refactoring
 
 * Refactor the shamefulstatics class.
-* Refactor the preferencing saving code.
 
 ### Non criticial bugs
 
