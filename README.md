@@ -41,6 +41,7 @@ The Android client to the Natch REST project.
 
 * Scrolling to bottom of posts when pagination in place fails
 * List view save position when first is showing.
+* Backpress on dialogue fragment - view pager needs an id?
 
 --
 
