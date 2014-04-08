@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.PaginationMapper.ListPostsPaginationObject;
-import org.denevell.droidnatch.SeenThreadsSaver;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
@@ -15,6 +14,7 @@ import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
+import org.denevell.droidnatch.app.visited_db.VisitedPostsTable;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.posts.list.ListPostsMapper;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
@@ -79,9 +79,18 @@ public class ListPostsViewStarter extends View {
 							@Override public void success(ThreadResource result) {
 								try {
 									List<PostResource> posts = result.getPosts();
-									SeenThreadsSaver.addVistedThread(result.getId(), posts.get(posts.size()-1).getModification());
+									VisitedPostsTable visitedPostsTable = new VisitedPostsTable(getContext());
+									visitedPostsTable.open();
+									for (PostResource postResource : posts) {
+										long modificationDateOfPost = visitedPostsTable.isPostIdInTable(postResource.getId());
+										if(modificationDateOfPost==-1) {
+											visitedPostsTable.insert(postResource.getId(), postResource.getModification());
+										} else if(modificationDateOfPost!=postResource.getModification()) {
+											visitedPostsTable.update(postResource.getId(), postResource.getModification());
+										}
+									}
 								} catch (Exception e) {
-									Log.e(TAG, "Couldn't add `this as a seen thread");
+									Log.e(TAG, "Couldn't add `this as a seen thread", e);
 								}
 							}
 							@Override public void fail(FailureResult r) { }

@@ -55,6 +55,10 @@ android {
 		uat {
 			packageNameSuffix ".uat"
 		}
+		local.initWith(buildTypes.debug)
+		local {
+			packageNameSuffix ".local"
+		}
   	}
         buildToolsVersion "19.0.1"                                                                                                          
         // Since the build tools auto fail on error, and we're getting werid erros with 0.7 of the build tools

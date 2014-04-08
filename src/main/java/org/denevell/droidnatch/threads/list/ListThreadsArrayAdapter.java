@@ -1,9 +1,7 @@
 package org.denevell.droidnatch.threads.list;
 
-import org.denevell.droidnatch.SeenThreadsSaver;
+import org.denevell.droidnatch.app.visited_db.VisitedPostsTable;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-
-import com.newfivefour.android.manchester.R;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -14,12 +12,17 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.newfivefour.android.manchester.R;
+
 public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
     @SuppressWarnings("unused")
 	private int mLastPosition = -1;
+	private VisitedPostsTable mVistedPostsDb;
 
 	public ListThreadsArrayAdapter(Context context, int textViewResourceId) {
     	super(context, android.R.layout.simple_list_item_1);
+    	mVistedPostsDb = new VisitedPostsTable(getContext());
+    	mVistedPostsDb.open();
     }
 
     @Override
@@ -40,7 +43,8 @@ public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
         threadAuthor.setText(o.getAuthor());
         int numPosts = o.getNumPosts();
         dateText.setText(" @ " + o.getLastModifiedDate()+" "+o.getLastModifiedTime() + " | Posts: " + numPosts);
-        if(!SeenThreadsSaver.isThisThreadVisited(o.getId(), o.getModification())) {
+        long lastSeen = mVistedPostsDb.isPostIdInTable(o.getLatestPostId());
+        if(lastSeen!=o.getModification()) {
         	threadTitle.setTypeface(null, Typeface.BOLD);
         } else {
         	threadTitle.setTypeface(null, Typeface.NORMAL);

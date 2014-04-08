@@ -19,6 +19,7 @@ public class ThreadResource {
 	private long creation;
 	private long modification;
 	private long rootPostId;
+	private long latestPostId;
     private List<PostResource> posts = new ArrayList<PostResource>();
 	
 	public ThreadResource(ThreadResource tr) {
@@ -154,6 +155,18 @@ public class ThreadResource {
 
     public void setRootPostId(long rootPostId) {
         this.rootPostId = rootPostId;
-    }	
+    }
+
+
+
+	public long getLatestPostId() {
+		return latestPostId;
+	}
+
+
+
+	public void setLatestPostId(long latestPostId) {
+		this.latestPostId = latestPostId;
+	}	
 
 }
