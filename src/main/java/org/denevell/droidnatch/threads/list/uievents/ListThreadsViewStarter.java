@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.EventBus;
+import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
@@ -15,7 +15,6 @@ import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView
 import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,6 +22,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.newfivefour.android.manchester.R;
 import com.squareup.otto.Subscribe;
 
 import dagger.ObjectGraph;
@@ -56,7 +56,6 @@ public class ListThreadsViewStarter extends View {
 
         controller = new UiEventThenServiceThenUiEvent<ListThreadsResource>(
                 mListThreadsService,
-                new StoreReferenceToLatestPostReceiver(getContext().getApplicationContext()),
                 mListViewReceivingUiObject)
                 	.setup();
 

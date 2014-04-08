@@ -1,11 +1,11 @@
 package org.denevell.droidnatch.app.push;
 
 import org.denevell.droidnatch.MainPageActivity;
-import org.denevell.droidnatch.SeenThreadsSaver;
 import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.posts.list.ListPostsFragment;
 import org.denevell.droidnatch.settings.SettingsActivity;
 import org.denevell.droidnatch.threads.list.entities.CutDownThreadResource;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Notification;
@@ -18,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
 import com.newfivefour.android.manchester.R;
@@ -65,9 +66,7 @@ public class NewThreadsPushBroadcastReceiver extends BroadcastReceiver {
         }
 
 		String latestId = threadFromServer.getId();
-		if (latestId!= null && SeenThreadsSaver.isThisIdNew(context, latestId)) {
-			SeenThreadsSaver.addThread(latestId, threadFromServer.getModification());
-			SeenThreadsSaver.commitToStorage(context);
+		if (latestId!= null) {
 			Intent i = new Intent(context, MainPageActivity.class);
 			i.putExtra(ListPostsFragment.BUNDLE_KEY_THREAD_ID, threadFromServer.getId());
 			i.putExtra(ListPostsFragment.BUNDLE_KEY_THREAD_NAME, threadFromServer.getSubject());

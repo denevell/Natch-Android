@@ -14,7 +14,6 @@ import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ReceivingClickingAutopaginatingListView;
 import org.denevell.droidnatch.threads.list.entities.ListThreadsResource;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-import org.denevell.droidnatch.threads.list.uievents.StoreReferenceToLatestPostReceiver;
 
 import android.app.Activity;
 import android.content.Context;
@@ -56,8 +55,7 @@ public class AnnouncementsViewStarter extends View {
 
         controller = new UiEventThenServiceThenUiEvent<ListThreadsResource>(
                 mListThreadsService,
-                mListViewReceivingUiObject,
-                new StoreReferenceToLatestPostReceiver(getContext().getApplicationContext()))
+                mListViewReceivingUiObject)
                 	.setup();
 
         EventBus.getBus().register(this);

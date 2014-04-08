@@ -18,32 +18,15 @@ public class SeenThreadsSaver {
 
 	public static class ThreadModification {
 		public String id;
-		public long modification;
 		public long visitedModificationDate;
-		public ThreadModification(String id, long modification) {
+		public ThreadModification(String id, long visitedModification) {
 			this.id = id;
-			this.modification = modification;
-		}
-		public ThreadModification(String id, long modification, long visitedModification) {
-			this.id = id;
-			this.modification = modification;
 			this.visitedModificationDate = visitedModification;
 		}
-
 	}
 
 	private static final String TAG = SeenThreadsSaver.class.getSimpleName();
 	private static Hashtable<String, ThreadModification> seenThreads = new Hashtable<String, ThreadModification>();
-
-	/**
-	 * @param id
-	 * @return false is we've not seen anything...
-	 */
-	public static boolean isThisIdNew(Context c, String id) {
-		boolean areThingsInThreadSet = recoverFromDiskIfNeeded(c);
-		Log.v(TAG, "Looked at " + seenThreads.size() + " saved threads.");
-		return areThingsInThreadSet && !seenThreads.containsKey(id);
-	}
 
 	public static boolean isThisThreadVisited(String id, long time) {
 		ThreadModification threadModification = seenThreads.get(id);
@@ -52,6 +35,17 @@ public class SeenThreadsSaver {
 				threadModification.visitedModificationDate==time;
 	}
 
+	public static void addVistedThread(String id, long modification) {
+		ThreadModification thread = seenThreads.get(id);
+		if(thread==null) {
+			seenThreads.put(id, new ThreadModification(id, modification));
+		} else {
+			if(modification>thread.visitedModificationDate) {
+				thread.visitedModificationDate = modification;
+				seenThreads.put(id, thread);
+			}
+		}
+	}
 
 	public static boolean recoverFromDiskIfNeeded(Context c) {
 		boolean areThingsInThreadSet = seenThreads.size()>0;
@@ -59,24 +53,6 @@ public class SeenThreadsSaver {
 			areThingsInThreadSet = addThreadsInPreferencesToStaticVariable(c);
 		}
 		return areThingsInThreadSet;
-	}
-
-	public static void addThread(String id, long modification) {
-		if(!seenThreads.containsKey(id)) {
-			seenThreads.put(id, new ThreadModification(id, modification));
-		}
-	}
-
-	public static void addVistedThread(String id, long modification) {
-		ThreadModification thread = seenThreads.get(id);
-		if(thread==null) {
-			seenThreads.put(id, new ThreadModification(id, modification, modification));
-		} else {
-			if(modification>thread.visitedModificationDate) {
-				thread.visitedModificationDate = modification;
-				seenThreads.put(id, thread);
-			}
-		}
 	}
 
 	public static void commitToStorage(Context c) {
