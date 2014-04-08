@@ -2,17 +2,15 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* ~~Turn of notifications in notification~~
-* Refactor thread saving code
-* Fix still boldface bug after post is deleted
+* Keep selection on context item long press
+* Backpress on dialogue fragment bug - view pager needs an id?
+* Separate signing key file
+* Look at boldface for authors in post
 
 ### Icebox
 
 * Save edit box content in add threads page
-* Keep selection on context item long press
 * Sort out alignment for authors in posts
-* Look at boldface for authors in post
-* Separate signing key file
 * Better detection of gcm server registration
 * I should see an error on delete thread 
 * I should see an error on delete post 
@@ -41,7 +39,6 @@ The Android client to the Natch REST project.
 
 * Scrolling to bottom of posts when pagination in place fails
 * List view save position when first is showing.
-* Backpress on dialogue fragment - view pager needs an id?
 
 --
 
