@@ -6,7 +6,7 @@ The Android client to the Natch REST project.
 * ~~Create layout for forgotten password~~
 * ~~Add forgotten password link to login~~
 * ~~Modify codebase to allow programmatic creation of dialogue popups~~
-* Create dialogue class
+* ~~Create dialogue class~~
 * Open dialogue from link press
 * Create service to reset password reset
 * Show text when service successful
