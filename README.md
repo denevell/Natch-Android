@@ -3,7 +3,13 @@ The Android client to the Natch REST project.
 ## Backlog  
 
 * ~~Recovery email in register form~~
-* Reset password request in login form
+* Create layout for forgotten password
+* Modify codebase to allow programmatic creation of dialogue popups
+* Add forgotten password link to login
+* Create dialogue class
+* Open dialogue from link press
+* Create service to reset password reset
+* Show text when service successful
 * Keep selection on context item long press
 * Backpress on dialogue fragment bug - view pager needs an id?
 * Separate signing key file
