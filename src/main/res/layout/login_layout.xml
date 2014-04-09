@@ -57,5 +57,17 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/login_forgotten_password_link_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10px"
+        android:paddingRight="5px"
+        android:textColor="@color/normal_text_light"
+        android:layout_below="@+id/threads_list_add_thread_pane_scrollview"
+        android:text="Forgotten password?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
     
 </RelativeLayout>
