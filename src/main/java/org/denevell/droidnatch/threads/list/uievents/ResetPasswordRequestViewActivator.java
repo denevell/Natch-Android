@@ -23,7 +23,6 @@ import com.newfivefour.android.manchester.R;
 public class ResetPasswordRequestViewActivator extends LinearLayout implements Activator<Void>, View.OnClickListener {
 
 	private GenericUiObserver mCallback;
-	private Runnable mSuccessCallback;
 	private ButtonWithProgress mButton;
 	private ServiceFetcher<Void, Void> mService;
 	private EditText mRecoveryEmail;
@@ -44,7 +43,7 @@ public class ResetPasswordRequestViewActivator extends LinearLayout implements A
 		String url = ShamefulStatics.getBasePath() + getContext().getString(R.string.url_reset_password);
 		mService = new ServiceBuilder<Void, Void>()
 				.url(url).method(Request.Method.POST)
-				.create((Activity) getContext(), Void.class);
+				.createBasic((Activity) getContext());
 		Receiver<Void>[] args = null;
 		new UiEventThenServiceThenUiEvent<Void>(this,
 				mService,
@@ -60,8 +59,6 @@ public class ResetPasswordRequestViewActivator extends LinearLayout implements A
 	@Override
 	public void success(Void result) {
 		if(mButton!=null) mButton.loadingStop();
-		if (mSuccessCallback != null)
-			mSuccessCallback.run();
 	}
 
 	@Override

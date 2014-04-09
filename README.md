@@ -8,8 +8,8 @@ The Android client to the Natch REST project.
 * ~~Modify codebase to allow programmatic creation of dialogue popups~~
 * ~~Create dialogue class~~
 * ~~Open dialogue from link press~~
-* Use a different volley return type
-* Create service to reset password reset
+* ~~Use a different volley return type~~
+* ~~Create service to reset password reset~~
 * Show text when service successful
 * Keep selection on context item long press
 * Backpress on dialogue fragment bug - view pager needs an id?
