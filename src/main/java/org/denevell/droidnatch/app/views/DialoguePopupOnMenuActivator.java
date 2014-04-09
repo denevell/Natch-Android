@@ -48,6 +48,15 @@ public class DialoguePopupOnMenuActivator extends ViewThatListensOnEventBus {
 		mActivity = (FragmentActivity) getContext();
 	}
 
+	public DialoguePopupOnMenuActivator(Context context) {
+		super(context);
+		mActivity = (FragmentActivity) getContext();
+	}
+	
+	public void setLayout(int mLayout) {
+		this.mLayout = mLayout;
+	}
+	
 	@Subscribe
 	public void onListViewLongClick(ReceivingClickingAutopaginatingListView.LongPressListViewEvent event) {
 		createDialogue(event.menuItem, event.ob);
@@ -60,6 +69,10 @@ public class DialoguePopupOnMenuActivator extends ViewThatListensOnEventBus {
 
 	public void createDialogue(final MenuItem menu, final Object entity) {
 		if (menu.getItemId() != mOptionId) return;
+		createDialogue(entity);
+	}
+
+	public void createDialogue(final Object entity) {
 		InitialiseView viewInit = new InitialiseView() {
 			@Override
 			public void intialise(View v, final DialogFragment df) {
