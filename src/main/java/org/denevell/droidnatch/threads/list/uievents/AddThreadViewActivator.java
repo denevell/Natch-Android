@@ -13,7 +13,7 @@ import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.ScreenOpenerMapper;
 import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
-import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
+import org.denevell.droidnatch.app.baseclasses.networking.JsonVolleyRequest.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.Finishable;
@@ -171,10 +171,10 @@ public class AddThreadViewActivator extends LinearLayout implements
     public void onClick(View view) {
     	if(mSubject!=null && mSubject.getText()!=null && 
     			mSubject.getText().toString().trim().length()==0) return;
-    	mAddPostService.getRequest().getBody().setContent(mContent.getText().toString());
-        mAddPostService.getRequest().getBody().setSubject(mSubject.getText().toString());
+    	mAddPostService.getBody().setContent(mContent.getText().toString());
+        mAddPostService.getBody().setSubject(mSubject.getText().toString());
         String[] tags = new String[] {""};//mTags.getText().toString().split(",");
-        mAddPostService.getRequest().getBody().setTags(Arrays.asList(tags));
+        mAddPostService.getBody().setTags(Arrays.asList(tags));
         if(mButton!=null) mButton.loadingStart();
         mCallback.onUiEventActivated();
     }

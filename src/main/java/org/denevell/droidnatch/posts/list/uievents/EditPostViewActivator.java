@@ -7,8 +7,8 @@ import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.baseclasses.networking.JsonVolleyRequest.LazyHeadersCallback;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
-import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.CanSetEntity;
 import org.denevell.droidnatch.app.interfaces.Controller;
@@ -19,7 +19,6 @@ import org.denevell.droidnatch.app.views.ButtonWithProgress;
 import org.denevell.droidnatch.posts.list.entities.EditPostResource;
 import org.denevell.droidnatch.posts.list.entities.EditPostResourceReturnData;
 import org.denevell.droidnatch.posts.list.entities.PostResource;
-import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
+import com.newfivefour.android.manchester.R;
 
 import dagger.ObjectGraph;
 
@@ -126,8 +126,9 @@ public class EditPostViewActivator extends LinearLayout implements
 
     @Override
     public void onClick(View view) {
-        mEditPostService.getRequest().getBody().setContent(mContent.getText().toString());
-        mEditPostService.getRequest().setUrl(mEditPostService.getRequest().getRequest().getUrl() + "/" + mPost.getId());
+        mEditPostService.getBody().setContent(mContent.getText().toString());
+		String url = ShamefulStatics.getBasePath() + getContext().getString(R.string.url_edit_post);
+        mEditPostService.setUrl(url + "/" + mPost.getId());
         if(mButton!=null) mButton.loadingStart();
         mCallback.onUiEventActivated();
     }

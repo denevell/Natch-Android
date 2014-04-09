@@ -100,7 +100,7 @@ public class RegisterViewActivator extends LinearLayout implements
     public void success(RegisterResourceReturnData result) {
         FragmentActivity act = (FragmentActivity) getContext();
 
-		LoginResourceInput entity = mLoginService.getRequest().getBody();
+		LoginResourceInput entity = mLoginService.getBody();
         entity.setPassword(mPassword.getText().toString());
         entity.setUsername(mUsername.getText().toString());
 
@@ -143,7 +143,7 @@ public class RegisterViewActivator extends LinearLayout implements
 
     @Override
     public void onClick(View view) {
-        RegisterResourceInput body = mRegisterService.getRequest().getBody();
+        RegisterResourceInput body = mRegisterService.getBody();
 		body.setPassword(mPassword.getText().toString());
         body.setUsername(mUsername.getText().toString());
         if(mOptionalEmailRecovery!=null 

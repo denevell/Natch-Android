@@ -13,7 +13,7 @@ import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment.ContextMenuItemHolder;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
-import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
+import org.denevell.droidnatch.app.baseclasses.networking.JsonVolleyRequest.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -83,7 +83,7 @@ public class ListThreadsMapper {
 					String url = ShamefulStatics.getBasePath()
 							+ mActivity.getString(R.string.url_threads) + ""
 							+ pagination.start + "/" + pagination.range;
-					listService.getRequest().setUrl(url);
+					listService.setUrl(url);
 					EventBus.getBus().post(new ListThreadsViewStarter.CallControllerListThreads());
 				}})
 			.setAvailableItems(new ListThreadsResourceTotalAvailable())

@@ -7,8 +7,8 @@ import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.baseclasses.networking.JsonVolleyRequest.LazyHeadersCallback;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
-import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Controller;
 import org.denevell.droidnatch.app.interfaces.Receiver;
@@ -91,7 +91,7 @@ public class LongClickDeleteActivator extends View implements Activator<DeletePo
         	Log.d(TAG, "Deleting thread from list threads view.");
             ThreadResource pr = (ThreadResource) obj.ob;
             String url = ShamefulStatics.getBasePath() + getContext().getString(R.string.url_del);
-            mService.getRequest().setUrl(url+pr.getRootPostId());
+            mService.setUrl(url+pr.getRootPostId());
             mCallback.onUiEventActivated();
         }
     }

@@ -17,9 +17,6 @@ import org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator;
 import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
-import org.denevell.droidnatch.threads.list.entities.LogoutResourceReturnData;
-
-import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,6 +27,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.newfivefour.android.manchester.R;
+
 import dagger.ObjectGraph;
 
 public class LoginViewActivator extends LinearLayout implements Activator<LoginResourceReturnData>, View.OnClickListener, Finishable {
@@ -72,7 +72,6 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 	private EditText mUsername;
 	private EditText mPassword;
 	@Inject ServiceFetcher<LoginResourceInput, LoginResourceReturnData> mLoginService;
-	@Inject ServiceFetcher<Void, LogoutResourceReturnData> mLogoutService;
 
 	public LoginViewActivator(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -142,8 +141,8 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 
 	@Override
 	public void onClick(View view) {
-		mLoginService.getRequest().getBody().setPassword(mPassword.getText().toString());
-		mLoginService.getRequest().getBody().setUsername(mUsername.getText().toString());
+		mLoginService.getBody().setPassword(mPassword.getText().toString());
+		mLoginService.getBody().setUsername(mUsername.getText().toString());
 		if(mButton!=null) mButton.loadingStart();
 		mCallback.onUiEventActivated();
 	}

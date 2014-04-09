@@ -15,7 +15,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-public class VolleyRequestImpl<I, R> implements VolleyRequest<I, R> {
+public class JsonVolleyRequest<I, R> implements VolleyRequest<I, R> {
     
     public static interface LazyHeadersCallback {
     	void run(Map<String, String> headersMap);
@@ -24,13 +24,13 @@ public class VolleyRequestImpl<I, R> implements VolleyRequest<I, R> {
 	private ObjectToStringConverter mResponseConverter;
     private String mUrl;
     private ErrorListener mErrorListener;
-    private Listener<JSONObject> mListener;
+    @SuppressWarnings("rawtypes") private Listener mListener;
     private Map<String, String> headersMap = new HashMap<String, String>();
     private I mBody;
 	private int mRequestType;
-	private ArrayList<LazyHeadersCallback> mLazyHeaderCallbacks = new ArrayList<VolleyRequestImpl.LazyHeadersCallback>();
+	private ArrayList<LazyHeadersCallback> mLazyHeaderCallbacks = new ArrayList<JsonVolleyRequest.LazyHeadersCallback>();
     
-    public VolleyRequestImpl(
+    public JsonVolleyRequest(
             ObjectToStringConverter responseConverter, 
             I body,
             int requestType) {
@@ -53,8 +53,8 @@ public class VolleyRequestImpl<I, R> implements VolleyRequest<I, R> {
         mErrorListener = errorListener;
     }
 
-    @Override
-    public void setListener(Listener<JSONObject> listener) {
+	@Override
+    public void setListener(@SuppressWarnings("rawtypes") Listener listener) {
         mListener = listener;
     }
 
@@ -71,7 +71,8 @@ public class VolleyRequestImpl<I, R> implements VolleyRequest<I, R> {
                     return null;
                 }
     	}
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest( 
+        @SuppressWarnings("unchecked")
+		JsonObjectRequest jsObjRequest = new JsonObjectRequest( 
                 mRequestType, mUrl, jOb,
                 mListener, mErrorListener) {
             @Override

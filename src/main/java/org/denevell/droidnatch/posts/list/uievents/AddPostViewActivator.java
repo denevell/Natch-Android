@@ -12,8 +12,8 @@ import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.CommonMapper;
 import org.denevell.droidnatch.app.baseclasses.FailureResult;
 import org.denevell.droidnatch.app.baseclasses.UiEventThenServiceThenUiEvent;
+import org.denevell.droidnatch.app.baseclasses.networking.JsonVolleyRequest.LazyHeadersCallback;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
-import org.denevell.droidnatch.app.baseclasses.networking.VolleyRequestImpl.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.Activator;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -25,7 +25,6 @@ import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceInput;
 import org.denevell.droidnatch.threads.list.entities.AddPostResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -40,6 +39,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.android.volley.Request;
+import com.newfivefour.android.manchester.R;
 
 import dagger.ObjectGraph;
 
@@ -125,8 +125,8 @@ public class AddPostViewActivator extends FrameLayout implements
 	@Override
 	public void onClick(View v) {
 		if(mEditText!=null && mEditText.getText().length()>0) {
-			addPostService.getRequest().getBody().setSubject("-");
-			addPostService.getRequest().getBody().setContent(mEditText.getText().toString());
+			addPostService.getBody().setSubject("-");
+			addPostService.getBody().setContent(mEditText.getText().toString());
 			mCallback.onUiEventActivated();
 			if(mButton!=null) mButton.loadingStart();
 		} else {

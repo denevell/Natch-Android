@@ -9,6 +9,7 @@
     <string name="url_posts">post/thread/{thread_id}/</string>
     <string name="url_addthread">post/addthread</string>
     <string name="url_login">user/login</string>
+    <string name="url_reset_password">user/password_reset/</string>
     <string name="url_register">user</string>
     <string name="url_add_post">post/add</string>
     <string name="url_push_add">push/add</string>
@@ -39,6 +40,7 @@
     <string name="settings_google_play_services_info">google_play_services_info</string>
     <string name="settings_gcm_registered">gcm_register_info</string>
     <string name="register_400_error">Ensure username and password are not blank.</string>
+    <string name="pw_reset_400_error">Ensure recovery email is valid and entered during registration.</string>
     <string name="url_website">http://www.android-manchester.co.uk</string>
     <string name="url_website_source_code">https://www.github.com/denevell/Natch-Android/</string>
     <string name="home_chat_tab">Chat</string>

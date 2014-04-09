@@ -45,11 +45,6 @@ public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, S
         mVolleyRequest.setErrorListener(this);
         mVolleyRequest.setListener(this);
     }
-    
-    @Override
-    public VolleyRequest<I, T> getRequest() {
-    	return mVolleyRequest;
-    }
 
     public void go() {
         RequestQueue queue = Application.getRequestQueue();//Volley.newRequestQueue(mAppContext);
@@ -121,5 +116,15 @@ public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, S
             mCallbacks.onServiceFail(f);
         }
     }
+
+	@Override
+	public I getBody() {
+		return mVolleyRequest.getBody();
+	}
+
+	@Override
+	public void setUrl(String url) {
+		mVolleyRequest.setUrl(url);
+	}
 
 }

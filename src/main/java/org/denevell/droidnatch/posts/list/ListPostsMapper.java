@@ -67,7 +67,7 @@ public class ListPostsMapper {
 					String url = ShamefulStatics.getBasePath() + mActivity.getString(R.string.url_posts);
 					url = url.replace("{thread_id}", mTheadId);
 					url += pagination.start + "/" + pagination.range;
-					request.getRequest().setUrl(url);
+					request.setUrl(url);
 					EventBus.getBus().post(new ListPostsViewStarter.CallControllerListPosts(false));
 				}
 			})
