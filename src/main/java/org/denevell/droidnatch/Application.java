@@ -50,7 +50,7 @@ public class Application extends android.app.Application {
         if(ShamefulStatics.getBasePath()==null || ShamefulStatics.getBasePath().isEmpty()) {
             ShamefulStatics.setBasePath(getString(R.string.url_baseurl));
         }
-        //ShamefulStatics.setBasePath("http://169.254.8.212:8080/Natch-REST-ForAutomatedTests/rest/");
+        ShamefulStatics.setBasePath("http://192.168.43.103:8080/Natch-REST-ForAutomatedTests/rest/");
         //ShamefulStatics.setBasePath("http://denevell.org:8912/Natch-REST-ForAutomatedTests/rest/");
     }
 

@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.newfivefour.android.manchester.R;
@@ -26,6 +27,7 @@ public class ResetPasswordRequestViewActivator extends LinearLayout implements A
 	private ButtonWithProgress mButton;
 	private ServiceFetcher<Void, Void> mService;
 	private EditText mRecoveryEmail;
+	private TextView mSuccessTextView;
 
 	public ResetPasswordRequestViewActivator(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -37,6 +39,7 @@ public class ResetPasswordRequestViewActivator extends LinearLayout implements A
 		super.onAttachedToWindow();
 		
 		mRecoveryEmail = (EditText) findViewById(R.id.password_reset_recovery_email_editext);
+		mSuccessTextView = (TextView) findViewById(R.id.password_reset_success_textview);
 		mButton = (ButtonWithProgress) findViewById(R.id.password_reset_button);
 		mButton.setOnClickListener(this);
 		// Setup service
@@ -59,6 +62,10 @@ public class ResetPasswordRequestViewActivator extends LinearLayout implements A
 	@Override
 	public void success(Void result) {
 		if(mButton!=null) mButton.loadingStop();
+		if(mSuccessTextView!=null) {
+			mSuccessTextView.setVisibility(View.VISIBLE);
+			mSuccessTextView.setText("Password reset request sent. Wait for an email or ping @NameAaronNewell or @zain_");
+		}
 	}
 
 	@Override
@@ -67,9 +74,7 @@ public class ResetPasswordRequestViewActivator extends LinearLayout implements A
 		if(f!=null && f.getStatusCode()==400) {
         	mRecoveryEmail.setError(getContext().getString(R.string.pw_reset_400_error));
 		}
-		if (f != null && f.getErrorMessage() != null) {
-			mRecoveryEmail.setError("Password reset request failed.");
-		}
+		mRecoveryEmail.setError("Password reset request failed - is your email correct?");
 	}
 
 	@Override

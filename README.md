@@ -10,7 +10,8 @@ The Android client to the Natch REST project.
 * ~~Open dialogue from link press~~
 * ~~Use a different volley return type~~
 * ~~Create service to reset password reset~~
-* Show text when service successful
+* ~~Show text when service successful~~
+* UI test for password reset
 * Keep selection on context item long press
 * Backpress on dialogue fragment bug - view pager needs an id?
 * Separate signing key file
