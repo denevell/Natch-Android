@@ -13,10 +13,12 @@ import org.denevell.droidnatch.app.interfaces.Finishable;
 import org.denevell.droidnatch.app.interfaces.Receiver;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 import org.denevell.droidnatch.app.views.ButtonWithProgress;
+import org.denevell.droidnatch.app.views.DialoguePopupOnMenuActivator;
 import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceInput;
 import org.denevell.droidnatch.threads.list.entities.LoginResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.LogoutResourceReturnData;
+
 import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
@@ -97,6 +99,14 @@ public class LoginViewActivator extends LinearLayout implements Activator<LoginR
 		mButton.setOnClickListener(this);
 		mUsername = (EditText) findViewById(R.id.login_username_edittext);
 		mPassword = (EditText) findViewById(R.id.login_password_edittext);
+		View forgottenPasswordLink = findViewById(R.id.login_forgotten_password_link_textview);
+		forgottenPasswordLink.setOnClickListener(new OnClickListener() {
+			@Override public void onClick(View v) {
+				DialoguePopupOnMenuActivator df = new DialoguePopupOnMenuActivator(getContext());
+				df.setLayout(R.layout.reset_password_dialogue_layout);
+				df.createDialogue(null);
+			}
+		});
 		new UiEventThenServiceThenUiEvent<LoginResourceReturnData>(this,
 				mLoginService, null, new UpdateLoginInfoReceiver(mUsername),
 				new RefreshOptionsMenuReceiver(act)).setup();
