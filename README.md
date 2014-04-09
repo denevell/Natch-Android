@@ -2,6 +2,8 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
+* ~~Recovery email in register form~~
+* Reset password request in login form
 * Keep selection on context item long press
 * Backpress on dialogue fragment bug - view pager needs an id?
 * Separate signing key file

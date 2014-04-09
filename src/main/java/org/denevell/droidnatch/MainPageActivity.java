@@ -66,8 +66,10 @@ public class MainPageActivity extends FragmentActivity {
 			} 
 			mOpener.openScreen(ListPostsFragment.class, map, true);
 			setIntent(null);
+			intent = getIntent();
 			return;
 		}
+		intent = getIntent();
 		setIntent(null);
 	}
 

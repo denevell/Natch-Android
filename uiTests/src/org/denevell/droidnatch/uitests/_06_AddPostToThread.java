@@ -137,7 +137,7 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
         	.showRegisterError()
         	.pressRegisterButton();
         String user = "aaron" + new Date().getTime();
-		new RegisterPO().registerFromDialogueBox(getInstrumentation(), user, user);
+		new RegisterPO().registerFromDialogueBox(getInstrumentation(), user, user, null);
         new AddPostPO()
         	.addPost("After login");
         new ListPostsPO().checkHasNumberOfPosts(2);

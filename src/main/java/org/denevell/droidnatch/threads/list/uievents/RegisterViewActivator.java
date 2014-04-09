@@ -47,6 +47,7 @@ public class RegisterViewActivator extends LinearLayout implements
 	private EditText mPassword;
 	private ServiceFetcher<RegisterResourceInput, RegisterResourceReturnData> mRegisterService;
 	@Inject ServiceFetcher<LoginResourceInput, LoginResourceReturnData> mLoginService;
+	private EditText mOptionalEmailRecovery;
 
     public RegisterViewActivator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -72,6 +73,7 @@ public class RegisterViewActivator extends LinearLayout implements
         mButton.setOnClickListener(this);
         mUsername = (EditText) findViewById(R.id.register_username_edittext);
         mPassword = (EditText) findViewById(R.id.register_password_edittext);
+        mOptionalEmailRecovery = (EditText) findViewById(R.id.register_optional_recovery_edittext);
         
         String url = ShamefulStatics.getBasePath()+getContext().getString(R.string.url_register);
 		mRegisterService = new ServiceBuilder<RegisterResourceInput, RegisterResourceReturnData>()
@@ -141,8 +143,13 @@ public class RegisterViewActivator extends LinearLayout implements
 
     @Override
     public void onClick(View view) {
-        mRegisterService.getRequest().getBody().setPassword(mPassword.getText().toString());
-        mRegisterService.getRequest().getBody().setUsername(mUsername.getText().toString());
+        RegisterResourceInput body = mRegisterService.getRequest().getBody();
+		body.setPassword(mPassword.getText().toString());
+        body.setUsername(mUsername.getText().toString());
+        if(mOptionalEmailRecovery!=null 
+        		&& mOptionalEmailRecovery.getText().toString().trim().length()>0) {
+        	body.setRecoveryEmail(mOptionalEmailRecovery.getText().toString());
+        }
         if(mButton!=null) mButton.loadingStart();
         mCallback.onUiEventActivated();
     }

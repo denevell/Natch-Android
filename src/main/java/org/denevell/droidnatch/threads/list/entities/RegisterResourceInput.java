@@ -6,6 +6,7 @@ public class RegisterResourceInput {
 	
 	private String username;
 	private String password;
+	private String recoveryEmail;
 	public RegisterResourceInput() {
 	}
 	public String getUsername() {
@@ -19,6 +20,12 @@ public class RegisterResourceInput {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getRecoveryEmail() {
+		return recoveryEmail;
+	}
+	public void setRecoveryEmail(String recoveryEmail) {
+		this.recoveryEmail = recoveryEmail;
 	}
 
 }

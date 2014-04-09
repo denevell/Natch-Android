@@ -66,7 +66,7 @@ public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
         	.showLoginError()
         	.pressRegisterAfterTryingToAdd();
     	String user = "aaron" + new Date().getTime();
-		new RegisterPO().registerFromDialogueBox(getInstrumentation(), user, user);
+		new RegisterPO().registerFromDialogueBox(getInstrumentation(), user, user, null);
         new AddThreadPO().addThreadAndPressBack("Hiya!", "Content");
         new ListThreadsPO().checkHasNumberOfThreads(1);
     }

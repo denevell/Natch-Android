@@ -41,6 +41,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
+                android:imeOptions="actionNext|flagNavigateNext"
+                android:inputType="text|textPassword"
+                android:singleLine="true"
+                tools:ignore="HardcodedText" />
+
+            <EditText
+                android:id="@+id/register_optional_recovery_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Optional recovery email"
                 android:imeOptions="actionDone"
                 android:inputType="text|textPassword"
                 android:singleLine="true"

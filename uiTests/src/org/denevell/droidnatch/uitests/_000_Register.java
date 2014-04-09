@@ -23,6 +23,18 @@ public class _000_Register extends NatchAndroidInstrumentation {
 		new RegisterPO()
     		.register(getInstrumentation(), username, username)
     		.registerSuccess();
+		new LoginPO()
+			.shouldseeUsername(getInstrumentation(), username)
+			.shouldntSeeRegisterOption(getInstrumentation())
+			.logout(getInstrumentation())
+			.shouldSeeRegisterOption(getInstrumentation());
+    }
+
+    public void testSuccessWithRecoveryEmail() throws Exception {
+    	String username = "aaron"+new Date().getTime();
+		new RegisterPO()
+    		.register(getInstrumentation(), username, username, "a@recovery.com")
+    		.registerSuccess();
 		// Often fails since there's a gap between register and login
 		// where Espresso thinks Volley has stopped, but it hasn't. 
 		// Run it through the debugger and see if it still fails.
