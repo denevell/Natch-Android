@@ -34,14 +34,28 @@ public class DialogueFragmentWithView extends DialogFragmentWithRotationFix {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		if(mLayout==0) {
+			// If we've got a 0 zero, which we may if the app was destroyed (since onRetainInstance 
+			// only saves on configuration changes), then destroy the dialogue.
+
+			// The reason we're doing this is because we can't save the mInitView, or more 
+			// preciously the Object therein because it's not a Parcelable.
+			
+			// The reason they are not Parcelable's is because they often come from MenuItems
+			return new View(getActivity());
+		}
 		View view = LayoutInflater.from(getActivity()).inflate(mLayout, container, false);
 		if(mInitView!=null) mInitView.intialise(view, this);
 		return view;
 	}
 	
 	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
+	public void onResume() {
+		super.onResume();
+		if(mLayout==0) {
+			// See above comment about a zero layout
+			dismissAllowingStateLoss();
+		}
 	}
-
+	
 }

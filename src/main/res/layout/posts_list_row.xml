@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
 		        android:textColor="@color/normal_text_light"
                 android:contentDescription="list_posts_row_author"
+                android:textStyle="bold|italic"
                 android:text="author"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 tools:ignore="HardcodedText" />

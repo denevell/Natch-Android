@@ -11,11 +11,11 @@ The Android client to the Natch REST project.
 * ~~Use a different volley return type~~
 * ~~Create service to reset password reset~~
 * ~~Show text when service successful~~
+* ~~Look at boldface for authors in post~~
+* ~~Backpress on dialogue fragment bug - view pager needs an id?~~
 * UI test for password reset
 * Keep selection on context item long press
-* Backpress on dialogue fragment bug - view pager needs an id?
 * Separate signing key file
-* Look at boldface for authors in post
 
 ### Icebox
 
@@ -49,6 +49,7 @@ The Android client to the Natch REST project.
 
 * Scrolling to bottom of posts when pagination in place fails
 * List view save position when first is showing.
+* DialogFragment unusable after activity destroy
 
 --
 
