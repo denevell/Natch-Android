@@ -12,8 +12,8 @@ import org.denevell.droidnatch.PaginationMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
 import org.denevell.droidnatch.app.baseclasses.ObservableFragment.ContextMenuItemHolder;
-import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.baseclasses.networking.JsonVolleyRequest.LazyHeadersCallback;
+import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
 import org.denevell.droidnatch.app.interfaces.ScreenOpener;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -28,7 +28,6 @@ import org.denevell.droidnatch.threads.list.entities.LogoutResourceReturnData;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 import org.denevell.droidnatch.threads.list.uievents.AddThreadViewActivator;
 import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
-import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -43,14 +42,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.android.volley.Request;
+import com.newfivefour.android.manchester.R;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module(complete=false, library=true)
 public class ListThreadsMapper {
-    
-
 
 	public static final String PROVIDES_LIST_THREADS_LIST_CLICK = "list_threads_list_click";
     private static final String TAG = ListThreadsMapper.class.getSimpleName();
@@ -93,8 +91,9 @@ public class ListThreadsMapper {
 
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+				view.setSelected(true);
 				if(position==0) return false; // This is the add thread header;
-				Callback callback = new CallbackImplementation(listView, position);
+				Callback callback = new CallbackImplementation(listView, position, view);
 				((FragmentActivity)parent.getContext()).startActionMode(callback);
 				return true;
 				}
@@ -167,8 +166,13 @@ public class ListThreadsMapper {
 	private final class CallbackImplementation implements Callback {
 		private final ReceivingClickingAutopaginatingListView<ListThreadsResource, ThreadResource, List<ThreadResource>> listView;
 		private final int position;
+		private View selectedView;
 
-		private CallbackImplementation(ReceivingClickingAutopaginatingListView<ListThreadsResource, ThreadResource, List<ThreadResource>> listView, int position) {
+		private CallbackImplementation(
+				ReceivingClickingAutopaginatingListView<ListThreadsResource, ThreadResource, List<ThreadResource>> listView, 
+				int position, 
+				View selectedView) {
+			this.selectedView = selectedView;
 			this.listView = listView;
 			this.position = position;
 		}
@@ -179,7 +183,10 @@ public class ListThreadsMapper {
 			return false;
 		}
 
-		@Override public void onDestroyActionMode(ActionMode mode) { }
+		@Override 
+		public void onDestroyActionMode(ActionMode mode) { 
+			if(this.selectedView!=null) this.selectedView.setSelected(false);
+		}
 
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {

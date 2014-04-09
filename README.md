@@ -13,8 +13,8 @@ The Android client to the Natch REST project.
 * ~~Show text when service successful~~
 * ~~Look at boldface for authors in post~~
 * ~~Backpress on dialogue fragment bug - view pager needs an id?~~
+* ~~Keep selection on context item long press~~
 * UI test for password reset
-* Keep selection on context item long press
 * Separate signing key file
 
 ### Icebox

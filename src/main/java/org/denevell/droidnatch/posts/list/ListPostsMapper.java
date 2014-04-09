@@ -18,7 +18,6 @@ import org.denevell.droidnatch.posts.list.entities.ThreadResourceResourceToArray
 import org.denevell.droidnatch.posts.list.entities.ThreadResourceTotalAvailable;
 import org.denevell.droidnatch.posts.list.uievents.ListPostsViewStarter;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
-import com.newfivefour.android.manchester.R;
 
 import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
@@ -31,6 +30,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.android.volley.Request;
+import com.newfivefour.android.manchester.R;
 
 import dagger.Module;
 import dagger.Provides;
@@ -75,7 +75,7 @@ public class ListPostsMapper {
 			.setKeyboardHider(new HideKeyboard());
     	listview.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-				Callback callback = new ActionMenuImplementation(listview, position);
+				Callback callback = new ActionMenuImplementation(listview, position, view);
 				((FragmentActivity)parent.getContext()).startActionMode(callback);
 				return true;
 				}
@@ -103,11 +103,17 @@ public class ListPostsMapper {
   		@SuppressWarnings("rawtypes")
   		private final ReceivingClickingAutopaginatingListView listview;
   		private final int position;
+		private View selectedView;
 
   		@SuppressWarnings("rawtypes")
-  		private ActionMenuImplementation(ReceivingClickingAutopaginatingListView listview, int position) {
+  		private ActionMenuImplementation(
+  				ReceivingClickingAutopaginatingListView listview, 
+  				int position, 
+  				View selectedView) {
   			this.listview = listview;
   			this.position = position;
+  			this.selectedView = selectedView;
+  			this.selectedView.setSelected(true);
   		}
 
   		@Override
@@ -118,6 +124,7 @@ public class ListPostsMapper {
 
   		@Override
   		public void onDestroyActionMode(ActionMode mode) {
+  			if(this.selectedView!=null) this.selectedView.setSelected(false);
   		}
 
   		@Override
@@ -146,6 +153,8 @@ public class ListPostsMapper {
   	}
 
   	public static final class NotLoggedInActionMenuImplementation implements Callback {
+  		
+  		private View selectedView;
 
   		@Override
   		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
@@ -155,6 +164,7 @@ public class ListPostsMapper {
 
   		@Override
   		public void onDestroyActionMode(ActionMode mode) {
+  			if(this.selectedView!=null) this.selectedView.setSelected(false);
   		}
 
   		@Override
