@@ -18,7 +18,7 @@ import org.denevell.droidnatch.threads.list.ListThreadsFragment;
 import org.denevell.droidnatch.threads.list.uievents.AddThreadViewActivator;
 import org.denevell.droidnatch.threads.list.uievents.ListThreadsViewStarter;
 import org.denevell.droidnatch.threads.list.uievents.LoginViewActivator;
-import org.denevell.droidnatch.threads.list.uievents.LogoutViewActivator;
+import org.denevell.droidnatch.threads.list.uievents.UserDashboardViewActivator;
 import org.denevell.droidnatch.threads.list.uievents.LongClickDeleteActivator;
 import org.denevell.droidnatch.threads.list.uievents.OpenNewThreadReceiver;
 import org.denevell.droidnatch.threads.list.uievents.RegisterViewActivator;
@@ -41,7 +41,7 @@ import dagger.Provides;
         LongClickDeletePostActivator.class,
         LongClickDeleteActivator.class,
         ListPostsViewStarter.class,
-        LogoutViewActivator.class,
+        UserDashboardViewActivator.class,
         ListThreadsFragment.class,
         ListThreadsViewStarter.class,
         OpenNewThreadReceiver.class,

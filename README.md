@@ -15,7 +15,7 @@ The Android client to the Natch REST project.
 * ~~Backpress on dialogue fragment bug - view pager needs an id?~~
 * ~~Keep selection on context item long press~~
 * ~~Add change password ui to dashboard layout~~
-* Alter dashboard class to accept the new editexts and button
+* ~~Alter dashboard class to accept the new editexts and button~~
 * Create service to change password
 * Add ui callbacks for new service
 * Add success text and fail text
