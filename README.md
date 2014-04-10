@@ -16,6 +16,7 @@ The Android client to the Natch REST project.
 * ~~Keep selection on context item long press~~
 * ~~Add change password ui to dashboard layout~~
 * ~~Alter dashboard class to accept the new editexts and button~~
+* Refactor volley request to have a string return with body
 * Create service to change password
 * Add ui callbacks for new service
 * Add success text and fail text

@@ -46,7 +46,7 @@ public class ResetPasswordRequestViewActivator extends LinearLayout implements A
 		String url = ShamefulStatics.getBasePath() + getContext().getString(R.string.url_reset_password);
 		mService = new ServiceBuilder<Void, Void>()
 				.url(url).method(Request.Method.POST)
-				.createBasic((Activity) getContext());
+				.createNeitherInputOrResponseBody();
 		Receiver<Void>[] args = null;
 		new UiEventThenServiceThenUiEvent<Void>(this,
 				mService,

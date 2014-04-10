@@ -95,7 +95,7 @@ public class ListPostsMapper {
         		.url(url)
         		.method(Request.Method.GET)
         		.pagination(pagination)
-        		.create(mActivity, ThreadResource.class);
+        		.createJson(mActivity, ThreadResource.class);
 		return service;
 	}
     

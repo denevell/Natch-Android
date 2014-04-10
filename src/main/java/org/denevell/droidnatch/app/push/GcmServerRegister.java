@@ -36,7 +36,7 @@ public class GcmServerRegister {
 							.entity(pushResource)
 							.method(Request.Method.PUT)
 							.url(ShamefulStatics.getBasePath() + appContext.getString(R.string.url_push_add))
-							.create(null, SuccessOrError.class);
+							.createJson(null, SuccessOrError.class);
 					service.setServiceCallbacks(new ServiceCallbacks<SuccessOrError>() {
 						@Override
 						public void onServiceSuccess(SuccessOrError r) {

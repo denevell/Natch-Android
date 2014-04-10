@@ -21,9 +21,9 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 
-public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, ServiceFetcher<I, T> {
+public class JsonServiceFetcher<I, T> implements Listener<JSONObject>, ErrorListener, ServiceFetcher<I, T> {
 
-    private static final String TAG = BaseService.class.getSimpleName();
+    private static final String TAG = JsonServiceFetcher.class.getSimpleName();
     protected ProgressIndicator mProgress;
     protected ServiceCallbacks<T> mCallbacks;
     private FailureResultFactory mFailureResultFactory;
@@ -31,7 +31,7 @@ public class BaseService<I, T> implements Listener<JSONObject>, ErrorListener, S
     private ObjectToStringConverter mResponseConverter;
     private Class<T> mClass;
 
-    public BaseService(
+    public JsonServiceFetcher(
             VolleyRequest<I, T> volleyRequest,
             ProgressIndicator progress, 
             ObjectToStringConverter responseConverter,

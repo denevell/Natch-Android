@@ -86,7 +86,7 @@ public class AnnouncementsMapper {
         	= new ServiceBuilder<Void, ListThreadsResource>()
         		.url(url)
         		.method(Request.Method.GET)
-        		.create(mActivity, ListThreadsResource.class);
+        		.createJson(mActivity, ListThreadsResource.class);
 		return listThreadsService;
 	}
 

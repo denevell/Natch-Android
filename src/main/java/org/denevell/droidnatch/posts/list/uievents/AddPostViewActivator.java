@@ -88,7 +88,7 @@ public class AddPostViewActivator extends FrameLayout implements
 						headersMap.put("AuthKey", ShamefulStatics.getAuthKey(getContext().getApplicationContext()));
 					}
 				})
-        		.create(null, AddPostResourceReturnData.class); 
+        		.createJson(null, AddPostResourceReturnData.class); 
         
 		@SuppressWarnings("unchecked")
         UiEventThenServiceThenUiEvent<AddPostResourceReturnData> addPostController =

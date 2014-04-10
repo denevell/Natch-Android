@@ -15,8 +15,6 @@ import org.denevell.droidnatch.threads.list.ListThreadsMapper;
 import org.denevell.droidnatch.threads.list.entities.LogoutResourceReturnData;
 import org.denevell.droidnatch.threads.list.uievents.LoginViewActivator.LoginUpdatedEvent;
 
-import com.newfivefour.android.manchester.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
@@ -26,9 +24,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import com.newfivefour.android.manchester.R;
+
 import dagger.ObjectGraph;
 
-public class UserDashboardViewActivator extends LinearLayout implements Activator<LogoutResourceReturnData>, View.OnClickListener, Finishable {
+public class UserDashboardViewActivator extends LinearLayout implements Activator<LogoutResourceReturnData>, Finishable {
 
 	private GenericUiObserver mCallback;
 	private Runnable mSuccessCallback;
@@ -57,7 +58,12 @@ public class UserDashboardViewActivator extends LinearLayout implements Activato
 		super.onAttachedToWindow();
 		inject();
 		mLogoutButton = (ButtonWithProgress) findViewById(R.id.logout_button);
-		mLogoutButton.setOnClickListener(this);
+		mLogoutButton.setOnClickListener(new OnClickListener() {
+			@Override public void onClick(View v) {
+				if(mLogoutButton!=null) mLogoutButton.loadingStart();
+				mCallback.onUiEventActivated();
+			}
+		});
 		mChangePasswordEditText = (EditText) findViewById(R.id.change_password_change_password_edittext);
 		mConfirmPasswordEditText = (EditText) findViewById(R.id.change_password_confirm_edittext);
 		mChangePasswordButton = (Button) findViewById(R.id.change_password_button);
@@ -91,12 +97,6 @@ public class UserDashboardViewActivator extends LinearLayout implements Activato
 	@Override
 	public void setFinishedCallback(Runnable runnable) {
 		mSuccessCallback = runnable;
-	}
-
-	@Override
-	public void onClick(View view) {
-		if(mLogoutButton!=null) mLogoutButton.loadingStart();
-		mCallback.onUiEventActivated();
 	}
 
 	private void logout() {

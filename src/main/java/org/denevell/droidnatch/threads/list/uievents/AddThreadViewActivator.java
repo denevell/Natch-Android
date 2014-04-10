@@ -94,7 +94,7 @@ public class AddThreadViewActivator extends LinearLayout implements
 						headersMap.put("AuthKey", ShamefulStatics.getAuthKey(getContext().getApplicationContext()));
 					}
 				})
-        		.create(null, AddPostResourceReturnData.class);
+        		.createJson(null, AddPostResourceReturnData.class);
         
         @SuppressWarnings("unchecked")
 		Controller addThreadController =

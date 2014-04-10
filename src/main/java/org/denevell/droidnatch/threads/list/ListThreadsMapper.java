@@ -132,7 +132,7 @@ public class ListThreadsMapper {
         		.url(url)
         		.method(Request.Method.GET)
         		.pagination(pagination)
-        		.create(mActivity, ListThreadsResource.class);
+        		.createJson(mActivity, ListThreadsResource.class);
 		return listThreadsService;
 	}
 
@@ -149,7 +149,7 @@ public class ListThreadsMapper {
 					}
 				})
         		.method(Request.Method.DELETE)
-        		.create(mActivity, LogoutResourceReturnData.class);
+        		.createJson(mActivity, LogoutResourceReturnData.class);
 		return listThreadsService;
 	}
 
@@ -160,7 +160,7 @@ public class ListThreadsMapper {
 		return new ServiceBuilder<LoginResourceInput, LoginResourceReturnData>()
 				.url(url).method(Request.Method.POST)
 				.entity(new LoginResourceInput())
-				.create(mActivity, LoginResourceReturnData.class);
+				.createJson(mActivity, LoginResourceReturnData.class);
 	}
 
 	private final class CallbackImplementation implements Callback {

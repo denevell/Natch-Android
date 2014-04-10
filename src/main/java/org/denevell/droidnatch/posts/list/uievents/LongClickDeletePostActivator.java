@@ -58,7 +58,7 @@ public class LongClickDeletePostActivator extends View
 						headersMap.put("AuthKey", ShamefulStatics.getAuthKey(getContext().getApplicationContext()));
 					}
 				 })
-        		.create(act, DeletePostResourceReturnData.class);
+        		.createJson(act, DeletePostResourceReturnData.class);
                 
                 
         @SuppressWarnings("unchecked")

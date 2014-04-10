@@ -80,7 +80,7 @@ public class RegisterViewActivator extends LinearLayout implements
         		.url(url)
         		.method(Request.Method.PUT)
         		.entity(new RegisterResourceInput())
-        		.create(act, RegisterResourceReturnData.class);
+        		.createJson(act, RegisterResourceReturnData.class);
         
         Receiver<RegisterResourceReturnData> things = null;
 		new UiEventThenServiceThenUiEvent<RegisterResourceReturnData>(

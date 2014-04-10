@@ -80,7 +80,7 @@ public class EditPostViewActivator extends LinearLayout implements
 			.url(url)
 			.entity(new EditPostResource())
 			.method(Request.Method.POST)
-        	.create(act, EditPostResourceReturnData.class);
+        	.createJson(act, EditPostResourceReturnData.class);
         
 		@SuppressWarnings("unchecked")
 		Controller addThreadController =

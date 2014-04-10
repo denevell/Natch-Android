@@ -63,7 +63,7 @@ public class LongClickDeleteThreadActivator extends View implements Activator<De
 						headersMap.put("AuthKey", ShamefulStatics.getAuthKey(getContext().getApplicationContext()));
 					}
 				 })
-        		.create(act, DeletePostResourceReturnData.class);        
+        		.createJson(act, DeletePostResourceReturnData.class);        
         
         @SuppressWarnings("unchecked")
 		UiEventThenServiceThenUiEvent<DeletePostResourceReturnData> deleteThreadFromPostController =
