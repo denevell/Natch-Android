@@ -52,4 +52,5 @@
     <string name="change_password_password_looks_dodgy_too_me">Password looks dodgy to me</string>
     <string name="change_password_success">Password changed successfully</string>
     <string name="change_password_passwords_not_the_same">Passwords not the same</string>
+    <string name="change_password_button">Change Password</string>
 </resources>

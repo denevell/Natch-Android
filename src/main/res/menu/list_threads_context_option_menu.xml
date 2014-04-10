@@ -3,7 +3,7 @@
     <item
         android:id="@id/threads_context_menu_delete_post"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom"
+        android:showAsAction="never"
         android:title="Delete thread" 
         tools:ignore="HardcodedText"/>
 
