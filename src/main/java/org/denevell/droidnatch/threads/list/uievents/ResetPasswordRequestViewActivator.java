@@ -63,7 +63,7 @@ public class ResetPasswordRequestViewActivator extends LinearLayout implements A
 		if(mButton!=null) mButton.loadingStop();
 		if(mSuccessTextView!=null) {
 			mSuccessTextView.setVisibility(View.VISIBLE);
-			mSuccessTextView.setText("Password reset request sent. Wait for an email or ping @NameAaronNewell or @zain_");
+			mSuccessTextView.setText(R.string.password_reset_request_successful);
 		}
 	}
 
@@ -73,7 +73,7 @@ public class ResetPasswordRequestViewActivator extends LinearLayout implements A
 		if(f!=null && f.getStatusCode()==400) {
         	mRecoveryEmail.setError(getContext().getString(R.string.pw_reset_400_error));
 		}
-		mRecoveryEmail.setError("Password reset request failed - is your email correct?");
+		mRecoveryEmail.setError(getContext().getString(R.string.password_reset_fail));
 	}
 
 	@Override

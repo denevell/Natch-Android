@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Optional recovery email"
                 android:imeOptions="actionDone"
-                android:inputType="text|textPassword"
+                android:inputType="text|textEmailSubject"
                 android:singleLine="true"
                 tools:ignore="HardcodedText" />
 

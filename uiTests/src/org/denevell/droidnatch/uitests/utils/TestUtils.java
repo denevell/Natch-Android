@@ -52,6 +52,7 @@ public class TestUtils {
         statement.execute("delete from post_tags");
         statement.execute("delete from ThreadEntity");
         statement.execute("delete from PostEntity");
+        statement.execute("delete from UserEntity");
     }
 
 	public static void toggleOrientationChange(Activity act, Instrumentation instru) {

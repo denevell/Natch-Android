@@ -12,13 +12,14 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
-import com.newfivefour.android.manchester.R;
+import org.denevell.droidnatch.uitests.CustomMatchers;
 
 import android.app.Instrumentation;
 
 import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
 import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
+import com.newfivefour.android.manchester.R;
 
 public class LoginPO {
 
@@ -78,6 +79,24 @@ public class LoginPO {
 
 	public void logoutDefaultUser(Instrumentation instrumentation) {
 		logout(instrumentation);
+	}
+
+	public LoginPO requestPasswordReset(String email) {
+        onView(withText("Login")).perform(click());
+        onView(withText("Forgotten password?")).perform(click());
+        onView(withId(R.id.password_reset_recovery_email_editext)).perform(typeText(email));
+        onView(withId(R.id.password_reset_button)).perform(click());
+		return this;
+	}
+
+	public void passwordResetSuccessful() {
+		onView(withId(R.id.password_reset_success_textview))
+			.check(ViewAssertions.matches(withText(R.string.password_reset_request_successful)));
+	}
+
+	public void passwordResetUnSuccessful() {
+		onView(withId(R.id.password_reset_recovery_email_editext))
+			.check(ViewAssertions.matches(CustomMatchers.showsErrorString("Password reset request failed")));
 	}
 
 }
