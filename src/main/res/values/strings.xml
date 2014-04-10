@@ -9,6 +9,7 @@
     <string name="url_posts">post/thread/{thread_id}/</string>
     <string name="url_addthread">post/addthread</string>
     <string name="url_login">user/login</string>
+    <string name="url_change_password">user/password</string>
     <string name="url_reset_password">user/password_reset/</string>
     <string name="url_register">user</string>
     <string name="url_add_post">post/add</string>

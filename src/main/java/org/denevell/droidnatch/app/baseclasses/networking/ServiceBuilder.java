@@ -74,11 +74,11 @@ public class ServiceBuilder<I, R> {
 	}
 
 	public ServiceFetcher<Void, Void> createNeitherInputOrResponseBody() {
-		return new BodylessServiceFetcher<I, R>(mMethod);
+		return new BodylessServiceFetcher<Void, Void>(mMethod, mUrl);
 	}
 
-	public ServiceFetcher<Void, Void> createNoResponseBodyButInputBody() {
-		return new BodylessServiceFetcher<I, R>(mMethod);
+	public ServiceFetcher<I, Void> createNoResponseBodyButInputBody() {
+		return new InputBodyOnlyServiceFetcher<I, Void>(mMethod, mEntity, mUrl, mLazyHeaders);
 	}
 
 

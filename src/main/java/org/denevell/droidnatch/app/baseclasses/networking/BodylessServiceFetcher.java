@@ -21,10 +21,12 @@ final class BodylessServiceFetcher<I, R>
 	private int mMethod;
 
 	/**
+	 * @param mUrl2 
 	 * @param serviceBuilder
 	 */
-	BodylessServiceFetcher(int method) {
+	BodylessServiceFetcher(int method, String url) {
 		this.mMethod = method;
+		this.mUrl = url;
 	}
 
 	private ServiceCallbacks<Void> mCallbacks;

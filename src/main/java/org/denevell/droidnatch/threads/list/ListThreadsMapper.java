@@ -163,6 +163,21 @@ public class ListThreadsMapper {
 				.createJson(mActivity, LoginResourceReturnData.class);
 	}
 
+    @Provides @Singleton 
+    public ServiceFetcher<ChangePasswordInput, Void> providesChangePasswordService() {
+		String url = ShamefulStatics.getBasePath() + mActivity.getString(R.string.url_change_password);
+		return new ServiceBuilder<ChangePasswordInput, Void>()
+				.url(url).method(Request.Method.POST)
+				.entity(new ChangePasswordInput())
+        		.addLazyHeader(new LazyHeadersCallback() {
+					@Override
+					public void run(Map<String, String> headersMap) {
+						headersMap.put("AuthKey", ShamefulStatics.getAuthKey(mActivity.getApplicationContext()));
+					}
+				})
+				.createNoResponseBodyButInputBody();
+	}
+
 	private final class CallbackImplementation implements Callback {
 		private final ReceivingClickingAutopaginatingListView<ListThreadsResource, ThreadResource, List<ThreadResource>> listView;
 		private final int position;

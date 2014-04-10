@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
-
-    <RelativeLayout
+<FrameLayout 
+        xmlns:android="http://schemas.android.com/apk/res/android"
+    	xmlns:tools="http://schemas.android.com/tools"
+    	xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    
+        <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:focusable="true"
+	        android:focusableInTouchMode="true"
+            >
+            <requestFocus />
+        </LinearLayout>
+    <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingBottom="5dp"
         android:paddingTop="5dp" >
         
-        <LinearLayout 
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content">
-           <requestFocus /> 
-        </LinearLayout>
-
+        
         <org.denevell.droidnatch.app.views.ButtonWithProgress
             android:id="@+id/logout_button"
             android:layout_width="match_parent"
@@ -32,22 +34,16 @@
 
         <EditText
             android:id="@+id/change_password_change_password_edittext"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/logout_button"
             android:layout_marginTop="20px"
             android:ems="10"
             android:hint="Change password" />
 
         <EditText
             android:id="@+id/change_password_confirm_edittext"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/editText1"
             android:ems="10"
             android:hint="Confirm password" />
 
@@ -55,13 +51,11 @@
             android:id="@+id/change_password_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/editText2"
             android:gravity="center"
             app:button_background="@drawable/forum_btn_default_holo_light"
             app:button_text="Change password"
             tools:ignore="HardcodedText" >
         </org.denevell.droidnatch.app.views.ButtonWithProgress>
-    </RelativeLayout>
 
-</ScrollView>
+    </LinearLayout>
+</FrameLayout>	

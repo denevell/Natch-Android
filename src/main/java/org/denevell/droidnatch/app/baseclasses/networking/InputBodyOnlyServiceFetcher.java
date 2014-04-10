@@ -1,31 +1,44 @@
 package org.denevell.droidnatch.app.baseclasses.networking;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.denevell.droidnatch.Application;
+import org.denevell.droidnatch.app.baseclasses.networking.JsonVolleyRequest.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
 
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 
 final class InputBodyOnlyServiceFetcher<I, R> 
 	implements ServiceFetcher<I, Void>,
 		ErrorListener,
 		Listener<String>{
+	private static final String TAG = InputBodyOnlyServiceFetcher.class.getSimpleName();
 	private int mMethod;
 	private I mBody;
+	private List<LazyHeadersCallback> mLazyHeaders;
 
 	/**
+	 * @param mLazyHeaders 
+	 * @param mUrl2 
 	 * @param serviceBuilder
 	 */
-	InputBodyOnlyServiceFetcher(int method, I body) {
-		this.mMethod = method;
-		this.mBody = body;
+	InputBodyOnlyServiceFetcher(int method, I body, String url, ArrayList<LazyHeadersCallback> lazyHeaders) {
+		mMethod = method;
+		mBody = body;
+		mUrl = url;
+		mLazyHeaders = lazyHeaders;
 	}
 
 	private ServiceCallbacks<Void> mCallbacks;
@@ -38,7 +51,20 @@ final class InputBodyOnlyServiceFetcher<I, R>
 	@Override
 	public void go() {
 	    RequestQueue queue = Application.getRequestQueue();//Volley.newRequestQueue(mAppContext);
-	    StringRequest request = new StringRequest(mMethod, mUrl, this, this);
+	    StringWithJsonBodyRequest request = new StringWithJsonBodyRequest(mMethod, mUrl, this, this)  {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+               Map<String, String> headers = super.getHeaders();
+               HashMap<String, String> map = new HashMap<String, String>(headers);
+               for (LazyHeadersCallback i: mLazyHeaders) {
+            	   i.run(map);
+               }
+               return map;
+            }
+	    };
+	    String json = new Gson().toJson(mBody);
+		Log.d(TAG, "Sending body: " + json);
+		request.setBody(json);
 	    request.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
 	    queue.add(request);
 	    Log.d(ServiceBuilder.TAG, "Sending url: " + request.getUrl());
@@ -46,17 +72,19 @@ final class InputBodyOnlyServiceFetcher<I, R>
 
 	@Override
 	public void onErrorResponse(VolleyError error) {
+		Log.d(TAG, "Service returned an error: " + error.getMessage());
 		mCallbacks.onServiceFail(null);
 	}
 
 	@Override
 	public void onResponse(String response) {
+		Log.d(TAG, "Service returned normally: " + response);
 		mCallbacks.onServiceSuccess(null);
 	}
 
 	@Override
 	public I getBody() {
-		return null;
+		return mBody;
 	}
 
 	@Override
