@@ -1,20 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingBottom="5dp"
-    android:paddingTop="5dp" >
-    
-    <org.denevell.droidnatch.app.views.ButtonWithProgress
-        android:id="@+id/logout_button"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-		app:button_background="@drawable/forum_btn_default_holo_light"
-        app:button_text="Logout"
-        tools:ignore="HardcodedText" />
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" >
+        
+        <LinearLayout 
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content">
+           <requestFocus /> 
+        </LinearLayout>
 
-</RelativeLayout>
+        <org.denevell.droidnatch.app.views.ButtonWithProgress
+            android:id="@+id/logout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:button_background="@drawable/forum_btn_default_holo_light"
+            app:button_text="Logout"
+            tools:ignore="HardcodedText" >
+        </org.denevell.droidnatch.app.views.ButtonWithProgress>
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/logout_button"
+            android:layout_marginTop="20px"
+            android:ems="10"
+            android:hint="Change password" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/editText1"
+            android:ems="10"
+            android:hint="Confirm password" />
+
+        <org.denevell.droidnatch.app.views.ButtonWithProgress
+            android:id="@+id/ButtonWithProgress01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/editText2"
+            android:gravity="center"
+            app:button_background="@drawable/forum_btn_default_holo_light"
+            app:button_text="Change password"
+            tools:ignore="HardcodedText" >
+        </org.denevell.droidnatch.app.views.ButtonWithProgress>
+    </RelativeLayout>
+
+</ScrollView>
