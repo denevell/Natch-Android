@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.newfivefour.android.manchester.R;
 
@@ -41,6 +42,7 @@ public class UserDashboardViewActivator extends LinearLayout implements Finishab
 	private EditText mChangePasswordEditText;
 	private EditText mConfirmPasswordEditText;
 	private ButtonWithProgress mChangePasswordButton;
+	private TextView mChangePasswordSuccessTextView;
 
 	public UserDashboardViewActivator(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -94,14 +96,21 @@ public class UserDashboardViewActivator extends LinearLayout implements Finishab
 
 	@SuppressWarnings("unchecked")
 	private void setupChangePasswordService() {
+		mChangePasswordSuccessTextView = (TextView) findViewById(R.id.change_password_success_textview);
 		mChangePasswordEditText = (EditText) findViewById(R.id.change_password_change_password_edittext);
 		mConfirmPasswordEditText = (EditText) findViewById(R.id.change_password_confirm_edittext);
 		mChangePasswordButton = (ButtonWithProgress) findViewById(R.id.change_password_button);
 		mChangePasswordButton.setOnClickListener(new OnClickListener() {
 			@Override public void onClick(View v) {
-				if(mChangePasswordButton!=null) mChangePasswordButton.loadingStart();
-				mChangePasswordService.getBody().setPassword(mChangePasswordEditText.getText().toString());
-				mChangePasswordServiceCallback.onUiEventActivated();
+				if(mChangePasswordEditText.getText().toString().trim().length()<=0) return;
+				if(!checkPasswordsTheSame(mChangePasswordEditText, mConfirmPasswordEditText)) {
+					mChangePasswordSuccessTextView.setVisibility(View.GONE);
+					mChangePasswordEditText.setError(getContext().getString(R.string.change_password_passwords_not_the_same));
+				} else {
+					if(mChangePasswordButton!=null) mChangePasswordButton.loadingStart();
+					mChangePasswordService.getBody().setPassword(mChangePasswordEditText.getText().toString());
+					mChangePasswordServiceCallback.onUiEventActivated();
+				}
 			}
 		});
 		new UiEventThenServiceThenUiEvent<Void>(
@@ -111,14 +120,30 @@ public class UserDashboardViewActivator extends LinearLayout implements Finishab
 					}
 					@Override public void success(Void result) {
 						if(mChangePasswordButton!=null) mChangePasswordButton.loadingStop();
-						// Show success somehow
+						mChangePasswordEditText.setText("");
+						mConfirmPasswordEditText.setText("");
+						mChangePasswordEditText.setError(null);
+						mChangePasswordSuccessTextView.setVisibility(View.VISIBLE);
+						mChangePasswordSuccessTextView.setText(R.string.change_password_success);
 					}
 					@Override public void fail(FailureResult r) {
                         if(mChangePasswordButton!=null) mChangePasswordButton.loadingStop();
-						// Show failure 
+						mChangePasswordEditText.setError(null);
+                        if(r.getStatusCode()==400) {
+                        	mChangePasswordEditText.setError(getContext().getString(R.string.change_password_password_looks_dodgy_too_me));
+                        } else if(r.getStatusCode()==401 || r.getStatusCode()==403) {
+                        	mChangePasswordEditText.setError(getContext().getString(R.string.change_password_are_you_logged_in_));
+                        } else {
+                        	mChangePasswordEditText.setError(getContext().getString(R.string.change_password_error_setting_that_password));
+                        }
+						mChangePasswordSuccessTextView.setVisibility(View.GONE);
                     }
 				},
 				mChangePasswordService, null).setup();
+	}
+
+	protected boolean checkPasswordsTheSame(EditText pass, EditText pass2) {
+		return pass.getText().toString().equals(pass2.getText().toString());
 	}
 
 	@Override

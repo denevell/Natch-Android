@@ -29,6 +29,7 @@
             android:gravity="center"
             app:button_background="@drawable/forum_btn_default_holo_light"
             app:button_text="Logout"
+            android:layout_marginBottom="20px"
             tools:ignore="HardcodedText" >
         </org.denevell.droidnatch.app.views.ButtonWithProgress>
 
@@ -36,7 +37,7 @@
             android:id="@+id/change_password_change_password_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20px"
+            android:singleLine="true"
             android:ems="10"
             android:hint="Change password" />
 
@@ -44,6 +45,7 @@
             android:id="@+id/change_password_confirm_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:ems="10"
             android:hint="Confirm password" />
 
@@ -56,6 +58,15 @@
             app:button_text="Change password"
             tools:ignore="HardcodedText" >
         </org.denevell.droidnatch.app.views.ButtonWithProgress>
+
+        <TextView
+            android:id="@+id/change_password_success_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="italic" />
 
     </LinearLayout>
 </FrameLayout>	

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.denevell.droidnatch.Application;
+import org.denevell.droidnatch.app.baseclasses.NormalFailureFactory;
 import org.denevell.droidnatch.app.baseclasses.networking.JsonVolleyRequest.LazyHeadersCallback;
 import org.denevell.droidnatch.app.interfaces.ServiceCallbacks;
 import org.denevell.droidnatch.app.interfaces.ServiceFetcher;
@@ -14,6 +15,7 @@ import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -73,7 +75,12 @@ final class InputBodyOnlyServiceFetcher<I, R>
 	@Override
 	public void onErrorResponse(VolleyError error) {
 		Log.d(TAG, "Service returned an error: " + error.getMessage());
-		mCallbacks.onServiceFail(null);
+    	if(error!=null && error.getMessage()!=null && 
+    			(error.getMessage().contains("No authentication challenges found") ||
+    			 error.getMessage().contains("authentication challenge"))) {
+    		error = new VolleyError(new NetworkResponse(403, null, null, false));
+    	}
+		mCallbacks.onServiceFail(new NormalFailureFactory().newInstance(error));
 	}
 
 	@Override

@@ -76,7 +76,7 @@ public class CommonMapper {
     
     @Provides
     public FailureResultFactory providesFailureFactory() {
-    	return new NatchJsonFailureFactory();
+    	return new JsonFailureFactory();
     }
     
 }

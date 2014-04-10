@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;
 
-public final class NatchJsonFailureFactory implements FailureResultFactory {
+public final class JsonFailureFactory implements FailureResultFactory {
     @Override
     public FailureResult newInstance(VolleyError error) {
     	NetworkResponse nr = error.networkResponse;

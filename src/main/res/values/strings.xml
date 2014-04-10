@@ -47,4 +47,9 @@
     <string name="home_chat_tab">Chat</string>
     <string name="home_announcements_tab">Announcements</string>
     <string name="turn_off_notifications">Turn off notifications</string>
+    <string name="change_password_error_setting_that_password">Error setting that password</string>
+    <string name="change_password_are_you_logged_in_">Are you logged in?</string>
+    <string name="change_password_password_looks_dodgy_too_me">Password looks dodgy to me</string>
+    <string name="change_password_success">Password changed successfully</string>
+    <string name="change_password_passwords_not_the_same">Passwords not the same</string>
 </resources>
