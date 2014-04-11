@@ -130,6 +130,7 @@ public class CustomMatchers {
                     return false;
                 }
                 EditText v = (EditText) view;
+                if(v.getError()==null) return false;
                 String error = v.getError().toString();
 				if(error != null && error.length()>0) {
                     return true;

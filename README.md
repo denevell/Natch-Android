@@ -20,8 +20,8 @@ The Android client to the Natch REST project.
 * ~~Create service to change password~~
 * ~~Add ui callbacks for new service~~
 * ~~Add success text and fail text~~
-* UI test for password reset
-* UI test for password change 
+* ~~UI test for password reset~~
+* ~~UI test for password change~~
 * Separate signing key file
 
 ### Icebox

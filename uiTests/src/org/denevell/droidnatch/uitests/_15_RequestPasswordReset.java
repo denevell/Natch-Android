@@ -1,5 +1,6 @@
 package org.denevell.droidnatch.uitests;
 
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
 
 import org.denevell.droidnatch.MainPageActivity;
@@ -30,7 +31,7 @@ public class _15_RequestPasswordReset extends NatchAndroidInstrumentation {
     public void testCanRequestPassword() throws Exception {
     	// Arrange
     	new RegisterPO().register(getInstrumentation(), "b", "b", "aa@b.com");
-		loginPo.logout(getInstrumentation());
+		loginPo.logout();
     	
     	// Act
 		loginPo
@@ -41,12 +42,30 @@ public class _15_RequestPasswordReset extends NatchAndroidInstrumentation {
     public void testCantRequestPasswordWithBadEmail() throws Exception {
     	// Arrange
     	new RegisterPO().register(getInstrumentation(), "b", "b", "aa@b.com");
-		loginPo.logout(getInstrumentation());
+		loginPo.logout();
     	
     	// Act
 		loginPo
 			.requestPasswordReset("aa@b1.com")
 			.passwordResetUnSuccessful();
+    }
+
+    public void testCantRequestPasswordWithBlankEmail() throws Exception {
+    	// Arrange
+    	new RegisterPO().register(getInstrumentation(), "b", "b", "aa@b.com");
+		loginPo.logout();
+    	
+    	// Act
+		loginPo
+			.requestPasswordReset("")
+			.passwordResetNoSuccessful()
+			.passwordResetNoError();
+		pressBack();
+		pressBack();
+		loginPo
+			.requestPasswordReset("")
+			.passwordResetNoSuccessful()
+			.passwordResetNoError();
     }
 
 }

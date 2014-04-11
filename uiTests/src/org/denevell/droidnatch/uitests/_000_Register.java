@@ -26,7 +26,7 @@ public class _000_Register extends NatchAndroidInstrumentation {
 		new LoginPO()
 			.shouldseeUsername(getInstrumentation(), username)
 			.shouldntSeeRegisterOption(getInstrumentation())
-			.logout(getInstrumentation())
+			.logout()
 			.shouldSeeRegisterOption(getInstrumentation());
     }
 
@@ -41,7 +41,7 @@ public class _000_Register extends NatchAndroidInstrumentation {
 		new LoginPO()
 			.shouldseeUsername(getInstrumentation(), username)
 			.shouldntSeeRegisterOption(getInstrumentation())
-			.logout(getInstrumentation())
+			.logout()
 			.shouldSeeRegisterOption(getInstrumentation());
     }
     

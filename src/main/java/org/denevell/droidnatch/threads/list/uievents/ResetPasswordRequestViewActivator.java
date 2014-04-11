@@ -78,7 +78,10 @@ public class ResetPasswordRequestViewActivator extends LinearLayout implements A
 
 	@Override
 	public void onClick(View view) {
-		if(mRecoveryEmail==null || mRecoveryEmail.getText()==null || mService==null) {
+		if(mRecoveryEmail==null 
+				|| mRecoveryEmail.getText()==null 
+				|| mService==null
+				|| mRecoveryEmail.getText().toString().trim().length()<=0) {
 			return;
 		}
 		String recoveryEmail = mRecoveryEmail.getText().toString();

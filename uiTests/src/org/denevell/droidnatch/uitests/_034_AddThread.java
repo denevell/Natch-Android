@@ -49,7 +49,7 @@ public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
     }
 
     public void testSeeErrorWhenNotLoggedInAndCanThenAdd() throws Exception {
-    	new LoginPO().logout(getInstrumentation());
+    	new LoginPO().logout();
         new AddThreadPO()
         	.addThread("a", "b")
         	.showLoginError()
@@ -60,7 +60,7 @@ public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
     }
 
     public void testSeeErrorWhenNotLoggedInAndCanThenRegisterAndAdd() throws Exception {
-    	new LoginPO().logout(getInstrumentation());
+    	new LoginPO().logout();
         new AddThreadPO()
         	.addThread("a", "b")
         	.showLoginError()

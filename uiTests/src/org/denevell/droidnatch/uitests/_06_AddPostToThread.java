@@ -116,7 +116,7 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
     
     public void testAddSeeErrorWhenNotLoggedIn() throws Exception {
         new AddThreadPO().addThreadAndPressBack("Hiya!", "Hiii");
-        new LoginPO().logout(getInstrumentation());
+        new LoginPO().logout();
         new ListThreadsPO().pressItem(0);
         new AddPostPO()
         	.addPost("Should have logged in")
@@ -130,7 +130,7 @@ public class _06_AddPostToThread extends NatchAndroidInstrumentationWithLogin {
 
     public void testAddSeeRegisterErrorWhenNotLoggedInAndThenAdd() throws Exception {
         new AddThreadPO().addThreadAndPressBack("Hiya!", "Hiii");
-        new LoginPO().logout(getInstrumentation());
+        new LoginPO().logout();
         new ListThreadsPO().pressItem(0);
         new AddPostPO()
         	.addPost("Should have logged in")

@@ -61,7 +61,7 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
         
         pressBack();
 
-        new LoginPO().logout(getInstrumentation());
+        new LoginPO().logout();
 		String username = "new"+new Date().getTime();
 		new RegisterPO().register(getInstrumentation(), username, username); // Logs us in too
 		

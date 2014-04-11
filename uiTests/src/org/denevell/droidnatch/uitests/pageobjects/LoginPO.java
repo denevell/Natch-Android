@@ -11,6 +11,7 @@ import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewA
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.not;
 
 import org.denevell.droidnatch.uitests.CustomMatchers;
 
@@ -58,8 +59,13 @@ public class LoginPO {
     	return this;
 	}
 	
-	public LoginPO logout(Instrumentation instrumentation) {
+	public LoginPO logout() {
         onView(withId(R.id.threads_option_menu_login)).perform(click());
+        logoutFromDialogue();
+		return this;
+	}
+
+	public LoginPO logoutFromDialogue() {
         onView(withId(R.id.logout_button)).perform(click());
 		return this;
 	}
@@ -78,7 +84,7 @@ public class LoginPO {
 	}
 
 	public void logoutDefaultUser(Instrumentation instrumentation) {
-		logout(instrumentation);
+		logout();
 	}
 
 	public LoginPO requestPasswordReset(String email) {
@@ -89,14 +95,65 @@ public class LoginPO {
 		return this;
 	}
 
-	public void passwordResetSuccessful() {
+	public LoginPO passwordResetSuccessful() {
 		onView(withId(R.id.password_reset_success_textview))
 			.check(ViewAssertions.matches(withText(R.string.password_reset_request_successful)));
+		return this;
+	}
+
+	public LoginPO passwordResetNoSuccessful() {
+		onView(withId(R.id.password_reset_success_textview))
+			.check(ViewAssertions.matches(not(withText(R.string.password_reset_request_successful))));
+		return this;
+	}
+
+	public void passwordResetNoError() {
+		onView(withId(R.id.password_reset_recovery_email_editext))
+			.check(ViewAssertions.matches(not(CustomMatchers.showsErrorString())));
 	}
 
 	public void passwordResetUnSuccessful() {
 		onView(withId(R.id.password_reset_recovery_email_editext))
 			.check(ViewAssertions.matches(CustomMatchers.showsErrorString("Password reset request failed")));
+	}
+
+	public LoginPO changePassword(String s1, String s2) {
+        onView(withId(R.id.threads_option_menu_login)).perform(click());
+        onView(withId(R.id.change_password_change_password_edittext))
+        	.perform(clearText(),
+        			typeText(s1));
+        onView(withId(R.id.change_password_confirm_edittext))
+        	.perform(clearText(),
+        			typeText(s2));
+        onView(withId(R.id.change_password_button))
+        	.perform(click());
+		return this;
+	}
+
+	public LoginPO changePasswordSuccess() {
+        onView(withId(R.id.change_password_success_textview)).check(matches(withText(R.string.change_password_success)));
+		return this;
+	}
+
+	public LoginPO changePasswordNoSuccess() {
+        onView(withId(R.id.change_password_success_textview)).check(matches(not(withText(R.string.change_password_success))));
+		return this;
+	}
+
+	public void changePasswordNotSame() {
+        onView(withId(R.id.change_password_change_password_edittext))
+        	.check(matches(CustomMatchers.showsErrorString("Passwords not the same")));
+	}
+
+	public void changePasswordGeneralError() {
+        onView(withId(R.id.change_password_change_password_edittext))
+        	.check(matches(CustomMatchers.showsErrorString("Error")));
+	}
+
+	public LoginPO changePasswordNoError() {
+        onView(withId(R.id.change_password_change_password_edittext))
+        	.check(matches(not(CustomMatchers.showsErrorString())));
+		return this;
 	}
 
 }
