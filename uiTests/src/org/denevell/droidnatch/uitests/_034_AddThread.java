@@ -16,7 +16,6 @@ import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
-import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
 
 public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
