@@ -89,6 +89,7 @@ public class ListPostsViewStarter extends View {
 											visitedPostsTable.update(postResource.getId(), postResource.getModification());
 										}
 									}
+									visitedPostsTable.close();
 								} catch (Exception e) {
 									Log.e(TAG, "Couldn't add `this as a seen thread", e);
 								}
