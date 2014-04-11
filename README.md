@@ -22,6 +22,8 @@ The Android client to the Natch REST project.
 * ~~Add success text and fail text~~
 * ~~UI test for password reset~~
 * ~~UI test for password change~~
+* ~~Fix accidentally deleteing post problem.~~
+* Close database when needed
 * Separate signing key file
 
 ### Icebox

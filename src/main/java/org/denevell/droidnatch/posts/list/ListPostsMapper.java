@@ -101,19 +101,19 @@ public class ListPostsMapper {
     
   	private final class ActionMenuImplementation implements Callback {
   		@SuppressWarnings("rawtypes")
-  		private final ReceivingClickingAutopaginatingListView listview;
-  		private final int position;
-		private View selectedView;
+  		private final ReceivingClickingAutopaginatingListView mListview;
+  		private final int mPosition;
+		private View mSelectedView;
 
   		@SuppressWarnings("rawtypes")
   		private ActionMenuImplementation(
   				ReceivingClickingAutopaginatingListView listview, 
   				int position, 
   				View selectedView) {
-  			this.listview = listview;
-  			this.position = position;
-  			this.selectedView = selectedView;
-  			this.selectedView.setSelected(true);
+  			this.mListview = listview;
+  			this.mPosition = position;
+  			this.mSelectedView = selectedView;
+  			this.mSelectedView.setSelected(true);
   		}
 
   		@Override
@@ -124,19 +124,19 @@ public class ListPostsMapper {
 
   		@Override
   		public void onDestroyActionMode(ActionMode mode) {
-  			if(this.selectedView!=null) this.selectedView.setSelected(false);
+  			if(this.mSelectedView!=null) this.mSelectedView.setSelected(false);
   		}
 
   		@Override
   		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-  			PostResource ob = (PostResource) listview.getAdapter().getItem(position);
+  			PostResource ob = (PostResource) mListview.getAdapter().getItem(mPosition);
   			String author = ob.getUsername();
   		    String username = ShamefulStatics.getUsername(mActivity.getApplicationContext());
   			if (!ShamefulStatics.emptyUsername(mActivity.getApplicationContext()) &&  author!=null && !author.equals(username)) {
   				mode.getMenuInflater().inflate(R.menu.not_yours_context_option_menu, menu);
   			} else if (ShamefulStatics.emptyUsername(mActivity.getApplicationContext())) {
   				mode.getMenuInflater().inflate(R.menu.please_login_context_option_menu, menu);
-  			} else if(position==0){
+  			} else if(mPosition==0){
   				mode.getMenuInflater().inflate(R.menu.list_posts_context_thread_option_menu, menu);
   			} else {
   				mode.getMenuInflater().inflate(R.menu.list_posts_context_post_option_menu, menu);
@@ -146,7 +146,7 @@ public class ListPostsMapper {
 
   		@Override
   		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-  			EventBus.getBus().post(new ContextMenuItemHolder(item, position));
+  			EventBus.getBus().post(new ContextMenuItemHolder(item, mPosition, mListview));
   			mode.finish();
   			return true;
   		}

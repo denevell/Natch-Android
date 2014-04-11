@@ -11,7 +11,6 @@ import org.denevell.droidnatch.PaginationMapper.ListPostsPaginationObject;
 import org.denevell.droidnatch.PaginationMapper.ListThreadsPaginationObject;
 import org.denevell.droidnatch.ShamefulStatics;
 import org.denevell.droidnatch.app.baseclasses.HideKeyboard;
-import org.denevell.droidnatch.app.baseclasses.ObservableFragment.ContextMenuItemHolder;
 import org.denevell.droidnatch.app.baseclasses.networking.JsonVolleyRequest.LazyHeadersCallback;
 import org.denevell.droidnatch.app.baseclasses.networking.ServiceBuilder;
 import org.denevell.droidnatch.app.interfaces.OnPressObserver.OnPress;
@@ -33,10 +32,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.ActionMode.Callback;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -51,8 +47,8 @@ import dagger.Provides;
 public class ListThreadsMapper {
 
 	public static final String PROVIDES_LIST_THREADS_LIST_CLICK = "list_threads_list_click";
-    private static final String TAG = ListThreadsMapper.class.getSimpleName();
-    private Activity mActivity;
+    static final String TAG = ListThreadsMapper.class.getSimpleName();
+    Activity mActivity;
 
     public ListThreadsMapper(Activity activity) {
         mActivity = activity;
@@ -91,9 +87,10 @@ public class ListThreadsMapper {
 
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+				Log.d(TAG, "List view item clicked: " + position);
 				view.setSelected(true);
 				if(position==0) return false; // This is the add thread header;
-				Callback callback = new CallbackImplementation(listView, position, view);
+				Callback callback = new DeleteThreadActionMenuCallback(ListThreadsMapper.this, listView, position, view);
 				((FragmentActivity)parent.getContext()).startActionMode(callback);
 				return true;
 				}
@@ -176,62 +173,5 @@ public class ListThreadsMapper {
 					}
 				})
 				.createNoResponseBodyButInputBody();
-	}
-
-	private final class CallbackImplementation implements Callback {
-		private final ReceivingClickingAutopaginatingListView<ListThreadsResource, ThreadResource, List<ThreadResource>> listView;
-		private final int position;
-		private View selectedView;
-
-		private CallbackImplementation(
-				ReceivingClickingAutopaginatingListView<ListThreadsResource, ThreadResource, List<ThreadResource>> listView, 
-				int position, 
-				View selectedView) {
-			this.selectedView = selectedView;
-			this.listView = listView;
-			this.position = position;
-		}
-
-		@Override
-		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-			ReceivingClickingAutopaginatingListView.sCurrentActionMode = mode;
-			return false;
-		}
-
-		@Override 
-		public void onDestroyActionMode(ActionMode mode) { 
-			if(this.selectedView!=null) this.selectedView.setSelected(false);
-		}
-
-		@Override
-		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-			if(position==0) return false; // 0 is the header
-			try {
-				ThreadResource ob = (ThreadResource) listView.getAdapter() .getItem(position);
-				String author = ob.getAuthor();
-				String username = ShamefulStatics.getUsername(mActivity .getApplicationContext());
-				if (!ShamefulStatics.emptyUsername(mActivity.getApplicationContext())
-						&& author != null
-						&& !author.equals(username)) {
-					mode.getMenuInflater().inflate(
-							R.menu.not_yours_context_option_menu, menu);
-				} else if (ShamefulStatics.emptyUsername(mActivity .getApplicationContext())) {
-					mode.getMenuInflater().inflate( R.menu.please_login_context_option_menu, menu);
-				} else {
-					mode.getMenuInflater().inflate( R.menu.list_threads_context_option_menu, menu);
-				}
-				return true;
-			} catch (Exception e) {
-				Log.d(TAG, "Couldnt open action menu", e);
-				return false;
-			}
-		}
-
-		@Override
-		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-			EventBus.getBus().post(new ContextMenuItemHolder(item, position));
-			mode.finish();
-			return true;
-		}
 	}
 }

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListView;
 
 public class ObservableFragment extends Fragment {
     
@@ -17,10 +18,15 @@ public class ObservableFragment extends Fragment {
         }
     }
     public static class ContextMenuItemHolder extends MenuItemHolder {
-		public int position;
-		public ContextMenuItemHolder(MenuItem item, int position) {
+		public int mPosition;
+		public ListView mListView;
+		public ContextMenuItemHolder(
+				MenuItem item, 
+				int position, 
+				ListView listView) {
 			super(item);
-			this.position = position;
+			this.mPosition = position;
+			this.mListView = listView;
 		}
 
     }
@@ -34,7 +40,8 @@ public class ObservableFragment extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         Log.v(TAG, "Context menu item selected");
         EventBus.getBus().post(new ContextMenuItemHolder(item, 
-        		((AdapterContextMenuInfo)item.getMenuInfo()).position));
+        		((AdapterContextMenuInfo)item.getMenuInfo()).position,
+        		null));
         return super.onContextItemSelected(item);
     }
 

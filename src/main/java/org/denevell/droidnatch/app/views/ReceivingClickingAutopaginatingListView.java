@@ -186,8 +186,12 @@ public class ReceivingClickingAutopaginatingListView
     @Subscribe
     public void onContextItemSelected(ObservableFragment.ContextMenuItemHolder item) {
         try {
+        	if(item.mListView!=null && item.mListView!=this) {
+        		// Prevents events going to multiple instances
+        		return; 
+        	}
             Log.v(TAG, "Long press issued");
-            int index = item.position;;
+            int index = item.mPosition;;
             @SuppressWarnings("unchecked")
             AdapterItem tr = (AdapterItem) getAdapter().getItem(index);
             EventBus.getBus().post(new LongPressListViewEvent(tr, item.item, index));
