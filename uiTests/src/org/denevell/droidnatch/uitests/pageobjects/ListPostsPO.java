@@ -5,6 +5,7 @@ import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.longClick;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
@@ -18,9 +19,10 @@ import java.util.Locale;
 
 import org.denevell.droidnatch.posts.list.entities.PostResource;
 import org.denevell.droidnatch.uitests.CustomMatchers;
-import com.newfivefour.android.manchester.R;
+import org.hamcrest.CoreMatchers;
 
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
+import com.newfivefour.android.manchester.R;
 
 public class ListPostsPO {
 
@@ -98,6 +100,20 @@ public class ListPostsPO {
 	public ListPostsPO pageHasTitle(String string) {
         onView(withContentDescription("list_posts_row_author0"))
         	.check(matches(CustomMatchers.viewHasActivityTitle(string)));
+        return this;
+	}
+
+	@SuppressWarnings("unchecked")
+	public ListPostsPO pressEditPostOption() {
+        onView(CoreMatchers.allOf(withId(com.newfivefour.android.manchester.R.id.posts_context_menu_edit_post), isDisplayed()))
+                .perform(click());
+        return this;
+	}
+
+	@SuppressWarnings("unchecked")
+	public ListPostsPO pressEditThreadOption() {
+        onView(CoreMatchers.allOf(withId(com.newfivefour.android.manchester.R.id.posts_context_menu_edit_thread), isDisplayed()))
+                .perform(click());
         return this;
 	}
 

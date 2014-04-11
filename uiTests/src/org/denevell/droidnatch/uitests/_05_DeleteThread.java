@@ -1,8 +1,7 @@
 package org.denevell.droidnatch.uitests;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
-import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.doesNotExist;
+import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
 import java.util.Date;
@@ -13,6 +12,9 @@ import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
+
+import com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers;
+import com.newfivefour.android.manchester.R;
 
 public class _05_DeleteThread extends NatchAndroidInstrumentationWithLogin {
 
@@ -30,9 +32,10 @@ public class _05_DeleteThread extends NatchAndroidInstrumentationWithLogin {
 
         new ListThreadsPO().threadHasContent(0, "New thread to delete");
 
-        new ListThreadsPO().bringUpEditDeleteOptions(0);
-
-        onView(withText("Delete thread")).perform(click());
+        new ListThreadsPO()
+        	.bringUpEditDeleteOptions(0)
+        	.bringUpDeleteOptions()
+        	.pressDeleteThread();
 
         new ListThreadsPO().checkNoThreads();
     }
@@ -65,7 +68,7 @@ public class _05_DeleteThread extends NatchAndroidInstrumentationWithLogin {
 
         new ListThreadsPO().bringUpEditDeleteOptions(0);
 
-        onView(withText("Delete thread")).check(doesNotExist());
+        onView(withText(R.string.delete_thread_not_yours_to_edit)).check(matches(ViewMatchers.isDisplayed()));
     }
 
 }

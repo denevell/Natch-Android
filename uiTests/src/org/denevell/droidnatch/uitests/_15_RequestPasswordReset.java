@@ -23,7 +23,6 @@ public class _15_RequestPasswordReset extends NatchAndroidInstrumentation {
         super.setUp();
         VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
         registerIdlingResources(volleyResources);
-        TestUtils.deleteDb();
         getActivity();
         loginPo = new LoginPO();
     }

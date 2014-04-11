@@ -3,7 +3,6 @@ package org.denevell.droidnatch.uitests;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.doesNotExist;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withContentDescription;
@@ -23,6 +22,7 @@ import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
 import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
+
 import com.newfivefour.android.manchester.R;
 
 public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
@@ -36,7 +36,6 @@ public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
         super.setUp();
         VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
         registerIdlingResources(volleyResources);
-        TestUtils.deleteDb();
         getActivity();
     }
 
@@ -45,9 +44,9 @@ public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
 
         onView(withId(R.id.list_posts_addpost_edittext)).check(matches(CustomMatchers.viewHasActivityTitle("New title thread")));
 
-        new ListPostsPO().bringUpEditDeleteOptions(0);
-
-        onView(withText("Edit thread")).perform(click());
+        new ListPostsPO()
+        	.bringUpEditDeleteOptions(0)
+        	.pressEditThreadOption();
         
         new EditThreadPO().edit("Edited title", "Edited post");
 
@@ -99,7 +98,7 @@ public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
 		new ListThreadsPO().pressItem(0);
         new ListPostsPO().bringUpEditDeleteOptions(0);
 
-        onView(withText("Edit thread")).check(doesNotExist());
+        onView(withId(R.id.posts_context_menu_edit_thread)).check(doesNotExist());
     }
 
 	public void testShowErrorOnBlanks() throws Exception {
@@ -107,9 +106,9 @@ public class _10_EditThread extends NatchAndroidInstrumentationWithLogin {
 
         onView(withId(R.id.list_posts_addpost_edittext)).check(matches(CustomMatchers.viewHasActivityTitle("New title thread")));
 
-        new ListPostsPO().bringUpEditDeleteOptions(0);
-
-        onView(withText("Edit thread")).perform(click());
+        new ListPostsPO()
+        	.bringUpEditDeleteOptions(0)
+        	.pressEditThreadOption();
         
         new EditThreadPO()
         	.edit("Edited title", " ")

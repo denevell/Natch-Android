@@ -25,8 +25,8 @@ import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
-import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
+
 import com.newfivefour.android.manchester.R;
 
 public class _07_DeleteThreadFromThreadPage extends NatchAndroidInstrumentationWithLogin {
@@ -40,7 +40,6 @@ public class _07_DeleteThreadFromThreadPage extends NatchAndroidInstrumentationW
         super.setUp();
         VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
         registerIdlingResources(volleyResources);
-        TestUtils.deleteDb();
         getActivity();
     }
 

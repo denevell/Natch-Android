@@ -17,8 +17,8 @@ import org.denevell.droidnatch.uitests.pageobjects.AddPostPO;
 import org.denevell.droidnatch.uitests.pageobjects.AddThreadPO;
 import org.denevell.droidnatch.uitests.pageobjects.ListPostsPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
-import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
+
 import com.newfivefour.android.manchester.R;
 
 public class _08_DeletePost extends NatchAndroidInstrumentationWithLogin {
@@ -32,7 +32,6 @@ public class _08_DeletePost extends NatchAndroidInstrumentationWithLogin {
         super.setUp();
         VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
         registerIdlingResources(volleyResources);
-        TestUtils.deleteDb();
         getActivity();
     }
 

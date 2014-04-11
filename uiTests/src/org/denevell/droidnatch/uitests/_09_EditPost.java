@@ -3,10 +3,8 @@ package org.denevell.droidnatch.uitests;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.pressBack;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.registerIdlingResources;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.doesNotExist;
-import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
-import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 
 import java.util.Date;
 
@@ -19,9 +17,7 @@ import org.denevell.droidnatch.uitests.pageobjects.ListThreadsPO;
 import org.denevell.droidnatch.uitests.pageobjects.LoginPO;
 import org.denevell.droidnatch.uitests.pageobjects.RegisterPO;
 import org.denevell.droidnatch.uitests.utils.NatchAndroidInstrumentationWithLogin;
-import org.denevell.droidnatch.uitests.utils.TestUtils;
 import org.denevell.droidnatch.uitests.utils.VolleyIdlingResource;
-import org.hamcrest.CoreMatchers;
 
 public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
 
@@ -34,20 +30,17 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
         super.setUp();
         VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
         registerIdlingResources(volleyResources);
-        TestUtils.deleteDb();
         getActivity();
     }
 
-	@SuppressWarnings("unchecked")
 	public void test() throws Exception {
         new AddThreadPO().addThread("New thread", "New thread");
 
         new AddPostPO().addPost("New post in thread");
 
-        new ListPostsPO().bringUpEditDeleteOptions(1);
-
-        onView(CoreMatchers.allOf(withText("Edit post"), isDisplayed()))
-                .perform(click());
+        new ListPostsPO()
+        	.bringUpEditDeleteOptions(1)
+        	.pressEditPostOption();
 
         new EditPostPO().edit("Edited");
 
@@ -69,19 +62,17 @@ public class _09_EditPost extends NatchAndroidInstrumentationWithLogin {
 
         new ListPostsPO().bringUpEditDeleteOptions(1);
 
-        onView(withText("Edit post")).check(doesNotExist());
+        onView(withId(com.newfivefour.android.manchester.R.id.posts_context_menu_edit_thread)).check(doesNotExist());
     }
 
-	@SuppressWarnings("unchecked")
 	public void testErrorOnBlanks() throws Exception {
         new AddThreadPO().addThread("New thread", "New thread");
 
         new AddPostPO().addPost("New post in thread");
 
-        new ListPostsPO().bringUpEditDeleteOptions(1);
-
-        onView(CoreMatchers.allOf(withText("Edit post"), isDisplayed()))
-                .perform(click());
+        new ListPostsPO()
+        	.bringUpEditDeleteOptions(1)
+        	.pressEditPostOption();
 
         new EditPostPO()
         	.edit(" ")

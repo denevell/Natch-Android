@@ -3,7 +3,7 @@
     <item
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:title="Not yours to edit" 
+        android:title="@string/delete_thread_not_yours_to_edit" 
         tools:ignore="HardcodedText"/>
 
 </menu>

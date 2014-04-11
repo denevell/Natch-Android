@@ -20,6 +20,9 @@ import java.util.Locale;
 import org.denevell.droidnatch.uitests.CustomMatchers;
 import org.hamcrest.CoreMatchers;
 
+import android.app.Instrumentation;
+
+import com.google.android.apps.common.testing.ui.espresso.Espresso;
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
 import com.newfivefour.android.manchester.R;
 
@@ -123,6 +126,16 @@ public class ListThreadsPO {
 	public ListThreadsPO checkRowIsNotMarkedUnread(int row) {
         onView(withContentDescription("list_threads_row"+row)).check(matches(not(CustomMatchers.bold())));
 		return this;
+	}
+
+	public ListThreadsPO bringUpDeleteOptions() {
+		Espresso.openContextualActionModeOverflowMenu();
+		return this;
+	}
+
+	public ListThreadsPO pressDeleteThread() {
+        onView(withText("Delete thread")).perform(click());
+        return this;
 	}
 	
 

@@ -28,7 +28,6 @@ public class _14_Announcements extends NatchAndroidInstrumentationWithLogin {
         super.setUp();
         VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
         registerIdlingResources(volleyResources);
-        TestUtils.deleteDb();
         getActivity();
     }
 

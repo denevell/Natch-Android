@@ -30,7 +30,6 @@ public class _034_AddThread extends NatchAndroidInstrumentationWithLogin {
         super.setUp();
         VolleyIdlingResource volleyResources = new VolleyIdlingResource("VolleyCalls");
         registerIdlingResources(volleyResources);
-        TestUtils.deleteDb();
         getActivity();
     }
 
