@@ -2,34 +2,15 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
-* ~~Recovery email in register form~~
-* ~~Create layout for forgotten password~~
-* ~~Add forgotten password link to login~~
-* ~~Modify codebase to allow programmatic creation of dialogue popups~~
-* ~~Create dialogue class~~
-* ~~Open dialogue from link press~~
-* ~~Use a different volley return type~~
-* ~~Create service to reset password reset~~
-* ~~Show text when service successful~~
-* ~~Look at boldface for authors in post~~
-* ~~Backpress on dialogue fragment bug - view pager needs an id?~~
-* ~~Keep selection on context item long press~~
-* ~~Add change password ui to dashboard layout~~
-* ~~Alter dashboard class to accept the new editexts and button~~
-* ~~Refactor volley request to have a string return with body~~
-* ~~Create service to change password~~
-* ~~Add ui callbacks for new service~~
-* ~~Add success text and fail text~~
-* ~~UI test for password reset~~
-* ~~UI test for password change~~
-* ~~Fix accidentally deleteing post problem.~~
-* Close database when needed
+* Test adding / editing post now returning 400s instead of error codes.
+* Test closing database in array adapter
+* Test for deleting a thread doesn't delete an announcement of the same listview position
 * Separate signing key file
+* Sort out alignment for authors in posts
 
 ### Icebox
 
 * Save edit box content in add threads page
-* Sort out alignment for authors in posts
 * Better detection of gcm server registration
 * I should see an error on delete thread 
 * I should see an error on delete post 
