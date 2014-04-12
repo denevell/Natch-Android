@@ -127,8 +127,12 @@ public class EditThreadViewActivator extends LinearLayout implements
     @Override
     public void fail(FailureResult f) {
         if(mButton!=null) mButton.loadingStop();
-        if(f!=null && f.getErrorMessage()!=null) {
-            mSubject.setError(f.getErrorMessage());
+        if(f!=null && f.getStatusCode()==400) {
+            mContent.setError(getResources().getString(R.string.add_thread_post_fields_cannot_be_blank));
+        } else if(f!=null && f.getErrorMessage()!=null) {
+            mContent.setError(f.getErrorMessage());
+        } else {
+            mContent.setError("Unknown error");
         }
     }
 

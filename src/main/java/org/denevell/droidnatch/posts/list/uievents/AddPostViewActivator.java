@@ -160,6 +160,8 @@ public class AddPostViewActivator extends FrameLayout implements
 				Log.e(TAG, "Couldn't open action menu for login / reg");
 				if(mEditText!=null) mEditText.setError("Exception while adding post...");
 			} 
+    	} else if(f.getStatusCode()==400) {
+            if(mEditText!=null) mEditText.setError(getResources().getString(R.string.add_thread_post_fields_cannot_be_blank));
     	} else if(f!=null && f.getErrorMessage()!=null) {
             if(mEditText!=null) mEditText.setError(f.getErrorMessage());
         }

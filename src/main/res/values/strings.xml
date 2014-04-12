@@ -56,4 +56,5 @@
     <string name="password_reset_request_successful">Password reset request sent. Wait for an email or ping @NameAaronNewell or @zain_</string>
     <string name="password_reset_fail">Password reset request failed - is your email correct?</string>
     <string name="delete_thread_not_yours_to_edit">Not yours to edit</string>
+    <string name="add_thread_post_fields_cannot_be_blank">Post fields cannot be blank</string>
 </resources>

@@ -160,6 +160,8 @@ public class AddThreadViewActivator extends LinearLayout implements
 				Log.e(TAG, "Couldn't open action menu for login / reg");
 				if(mSubject!=null) mSubject.setError("Please login first");
 			} 
+        } else if(f.getStatusCode()==400){
+        	mSubject.setError(getContext().getString(R.string.add_thread_post_fields_cannot_be_blank));
         } else if(f!=null && f.getErrorMessage()!=null) {
             mSubject.setError(f.getErrorMessage());
         } else {

@@ -20,8 +20,6 @@ import java.util.Locale;
 import org.denevell.droidnatch.uitests.CustomMatchers;
 import org.hamcrest.CoreMatchers;
 
-import android.app.Instrumentation;
-
 import com.google.android.apps.common.testing.ui.espresso.Espresso;
 import com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions;
 import com.newfivefour.android.manchester.R;

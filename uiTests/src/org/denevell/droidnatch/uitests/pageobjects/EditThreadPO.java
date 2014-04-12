@@ -10,9 +10,9 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 
 import org.denevell.droidnatch.uitests.CustomMatchers;
-import com.newfivefour.android.manchester.R;
 
 import com.google.android.apps.common.testing.ui.espresso.Espresso;
+import com.newfivefour.android.manchester.R;
 
 public class EditThreadPO {
 
@@ -33,7 +33,7 @@ public class EditThreadPO {
     }
     
 	public EditThreadPO showBlankError() {
-        onView(withId(R.id.edit_thread_subject_edittext))
+        onView(withId(R.id.edit_thread_content_edittext))
         	.check(matches(CustomMatchers.showsErrorString("blank"))); // Therefore fail
         return this;
 	}
