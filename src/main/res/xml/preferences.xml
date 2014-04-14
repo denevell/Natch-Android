@@ -7,7 +7,7 @@
             android:title="Push notifications">
         
         <CheckBoxPreference
-            	android:defaultValue="true"
+            	android:defaultValue="false"
                 android:key="@string/settings_push_new_threads_on"
                 android:title="Receive new thread notifications"
                 />
@@ -16,6 +16,7 @@
             	android:defaultValue="true"
                 android:key="@string/settings_push_announcements_on"
                 android:title="Receive announcements"
+                android:summary="Aboue once a month from Zain"
                 />
 
     </PreferenceCategory>   
