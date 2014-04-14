@@ -26,13 +26,10 @@
         >
         <uses-library android:name="android.test.runner" />
 
-		<receiver 
-		    android:name="org.denevell.droidnatch.app.push.NewThreadsBroadcastReceiver" 
-		    />
-
         <receiver
             android:name="org.denevell.droidnatch.app.push.NewThreadsPushBroadcastReceiver" 
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND" 
+            >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <category android:name="org.denevell.natch.android" />
@@ -52,6 +49,7 @@
 
         <activity
             android:name="org.denevell.droidnatch.settings.SettingsActivity"
+            android:exported="true"
 	        android:theme="@style/AppTheme"
             android:label="@string/app_name" >
         </activity>
