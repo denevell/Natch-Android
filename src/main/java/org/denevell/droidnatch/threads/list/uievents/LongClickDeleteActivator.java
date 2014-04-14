@@ -22,6 +22,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.newfivefour.android.manchester.R;
@@ -107,5 +108,12 @@ public class LongClickDeleteActivator extends View implements Activator<DeletePo
 
     @Override
     public void fail(FailureResult r) {
+    	if(r!=null && r.getErrorCode()!=null) {
+    		Toast.makeText(getContext(), "Error: " + r.getErrorMessage(), Toast.LENGTH_LONG).show();
+    	} else if(r!=null && (r.getStatusCode()==403 || r.getStatusCode()==401)){
+    		Toast.makeText(getContext(), "Please (re)login", Toast.LENGTH_LONG).show();
+    	} else {
+    		Toast.makeText(getContext(), "Error deleting", Toast.LENGTH_LONG).show();
+    	}
     }
 }

@@ -1,17 +1,10 @@
 package org.denevell.droidnatch;
 
-import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
 import org.denevell.droidnatch.app.push.GcmServerRegister;
+import org.denevell.droidnatch.app.utils.AndroidUtils;
+import org.denevell.droidnatch.app.visited_db.VisitedPostsTable;
 
+import android.content.Context;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -25,12 +18,13 @@ public class Application extends android.app.Application {
     protected static final String TAG = "NatchApplication";
 	private static RequestQueue requestQueue;
     private static Application appInstance;
+	private static VisitedPostsTable sVisitedPostsTable;
 
     @Override
     public void onCreate() {
         super.onCreate();
         if(getResources().getBoolean(R.bool.trust_all_certs)) {
-        	NukeSSLCerts.nuke();
+        	AndroidUtils.NukeSSLCerts.nuke();
         }
         BugSenseHandler.initAndStartSession(Application.this, "c7e316a1");
         appInstance = this;
@@ -59,42 +53,14 @@ public class Application extends android.app.Application {
             requestQueue = Volley.newRequestQueue(appInstance);
         }
         return requestQueue;
-    }
-    
-    public static class NukeSSLCerts {
-        protected static final String TAG = "NukeSSLCerts";
-     
-        public static void nuke() {
-            try {
-                TrustManager[] trustAllCerts = new TrustManager[] { 
-                    new X509TrustManager() {
-                        public X509Certificate[] getAcceptedIssuers() {
-            	        /* Create a new array with room for an additional trusted certificate. */
-                            X509Certificate[] myTrustedAnchors = new X509Certificate[0];  
-                            return myTrustedAnchors;
-                        }
-            						
-                        @Override
-                        public void checkClientTrusted(X509Certificate[] certs, String authType) {}
-            		  
-                        @Override
-                        public void checkServerTrusted(X509Certificate[] certs, String authType) {}
-                    }
-                };
-    			
-                SSLContext sc = SSLContext.getInstance("SSL");
-                sc.init(null, trustAllCerts, new SecureRandom());
-                HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-                HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String arg0, SSLSession arg1) {
-                        return true;
-                    }
-                });
-            } catch (Exception e) { 
-                // pass
-            }
-        }
     }    
+    
+    public static VisitedPostsTable getVisitedPostsDatabase(Context context) {
+    	if(sVisitedPostsTable==null) {
+    		sVisitedPostsTable = new VisitedPostsTable(context);
+    		sVisitedPostsTable.open();
+    	}
+		return sVisitedPostsTable;
+    }
     
 }

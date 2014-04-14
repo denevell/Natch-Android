@@ -19,8 +19,9 @@ public class VisitedPostsTable {
 		setContext(context);
 	}
 
-	public void open() throws SQLException {
+	public SQLiteDatabase open() throws SQLException {
 		database = dbHelper.getWritableDatabase();
+		return database;
 	}
 
 	public void close() {

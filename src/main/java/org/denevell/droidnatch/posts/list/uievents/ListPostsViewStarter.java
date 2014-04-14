@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.denevell.droidnatch.Application;
 import org.denevell.droidnatch.EventBus;
 import org.denevell.droidnatch.PaginationMapper;
 import org.denevell.droidnatch.PaginationMapper.ListPostsPaginationObject;
@@ -79,8 +80,7 @@ public class ListPostsViewStarter extends View {
 							@Override public void success(ThreadResource result) {
 								try {
 									List<PostResource> posts = result.getPosts();
-									VisitedPostsTable visitedPostsTable = new VisitedPostsTable(getContext());
-									visitedPostsTable.open();
+									VisitedPostsTable visitedPostsTable = Application.getVisitedPostsDatabase(getContext());
 									for (PostResource postResource : posts) {
 										long modificationDateOfPost = visitedPostsTable.isPostIdInTable(postResource.getId());
 										if(modificationDateOfPost==-1) {
@@ -89,7 +89,6 @@ public class ListPostsViewStarter extends View {
 											visitedPostsTable.update(postResource.getId(), postResource.getModification());
 										}
 									}
-									visitedPostsTable.close();
 								} catch (Exception e) {
 									Log.e(TAG, "Couldn't add `this as a seen thread", e);
 								}

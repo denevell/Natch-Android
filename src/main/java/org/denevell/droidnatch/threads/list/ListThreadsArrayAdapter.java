@@ -1,5 +1,6 @@
 package org.denevell.droidnatch.threads.list;
 
+import org.denevell.droidnatch.Application;
 import org.denevell.droidnatch.app.visited_db.VisitedPostsTable;
 import org.denevell.droidnatch.threads.list.entities.ThreadResource;
 
@@ -21,8 +22,7 @@ public class ListThreadsArrayAdapter extends ArrayAdapter<ThreadResource> {
 
 	public ListThreadsArrayAdapter(Context context, int textViewResourceId) {
     	super(context, android.R.layout.simple_list_item_1);
-    	mVistedPostsDb = new VisitedPostsTable(getContext());
-    	mVistedPostsDb.open();
+    	mVistedPostsDb = Application.getVisitedPostsDatabase(context);
     }
 
     @Override

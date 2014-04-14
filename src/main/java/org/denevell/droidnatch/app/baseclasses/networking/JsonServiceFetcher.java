@@ -102,8 +102,8 @@ public class JsonServiceFetcher<I, T> implements Listener<JSONObject>, ErrorList
     
     @Override
     public void onErrorResponse(VolleyError error) {
-    	Log.d(TAG, "Volley error status: " + error.networkResponse.statusCode);
-    	Log.d(TAG, "Volley error message: " + error.getMessage());
+    	if(error!=null && error.networkResponse!=null) Log.d(TAG, "Volley error status: " + error.networkResponse.statusCode);
+    	if(error!=null) Log.d(TAG, "Volley error message: " + error.getMessage());
     	if(error!=null && error.getMessage()!=null && 
     			(error.getMessage().contains("No authentication challenges found") ||
     			 error.getMessage().contains("authentication challenge"))) {
