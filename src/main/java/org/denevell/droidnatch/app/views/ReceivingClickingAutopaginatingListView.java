@@ -64,7 +64,7 @@ public class ReceivingClickingAutopaginatingListView
 
     private HideKeyboard mHideKeyboard;
     private ArrayList<OnPress<AdapterItem>> mPressListeners = new ArrayList<OnPressObserver.OnPress<AdapterItem>>();
-	private ArrayList<Runnable> mPaginationFooterCallbacks = new ArrayList<Runnable>();
+	private Runnable mPaginationFooterCallback = null;
 	private int mTotalAvailableForList;
     private TypeAdapter<ReceivingObjects,AdapterItems> mTypeAdapter;
     private ArrayAdapter<AdapterItem> mListAdapter;
@@ -77,6 +77,8 @@ public class ReceivingClickingAutopaginatingListView
 	private View mPaginationView;
 
 	private boolean mSettingAdapter;
+
+	private boolean mFooterViewSeenAndProcessing;
 
     public ReceivingClickingAutopaginatingListView(Context context, AttributeSet attrSet) {
         super(context, attrSet);
@@ -138,8 +140,8 @@ public class ReceivingClickingAutopaginatingListView
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public ReceivingClickingAutopaginatingListView addOnPaginationFooterVisibleCallback(Runnable runnable) {
-		mPaginationFooterCallbacks.add(runnable);
+	public ReceivingClickingAutopaginatingListView setOnPaginationFooterVisibleCallback(Runnable runnable) {
+		mPaginationFooterCallback = runnable;
 		return this;
 	}
 
@@ -254,6 +256,7 @@ public class ReceivingClickingAutopaginatingListView
 				&& mPaginationView != null) {
 			removeFooterView(mPaginationView);
 		}
+		mPaginationView.setFocusable(true);
 	}
  
     // Scroll view stuff
@@ -274,14 +277,13 @@ public class ReceivingClickingAutopaginatingListView
 			mSavedListViewState = super.onSaveInstanceState();
 		}
 		int position = firstVisibleItem + (visibleItemCount);
-		if (totalItemCount > 0 && position == totalItemCount) {
+		if (!mFooterViewSeenAndProcessing && totalItemCount > 0 && position == totalItemCount) {
 			if (view.getAdapter() != null && view.getAdapter() instanceof HeaderViewListAdapter) {
 				View v = view.getAdapter().getView(position - 1, null, view);
 				if (v != null && v==mPaginationView && view.getHeight() >= v.getBottom()) {
-					if (mPaginationFooterCallbacks != null) {
-						for (Runnable r : mPaginationFooterCallbacks) {
-							r.run();
-						}
+					if (mPaginationFooterCallback != null) {
+						mFooterViewSeenAndProcessing = true;
+						mPaginationFooterCallback.run();
 					}
 				}
 			}
@@ -310,6 +312,7 @@ public class ReceivingClickingAutopaginatingListView
     	if(mSavedListViewState!=null) {
     		super.onRestoreInstanceState(mSavedListViewState);
     	}
+    	mFooterViewSeenAndProcessing = false;
 	}
 
 	private View getErrorView() {

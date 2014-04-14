@@ -71,7 +71,7 @@ public class ListThreadsMapper {
         	.setTypeAdapter(new ListThreadsResourceToListWithoutAnnounces())
 			.setPaginationView(R.layout.pagination_button_generic)
             .setErrorViewId(R.id.list_view_service_error)
-			.addOnPaginationFooterVisibleCallback(new Runnable() {
+			.setOnPaginationFooterVisibleCallback(new Runnable() {
 				@Override public void run() {
 					pagination.paginate();
 					String url = ShamefulStatics.getBasePath()

@@ -2,6 +2,7 @@ The Android client to the Natch REST project.
 
 ## Backlog  
 
+* Test for old pagination problem.
 * Test adding / editing post now returning 400s instead of error codes.
 * Test closing database in array adapter
 * Test for deleting a thread doesn't delete an announcement of the same listview position

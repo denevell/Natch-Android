@@ -60,7 +60,7 @@ public class ListPostsMapper {
 			.setTypeAdapter(new ThreadResourceResourceToArrayList())
         	.setAvailableItems(new ThreadResourceTotalAvailable())
         	.setErrorViewId(R.id.list_view_service_error)
-			.addOnPaginationFooterVisibleCallback(new Runnable() {
+			.setOnPaginationFooterVisibleCallback(new Runnable() {
 				@Override
 				public void run() {
 					pagination.paginate();
