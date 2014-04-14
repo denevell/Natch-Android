@@ -16,7 +16,7 @@
             	android:defaultValue="true"
                 android:key="@string/settings_push_announcements_on"
                 android:title="Receive announcements"
-                android:summary="Aboue once a month from Zain"
+                android:summary="About once a month from Zain"
                 />
 
     </PreferenceCategory>   
